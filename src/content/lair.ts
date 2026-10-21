@@ -61,6 +61,10 @@ export const lairCombinations: Combination[] = [
 export const lair: Room = {
   id: 'lair',
   name: "The Lich's Lair",
+  entries: {
+    start: { x: 640, y: 560 },
+    fromGiftShop: { x: 1060, y: 470 },
+  },
   walkable: [
     { x: 160, y: 420 },
     { x: 1120, y: 420 },
@@ -85,16 +89,19 @@ export const lair: Room = {
         // DRAFT:
         talk: says("Hello? Door? I'd like to speak to your manager. ... Its manager is also a door.", 'Negotiate'),
         use: {
-          label: 'Escape!',
+          label: 'Go through',
           when: [{ flag: 'doorUnlocked' }],
           responses: [
             {
+              when: [{ notFlag: 'visitedGiftShop' }],
               effects: [
                 // DRAFT:
-                say("Handbook Section 1, Rule 1: always let the customers win. Today, I'm the customer."),
-                { type: 'win' },
+                say('Freedom! Or at least... retail.'),
+                setFlag('visitedGiftShop'),
+                { type: 'goToRoom', roomId: 'giftShop', entry: 'fromLair' },
               ],
             },
+            { effects: [{ type: 'goToRoom', roomId: 'giftShop', entry: 'fromLair' }] },
           ],
         },
       },

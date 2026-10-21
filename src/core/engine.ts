@@ -211,6 +211,13 @@ function apply(world: World, state: GameState, effect: Effect): GameState {
       return { ...state, conversation: null };
     case 'win':
       return { ...state, flags: { ...state.flags, [WON]: true } };
+    case 'goToRoom': {
+      const room = world.rooms[effect.roomId];
+      if (!room) throw new Error(`goToRoom: unknown room "${effect.roomId}"`);
+      const entry = room.entries[effect.entry];
+      if (!entry) throw new Error(`goToRoom: room "${room.id}" has no entry "${effect.entry}" (has: ${Object.keys(room.entries).join(', ')})`);
+      return { ...state, roomId: room.id, player: entry };
+    }
   }
 }
 

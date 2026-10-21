@@ -42,6 +42,14 @@ function expectValidEffects(effects: readonly Effect[], where: string): void {
     if (effect.type === 'addItem' || effect.type === 'removeItem') {
       expectKnownItem(effect.itemId, `${where} (${effect.type})`);
     }
+    if (effect.type === 'goToRoom') {
+      const room = world.rooms[effect.roomId];
+      expect(room, `${where} goes to room "${effect.roomId}", which isn't in world.rooms (known: ${Object.keys(world.rooms).join(', ')})`).toBeDefined();
+      expect(
+        room?.entries[effect.entry],
+        `${where} arrives at entry "${effect.entry}" of "${effect.roomId}", which it doesn't have (has: ${Object.keys(room?.entries ?? {}).join(', ')})`,
+      ).toBeDefined();
+    }
     if (effect.type === 'startDialogue') {
       expect(
         world.dialogues[effect.dialogueId],
@@ -188,6 +196,15 @@ describe('content validation', () => {
       it('is keyed by its own id', () => {
         expect(room.id, `world.rooms["${key}"] holds a room whose id is "${room.id}"; make them match`).toBe(key);
       });
+
+      for (const [entryId, point] of Object.entries(room.entries)) {
+        it(`entry "${entryId}" is on the floor`, () => {
+          expect(
+            pointInPolygon(point, room.walkable),
+            `${room.id}.entries.${entryId} ${fmt(point)} is off the floor, so Dana would arrive somewhere she can't stand; ${describeArea(room.walkable)}`,
+          ).toBe(true);
+        });
+      }
 
       it('has unique hotspot ids', () => {
         const ids = room.hotspots.map((h) => h.id);

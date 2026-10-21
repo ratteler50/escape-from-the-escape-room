@@ -1,10 +1,12 @@
 import type { GameState, World } from '../core/types';
+import { giftShop } from './giftShop';
 import { lair, lairCombinations, lairItems } from './lair';
 import { reginald, reginaldDialogue } from './reginald';
 
 export const world: World = {
   rooms: {
     [lair.id]: lair,
+    [giftShop.id]: giftShop,
   },
   items: Object.fromEntries(lairItems.map((item) => [item.id, item])),
   combinations: [...lairCombinations],
@@ -31,7 +33,7 @@ export const world: World = {
 
 export const initialState: GameState = {
   roomId: lair.id,
-  player: { x: 640, y: 560 },
+  player: lair.entries.start!,
   inventory: [],
   flags: {},
   conversation: null,

@@ -75,6 +75,7 @@ const world: World = {
     testRoom: {
       id: 'testRoom',
       name: 'Test Room',
+      entries: { fromCellar: { x: 90, y: 90 } },
       walkable: [
         { x: 0, y: 0 },
         { x: 100, y: 0 },
@@ -132,10 +133,45 @@ const world: World = {
           interactionPoint: { x: 50, y: 40 },
           verbs: { look: { responses: [{ effects: [say('Boo.')] }] } },
         },
+        {
+          id: 'trapdoor',
+          name: 'Trapdoor',
+          bounds: { x: 80, y: 80, width: 10, height: 10 },
+          interactionPoint: { x: 85, y: 85 },
+          verbs: {
+            look: { responses: [{ effects: [say('Down we go?')] }] },
+            use: { label: 'Go through', responses: [{ effects: [say('Down I go.'), { type: 'goToRoom', roomId: 'cellar', entry: 'fromTestRoom' }] }] },
+          },
+        },
       ],
     },
   },
 };
+
+const cellar = {
+  id: 'cellar',
+  name: 'Cellar',
+  entries: { fromTestRoom: { x: 10, y: 10 } },
+  walkable: [
+    { x: 0, y: 0 },
+    { x: 50, y: 0 },
+    { x: 50, y: 50 },
+    { x: 0, y: 50 },
+  ],
+  hotspots: [
+    {
+      id: 'ladder',
+      name: 'Ladder',
+      bounds: { x: 0, y: 0, width: 10, height: 10 },
+      interactionPoint: { x: 5, y: 15 },
+      verbs: {
+        look: { responses: [{ effects: [say('Up we go?')] }] },
+        use: { label: 'Go through', responses: [{ effects: [{ type: 'goToRoom' as const, roomId: 'testRoom', entry: 'fromCellar' }] }] },
+      },
+    },
+  ],
+};
+(world.rooms as Record<string, unknown>)['cellar'] = cellar;
 
 const start: GameState = {
   roomId: 'testRoom',
@@ -261,7 +297,7 @@ describe('handle: items', () => {
 
 describe('hotspot visibility', () => {
   it('leaves out hotspots whose conditions do not hold', () => {
-    expect(visibleHotspots(world, start).map((h) => h.id)).toEqual(['lamp', 'rug', 'parrot']);
+    expect(visibleHotspots(world, start).map((h) => h.id)).toEqual(['lamp', 'rug', 'parrot', 'trapdoor']);
     const summoned = { ...start, flags: { summoned: true } };
     expect(visibleHotspots(world, summoned).map((h) => h.id)).toContain('ghost');
   });
@@ -380,5 +416,41 @@ describe('item actions', () => {
   it('throws for an item with no available action, or one not held', () => {
     expect(() => handle(world, { ...start, inventory: ['bulb'] }, { type: 'itemAction', itemId: 'bulb' })).toThrow(/bulb/);
     expect(() => handle(world, start, { type: 'itemAction', itemId: 'note' })).toThrow(/note/);
+  });
+});
+
+describe('rooms', () => {
+  const goDown = (state: GameState) => handle(world, state, { type: 'verb', verb: 'use', hotspotId: 'trapdoor' });
+
+  it('goToRoom moves to the room and puts Dana at the entry point', () => {
+    const { state, effects } = goDown(start);
+    expect(state.roomId).toBe('cellar');
+    expect(state.player).toEqual({ x: 10, y: 10 });
+    expect(effects.at(-1)).toEqual({ type: 'goToRoom', roomId: 'cellar', entry: 'fromTestRoom' });
+  });
+
+  it("only the current room's hotspots can be used", () => {
+    const { state } = goDown(start);
+    expect(() => handle(world, state, { type: 'verb', verb: 'look', hotspotId: 'lamp' })).toThrow(/lamp/);
+    expect(availableVerbs(world, state, 'ladder').map((v) => v.verb)).toEqual(['look', 'use']);
+  });
+
+  it('inventory and flags survive the trip there and back', () => {
+    const carrying = { ...start, inventory: ['bulb'], flags: { tookBulb: true } };
+    const { state: down } = goDown(carrying);
+    const { state: back } = handle(world, down, { type: 'verb', verb: 'use', hotspotId: 'ladder' });
+    expect(back.roomId).toBe('testRoom');
+    expect(back.player).toEqual({ x: 90, y: 90 });
+    expect(back.inventory).toEqual(['bulb']);
+    expect(back.flags).toEqual({ tookBulb: true });
+  });
+
+  it('throws for an unknown room or entry', () => {
+    const broken: World = {
+      ...world,
+      combinations: [{ items: ['bulb', 'torch'], responses: [{ effects: [{ type: 'goToRoom', roomId: 'cellar', entry: 'nowhere' }] }] }],
+    };
+    const holding = { ...start, inventory: ['bulb', 'torch'] };
+    expect(() => handle(broken, holding, { type: 'combine', itemIds: ['bulb', 'torch'] })).toThrow(/nowhere/);
   });
 });

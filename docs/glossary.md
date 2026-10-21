@@ -5,6 +5,8 @@ Shared vocabulary for the game and the codebase. Use these terms in code, docs, 
 | Term | Meaning |
 |------|---------|
 | **Room** | One screen of the game (Lich's Lair, Gift Shop, Break Room). Has a background, hotspots, and a walkable area. |
+| **Entry point** | A named spot on a room's floor where Dana appears when she arrives that way (`room.entries.fromLair`). |
+| **Exit** | A hotspot whose ⚙ "Go through" verb runs `goToRoom { roomId, entry }`. |
 | **Hotspot** | A clickable region in a room: an object, a character, an exit. Has an id, a name (shown on hover), a look line, and an interaction point. |
 | **Interaction point** | Where the player character walks to before interacting with a hotspot. |
 | **Walkable area** | A polygon per room that the player character can move within. Clicks outside it are clamped to the nearest point inside. |

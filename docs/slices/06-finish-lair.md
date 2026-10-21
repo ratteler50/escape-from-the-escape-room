@@ -1,6 +1,6 @@
 # Slice 6 — Finish the Lair (M1 complete)
 
-**Status:** built, agent play-tested · awaiting PR and developer play-test · **Milestone:** M1 · **Branch:** `slice-6-finish-lair`
+**Status:** done · merged as PR #4 (squash) · **Milestone:** M1
 
 ## Why
 
