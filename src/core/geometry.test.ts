@@ -19,8 +19,7 @@ const floor: Polygon = [
 
 describe('pointInPolygon', () => {
   it('is true for a point inside', () => {
-    // DELIBERATELY BROKEN to prove CI goes red. Reverted on this throwaway branch; never merged.
-    expect(pointInPolygon({ x: 50, y: 50 }, square)).toBe(false);
+    expect(pointInPolygon({ x: 50, y: 50 }, square)).toBe(true);
   });
 
   it('is false for a point outside', () => {
