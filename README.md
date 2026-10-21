@@ -12,6 +12,11 @@ design and implementation.
 
 ## Running it
 
+Play the latest version at https://ratteler50.github.io/escape-from-the-escape-room/
+(deployed from `main` on every merge).
+
+To run it locally:
+
 ```bash
 npm install
 npm run dev        # http://localhost:5173
