@@ -29,7 +29,14 @@ Each slice: spec in `docs/slices/NN-name.md` → plan → developer approves →
 
 ## Commands
 
-(Filled in by slice 1.)
+- `npm run dev` — dev server at http://localhost:5173 (also `.claude/launch.json` → `dev`)
+- `npm test` — all Vitest tests (core, content validation, architecture guard)
+- `npm run typecheck` — strict TypeScript, no emit
+- `npm run build` — typecheck + production bundle in `dist/`
+
+Play-testing: in dev builds the Phaser game is on `window.__game`, e.g.
+`__game.scene.getScene('RoomScene').state` to read the player position. When driving the browser pane,
+set the viewport to 1280×720 so screen coordinates map to logical coordinates by a fixed scale.
 
 ## Content rules
 

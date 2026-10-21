@@ -1,6 +1,8 @@
 # Slice 1 — Walking skeleton
 
-**Status:** awaiting approval · **Milestone:** M1
+**Status:** done · **Milestone:** M1
+
+Developer play-test found right-click awkward on a trackpad → `docs/decisions/0004-verb-coin.md`.
 
 ## Why
 
@@ -59,4 +61,14 @@ architecture is doing its job.
 
 ## Notes / out-of-scope ideas
 
-(Record anything that comes up during the slice that belongs to a later one.)
+- Phaser 4's `Graphics.fillPoints` wants `Phaser.Math.Vector2[]`, not plain `{x, y}`; the view
+  converts. The core keeps plain `Point`s.
+- Added a dev-only `window.__game` hook for automated play-testing; Playwright (M2) can use it too.
+- The architecture test was verified to fail when a Phaser import is planted in `src/core/`.
+- Developer exercise done: Customer Reviews board added with content changes only. Its off-floor
+  experiment showed the default "expected false to be true" message was useless, so content-test
+  failures now name the bad value and what a good one looks like.
+- Polish for M2: the hover label overlaps the placeholder label and speech text; hide it while
+  speaking. Left-click on a hotspot currently only walks there (interact arrives with inventory).
+- Player position lives in `GameState` but the view moves the sprite and writes the position back
+  on arrival. Revisit when save/load lands (M2): a save mid-walk stores the last arrival point.
