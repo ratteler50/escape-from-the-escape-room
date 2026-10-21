@@ -28,6 +28,17 @@ Each slice: spec in `docs/slices/NN-name.md` → plan → developer approves →
   write; implement the whole slice, including any "For you to write" section.
 - Commit after each slice with a message describing the behaviour added.
 
+## Git and GitHub
+
+Repo: `ratteler50/escape-from-the-escape-room` (private). `main` only changes through PRs.
+
+- Each slice gets a branch (`slice-N-short-name`) and a pull request. Ask before pushing or opening
+  the PR. The developer play-tests, reviews, and merges (squash merge); the agent doesn't merge.
+- The PR description links the slice spec and lists what was play-tested
+  (`.github/pull_request_template.md`).
+- CI (`.github/workflows/ci.yml`) runs typecheck, tests, and build on every PR. A PR is only ready
+  for review once CI is green. Node version comes from `.nvmrc`.
+
 ## Commands
 
 - `npm run dev` — dev server at http://localhost:5173 (also `.claude/launch.json` → `dev`)
