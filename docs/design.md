@@ -104,7 +104,9 @@ always-winnable test's shortest solution with real clicks, no console errors on 
 round-trip. The dev hook is enabled in production by a `?e2e` URL flag.
 
 **Polish.** Hover-label overlap fixes, text speed setting, hotspot highlight on hover, skip a whole
-sequence, speaker name tags, cursor feedback over exits vs. things.
+sequence, speaker name tags, cursor feedback over exits vs. things, and a **typewriter effect** for
+lines (letters appear one by one at the text speed; the first click completes the line, the next
+advances), so the text speed setting is visible rather than only changing auto-advance timing.
 
 | Slice | Content | Runs |
 |-------|---------|------|
@@ -113,7 +115,7 @@ sequence, speaker name tags, cursor feedback over exits vs. things.
 | 9 | Save/load, title screen, ☰ menu, text speed setting | Phase B |
 | 10 | Cutscenes + skip a whole sequence | Phase C, here |
 | 11 | Playwright end-to-end tests in CI | Phase C, **parallel session** |
-| 12 | Polish: hover labels, highlight, name tags, cursor | Phase D |
+| 12 | Polish: hover labels, highlight, name tags, cursor, typewriter text | Phase D |
 
 ## M1: the Lich's Lair
 

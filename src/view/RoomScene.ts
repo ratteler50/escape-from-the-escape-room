@@ -1,13 +1,17 @@
 import * as Phaser from 'phaser';
 import { availableItemAction, availableOptions, availableVerbs, currentRoom, handle, visibleHotspots } from '../core/engine';
 import type { Point } from '../core/geometry';
-import { PLAYER, type CharacterId, type Command, type Effect, type GameState, type Hotspot, type ItemId, type Verb, type World } from '../core/types';
+import { loadSaveFile, toSaveFile, type SlotId } from '../core/save';
+import { PLAYER, WON, type CharacterId, type Command, type Effect, type GameState, type Hotspot, type ItemId, type Verb, type World } from '../core/types';
 import { DialoguePanel } from './DialoguePanel';
 import { showEndCard } from './EndCard';
 import { InventoryBar } from './InventoryBar';
+import { showGameMenu, showSlotList } from './menus';
 import { PlayerSprite } from './PlayerSprite';
 import { RoomView } from './RoomView';
 import { Speech } from './Speech';
+import type { GameData } from './TitleScene';
+import { button } from './ui';
 import { VerbCoin } from './VerbCoin';
 
 const INVENTORY_TOP = 630;
@@ -24,8 +28,8 @@ const VERB_ICONS: Record<Verb, string> = { look: '👁', take: '✋', talk: '�
 export class RoomScene extends Phaser.Scene {
   private world!: World;
   private state!: GameState;
-  /** What the scene was started with, so Play again can restart from the same place. */
-  private startData!: { world: World; state: GameState };
+  /** What the game was started with: content, the new-game state, and where saves go. */
+  private data_!: GameData;
 
   private roomView!: RoomView;
   private player!: PlayerSprite;
@@ -41,15 +45,17 @@ export class RoomScene extends Phaser.Scene {
   /** Effects still to play. While playing, clicks only skip lines. */
   private queue: Effect[] = [];
   private busy = false;
+  private menuOpen = false;
 
   constructor() {
     super('RoomScene');
   }
 
-  init(data: { world: World; state: GameState }): void {
-    this.startData = data;
+  init(data: GameData & { state: GameState }): void {
+    this.data_ = data;
     this.world = data.world;
     this.state = data.state;
+    this.menuOpen = false;
     this.held = undefined;
     this.hovered = undefined;
     this.queue = [];
@@ -78,6 +84,11 @@ export class RoomScene extends Phaser.Scene {
       onEmptyClick: () => this.putAway(),
     });
     this.refreshInventory();
+
+    // Above the dialogue panel (so you can save mid-conversation), below the line-skip blocker.
+    button(this, this.scale.width - 44, 36, '☰', () => this.openMenu()).setDepth(1700);
+    // A loaded save may be mid-conversation: put its options back up.
+    if (this.state.conversation) this.showDialogueOptions();
 
     this.input.on('pointermove', (pointer: Phaser.Input.Pointer) => this.moveCaption(pointer));
     this.input.keyboard?.on('keydown-ESC', () => this.putAway());
@@ -225,7 +236,7 @@ export class RoomScene extends Phaser.Scene {
       case 'win':
         // The end card takes over input; the core's state stays as it is (won).
         this.speech.setBlocking(false);
-        return showEndCard(this, () => this.scene.restart(this.startData));
+        return showEndCard(this, () => this.scene.restart({ ...this.data_, state: this.data_.newGame }));
       case 'goToRoom':
         return this.changeRoom(effect.roomId, effect.entry);
     }
@@ -250,11 +261,42 @@ export class RoomScene extends Phaser.Scene {
   private idle(): void {
     this.busy = false;
     this.speech.setBlocking(false);
-    if (this.state.conversation) {
-      this.dialogue.show(availableOptions(this.world, this.state), (optionId) => this.dispatch({ type: 'chooseOption', optionId }));
-    } else {
-      this.dialogue.hide();
-    }
+    if (this.state.conversation) this.showDialogueOptions();
+    else this.dialogue.hide();
+    // A won game isn't autosaved: Continue should land before the end, not on the end card.
+    if (!this.state.flags[WON]) this.saveTo('auto');
+  }
+
+  private showDialogueOptions(): void {
+    this.dialogue.show(availableOptions(this.world, this.state), (optionId) => this.dispatch({ type: 'chooseOption', optionId }));
+  }
+
+  private saveTo(slot: SlotId): void {
+    this.data_.store.write(slot, JSON.stringify(toSaveFile(this.state, new Date().toISOString())));
+  }
+
+  /** The ☰ menu. Ignored while lines play or Dana walks, so a save is always taken at rest. */
+  private openMenu(): void {
+    if (this.busy || this.player.isWalking || this.menuOpen) return;
+    this.menuOpen = true;
+    this.coin.close();
+    this.putAway();
+    this.hover(undefined);
+    const closed = () => (this.menuOpen = false);
+    const { world, store } = this.data_;
+    showGameMenu(
+      this,
+      {
+        save: () => showSlotList(this, 'save', world, store, (slot) => (this.saveTo(slot), closed()), closed),
+        load: () =>
+          showSlotList(this, 'load', world, store, (slot) => {
+            const result = loadSaveFile(world, store.read(slot) ?? '');
+            if (result.ok) this.scene.restart({ ...this.data_, state: result.state });
+          }, closed),
+        quitToTitle: () => this.scene.start('TitleScene', this.data_),
+      },
+      closed,
+    );
   }
 
   private say(text: string, speaker: CharacterId): void {

@@ -1,6 +1,8 @@
 import * as Phaser from 'phaser';
 import { initialState, world } from './content/world';
 import { RoomScene } from './view/RoomScene';
+import { LocalStorageSaveStore } from './view/storage';
+import { TitleScene, type GameData } from './view/TitleScene';
 
 const game = new Phaser.Game({
   type: Phaser.AUTO,
@@ -14,7 +16,9 @@ const game = new Phaser.Game({
   },
 });
 
-game.scene.add('RoomScene', RoomScene, true, { world, state: initialState });
+const data: GameData = { world, newGame: initialState, store: new LocalStorageSaveStore() };
+game.scene.add('RoomScene', RoomScene, false);
+game.scene.add('TitleScene', TitleScene, true, data);
 
 // Dev-only hook so automated play-tests can inspect the running game.
 declare global {
