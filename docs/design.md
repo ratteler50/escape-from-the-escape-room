@@ -71,7 +71,7 @@ the previous one is playable.
 
 | Milestone | Content |
 |-----------|---------|
-| **M1 — vertical slice** | The Lair, fully playable start to finish: walking, hotspots, look text, inventory, one combination, one dialogue tree, a win state ("To be continued"). Ugly but complete. |
+| **M1 — vertical slice** ✅ playable (slices 1–6) | The Lair, fully playable start to finish: walking, hotspots, look text, inventory, one combination, one dialogue tree, a win state ("To be continued"). Ugly but complete. |
 | **M2 — systems complete** | Save/load (localStorage), room transitions, cutscene/scripting system, polish (hover labels, text speed, skip text), Playwright smoke tests. |
 | **M3 — content** | Gift Shop and Break Room, full puzzle chain, ending. |
 | **M4 — optional polish** | Art pass (vector or AI-generated), SFX, a music loop. No voice. |
@@ -89,7 +89,8 @@ riddle is supposed to provide the code.
 graph TD
   START([Start: Dana has Employee Handbook]) --> COFFIN[Search the coffin<br/>= Reginald's 'dressing room']
   COFFIN --> SCRIPT[/Item: Reginald's Script/]
-  SCRIPT --> CUE{Dialogue: feed Reginald<br/>his cue line}
+  SCRIPT --> MEMO[Memorise the script<br/>Dana learns the cue, returns the script]
+  MEMO --> CUE{Dialogue: feed Reginald<br/>his cue line}
   CUE --> ARISE[He performs 'ARISE!',<br/>leaves throne for his spotlight mark]
   ARISE --> GUM[/Item: Pre-Owned Gum<br/>from under the throne/]
   START --> GARY[Take Gary the skeleton's arm]
@@ -108,8 +109,10 @@ graph TD
 ### Puzzles
 
 1. **The cue line.** The coffin is Reginald's "dressing room"; inside is his dog-eared script.
-   Having read it unlocks a dialogue option to feed him his cue. He performs "ARISE!" and leaves
-   the throne for his spotlight mark.
+   **Memorising** it (an item action) teaches Dana the cue and she returns the script, so what
+   unlocks the dialogue option is what she *knows*, not what she holds. Feeding him the cue: he
+   performs "ARISE!" and leaves the throne for his spotlight mark. If she talks to him holding the
+   unread script, she muses that she'd need the cue by heart.
 2. **The sticky arm.** Gary's arm can be taken at any time (Reginald protests if he sees it). Under
    the vacated throne: pre-owned chewing gum. Combine arm + gum.
 3. **The floor grate.** The display case key fell through the grate. Fish it out with the sticky arm.

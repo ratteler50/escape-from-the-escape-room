@@ -1,5 +1,6 @@
 import {
   VERBS,
+  WON,
   type Command,
   type CommandResult,
   type Condition,
@@ -42,6 +43,12 @@ export function handle(world: World, state: GameState, command: Command): Comman
     case 'lookItem': {
       const item = heldItem(world, state, command.itemId);
       return { state, effects: [{ type: 'say', text: item.look }] };
+    }
+
+    case 'itemAction': {
+      const item = heldItem(world, state, command.itemId);
+      if (!availableItemAction(world, state, item.id)) throw new Error(`Item "${item.id}" has no action available right now`);
+      return respond(world, state, item.action!.responses, `the action on item "${item.id}"`);
     }
 
     case 'useItemOn': {
@@ -95,6 +102,12 @@ export function availableOptions(world: World, state: GameState): DialogueOption
   return node.options.filter(
     (o) => holds(state, o.when) && !(o.once && state.spentOptions.includes(spentKey(dialogue.id, o))),
   );
+}
+
+/** The held item's own action, if it has one available right now; null otherwise. */
+export function availableItemAction(world: World, state: GameState, itemId: ItemId): { label: string } | null {
+  const action = heldItem(world, state, itemId).action;
+  return action && holds(state, action.when) ? { label: action.label } : null;
 }
 
 /** The current room's hotspots that exist right now. */
@@ -196,6 +209,8 @@ function apply(world: World, state: GameState, effect: Effect): GameState {
     }
     case 'endDialogue':
       return { ...state, conversation: null };
+    case 'win':
+      return { ...state, flags: { ...state.flags, [WON]: true } };
   }
 }
 

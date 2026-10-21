@@ -24,7 +24,10 @@ npm run build
 
 Click the floor to walk. Click something to open the verb coin (👁 Look, ✋ Take, 💬 Talk, ⚙ Use).
 Click an item in the inventory bar and choose "Use with…" to use it on something or combine it with
-another item.
+another item. During conversations, pick Dana's lines from the list; click to skip a line.
+
+Stuck at the start? Reginald won't budge until somebody gives him his cue. Actors keep their
+scripts somewhere close.
 
 ## Where things are
 

@@ -8,6 +8,21 @@ export const script: Item = {
   name: "Reginald's Script",
   // DRAFT:
   look: 'Act One, Scene One. His cue: "Rise, foul creature, and face me!" The margins say PAUSE FOR APPLAUSE eleven times.',
+  action: {
+    label: 'Memorise',
+    responses: [
+      {
+        effects: [
+          // DRAFT:
+          say('"Rise, foul creature, and face me." Rise, foul creature... and face me. Got it. Word perfect.'),
+          // DRAFT:
+          say('Handbook Section 3: lost property must be returned. I pop the script back in his coffin.'),
+          { type: 'removeItem', itemId: 'script' },
+          setFlag('knowsCue'),
+        ],
+      },
+    ],
+  },
 };
 
 const R = (text: string) => line(reginald.id, text);
@@ -33,7 +48,17 @@ const itemUses: Partial<Record<string, Response[]>> = {
   // DRAFT:
   garyArm: [{ effects: [R("Put that back! Gary is a member of the cast!"), say('Gary seems fine with it.')] }],
   // DRAFT:
-  script: [{ effects: [R('My script! ...Keep it, darling. I know every word. I wrote half of them.')] }],
+  script: [{ effects: [R('My script! ...Keep it, darling. Learn it! Nobody learns their lines any more.')] }],
+  riddleScroll: [
+    {
+      effects: [
+        // DRAFT:
+        R('A MISPRINT? In MY lair? Do you know how many nights I have stood here while guests read THAT?'),
+        // DRAFT:
+        R('Nobody ever escaped, and they all blamed my performance. I shall be writing to head office. In blood. Well, red pen.'),
+      ],
+    },
+  ],
 };
 
 export const reginaldOnThrone: Hotspot = {
@@ -69,6 +94,15 @@ export const reginaldDialogue: Dialogue = {
     },
     // DRAFT:
     { when: [{ flag: 'reginaldLeftThrone' }], effects: [R('Ah, my audience returns! Come to bask in the afterglow?')] },
+    {
+      when: [{ has: script.id }],
+      effects: [
+        // DRAFT:
+        R('WHO DARES DISTURB THE LICH LORD? ...Oh. The trainee.'),
+        // DRAFT:
+        say("I've got his script right here. If only I knew his cue by heart."),
+      ],
+    },
     // DRAFT:
     { effects: [R('WHO DARES DISTURB THE LICH LORD? ...Oh. The trainee.')] },
   ],
@@ -129,7 +163,7 @@ export const reginaldDialogue: Dialogue = {
         {
           id: 'cue',
           text: 'Rise, foul creature, and face me!',
-          when: [{ has: script.id }, { notFlag: 'reginaldLeftThrone' }],
+          when: [{ flag: 'knowsCue' }, { notFlag: 'reginaldLeftThrone' }],
           effects: [
             // DRAFT:
             R('...!'),

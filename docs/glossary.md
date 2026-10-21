@@ -16,6 +16,7 @@ Shared vocabulary for the game and the codebase. Use these terms in code, docs, 
 | **Condition** | A test against game state: a flag is or isn't set, an item is or isn't held. |
 | **Item** | Something in the inventory. Has an id, name, and look line. |
 | **Held item** | The item the player chose "Use with…" on and is about to use. Interface state owned by the view; never saved, never seen by the core. |
+| **Item action** | Something Dana does with an item by itself (`item.action`, e.g. Memorise). A third button on the item's coin. |
 | **Item use** | What happens when a specific item is used on a specific hotspot (`hotspot.itemUses`). |
 | **Combination** | An unordered pair of items plus responses (`world.combinations`); usually removes both and adds a result. |
 | **Fallback line** | Said when nothing specific is written: a hotspot's `itemFallback`, or a generic line from `world.fallbacks`. |
@@ -30,6 +31,8 @@ Shared vocabulary for the game and the codebase. Use these terms in code, docs, 
 | **Node** | One point in a dialogue tree: the list of options Dana can pick there. |
 | **Dialogue option** | A line Dana can say in a node. May be conditional (`when`), one-shot (`once`), carry effects (the reply, state changes), and goes to another node or ends the conversation. |
 | **Speech queue** | The view plays a command's effects one at a time; each line waits for its reading time or a click. |
+| **Win** | The `win` effect: sets the `won` flag and shows the "To be continued…" card. |
+| **State space** | Every game state reachable from the start. The always-winnable test (`src/content/winnable.test.ts`) explores it to prove there are no dead ends. |
 | **Core** | The headless, Phaser-free TypeScript layer: state, content types, rules engine. |
 | **View** | The Phaser layer: renders state, plays effects, converts input into commands. |
 | **Content** | The game's data — rooms, hotspots, items, rules, dialogue — as typed TS modules. |

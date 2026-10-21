@@ -1,8 +1,9 @@
 import * as Phaser from 'phaser';
-import { availableOptions, availableVerbs, currentRoom, handle, visibleHotspots } from '../core/engine';
+import { availableItemAction, availableOptions, availableVerbs, currentRoom, handle, visibleHotspots } from '../core/engine';
 import { clampToPolygon, distance, type Point } from '../core/geometry';
 import { PLAYER, type CharacterId, type Command, type Effect, type GameState, type Hotspot, type ItemId, type Room, type Verb, type World } from '../core/types';
 import { DialoguePanel } from './DialoguePanel';
+import { showEndCard } from './EndCard';
 import { InventoryBar } from './InventoryBar';
 import { VerbCoin } from './VerbCoin';
 
@@ -31,6 +32,8 @@ export class RoomScene extends Phaser.Scene {
   private world!: World;
   private state!: GameState;
   private room!: Room;
+  /** What the scene was started with, so Play again can restart from the same place. */
+  private startData!: { world: World; state: GameState };
 
   private player!: Phaser.GameObjects.Container;
   private caption!: Phaser.GameObjects.Text;
@@ -57,6 +60,7 @@ export class RoomScene extends Phaser.Scene {
   }
 
   init(data: { world: World; state: GameState }): void {
+    this.startData = data;
     this.world = data.world;
     this.state = data.state;
     this.room = currentRoom(this.world, this.state);
@@ -175,15 +179,18 @@ export class RoomScene extends Phaser.Scene {
     this.hover(undefined);
     const name = this.world.items[itemId]?.name ?? itemId;
     if (pointer.rightButtonDown()) return this.dispatch({ type: 'lookItem', itemId });
-    this.coin.open(
-      { x: pointer.worldX, y: pointer.worldY },
-      name,
-      [
-        { id: 'look', icon: VERB_ICONS.look, label: 'Look' },
-        { id: 'useWith', icon: '✋', label: 'Use with…' },
-      ],
-      (choice) => (choice === 'look' ? this.dispatch({ type: 'lookItem', itemId }) : this.hold(itemId)),
-    );
+    const action = availableItemAction(this.world, this.state, itemId);
+    const options = [
+      { id: 'look' as const, icon: VERB_ICONS.look, label: 'Look' },
+      { id: 'useWith' as const, icon: '✋', label: 'Use with…' },
+      ...(action ? [{ id: 'action' as const, icon: VERB_ICONS.use, label: action.label }] : []),
+    ];
+    this.coin.open({ x: pointer.worldX, y: pointer.worldY }, name, options, (choice) => {
+      if (choice === 'look') this.dispatch({ type: 'lookItem', itemId });
+      else if (choice === 'useWith') this.hold(itemId);
+      // An item's own action happens in Dana's hands: no walking.
+      else this.dispatch({ type: 'itemAction', itemId });
+    });
   }
 
   private hold(itemId: ItemId): void {
@@ -285,6 +292,10 @@ export class RoomScene extends Phaser.Scene {
       case 'startDialogue':
       case 'endDialogue':
         break;
+      case 'win':
+        // The end card takes over input; the core's state stays as it is (won).
+        this.skipBlocker.disableInteractive().setVisible(false);
+        return showEndCard(this, () => this.scene.restart(this.startData));
     }
     this.playNext();
   }
