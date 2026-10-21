@@ -1,8 +1,9 @@
 import { describe, expect, it } from 'vitest';
-import { availableVerbs, handle } from './engine';
+import { availableOptions, availableVerbs, handle, visibleHotspots } from './engine';
 import type { GameState, World } from './types';
 
 const say = (text: string) => ({ type: 'say', text }) as const;
+const polly = (text: string) => ({ type: 'say', text, speaker: 'parrot' }) as const;
 
 const world: World = {
   items: {
@@ -25,6 +26,37 @@ const world: World = {
       ],
     },
   ],
+  characters: {
+    dana: { id: 'dana', name: 'Dana', color: '#ffffff' },
+    parrot: { id: 'parrot', name: 'Polly', color: '#00ff00' },
+  },
+  dialogues: {
+    parrot: {
+      id: 'parrot',
+      start: 'hub',
+      greeting: [
+        { when: [{ has: 'bulb' }], effects: [polly('Shiny!')] },
+        { effects: [polly('Squawk.')] },
+      ],
+      nodes: {
+        hub: {
+          options: [
+            { id: 'name', text: "What's your name?", once: true, effects: [polly('Polly.')], next: 'hub' },
+            {
+              id: 'gift',
+              text: 'Want a torch?',
+              when: [{ has: 'torch' }],
+              effects: [polly('Yes!'), { type: 'removeItem', itemId: 'torch' }, { type: 'setFlag', flag: 'gaveTorch' }],
+              next: 'end',
+            },
+            { id: 'secret', text: 'Tell me a secret.', next: 'secret' },
+            { id: 'bye', text: 'Bye.', effects: [polly('Bye.')], next: 'end' },
+          ],
+        },
+        secret: { options: [{ id: 'back', text: 'Never mind.', next: 'hub' }] },
+      },
+    },
+  },
   fallbacks: {
     useItemOn: ['No {item} on the {target}.', 'The {item} and the {target}? Never.'],
     combine: ['{a} and {b} do not mix.'],
@@ -71,12 +103,38 @@ const world: World = {
           verbs: { look: { responses: [{ effects: [say('It really ties the room together.')] }] } },
           itemFallback: 'The rug rejects your offering.',
         },
+        {
+          id: 'parrot',
+          name: 'Parrot',
+          character: 'parrot',
+          bounds: { x: 70, y: 10, width: 20, height: 20 },
+          interactionPoint: { x: 80, y: 40 },
+          verbs: {
+            look: { responses: [{ effects: [say('A parrot.')] }] },
+            talk: { responses: [{ effects: [{ type: 'startDialogue', dialogueId: 'parrot' }] }] },
+          },
+        },
+        {
+          id: 'ghost',
+          name: 'Ghost',
+          when: [{ flag: 'summoned' }],
+          bounds: { x: 40, y: 10, width: 20, height: 20 },
+          interactionPoint: { x: 50, y: 40 },
+          verbs: { look: { responses: [{ effects: [say('Boo.')] }] } },
+        },
       ],
     },
   },
 };
 
-const start: GameState = { roomId: 'testRoom', player: { x: 50, y: 50 }, inventory: [], flags: {} };
+const start: GameState = {
+  roomId: 'testRoom',
+  player: { x: 50, y: 50 },
+  inventory: [],
+  flags: {},
+  conversation: null,
+  spentOptions: [],
+};
 
 describe('availableVerbs', () => {
   it('lists declared verbs in coin order, with joke labels or default names', () => {
@@ -117,7 +175,7 @@ describe('handle: verb', () => {
 
   it('does not mutate the state it was given', () => {
     handle(world, start, { type: 'verb', verb: 'take', hotspotId: 'lamp' });
-    expect(start).toEqual({ roomId: 'testRoom', player: { x: 50, y: 50 }, inventory: [], flags: {} });
+    expect(start).toEqual({ roomId: 'testRoom', player: { x: 50, y: 50 }, inventory: [], flags: {}, conversation: null, spentOptions: [] });
   });
 
   it('after taking, take is gone and look uses the conditional response', () => {
@@ -188,5 +246,82 @@ describe('handle: items', () => {
 
   it('throws when combining an item with itself', () => {
     expect(() => handle(world, holding('bulb'), { type: 'combine', itemIds: ['bulb', 'bulb'] })).toThrow(/itself/);
+  });
+});
+
+describe('hotspot visibility', () => {
+  it('leaves out hotspots whose conditions do not hold', () => {
+    expect(visibleHotspots(world, start).map((h) => h.id)).toEqual(['lamp', 'rug', 'parrot']);
+    const summoned = { ...start, flags: { summoned: true } };
+    expect(visibleHotspots(world, summoned).map((h) => h.id)).toContain('ghost');
+  });
+
+  it('refuses verbs and items on a hidden hotspot', () => {
+    expect(() => availableVerbs(world, start, 'ghost')).toThrow(/ghost/);
+    expect(() => handle(world, start, { type: 'verb', verb: 'look', hotspotId: 'ghost' })).toThrow(/ghost/);
+    const holding = { ...start, inventory: ['bulb'] };
+    expect(() => handle(world, holding, { type: 'useItemOn', itemId: 'bulb', hotspotId: 'ghost' })).toThrow(/ghost/);
+  });
+});
+
+describe('conversations', () => {
+  const talk = (state: GameState) => handle(world, state, { type: 'verb', verb: 'talk', hotspotId: 'parrot' });
+  const choose = (state: GameState, optionId: string) => handle(world, state, { type: 'chooseOption', optionId });
+  const optionIds = (state: GameState) => availableOptions(world, state).map((o) => o.id);
+
+  it('talking starts the conversation at the start node and plays the greeting', () => {
+    const { state, effects } = talk(start);
+    expect(state.conversation).toEqual({ dialogueId: 'parrot', nodeId: 'hub' });
+    expect(effects).toEqual([{ type: 'startDialogue', dialogueId: 'parrot' }, polly('Squawk.')]);
+  });
+
+  it('the greeting uses the first response whose conditions hold', () => {
+    const { effects } = talk({ ...start, inventory: ['bulb'] });
+    expect(effects.at(-1)).toEqual(polly('Shiny!'));
+  });
+
+  it('offers only options whose conditions hold', () => {
+    const { state } = talk(start);
+    expect(optionIds(state)).toEqual(['name', 'secret', 'bye']);
+    const { state: withTorch } = talk({ ...start, inventory: ['torch'] });
+    expect(optionIds(withTorch)).toEqual(['name', 'gift', 'secret', 'bye']);
+  });
+
+  it('choosing an option: Dana says it, then its effects play, then it moves to the next node', () => {
+    const { state } = talk(start);
+    const result = choose(state, 'secret');
+    expect(result.effects).toEqual([say('Tell me a secret.')]);
+    expect(result.state.conversation).toEqual({ dialogueId: 'parrot', nodeId: 'secret' });
+    expect(optionIds(result.state)).toEqual(['back']);
+    expect(choose(result.state, 'back').state.conversation?.nodeId).toBe('hub');
+  });
+
+  it('a one-shot option disappears once picked', () => {
+    const { state } = talk(start);
+    const after = choose(state, 'name');
+    expect(after.effects).toEqual([say("What's your name?"), polly('Polly.')]);
+    expect(optionIds(after.state)).toEqual(['secret', 'bye']);
+    expect(optionIds(talk(choose(after.state, 'bye').state).state)).not.toContain('name');
+  });
+
+  it('option effects change state, and "end" ends the conversation', () => {
+    const { state } = talk({ ...start, inventory: ['torch'] });
+    const result = choose(state, 'gift');
+    expect(result.state.inventory).toEqual([]);
+    expect(result.state.flags).toEqual({ gaveTorch: true });
+    expect(result.state.conversation).toBeNull();
+    expect(result.effects.at(-1)).toEqual({ type: 'endDialogue' });
+  });
+
+  it('throws for an option that is not available, or when not in a conversation', () => {
+    const { state } = talk(start);
+    expect(() => choose(state, 'gift')).toThrow(/gift/);
+    expect(() => choose(start, 'bye')).toThrow(/conversation/);
+    expect(() => availableOptions(world, start)).toThrow(/conversation/);
+  });
+
+  it('refuses room commands while a conversation is in progress', () => {
+    const { state } = talk(start);
+    expect(() => handle(world, state, { type: 'verb', verb: 'look', hotspotId: 'rug' })).toThrow(/conversation/);
   });
 });

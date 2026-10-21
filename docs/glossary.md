@@ -24,8 +24,12 @@ Shared vocabulary for the game and the codebase. Use these terms in code, docs, 
 | **Command** | An input to the core, e.g. `look(hotspot)`, `interact(hotspot)`, `useOn(item, hotspot)`, `combine(a, b)`. |
 | **Effect** | An output from the core in response to a command: say a line, add/remove an item, set a flag, start dialogue, change room. The view plays effects; the core never draws. |
 | **Rule** | Content that maps a command (plus conditions on state) to effects. |
-| **Dialogue tree** | A graph of dialogue nodes for a conversation. |
-| **Dialogue option** | A player choice in a dialogue node. May be conditional (shown only when flags allow), one-shot (removed after use), and may set flags. |
+| **Character** | Someone who speaks: an id, a name, and a speech colour (`world.characters`). Dana is the player character; lines with no speaker are hers. |
+| **Conversation** | A dialogue in progress: `state.conversation` holds which dialogue and which node. Room commands are refused until it ends. |
+| **Dialogue tree** | A graph of dialogue nodes for one character (`world.dialogues`), with a start node and an optional greeting. |
+| **Node** | One point in a dialogue tree: the list of options Dana can pick there. |
+| **Dialogue option** | A line Dana can say in a node. May be conditional (`when`), one-shot (`once`), carry effects (the reply, state changes), and goes to another node or ends the conversation. |
+| **Speech queue** | The view plays a command's effects one at a time; each line waits for its reading time or a click. |
 | **Core** | The headless, Phaser-free TypeScript layer: state, content types, rules engine. |
 | **View** | The Phaser layer: renders state, plays effects, converts input into commands. |
 | **Content** | The game's data — rooms, hotspots, items, rules, dialogue — as typed TS modules. |
