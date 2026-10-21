@@ -48,10 +48,17 @@ Gift Shop and Break Room casts are designed at the start of M3.
 
 ## Interaction
 
-- **Context clicks:** left-click a hotspot to interact (walk there, then use / talk / take),
-  right-click to look. Drag (or select-then-click) an inventory item onto a hotspot to use it on
-  that hotspot, or onto another inventory item to combine.
-- Hover shows the hotspot's name.
+- **Verb coin** (see `docs/decisions/0004-verb-coin.md`): click the floor to walk. Click a hotspot
+  to open a small ring of verb icons beside it, showing only the verbs currently available there.
+  Pick one; Dana walks over and does it. A hotspot with exactly one available verb skips the coin
+  and does that verb directly.
+- **Verbs:** 👁 Look, ✋ Take, 💬 Talk, ⚙ Use. A hotspot may give a verb a joke label ("Borrow a
+  limb"); icons stay standard.
+- **Accelerator:** right-click a hotspot = Look, skipping the coin. Optional, never required.
+- **No hidden gestures:** nothing may depend on right-click, hover, or the keyboard alone, so
+  trackpads and touchscreens work. Hover labels are a nicety.
+- Drag (or select-then-click) an inventory item onto a hotspot to use it on that hotspot, or onto
+  another inventory item to combine. Item-on-target is not a coin verb.
 - **Visible walking character.** Straight-line movement clamped to a walkable polygon per room.
   Real pathfinding only if a room needs it.
 - **Branching dialogue trees:** conditional options, one-shot options, options that set flags.
