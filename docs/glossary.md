@@ -35,6 +35,9 @@ Shared vocabulary for the game and the codebase. Use these terms in code, docs, 
 | **Speech queue** | The view plays a command's effects one at a time; each line waits for its reading time or a click. |
 | **Win** | The `win` effect: sets the `won` flag and shows the "To be continued…" card. |
 | **State space** | Every game state reachable from the start. The always-winnable test (`src/content/winnable.test.ts`) explores it to prove there are no dead ends. |
+| **Save file** | `{ format, savedAt, state }` as JSON. Checked against the current content on load; a misfit is "incompatible", never a crash. |
+| **Slot** | Where a save lives: `auto` (written whenever the game comes to rest) or `slot1`–`slot3` (manual). |
+| **Settings** | Player preferences (text speed), stored apart from saves. |
 | **Core** | The headless, Phaser-free TypeScript layer: state, content types, rules engine. |
 | **View** | The Phaser layer: renders state, plays effects, converts input into commands. |
 | **Content** | The game's data — rooms, hotspots, items, rules, dialogue — as typed TS modules. |

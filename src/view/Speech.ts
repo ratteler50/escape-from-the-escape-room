@@ -1,5 +1,6 @@
 import * as Phaser from 'phaser';
 import type { Point } from '../core/geometry';
+import { TEXT_SPEEDS, settings } from './storage';
 
 const DEPTH = 900;
 const BLOCKER_DEPTH = 1800;
@@ -68,7 +69,7 @@ export class Speech {
       this.finish = undefined;
       onDone();
     };
-    const readingTime = 1500 + line.length * 50;
+    const readingTime = (1500 + line.length * 50) * TEXT_SPEEDS[settings.textSpeed];
     this.timer = this.scene.time.delayedCall(readingTime, () => this.finish?.());
   }
 

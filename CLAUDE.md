@@ -46,8 +46,9 @@ Repo: `ratteler50/escape-from-the-escape-room` (private). `main` only changes th
 - `npm run typecheck` — strict TypeScript, no emit
 - `npm run build` — typecheck + production bundle in `dist/`
 
-Play-testing: in dev builds the Phaser game is on `window.__game`, e.g.
-`__game.scene.getScene('RoomScene').state` to read the player position. When driving the browser pane,
+Play-testing: in dev builds the Phaser game is on `window.__game`. The game opens on `TitleScene`;
+`__game.scene.getScene('RoomScene').state` reads game state once a game is running. Saves live in
+`localStorage` under `escape-from-the-escape-room:*`; clear those keys for a fresh start. When driving the browser pane,
 set the viewport to 1280×720 so screen coordinates map to logical coordinates by a fixed scale.
 
 ## Content rules
