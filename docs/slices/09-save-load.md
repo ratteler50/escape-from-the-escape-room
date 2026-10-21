@@ -97,3 +97,5 @@ Out of scope: deleting saves, save thumbnails, cloud saves, more than 3 manual s
 - Walking on the floor alone doesn't autosave (only commands do), so Continue may put Dana a few
   steps from where she stood. Fine for now.
 - Later: slice 11's Playwright test covers the save round trip in CI.
+- Developer feedback: text speed is hard to notice, because lines appear all at once and clicking
+  skips the timer. Slice 12 adds a typewriter effect driven by the same setting.
