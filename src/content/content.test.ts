@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { pointInPolygon, type Point, type Polygon } from '../core/geometry';
+import type { Response } from '../core/types';
 import { initialState, world } from './world';
 
 const LOGICAL_WIDTH = 1280;
@@ -9,6 +10,7 @@ const LOGICAL_HEIGHT = 720;
 // say what a good one looks like. Agents (and tired humans) often read nothing else.
 
 const fmt = (p: Point) => `(${p.x}, ${p.y})`;
+const knownItems = () => Object.keys(world.items).join(', ') || 'none';
 
 function describeArea(polygon: Polygon): string {
   const xs = polygon.map((p) => p.x);
@@ -17,6 +19,41 @@ function describeArea(polygon: Polygon): string {
     `it spans x ${Math.min(...xs)}–${Math.max(...xs)}, y ${Math.min(...ys)}–${Math.max(...ys)} ` +
     `(edges may slant, so check the corners: ${polygon.map(fmt).join(' ')})`
   );
+}
+
+function expectKnownItem(itemId: string, where: string): void {
+  expect(
+    world.items[itemId],
+    `${where} refers to item "${itemId}", which isn't in world.items (known: ${knownItems()}). ` +
+      `Define it and add it to the room's item list`,
+  ).toBeDefined();
+}
+
+/** The shared rules for any list of responses: verbs, item uses, combinations. */
+function expectValidResponses(responses: readonly Response[], where: string): void {
+  expect(responses.length, `${where} has no responses; add at least one`).toBeGreaterThan(0);
+  expect(
+    responses.at(-1)?.when,
+    `${where}: the last response has a "when", so some states have no response and the game would ` +
+      `throw. Make the last response unconditional (drop its "when") as the fallback`,
+  ).toBeUndefined();
+
+  for (const [i, response] of responses.entries()) {
+    for (const effect of response.effects) {
+      if (effect.type === 'say') {
+        expect(effect.text.trim(), `${where}.responses[${i}] says an empty line`).not.toBe('');
+      }
+      if (effect.type === 'addItem' || effect.type === 'removeItem') {
+        expectKnownItem(effect.itemId, `${where}.responses[${i}] (${effect.type})`);
+      }
+    }
+  }
+}
+
+function expectOnlyPlaceholders(template: string, allowed: string[], where: string): void {
+  const used = [...template.matchAll(/\{(\w+)\}/g)].map((m) => m[1]!);
+  const unknown = used.filter((name) => !allowed.includes(name));
+  expect(unknown, `${where} uses unknown placeholder(s) ${unknown.map((n) => `{${n}}`).join(', ')}; allowed: ${allowed.map((n) => `{${n}}`).join(', ')}`).toEqual([]);
 }
 
 describe('content validation', () => {
@@ -44,6 +81,34 @@ describe('content validation', () => {
       expect(item.look.trim(), `item ${key} has an empty look line`).not.toBe('');
     });
   }
+
+  describe('combinations', () => {
+    for (const [i, combination] of world.combinations.entries()) {
+      const [a, b] = combination.items;
+      const where = `combinations[${i}] (${a} + ${b})`;
+      it(`${where} is well-formed`, () => {
+        expectKnownItem(a, where);
+        expectKnownItem(b, where);
+        expect(a, `${where} combines an item with itself`).not.toBe(b);
+        expectValidResponses(combination.responses, where);
+      });
+    }
+
+    it('lists each pair only once, in either order', () => {
+      const pairs = world.combinations.map(({ items }) => [...items].sort().join(' + '));
+      const dupes = pairs.filter((pair, i) => pairs.indexOf(pair) !== i);
+      expect(dupes, `these pairs appear more than once (order doesn't matter): ${dupes.join(', ')}; merge them`).toEqual([]);
+    });
+  });
+
+  describe('fallback lines', () => {
+    it('has at least one line in each pool, using only known placeholders', () => {
+      expect(world.fallbacks.useItemOn.length, 'world.fallbacks.useItemOn is empty').toBeGreaterThan(0);
+      expect(world.fallbacks.combine.length, 'world.fallbacks.combine is empty').toBeGreaterThan(0);
+      world.fallbacks.useItemOn.forEach((line, i) => expectOnlyPlaceholders(line, ['item', 'target'], `fallbacks.useItemOn[${i}]`));
+      world.fallbacks.combine.forEach((line, i) => expectOnlyPlaceholders(line, ['a', 'b'], `fallbacks.combine[${i}]`));
+    });
+  });
 
   for (const [key, room] of rooms) {
     describe(`room "${key}"`, () => {
@@ -73,27 +138,21 @@ describe('content validation', () => {
               if (spec.label !== undefined) {
                 expect(spec.label.trim(), `${where}.label is empty; remove it to use the default verb name`).not.toBe('');
               }
-              expect(spec.responses.length, `${where} has no responses; add at least one`).toBeGreaterThan(0);
-              expect(
-                spec.responses.at(-1)?.when,
-                `${where}: the last response has a "when", so some states have no response and the game would ` +
-                  `throw. Make the last response unconditional (drop its "when") as the fallback`,
-              ).toBeUndefined();
+              expectValidResponses(spec.responses, where);
+            });
+          }
 
-              for (const [i, response] of spec.responses.entries()) {
-                for (const effect of response.effects) {
-                  if (effect.type === 'say') {
-                    expect(effect.text.trim(), `${where}.responses[${i}] says an empty line`).not.toBe('');
-                  }
-                  if (effect.type === 'addItem') {
-                    expect(
-                      world.items[effect.itemId],
-                      `${where}.responses[${i}] adds item "${effect.itemId}", which isn't in world.items ` +
-                        `(known: ${Object.keys(world.items).join(', ') || 'none'}). Define it and register it in world.ts`,
-                    ).toBeDefined();
-                  }
-                }
-              }
+          for (const [itemId, responses] of Object.entries(hotspot.itemUses ?? {})) {
+            it(`item use "${itemId}" is well-formed`, () => {
+              const where = `${hotspot.id}.itemUses.${itemId}`;
+              expectKnownItem(itemId, where);
+              expectValidResponses(responses ?? [], where);
+            });
+          }
+
+          if (hotspot.itemFallback !== undefined) {
+            it('has a non-empty item fallback', () => {
+              expect(hotspot.itemFallback?.trim(), `${hotspot.id}.itemFallback is empty; remove it to use the generic lines`).not.toBe('');
             });
           }
 

@@ -15,8 +15,10 @@ Shared vocabulary for the game and the codebase. Use these terms in code, docs, 
 | **Response** | One possible outcome of a verb: optional conditions plus a list of effects. The first matching response wins; the last is an unconditional fallback. |
 | **Condition** | A test against game state: a flag is or isn't set, an item is or isn't held. |
 | **Item** | Something in the inventory. Has an id, name, and look line. |
-| **Use-on** | Applying an inventory item to a hotspot. |
-| **Combine** | Applying one inventory item to another to produce a new item. |
+| **Held item** | The item the player chose "Use with…" on and is about to use. Interface state owned by the view; never saved, never seen by the core. |
+| **Item use** | What happens when a specific item is used on a specific hotspot (`hotspot.itemUses`). |
+| **Combination** | An unordered pair of items plus responses (`world.combinations`); usually removes both and adds a result. |
+| **Fallback line** | Said when nothing specific is written: a hotspot's `itemFallback`, or a generic line from `world.fallbacks`. |
 | **Flag** | A named boolean (or small value) in game state recording that something happened, e.g. `readScript`, `reginaldLeftThrone`. |
 | **Game state** | Everything that changes during play: current room, player position, inventory, flags. Serializable. Lives in the core. |
 | **Command** | An input to the core, e.g. `look(hotspot)`, `interact(hotspot)`, `useOn(item, hotspot)`, `combine(a, b)`. |

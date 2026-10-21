@@ -1,11 +1,14 @@
 import * as Phaser from 'phaser';
 import { availableVerbs, currentRoom, handle } from '../core/engine';
 import { clampToPolygon, distance, type Point } from '../core/geometry';
-import type { Command, Effect, GameState, Hotspot, Room, Verb, World } from '../core/types';
+import type { Command, Effect, GameState, Hotspot, ItemId, Room, Verb, World } from '../core/types';
+import { InventoryBar } from './InventoryBar';
 import { VerbCoin } from './VerbCoin';
 
 const WALK_SPEED = 300; // logical pixels per second
 const PLAYER_SIZE = { width: 50, height: 120 };
+const INVENTORY_TOP = 630;
+const VERB_ICONS: Record<Verb, string> = { look: '👁', take: '✋', talk: '💬', use: '⚙' };
 const COLORS = {
   wall: 0x2b2238,
   floor: 0x3d3328,
@@ -19,6 +22,9 @@ const COLORS = {
 /**
  * Draws the current room from content and turns clicks into core commands.
  * Holds no puzzle logic: everything the player "learns" comes back from the core as effects.
+ *
+ * The one piece of state it owns is the held item: the item the player picked "Use with…" on and
+ * is about to use on something. That's interface state, not game state, so the core never sees it.
  */
 export class RoomScene extends Phaser.Scene {
   private world!: World;
@@ -26,12 +32,16 @@ export class RoomScene extends Phaser.Scene {
   private room!: Room;
 
   private player!: Phaser.GameObjects.Container;
-  private hoverLabel!: Phaser.GameObjects.Text;
-  private inventoryStrip!: Phaser.GameObjects.Text;
+  private caption!: Phaser.GameObjects.Text;
+  private inventory!: InventoryBar;
   private coin!: VerbCoin;
   private speech: Phaser.GameObjects.Text | undefined;
   private speechTimer: Phaser.Time.TimerEvent | undefined;
   private walkTween: Phaser.Tweens.Tween | undefined;
+
+  private held: ItemId | undefined;
+  /** Name of the hotspot or item under the pointer, for the caption. */
+  private hovered: string | undefined;
 
   constructor() {
     super('RoomScene');
@@ -41,6 +51,8 @@ export class RoomScene extends Phaser.Scene {
     this.world = data.world;
     this.state = data.state;
     this.room = currentRoom(this.world, this.state);
+    this.held = undefined;
+    this.hovered = undefined;
   }
 
   create(): void {
@@ -48,16 +60,20 @@ export class RoomScene extends Phaser.Scene {
     this.drawRoom();
     this.room.hotspots.forEach((hotspot) => this.createHotspot(hotspot));
     this.player = this.createPlayer(this.state.player);
-    this.hoverLabel = this.add.text(0, 0, '', { fontSize: '22px', color: COLORS.text }).setDepth(1000).setVisible(false);
-    this.inventoryStrip = this.add
-      .text(16, this.scale.height - 34, '', { fontSize: '20px', color: COLORS.text })
-      .setDepth(1000);
-    this.refreshInventory();
+    this.caption = this.add.text(0, 0, '', { fontSize: '22px', color: COLORS.text, stroke: '#000000', strokeThickness: 4 }).setDepth(1500).setVisible(false);
     this.coin = new VerbCoin(this);
+    this.inventory = new InventoryBar(this, INVENTORY_TOP, {
+      onClick: (itemId, pointer) => this.clickItem(itemId, pointer),
+      onHover: (itemId) => this.hover(itemId && this.world.items[itemId]?.name),
+      onEmptyClick: () => this.putAway(),
+    });
+    this.refreshInventory();
 
-    this.input.on('pointermove', (pointer: Phaser.Input.Pointer) => this.moveHoverLabel(pointer));
-    // Clicks that land on a hotspot are handled by the hotspot itself, which stops propagation.
+    this.input.on('pointermove', (pointer: Phaser.Input.Pointer) => this.moveCaption(pointer));
+    this.input.keyboard?.on('keydown-ESC', () => this.putAway());
+    // Clicks on hotspots, items, the bar, and the coin stop propagation, so this is a floor click.
     this.input.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
+      if (this.held) return this.putAway();
       if (pointer.leftButtonDown()) this.walkTo({ x: pointer.worldX, y: pointer.worldY });
     });
   }
@@ -77,38 +93,98 @@ export class RoomScene extends Phaser.Scene {
     this.add.text(x + width / 2, y + height / 2, hotspot.name, { fontSize: '18px', color: COLORS.text }).setOrigin(0.5);
 
     shape.on('pointerover', (pointer: Phaser.Input.Pointer) => {
-      this.moveHoverLabel(pointer);
-      this.hoverLabel.setText(hotspot.name).setVisible(true);
+      this.moveCaption(pointer);
+      this.hover(hotspot.name);
     });
-    shape.on('pointerout', () => this.hoverLabel.setVisible(false));
-    shape.on(
-      'pointerdown',
-      (pointer: Phaser.Input.Pointer, _x: number, _y: number, event: Phaser.Types.Input.EventData) => {
-        event.stopPropagation();
-        this.hoverLabel.setVisible(false);
-        // Right-click is an optional shortcut for Look; nothing requires it (decision 0004).
-        if (pointer.rightButtonDown()) return this.perform(hotspot, 'look');
+    shape.on('pointerout', () => this.hover(undefined));
+    shape.on('pointerdown', (pointer: Phaser.Input.Pointer, _x: number, _y: number, event: Phaser.Types.Input.EventData) => {
+      event.stopPropagation();
+      this.clickHotspot(hotspot, pointer);
+    });
+  }
 
-        const options = availableVerbs(this.world, this.state, hotspot.id);
-        if (options.length === 1) return this.perform(hotspot, options[0]!.verb);
-        this.coin.open({ x: pointer.worldX, y: pointer.worldY }, hotspot.name, options, (verb) => this.perform(hotspot, verb));
-      },
+  private clickHotspot(hotspot: Hotspot, pointer: Phaser.Input.Pointer): void {
+    if (this.held) {
+      const itemId = this.held;
+      this.putAway();
+      if (pointer.rightButtonDown()) return;
+      return this.walkThenDispatch(hotspot, { type: 'useItemOn', itemId, hotspotId: hotspot.id });
+    }
+
+    this.hover(undefined);
+    // Right-click is an optional shortcut for Look; nothing requires it (decision 0004).
+    if (pointer.rightButtonDown()) return this.walkThenDispatch(hotspot, { type: 'verb', verb: 'look', hotspotId: hotspot.id });
+
+    const options = availableVerbs(this.world, this.state, hotspot.id);
+    const verb = (v: Verb): Command => ({ type: 'verb', verb: v, hotspotId: hotspot.id });
+    if (options.length === 1) return this.walkThenDispatch(hotspot, verb(options[0]!.verb));
+    this.coin.open(
+      { x: pointer.worldX, y: pointer.worldY },
+      hotspot.name,
+      options.map((o) => ({ id: o.verb, icon: VERB_ICONS[o.verb], label: o.label })),
+      (v) => this.walkThenDispatch(hotspot, verb(v)),
     );
   }
 
-  /** Walk to the hotspot, then ask the core to do the verb there. */
-  private perform(hotspot: Hotspot, verb: Verb): void {
-    this.walkTo(hotspot.interactionPoint, () => this.dispatch({ type: 'verb', verb, hotspotId: hotspot.id }));
+  private clickItem(itemId: ItemId, pointer: Phaser.Input.Pointer): void {
+    if (this.held) {
+      const heldId = this.held;
+      this.putAway();
+      // Combining happens in Dana's hands: no walking.
+      if (heldId !== itemId) this.dispatch({ type: 'combine', itemIds: [heldId, itemId] });
+      return;
+    }
+
+    this.hover(undefined);
+    const name = this.world.items[itemId]?.name ?? itemId;
+    if (pointer.rightButtonDown()) return this.dispatch({ type: 'lookItem', itemId });
+    this.coin.open(
+      { x: pointer.worldX, y: pointer.worldY },
+      name,
+      [
+        { id: 'look', icon: VERB_ICONS.look, label: 'Look' },
+        { id: 'useWith', icon: '✋', label: 'Use with…' },
+      ],
+      (choice) => (choice === 'look' ? this.dispatch({ type: 'lookItem', itemId }) : this.hold(itemId)),
+    );
   }
 
-  private moveHoverLabel(pointer: Phaser.Input.Pointer): void {
-    this.hoverLabel.setPosition(pointer.worldX + 16, pointer.worldY - 28);
+  private hold(itemId: ItemId): void {
+    this.held = itemId;
+    this.refreshInventory();
+    this.updateCaption();
+  }
+
+  private putAway(): void {
+    if (!this.held) return;
+    this.held = undefined;
+    this.refreshInventory();
+    this.updateCaption();
+  }
+
+  private hover(name: string | undefined): void {
+    this.hovered = name;
+    this.updateCaption();
+  }
+
+  private updateCaption(): void {
+    const heldName = this.held && (this.world.items[this.held]?.name ?? this.held);
+    if (heldName) {
+      this.caption.setText(`Use ${heldName} with${this.hovered ? ` ${this.hovered}` : '…'}`).setVisible(true);
+    } else {
+      this.caption.setText(this.hovered ?? '').setVisible(this.hovered !== undefined && !this.coin.isOpen);
+    }
+  }
+
+  private moveCaption(pointer: Phaser.Input.Pointer): void {
+    // Keep the caption on screen near the right edge.
+    const x = Math.min(pointer.worldX + 16, this.scale.width - this.caption.width - 8);
+    this.caption.setPosition(x, pointer.worldY - 32);
   }
 
   private refreshInventory(): void {
-    const names = this.state.inventory.map((id) => this.world.items[id]?.name ?? id);
-    // Placeholder until the real inventory UI: a plain list of names.
-    this.inventoryStrip.setText(`Inventory: ${names.length > 0 ? names.join(', ') : '(empty)'}`);
+    const items = this.state.inventory.flatMap((id) => this.world.items[id] ?? []);
+    this.inventory.render(items, this.held);
   }
 
   private createPlayer(at: Point): Phaser.GameObjects.Container {
@@ -116,6 +192,10 @@ export class RoomScene extends Phaser.Scene {
     const body = this.add.rectangle(0, 0, PLAYER_SIZE.width, PLAYER_SIZE.height, COLORS.player).setOrigin(0.5, 1);
     const label = this.add.text(0, -PLAYER_SIZE.height / 2, 'DANA', { fontSize: '16px', color: COLORS.text }).setOrigin(0.5);
     return this.add.container(at.x, at.y, [body, label]).setDepth(500);
+  }
+
+  private walkThenDispatch(hotspot: Hotspot, command: Command): void {
+    this.walkTo(hotspot.interactionPoint, () => this.dispatch(command));
   }
 
   /** Walk in a straight line to `target` (clamped to the walkable area), then run `onArrive`. */
@@ -129,7 +209,7 @@ export class RoomScene extends Phaser.Scene {
       x: to.x,
       y: to.y,
       duration: (distance(from, to) / WALK_SPEED) * 1000,
-      onUpdate: () => this.speech?.setPosition(this.player.x, this.speechY()),
+      onUpdate: () => this.positionSpeech(),
       onComplete: () => {
         this.walkTween = undefined;
         this.state = { ...this.state, player: to };
@@ -150,6 +230,7 @@ export class RoomScene extends Phaser.Scene {
         this.say(effect.text);
         break;
       case 'addItem':
+      case 'removeItem':
         this.refreshInventory();
         break;
       case 'setFlag':
@@ -161,7 +242,7 @@ export class RoomScene extends Phaser.Scene {
     this.speech?.destroy();
     this.speechTimer?.remove();
     this.speech = this.add
-      .text(this.player.x, this.speechY(), text, {
+      .text(0, 0, text, {
         fontSize: '22px',
         color: COLORS.speech,
         align: 'center',
@@ -171,9 +252,7 @@ export class RoomScene extends Phaser.Scene {
       })
       .setOrigin(0.5, 1)
       .setDepth(900);
-    // Keep the whole line on screen even when the player stands near an edge.
-    const halfWidth = this.speech.width / 2;
-    this.speech.setX(Phaser.Math.Clamp(this.player.x, halfWidth + 10, this.scale.width - halfWidth - 10));
+    this.positionSpeech();
 
     const readingTime = 1500 + text.length * 50;
     this.speechTimer = this.time.delayedCall(readingTime, () => {
@@ -182,7 +261,13 @@ export class RoomScene extends Phaser.Scene {
     });
   }
 
-  private speechY(): number {
-    return this.player.y - PLAYER_SIZE.height - 12;
+  /** Above Dana's head, kept fully on screen even when she stands near an edge. */
+  private positionSpeech(): void {
+    if (!this.speech) return;
+    const halfWidth = this.speech.width / 2;
+    this.speech.setPosition(
+      Phaser.Math.Clamp(this.player.x, halfWidth + 10, this.scale.width - halfWidth - 10),
+      Math.max(this.player.y - PLAYER_SIZE.height - 12, this.speech.height + 10),
+    );
   }
 }

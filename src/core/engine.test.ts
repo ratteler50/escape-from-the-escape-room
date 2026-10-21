@@ -7,6 +7,27 @@ const say = (text: string) => ({ type: 'say', text }) as const;
 const world: World = {
   items: {
     bulb: { id: 'bulb', name: 'Light Bulb', look: 'A bulb. Bright idea.' },
+    battery: { id: 'battery', name: 'Battery', look: 'Positively charged.' },
+    torch: { id: 'torch', name: 'Torch', look: 'Let there be light.' },
+  },
+  combinations: [
+    {
+      items: ['bulb', 'battery'],
+      responses: [
+        {
+          effects: [
+            say('A torch!'),
+            { type: 'removeItem', itemId: 'bulb' },
+            { type: 'removeItem', itemId: 'battery' },
+            { type: 'addItem', itemId: 'torch' },
+          ],
+        },
+      ],
+    },
+  ],
+  fallbacks: {
+    useItemOn: ['No {item} on the {target}.', 'The {item} and the {target}? Never.'],
+    combine: ['{a} and {b} do not mix.'],
   },
   rooms: {
     testRoom: {
@@ -38,6 +59,9 @@ const world: World = {
             },
             talk: { responses: [{ effects: [say('The lamp is not chatty.')] }] },
           },
+          itemUses: {
+            bulb: [{ effects: [say('Screwed back in.'), { type: 'removeItem', itemId: 'bulb' }] }],
+          },
         },
         {
           id: 'rug',
@@ -45,6 +69,7 @@ const world: World = {
           bounds: { x: 40, y: 70, width: 40, height: 20 },
           interactionPoint: { x: 60, y: 80 },
           verbs: { look: { responses: [{ effects: [say('It really ties the room together.')] }] } },
+          itemFallback: 'The rug rejects your offering.',
         },
       ],
     },
@@ -110,5 +135,58 @@ describe('handle: verb', () => {
 
   it('throws for a hotspot that is not in the current room', () => {
     expect(() => handle(world, start, { type: 'verb', verb: 'look', hotspotId: 'nope' })).toThrow(/nope/);
+  });
+});
+
+describe('handle: items', () => {
+  const holding = (...inventory: string[]): GameState => ({ ...start, inventory });
+
+  it('lookItem says the item look line without changing state', () => {
+    const state = holding('bulb');
+    const result = handle(world, state, { type: 'lookItem', itemId: 'bulb' });
+    expect(result.effects).toEqual([say('A bulb. Bright idea.')]);
+    expect(result.state).toEqual(state);
+  });
+
+  it('useItemOn runs the matching item use', () => {
+    const result = handle(world, holding('bulb'), { type: 'useItemOn', itemId: 'bulb', hotspotId: 'lamp' });
+    expect(result.effects).toEqual([say('Screwed back in.'), { type: 'removeItem', itemId: 'bulb' }]);
+    expect(result.state.inventory).toEqual([]);
+  });
+
+  it("useItemOn falls back to the hotspot's own line", () => {
+    const result = handle(world, holding('bulb'), { type: 'useItemOn', itemId: 'bulb', hotspotId: 'rug' });
+    expect(result.effects).toEqual([say('The rug rejects your offering.')]);
+  });
+
+  it('useItemOn falls back to a generic line with names filled in, the same one every time', () => {
+    const command = { type: 'useItemOn', itemId: 'battery', hotspotId: 'lamp' } as const;
+    const first = handle(world, holding('battery'), command).effects;
+    expect(['No Battery on the Lamp.', 'The Battery and the Lamp? Never.']).toContain((first[0] as { text: string }).text);
+    expect(handle(world, holding('battery'), command).effects).toEqual(first);
+  });
+
+  it('combine works in either order, removing the parts and adding the result', () => {
+    for (const itemIds of [['bulb', 'battery'], ['battery', 'bulb']] as const) {
+      const result = handle(world, holding('bulb', 'battery'), { type: 'combine', itemIds });
+      expect(result.state.inventory).toEqual(['torch']);
+      expect(result.effects[0]).toEqual(say('A torch!'));
+    }
+  });
+
+  it('combine falls back to a generic line for an unlisted pair', () => {
+    const result = handle(world, holding('torch', 'bulb'), { type: 'combine', itemIds: ['torch', 'bulb'] });
+    expect(result.effects).toEqual([say('Torch and Light Bulb do not mix.')]);
+    expect(result.state.inventory).toEqual(['torch', 'bulb']);
+  });
+
+  it('throws when using, looking at, or combining an item that is not held', () => {
+    expect(() => handle(world, start, { type: 'lookItem', itemId: 'bulb' })).toThrow(/bulb/);
+    expect(() => handle(world, start, { type: 'useItemOn', itemId: 'bulb', hotspotId: 'lamp' })).toThrow(/bulb/);
+    expect(() => handle(world, holding('bulb'), { type: 'combine', itemIds: ['bulb', 'battery'] })).toThrow(/battery/);
+  });
+
+  it('throws when combining an item with itself', () => {
+    expect(() => handle(world, holding('bulb'), { type: 'combine', itemIds: ['bulb', 'bulb'] })).toThrow(/itself/);
   });
 });

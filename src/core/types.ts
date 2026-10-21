@@ -16,6 +16,7 @@ export type Condition = { flag: FlagId } | { notFlag: FlagId } | { has: ItemId }
 export type Effect =
   | { type: 'say'; text: string }
   | { type: 'addItem'; itemId: ItemId }
+  | { type: 'removeItem'; itemId: ItemId }
   | { type: 'setFlag'; flag: FlagId };
 
 /** One possible outcome of a verb. The first response whose conditions hold is used. */
@@ -45,6 +46,16 @@ export interface Hotspot {
   /** Where the player walks to before interacting. Must be inside the room's walkable area. */
   interactionPoint: Point;
   verbs: HotspotVerbs;
+  /** What happens when a specific inventory item is used on this hotspot. Same rules as verb responses. */
+  itemUses?: Partial<Record<ItemId, Response[]>>;
+  /** Said when an item with no `itemUses` entry is used here. Otherwise a generic line is used. */
+  itemFallback?: string;
+}
+
+/** Two items that can be combined, in either order. */
+export interface Combination {
+  items: readonly [ItemId, ItemId];
+  responses: Response[];
 }
 
 export interface Item {
@@ -64,6 +75,16 @@ export interface Room {
 export interface World {
   rooms: Readonly<Record<RoomId, Room>>;
   items: Readonly<Record<ItemId, Item>>;
+  combinations: readonly Combination[];
+  /**
+   * Generic lines for when nothing specific is written. `{item}`, `{target}`, `{a}` and `{b}` are
+   * replaced with names. The engine picks one deterministically, so the same attempt always gets
+   * the same line.
+   */
+  fallbacks: {
+    useItemOn: readonly string[];
+    combine: readonly string[];
+  };
 }
 
 /** Everything that changes during play. Plain data so it can be saved later. */
@@ -75,7 +96,11 @@ export interface GameState {
 }
 
 /** Input to the core: what the player asked to do. */
-export type Command = { type: 'verb'; verb: Verb; hotspotId: HotspotId };
+export type Command =
+  | { type: 'verb'; verb: Verb; hotspotId: HotspotId }
+  | { type: 'lookItem'; itemId: ItemId }
+  | { type: 'useItemOn'; itemId: ItemId; hotspotId: HotspotId }
+  | { type: 'combine'; itemIds: readonly [ItemId, ItemId] };
 
 /** A verb as the coin should show it. */
 export interface VerbOption {

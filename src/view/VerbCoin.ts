@@ -1,15 +1,20 @@
 import * as Phaser from 'phaser';
 import type { Point } from '../core/geometry';
-import type { Verb, VerbOption } from '../core/types';
 
-const ICONS: Record<Verb, string> = { look: '👁', take: '✋', talk: '💬', use: '⚙' };
+/** One button on the coin. `id` is what `onPick` receives. */
+export interface CoinOption<Id extends string> {
+  id: Id;
+  icon: string;
+  label: string;
+}
+
 const BUTTON_RADIUS = 38; // 76px across: still a fingertip-sized target when scaled down on a phone
 const RING_RADIUS = 86;
 const ARC_STEP_DEGREES = 62;
 const DEPTH = 2000;
 
 /**
- * A ring of verb buttons around a point. Owns a full-screen blocker underneath it, so while the
+ * A ring of buttons around a point: verbs on a hotspot, or Look / Use with… on an item. Owns a full-screen blocker underneath it, so while the
  * coin is open, clicks elsewhere only close it and nothing behind it reacts to the pointer.
  */
 export class VerbCoin {
@@ -23,7 +28,7 @@ export class VerbCoin {
     return this.objects.length > 0;
   }
 
-  open(at: Point, title: string, options: readonly VerbOption[], onPick: (verb: Verb) => void): void {
+  open<Id extends string>(at: Point, title: string, options: readonly CoinOption<Id>[], onPick: (id: Id) => void): void {
     this.close();
     const { width, height } = this.scene.scale;
 
@@ -64,7 +69,7 @@ export class VerbCoin {
         .setStrokeStyle(3, 0xc9b6ff)
         .setDepth(DEPTH + 1)
         .setInteractive({ useHandCursor: true });
-      const icon = this.scene.add.text(x, y, ICONS[option.verb], { fontSize: '34px' }).setOrigin(0.5).setDepth(DEPTH + 2);
+      const icon = this.scene.add.text(x, y, option.icon, { fontSize: '34px' }).setOrigin(0.5).setDepth(DEPTH + 2);
 
       disc.on('pointerover', () => {
         disc.setFillStyle(0x3a3355);
@@ -77,7 +82,7 @@ export class VerbCoin {
       disc.on('pointerdown', (_p: Phaser.Input.Pointer, _x: number, _y: number, event: Phaser.Types.Input.EventData) => {
         event.stopPropagation();
         this.close();
-        onPick(option.verb);
+        onPick(option.id);
       });
       return [disc, icon];
     });

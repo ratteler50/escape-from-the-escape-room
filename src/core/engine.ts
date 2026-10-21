@@ -7,6 +7,9 @@ import {
   type GameState,
   type Hotspot,
   type HotspotId,
+  type Item,
+  type ItemId,
+  type Response,
   type Room,
   type Verb,
   type VerbOption,
@@ -28,11 +31,37 @@ export function handle(world: World, state: GameState, command: Command): Comman
       if (!spec || !holds(state, spec.when)) {
         throw new Error(`Verb "${command.verb}" is not available on hotspot "${hotspot.id}"`);
       }
-      const response = spec.responses.find((r) => holds(state, r.when));
-      if (!response) {
-        throw new Error(`No response for "${command.verb}" on "${hotspot.id}" matches the current state`);
-      }
-      return { state: response.effects.reduce((s, effect) => apply(world, s, effect), state), effects: response.effects };
+      return respond(world, state, spec.responses, `"${command.verb}" on "${hotspot.id}"`);
+    }
+
+    case 'lookItem': {
+      const item = heldItem(world, state, command.itemId);
+      return { state, effects: [{ type: 'say', text: item.look }] };
+    }
+
+    case 'useItemOn': {
+      const item = heldItem(world, state, command.itemId);
+      const hotspot = findHotspot(currentRoom(world, state), command.hotspotId);
+      const responses = hotspot.itemUses?.[item.id];
+      if (responses) return respond(world, state, responses, `item "${item.id}" on "${hotspot.id}"`);
+
+      const text =
+        hotspot.itemFallback ??
+        pickFallback(world.fallbacks.useItemOn, `${item.id}>${hotspot.id}`, { item: item.name, target: hotspot.name });
+      return { state, effects: [{ type: 'say', text }] };
+    }
+
+    case 'combine': {
+      const [a, b] = command.itemIds.map((id) => heldItem(world, state, id)) as [Item, Item];
+      if (a.id === b.id) throw new Error(`Can't combine item "${a.id}" with itself`);
+      const combination = world.combinations.find(
+        ({ items: [x, y] }) => (x === a.id && y === b.id) || (x === b.id && y === a.id),
+      );
+      if (combination) return respond(world, state, combination.responses, `combining "${a.id}" and "${b.id}"`);
+
+      // Sort so the fallback line doesn't depend on which item was picked first.
+      const key = [a.id, b.id].sort().join('+');
+      return { state, effects: [{ type: 'say', text: pickFallback(world.fallbacks.combine, key, { a: a.name, b: b.name }) }] };
     }
   }
 }
@@ -59,6 +88,20 @@ function findHotspot(room: Room, id: HotspotId): Hotspot {
   return hotspot;
 }
 
+function heldItem(world: World, state: GameState, id: ItemId): Item {
+  const item = world.items[id];
+  if (!item) throw new Error(`Unknown item "${id}"`);
+  if (!state.inventory.includes(id)) throw new Error(`Item "${id}" is not in the inventory`);
+  return item;
+}
+
+/** Runs the first response whose conditions hold. `what` names the situation for error messages. */
+function respond(world: World, state: GameState, responses: readonly Response[], what: string): CommandResult {
+  const response = responses.find((r) => holds(state, r.when));
+  if (!response) throw new Error(`No response for ${what} matches the current state`);
+  return { state: response.effects.reduce((s, effect) => apply(world, s, effect), state), effects: response.effects };
+}
+
 function holds(state: GameState, conditions: readonly Condition[] = []): boolean {
   return conditions.every((c) => {
     if ('flag' in c) return state.flags[c.flag] === true;
@@ -77,7 +120,18 @@ function apply(world: World, state: GameState, effect: Effect): GameState {
       if (!world.items[effect.itemId]) throw new Error(`Unknown item "${effect.itemId}"`);
       if (state.inventory.includes(effect.itemId)) return state;
       return { ...state, inventory: [...state.inventory, effect.itemId] };
+    case 'removeItem':
+      return { ...state, inventory: state.inventory.filter((id) => id !== effect.itemId) };
     case 'setFlag':
       return { ...state, flags: { ...state.flags, [effect.flag]: true } };
   }
+}
+
+/** Deterministic pick: the same key always gets the same line. Fills `{name}` placeholders. */
+function pickFallback(pool: readonly string[], key: string, names: Record<string, string>): string {
+  if (pool.length === 0) throw new Error('Fallback pool is empty');
+  let hash = 0;
+  for (const ch of key) hash = (hash * 31 + ch.charCodeAt(0)) >>> 0;
+  const template = pool[hash % pool.length]!;
+  return template.replace(/\{(\w+)\}/g, (match, name: string) => names[name] ?? match);
 }
