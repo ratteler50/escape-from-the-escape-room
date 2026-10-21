@@ -94,6 +94,10 @@ describe('content validation', () => {
       expect(item.id, `world.items["${key}"] holds an item whose id is "${item.id}"; make them match`).toBe(key);
       expect(item.name.trim(), `item ${key} has an empty name; the inventory shows it`).not.toBe('');
       expect(item.look.trim(), `item ${key} has an empty look line`).not.toBe('');
+      if (item.action) {
+        expect(item.action.label.trim(), `item ${key}.action has an empty label; it's the coin button's name`).not.toBe('');
+        expectValidResponses(item.action.responses, `${key}.action`);
+      }
     });
   }
 

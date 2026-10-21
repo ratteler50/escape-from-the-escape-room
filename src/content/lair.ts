@@ -158,6 +158,8 @@ export const lair: Room = {
               ],
             },
             // DRAFT:
+            { when: [{ flag: 'knowsCue' }], effects: [say("His script's back where it belongs. I know the cue by heart now: \"Rise, foul creature, and face me!\"")] },
+            // DRAFT:
             { effects: [say('Just the mirror and the hairspray. And a signed photo of Reginald, signed by Reginald.')] },
           ],
         },

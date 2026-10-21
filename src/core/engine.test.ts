@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { availableOptions, availableVerbs, handle, visibleHotspots } from './engine';
+import { availableItemAction, availableOptions, availableVerbs, handle, visibleHotspots } from './engine';
 import type { GameState, World } from './types';
 
 const say = (text: string) => ({ type: 'say', text }) as const;
@@ -10,6 +10,16 @@ const world: World = {
     bulb: { id: 'bulb', name: 'Light Bulb', look: 'A bulb. Bright idea.' },
     battery: { id: 'battery', name: 'Battery', look: 'Positively charged.' },
     torch: { id: 'torch', name: 'Torch', look: 'Let there be light.' },
+    note: {
+      id: 'note',
+      name: 'Note',
+      look: 'A note with a password on it.',
+      action: {
+        label: 'Memorise',
+        when: [{ notFlag: 'smudged' }],
+        responses: [{ effects: [say('Swordfish. Got it.'), { type: 'removeItem', itemId: 'note' }, { type: 'setFlag', flag: 'knowsPassword' }] }],
+      },
+    },
   },
   combinations: [
     {
@@ -348,5 +358,27 @@ describe('win', () => {
     const result = handle(winning, start, { type: 'verb', verb: 'look', hotspotId: 'exit' });
     expect(result.state.flags).toEqual({ won: true });
     expect(result.effects.at(-1)).toEqual({ type: 'win' });
+  });
+});
+
+describe('item actions', () => {
+  const holdingNote = { ...start, inventory: ['note'] };
+
+  it("offers an item's action with its label while its conditions hold", () => {
+    expect(availableItemAction(world, holdingNote, 'note')).toEqual({ label: 'Memorise' });
+    expect(availableItemAction(world, { ...holdingNote, flags: { smudged: true } }, 'note')).toBeNull();
+    expect(availableItemAction(world, { ...start, inventory: ['bulb'] }, 'bulb')).toBeNull();
+  });
+
+  it('runs the action: says, removes the item, sets a flag', () => {
+    const result = handle(world, holdingNote, { type: 'itemAction', itemId: 'note' });
+    expect(result.effects[0]).toEqual(say('Swordfish. Got it.'));
+    expect(result.state.inventory).toEqual([]);
+    expect(result.state.flags).toEqual({ knowsPassword: true });
+  });
+
+  it('throws for an item with no available action, or one not held', () => {
+    expect(() => handle(world, { ...start, inventory: ['bulb'] }, { type: 'itemAction', itemId: 'bulb' })).toThrow(/bulb/);
+    expect(() => handle(world, start, { type: 'itemAction', itemId: 'note' })).toThrow(/note/);
   });
 });

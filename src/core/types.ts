@@ -80,6 +80,8 @@ export interface Item {
   id: ItemId;
   name: string;
   look: string;
+  /** Something Dana can do with the item itself (read, eat, memorise). A third button on its coin. */
+  action?: VerbSpec & { label: string };
 }
 
 export interface Character {
@@ -158,6 +160,7 @@ export interface GameState {
 export type Command =
   | { type: 'verb'; verb: Verb; hotspotId: HotspotId }
   | { type: 'lookItem'; itemId: ItemId }
+  | { type: 'itemAction'; itemId: ItemId }
   | { type: 'useItemOn'; itemId: ItemId; hotspotId: HotspotId }
   | { type: 'combine'; itemIds: readonly [ItemId, ItemId] }
   | { type: 'chooseOption'; optionId: OptionId };

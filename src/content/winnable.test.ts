@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { availableOptions, availableVerbs, handle, visibleHotspots } from '../core/engine';
+import { availableItemAction, availableOptions, availableVerbs, handle, visibleHotspots } from '../core/engine';
 import { WON, type Command, type GameState, type World } from '../core/types';
 import { initialState, world } from './world';
 
@@ -36,6 +36,9 @@ function possibleCommands(w: World, s: GameState): Command[] {
     for (const { verb } of availableVerbs(w, s, h.id)) commands.push({ type: 'verb', verb, hotspotId: h.id });
     for (const itemId of s.inventory) commands.push({ type: 'useItemOn', itemId, hotspotId: h.id });
   }
+  for (const itemId of s.inventory) {
+    if (availableItemAction(w, s, itemId)) commands.push({ type: 'itemAction', itemId });
+  }
   // Combining is order-independent (engine test), so one order per pair is enough.
   s.inventory.forEach((a, i) => s.inventory.slice(i + 1).forEach((b) => commands.push({ type: 'combine', itemIds: [a, b] })));
   return commands;
@@ -57,6 +60,8 @@ function describeCommand(w: World, s: GameState, c: Command): string {
     }
     case 'lookItem':
       return `look at ${item(c.itemId)}`;
+    case 'itemAction':
+      return `${w.items[c.itemId]?.action?.label.toLowerCase() ?? 'use'} ${item(c.itemId)}`;
   }
 }
 

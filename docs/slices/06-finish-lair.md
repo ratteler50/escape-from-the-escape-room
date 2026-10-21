@@ -8,6 +8,20 @@ This is the last M1 puzzle and the payoff joke: head office's riddle is a mispri
 bound itself to the script *as printed*, so the code is literally **C-O-D-E**. It also adds the
 win state, and the test that turns "no dead ends" from a design rule into something CI enforces.
 
+## Amendment (during review of PR #4)
+
+Developer play-review: the script stayed in the inventory after the cue, with no further use. Fix:
+**the cue becomes knowledge.**
+
+- Items can have their own **action**, shown as a third coin button (⚙ with a label). New command
+  `itemAction`; availability can be conditional like verbs.
+- Reginald's Script gets ⚙ **"Memorise"**: Dana learns the cue (`knowsCue`) and returns the script
+  to the coffin (it leaves the inventory).
+- The cue dialogue option requires `knowsCue` instead of holding the script.
+- Nudge: talking to Reginald while holding the unread script, Dana muses that she'd need his cue by
+  heart; using the script on him gets "Learn it, darling!".
+- The always-winnable test tries item actions too.
+
 ## Spec
 
 ### Content
@@ -81,9 +95,13 @@ Out of scope: a keypad mini-game, room transitions to the Gift Shop (M2), save/l
 
 ## Notes / out-of-scope ideas
 
-- The always-winnable test explores **608 states** in ~0.1s. Shortest solution: 10 steps, matching
-  the puzzle chart in `docs/design.md`: coffin, talk to Reginald, cue line, gum, Gary's arm,
-  combine, grate, display case, keypad, door.
+- The always-winnable test explores **688 states** in ~0.1s (608 before the Memorise amendment).
+  Shortest solution: 11 steps, matching the puzzle chart in `docs/design.md`: coffin, Gary's arm,
+  memorise script, talk to Reginald, cue line, gum, combine, grate, display case, keypad, door.
+- Memorise amendment: `Item.action` (a `VerbSpec` with a required label) + `itemAction` command +
+  `availableItemAction`. The coin shows it as a third ⚙ button; it happens in Dana's hands (no
+  walk). Play-tested with real clicks: coffin → nudge while holding the unread script (no cue) →
+  Memorise (script leaves the inventory) → cue offered.
 - Proven to fail: making the key vanish when used on the door gives "64 reachable state(s) can no
   longer win" with the 8-step path into the dead end and its inventory.
 - State key ignores player position and inventory order; dialogue state and spent options count.

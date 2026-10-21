@@ -1,5 +1,5 @@
 import * as Phaser from 'phaser';
-import { availableOptions, availableVerbs, currentRoom, handle, visibleHotspots } from '../core/engine';
+import { availableItemAction, availableOptions, availableVerbs, currentRoom, handle, visibleHotspots } from '../core/engine';
 import { clampToPolygon, distance, type Point } from '../core/geometry';
 import { PLAYER, type CharacterId, type Command, type Effect, type GameState, type Hotspot, type ItemId, type Room, type Verb, type World } from '../core/types';
 import { DialoguePanel } from './DialoguePanel';
@@ -179,15 +179,18 @@ export class RoomScene extends Phaser.Scene {
     this.hover(undefined);
     const name = this.world.items[itemId]?.name ?? itemId;
     if (pointer.rightButtonDown()) return this.dispatch({ type: 'lookItem', itemId });
-    this.coin.open(
-      { x: pointer.worldX, y: pointer.worldY },
-      name,
-      [
-        { id: 'look', icon: VERB_ICONS.look, label: 'Look' },
-        { id: 'useWith', icon: '✋', label: 'Use with…' },
-      ],
-      (choice) => (choice === 'look' ? this.dispatch({ type: 'lookItem', itemId }) : this.hold(itemId)),
-    );
+    const action = availableItemAction(this.world, this.state, itemId);
+    const options = [
+      { id: 'look' as const, icon: VERB_ICONS.look, label: 'Look' },
+      { id: 'useWith' as const, icon: '✋', label: 'Use with…' },
+      ...(action ? [{ id: 'action' as const, icon: VERB_ICONS.use, label: action.label }] : []),
+    ];
+    this.coin.open({ x: pointer.worldX, y: pointer.worldY }, name, options, (choice) => {
+      if (choice === 'look') this.dispatch({ type: 'lookItem', itemId });
+      else if (choice === 'useWith') this.hold(itemId);
+      // An item's own action happens in Dana's hands: no walking.
+      else this.dispatch({ type: 'itemAction', itemId });
+    });
   }
 
   private hold(itemId: ItemId): void {

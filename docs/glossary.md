@@ -16,6 +16,7 @@ Shared vocabulary for the game and the codebase. Use these terms in code, docs, 
 | **Condition** | A test against game state: a flag is or isn't set, an item is or isn't held. |
 | **Item** | Something in the inventory. Has an id, name, and look line. |
 | **Held item** | The item the player chose "Use with…" on and is about to use. Interface state owned by the view; never saved, never seen by the core. |
+| **Item action** | Something Dana does with an item by itself (`item.action`, e.g. Memorise). A third button on the item's coin. |
 | **Item use** | What happens when a specific item is used on a specific hotspot (`hotspot.itemUses`). |
 | **Combination** | An unordered pair of items plus responses (`world.combinations`); usually removes both and adds a result. |
 | **Fallback line** | Said when nothing specific is written: a hotspot's `itemFallback`, or a generic line from `world.fallbacks`. |
