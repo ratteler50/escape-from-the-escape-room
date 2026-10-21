@@ -1,6 +1,6 @@
 # Slice 5 — Reginald and dialogue trees
 
-**Status:** built, agent play-tested · awaiting PR and developer play-test · **Milestone:** M1 · **Branch:** `slice-5-dialogue`
+**Status:** done · merged as PR #3 (squash) · **Milestone:** M1
 
 ## Why
 

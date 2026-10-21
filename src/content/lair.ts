@@ -30,7 +30,14 @@ export const caseKey: Item = {
   look: 'A tiny key on a skull keyring. The keyring says DISPLAY CASE. Head office labels everything except the puzzles.',
 };
 
-export const lairItems = [garyArm, gum, stickyArm, caseKey, script];
+export const riddleScroll: Item = {
+  id: 'riddleScroll',
+  name: 'Ancient Riddle Scroll',
+  // DRAFT:
+  look: 'It reads: "THE ANSWER IS: [INSERT CODE HERE BEFORE PRINTING]". Head office. Of course. Of COURSE.',
+};
+
+export const lairItems = [garyArm, gum, stickyArm, caseKey, script, riddleScroll];
 
 export const lairCombinations: Combination[] = [
   {
@@ -67,10 +74,29 @@ export const lair: Room = {
       bounds: { x: 1040, y: 140, width: 150, height: 280 },
       interactionPoint: { x: 1080, y: 450 },
       verbs: {
-        // DRAFT:
-        look: says('A heavy oak door. Well, heavy oak-effect laminate. Section 9 of the Handbook says it should never be locked during business hours. It is locked.'),
+        look: {
+          responses: [
+            // DRAFT:
+            { when: [{ flag: 'doorUnlocked' }], effects: [say('Unlocked! Beyond it: the Gift Shop. I can already hear the mugs.')] },
+            // DRAFT:
+            { effects: [say('A heavy oak door. Well, heavy oak-effect laminate. Section 9 of the Handbook says it should never be locked during business hours. It is locked.')] },
+          ],
+        },
         // DRAFT:
         talk: says("Hello? Door? I'd like to speak to your manager. ... Its manager is also a door.", 'Negotiate'),
+        use: {
+          label: 'Escape!',
+          when: [{ flag: 'doorUnlocked' }],
+          responses: [
+            {
+              effects: [
+                // DRAFT:
+                say("Handbook Section 1, Rule 1: always let the customers win. Today, I'm the customer."),
+                { type: 'win' },
+              ],
+            },
+          ],
+        },
       },
       itemUses: {
         // DRAFT:
@@ -187,6 +213,84 @@ export const lair: Room = {
         look: says('"One star. Could not escape." "One star. Still here." "Five stars! Very immersive. Please send help." That last one is dated 2019.'),
         // DRAFT:
         use: says(`"Two stars. Staff were polite but the lich was hammy." Handbook Section 11: employees may not review their own workplace. I'll sign it "Gary".`, 'Leave a review'),
+      },
+    },
+    {
+      id: 'displayCase',
+      name: 'Display Case',
+      bounds: { x: 750, y: 340, width: 110, height: 80 },
+      interactionPoint: { x: 805, y: 460 },
+      verbs: {
+        look: {
+          responses: [
+            // DRAFT:
+            { when: [{ flag: 'caseOpen' }], effects: [say("An empty display case. The little card says 'ANCIENT RIDDLE (REPRODUCTION)'.")] },
+            // DRAFT:
+            { effects: [say('An ornate display case. Inside, on velvet: an Ancient Riddle Scroll. The lock is tiny and skull-shaped.')] },
+          ],
+        },
+        use: {
+          label: 'Open',
+          responses: [
+            // DRAFT:
+            { when: [{ flag: 'caseOpen' }], effects: [say("It's open and it's empty. Like my sense of job security.")] },
+            // DRAFT:
+            { effects: [say("Locked. The keyhole is shaped like a tiny skull. Head office loves a theme.")] },
+          ],
+        },
+      },
+      itemUses: {
+        [caseKey.id]: [
+          {
+            when: [{ notFlag: 'caseOpen' }],
+            effects: [
+              // DRAFT:
+              say("Click. The case opens. I take the Ancient Riddle Scroll and leave the key in the lock, like a responsible trainee."),
+              { type: 'removeItem', itemId: caseKey.id },
+              { type: 'addItem', itemId: riddleScroll.id },
+              setFlag('caseOpen'),
+            ],
+          },
+          // DRAFT:
+          { effects: [say("It's already open.")] },
+        ],
+      },
+    },
+    {
+      id: 'keypad',
+      name: 'Keypad',
+      bounds: { x: 985, y: 240, width: 50, height: 80 },
+      interactionPoint: { x: 1010, y: 450 },
+      verbs: {
+        // DRAFT:
+        look: says('Four rune buttons and a brass plate: "ENTER CODE TO ESCAPE". Below it, smaller: "NO REFUNDS".'),
+        use: {
+          label: 'Enter a code',
+          responses: [
+            // DRAFT:
+            { when: [{ flag: 'doorUnlocked' }], effects: [say("Already done. C-O-D-E. I'll never forget it. I'll try.")] },
+            // DRAFT:
+            { effects: [say("L-I-C-H. Nothing. D-O-O-M. Nothing. G-A-R-Y. Nothing, and Gary looks hurt. I need the actual code.")] },
+          ],
+        },
+      },
+      itemUses: {
+        [riddleScroll.id]: [
+          {
+            when: [{ notFlag: 'doorUnlocked' }],
+            effects: [
+              // DRAFT:
+              say('"THE ANSWER IS: [INSERT CODE HERE BEFORE PRINTING]." The curse bound itself to the script as printed...'),
+              // DRAFT:
+              say('...so the code is literally... C. O. D. E.'),
+              setFlag('doorUnlocked'),
+              // DRAFT:
+              say("CLUNK. The door unlocks. I've beaten head office at their own game. By reading."),
+            ],
+          },
+          // DRAFT:
+          { effects: [say("The door's already unlocked. I'm not typing CODE again. It felt silly enough the first time.")] },
+        ],
       },
     },
     {

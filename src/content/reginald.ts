@@ -34,6 +34,16 @@ const itemUses: Partial<Record<string, Response[]>> = {
   garyArm: [{ effects: [R("Put that back! Gary is a member of the cast!"), say('Gary seems fine with it.')] }],
   // DRAFT:
   script: [{ effects: [R('My script! ...Keep it, darling. I know every word. I wrote half of them.')] }],
+  riddleScroll: [
+    {
+      effects: [
+        // DRAFT:
+        R('A MISPRINT? In MY lair? Do you know how many nights I have stood here while guests read THAT?'),
+        // DRAFT:
+        R('Nobody ever escaped, and they all blamed my performance. I shall be writing to head office. In blood. Well, red pen.'),
+      ],
+    },
+  ],
 };
 
 export const reginaldOnThrone: Hotspot = {

@@ -71,7 +71,7 @@ the previous one is playable.
 
 | Milestone | Content |
 |-----------|---------|
-| **M1 — vertical slice** | The Lair, fully playable start to finish: walking, hotspots, look text, inventory, one combination, one dialogue tree, a win state ("To be continued"). Ugly but complete. |
+| **M1 — vertical slice** ✅ playable (slices 1–6) | The Lair, fully playable start to finish: walking, hotspots, look text, inventory, one combination, one dialogue tree, a win state ("To be continued"). Ugly but complete. |
 | **M2 — systems complete** | Save/load (localStorage), room transitions, cutscene/scripting system, polish (hover labels, text speed, skip text), Playwright smoke tests. |
 | **M3 — content** | Gift Shop and Break Room, full puzzle chain, ending. |
 | **M4 — optional polish** | Art pass (vector or AI-generated), SFX, a music loop. No voice. |

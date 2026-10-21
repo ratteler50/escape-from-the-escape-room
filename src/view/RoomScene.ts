@@ -3,6 +3,7 @@ import { availableOptions, availableVerbs, currentRoom, handle, visibleHotspots 
 import { clampToPolygon, distance, type Point } from '../core/geometry';
 import { PLAYER, type CharacterId, type Command, type Effect, type GameState, type Hotspot, type ItemId, type Room, type Verb, type World } from '../core/types';
 import { DialoguePanel } from './DialoguePanel';
+import { showEndCard } from './EndCard';
 import { InventoryBar } from './InventoryBar';
 import { VerbCoin } from './VerbCoin';
 
@@ -31,6 +32,8 @@ export class RoomScene extends Phaser.Scene {
   private world!: World;
   private state!: GameState;
   private room!: Room;
+  /** What the scene was started with, so Play again can restart from the same place. */
+  private startData!: { world: World; state: GameState };
 
   private player!: Phaser.GameObjects.Container;
   private caption!: Phaser.GameObjects.Text;
@@ -57,6 +60,7 @@ export class RoomScene extends Phaser.Scene {
   }
 
   init(data: { world: World; state: GameState }): void {
+    this.startData = data;
     this.world = data.world;
     this.state = data.state;
     this.room = currentRoom(this.world, this.state);
@@ -285,6 +289,10 @@ export class RoomScene extends Phaser.Scene {
       case 'startDialogue':
       case 'endDialogue':
         break;
+      case 'win':
+        // The end card takes over input; the core's state stays as it is (won).
+        this.skipBlocker.disableInteractive().setVisible(false);
+        return showEndCard(this, () => this.scene.restart(this.startData));
     }
     this.playNext();
   }

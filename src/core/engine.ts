@@ -1,5 +1,6 @@
 import {
   VERBS,
+  WON,
   type Command,
   type CommandResult,
   type Condition,
@@ -196,6 +197,8 @@ function apply(world: World, state: GameState, effect: Effect): GameState {
     }
     case 'endDialogue':
       return { ...state, conversation: null };
+    case 'win':
+      return { ...state, flags: { ...state.flags, [WON]: true } };
   }
 }
 

@@ -9,6 +9,9 @@ export type DialogueId = string;
 export type NodeId = string;
 export type OptionId = string;
 
+/** Set by the `win` effect. */
+export const WON: FlagId = 'won';
+
 /** Who says a line when a `say` effect has no `speaker`. */
 export const PLAYER: CharacterId = 'dana';
 
@@ -26,7 +29,9 @@ export type Effect =
   | { type: 'removeItem'; itemId: ItemId }
   | { type: 'setFlag'; flag: FlagId }
   | { type: 'startDialogue'; dialogueId: DialogueId }
-  | { type: 'endDialogue' };
+  | { type: 'endDialogue' }
+  /** The game is won. Sets the `won` flag; the view shows the end card. */
+  | { type: 'win' };
 
 /** One possible outcome of a verb. The first response whose conditions hold is used. */
 export interface Response {

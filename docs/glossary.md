@@ -30,6 +30,8 @@ Shared vocabulary for the game and the codebase. Use these terms in code, docs, 
 | **Node** | One point in a dialogue tree: the list of options Dana can pick there. |
 | **Dialogue option** | A line Dana can say in a node. May be conditional (`when`), one-shot (`once`), carry effects (the reply, state changes), and goes to another node or ends the conversation. |
 | **Speech queue** | The view plays a command's effects one at a time; each line waits for its reading time or a click. |
+| **Win** | The `win` effect: sets the `won` flag and shows the "To be continued…" card. |
+| **State space** | Every game state reachable from the start. The always-winnable test (`src/content/winnable.test.ts`) explores it to prove there are no dead ends. |
 | **Core** | The headless, Phaser-free TypeScript layer: state, content types, rules engine. |
 | **View** | The Phaser layer: renders state, plays effects, converts input into commands. |
 | **Content** | The game's data — rooms, hotspots, items, rules, dialogue — as typed TS modules. |

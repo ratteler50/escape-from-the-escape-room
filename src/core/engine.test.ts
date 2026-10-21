@@ -325,3 +325,28 @@ describe('conversations', () => {
     expect(() => handle(world, state, { type: 'verb', verb: 'look', hotspotId: 'rug' })).toThrow(/conversation/);
   });
 });
+
+describe('win', () => {
+  it('a win effect sets the won flag and is passed to the view', () => {
+    const winning: World = {
+      ...world,
+      rooms: {
+        testRoom: {
+          ...world.rooms.testRoom!,
+          hotspots: [
+            {
+              id: 'exit',
+              name: 'Exit',
+              bounds: { x: 0, y: 0, width: 10, height: 10 },
+              interactionPoint: { x: 5, y: 50 },
+              verbs: { look: { responses: [{ effects: [say('Freedom.'), { type: 'win' }] }] } },
+            },
+          ],
+        },
+      },
+    };
+    const result = handle(winning, start, { type: 'verb', verb: 'look', hotspotId: 'exit' });
+    expect(result.state.flags).toEqual({ won: true });
+    expect(result.effects.at(-1)).toEqual({ type: 'win' });
+  });
+});
