@@ -1,6 +1,8 @@
 # Slice 2 — Verb coin and Take
 
-**Status:** awaiting approval · **Milestone:** M1 · **Decision:** `docs/decisions/0004-verb-coin.md`
+**Status:** done · developer play-tested on trackpad · **Milestone:** M1
+
+Exercise done by the agent at the developer's request; developer exercises are paused from here on. · **Decision:** `docs/decisions/0004-verb-coin.md`
 
 ## Why
 
@@ -67,4 +69,16 @@ Give the **door** a 💬 Talk verb with a joke label and your own line, and give
 
 ## Notes / out-of-scope ideas
 
-(Record anything that comes up during the slice that belongs to a later one.)
+- Content helpers in `src/content/dsl.ts`: `says(text, label?)` for one-line verbs, `say(text)`
+  for a say effect inside a longer response.
+- `HotspotVerbs` makes `look` required at the type level, so a hotspot without one doesn't compile;
+  the content test repeats the check with a friendlier message.
+- Content rule: every verb's last response must be unconditional (the fallback). Without it some
+  states would have no response and the engine would throw.
+- Floor bottom moved from y=700 to y=670 to make room for the inventory strip.
+- Spec deviation: the label shows on **hover** in the coin's caption; on touch, a tap picks the verb
+  straight away, so touch players don't see joke labels first. Revisit with the real inventory UI.
+- Seen in play-test: after the coin closes over a hotspot, that hotspot's hover label reappears
+  under the speech text. Still on the M2 polish list with the other hover-label overlaps.
+- Stale console errors survive navigation in the browser pane; check the module's `?t=` timestamp
+  before chasing them.

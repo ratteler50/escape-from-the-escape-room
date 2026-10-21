@@ -37,6 +37,14 @@ describe('content validation', () => {
     ).toBe(true);
   });
 
+  for (const [key, item] of Object.entries(world.items)) {
+    it(`item "${key}" is keyed by its id and has a name and look line`, () => {
+      expect(item.id, `world.items["${key}"] holds an item whose id is "${item.id}"; make them match`).toBe(key);
+      expect(item.name.trim(), `item ${key} has an empty name; the inventory shows it`).not.toBe('');
+      expect(item.look.trim(), `item ${key} has an empty look line`).not.toBe('');
+    });
+  }
+
   for (const [key, room] of rooms) {
     describe(`room "${key}"`, () => {
       it('is keyed by its own id', () => {
@@ -51,10 +59,43 @@ describe('content validation', () => {
 
       for (const hotspot of room.hotspots) {
         describe(`hotspot "${hotspot.id}"`, () => {
-          it('has a name and a look line', () => {
+          it('has a name', () => {
             expect(hotspot.name.trim(), `${hotspot.id} has an empty name; it's what the hover label shows`).not.toBe('');
-            expect(hotspot.look.trim(), `${hotspot.id} has an empty look line; every hotspot needs a joke`).not.toBe('');
           });
+
+          it('has a look verb', () => {
+            expect(hotspot.verbs.look, `${hotspot.id} has no look verb; every hotspot needs a look line (it's where the jokes live)`).toBeDefined();
+          });
+
+          for (const [verb, spec] of Object.entries(hotspot.verbs)) {
+            it(`verb "${verb}" is well-formed`, () => {
+              const where = `${hotspot.id}.verbs.${verb}`;
+              if (spec.label !== undefined) {
+                expect(spec.label.trim(), `${where}.label is empty; remove it to use the default verb name`).not.toBe('');
+              }
+              expect(spec.responses.length, `${where} has no responses; add at least one`).toBeGreaterThan(0);
+              expect(
+                spec.responses.at(-1)?.when,
+                `${where}: the last response has a "when", so some states have no response and the game would ` +
+                  `throw. Make the last response unconditional (drop its "when") as the fallback`,
+              ).toBeUndefined();
+
+              for (const [i, response] of spec.responses.entries()) {
+                for (const effect of response.effects) {
+                  if (effect.type === 'say') {
+                    expect(effect.text.trim(), `${where}.responses[${i}] says an empty line`).not.toBe('');
+                  }
+                  if (effect.type === 'addItem') {
+                    expect(
+                      world.items[effect.itemId],
+                      `${where}.responses[${i}] adds item "${effect.itemId}", which isn't in world.items ` +
+                        `(known: ${Object.keys(world.items).join(', ') || 'none'}). Define it and register it in world.ts`,
+                    ).toBeDefined();
+                  }
+                }
+              }
+            });
+          }
 
           it('has an interaction point inside the walkable area', () => {
             expect(

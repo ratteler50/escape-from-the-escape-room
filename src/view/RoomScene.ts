@@ -1,7 +1,8 @@
 import * as Phaser from 'phaser';
-import { handle, currentRoom } from '../core/engine';
+import { availableVerbs, currentRoom, handle } from '../core/engine';
 import { clampToPolygon, distance, type Point } from '../core/geometry';
-import type { Command, Effect, GameState, Hotspot, Room, World } from '../core/types';
+import type { Command, Effect, GameState, Hotspot, Room, Verb, World } from '../core/types';
+import { VerbCoin } from './VerbCoin';
 
 const WALK_SPEED = 300; // logical pixels per second
 const PLAYER_SIZE = { width: 50, height: 120 };
@@ -26,6 +27,8 @@ export class RoomScene extends Phaser.Scene {
 
   private player!: Phaser.GameObjects.Container;
   private hoverLabel!: Phaser.GameObjects.Text;
+  private inventoryStrip!: Phaser.GameObjects.Text;
+  private coin!: VerbCoin;
   private speech: Phaser.GameObjects.Text | undefined;
   private speechTimer: Phaser.Time.TimerEvent | undefined;
   private walkTween: Phaser.Tweens.Tween | undefined;
@@ -46,10 +49,13 @@ export class RoomScene extends Phaser.Scene {
     this.room.hotspots.forEach((hotspot) => this.createHotspot(hotspot));
     this.player = this.createPlayer(this.state.player);
     this.hoverLabel = this.add.text(0, 0, '', { fontSize: '22px', color: COLORS.text }).setDepth(1000).setVisible(false);
+    this.inventoryStrip = this.add
+      .text(16, this.scale.height - 34, '', { fontSize: '20px', color: COLORS.text })
+      .setDepth(1000);
+    this.refreshInventory();
+    this.coin = new VerbCoin(this);
 
-    this.input.on('pointermove', (pointer: Phaser.Input.Pointer) => {
-      this.hoverLabel.setPosition(pointer.worldX + 16, pointer.worldY - 28);
-    });
+    this.input.on('pointermove', (pointer: Phaser.Input.Pointer) => this.moveHoverLabel(pointer));
     // Clicks that land on a hotspot are handled by the hotspot itself, which stops propagation.
     this.input.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
       if (pointer.leftButtonDown()) this.walkTo({ x: pointer.worldX, y: pointer.worldY });
@@ -70,20 +76,39 @@ export class RoomScene extends Phaser.Scene {
     const shape = this.add.rectangle(x, y, width, height, COLORS.hotspot).setOrigin(0, 0).setInteractive({ useHandCursor: true });
     this.add.text(x + width / 2, y + height / 2, hotspot.name, { fontSize: '18px', color: COLORS.text }).setOrigin(0.5);
 
-    shape.on('pointerover', () => this.hoverLabel.setText(hotspot.name).setVisible(true));
+    shape.on('pointerover', (pointer: Phaser.Input.Pointer) => {
+      this.moveHoverLabel(pointer);
+      this.hoverLabel.setText(hotspot.name).setVisible(true);
+    });
     shape.on('pointerout', () => this.hoverLabel.setVisible(false));
     shape.on(
       'pointerdown',
       (pointer: Phaser.Input.Pointer, _x: number, _y: number, event: Phaser.Types.Input.EventData) => {
         event.stopPropagation();
-        if (pointer.rightButtonDown()) {
-          this.walkTo(hotspot.interactionPoint, () => this.dispatch({ type: 'look', hotspotId: hotspot.id }));
-        } else {
-          // Left-click interact arrives in a later slice; for now just walk over.
-          this.walkTo(hotspot.interactionPoint);
-        }
+        this.hoverLabel.setVisible(false);
+        // Right-click is an optional shortcut for Look; nothing requires it (decision 0004).
+        if (pointer.rightButtonDown()) return this.perform(hotspot, 'look');
+
+        const options = availableVerbs(this.world, this.state, hotspot.id);
+        if (options.length === 1) return this.perform(hotspot, options[0]!.verb);
+        this.coin.open({ x: pointer.worldX, y: pointer.worldY }, hotspot.name, options, (verb) => this.perform(hotspot, verb));
       },
     );
+  }
+
+  /** Walk to the hotspot, then ask the core to do the verb there. */
+  private perform(hotspot: Hotspot, verb: Verb): void {
+    this.walkTo(hotspot.interactionPoint, () => this.dispatch({ type: 'verb', verb, hotspotId: hotspot.id }));
+  }
+
+  private moveHoverLabel(pointer: Phaser.Input.Pointer): void {
+    this.hoverLabel.setPosition(pointer.worldX + 16, pointer.worldY - 28);
+  }
+
+  private refreshInventory(): void {
+    const names = this.state.inventory.map((id) => this.world.items[id]?.name ?? id);
+    // Placeholder until the real inventory UI: a plain list of names.
+    this.inventoryStrip.setText(`Inventory: ${names.length > 0 ? names.join(', ') : '(empty)'}`);
   }
 
   private createPlayer(at: Point): Phaser.GameObjects.Container {
@@ -123,6 +148,11 @@ export class RoomScene extends Phaser.Scene {
     switch (effect.type) {
       case 'say':
         this.say(effect.text);
+        break;
+      case 'addItem':
+        this.refreshInventory();
+        break;
+      case 'setFlag':
         break;
     }
   }

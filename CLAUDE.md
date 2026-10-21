@@ -24,7 +24,8 @@ Each slice: spec in `docs/slices/NN-name.md` → plan → developer approves →
 
 - Don't start a slice without an approved spec. Don't start a milestone until the last one is playable.
 - Keep changes scoped to the current slice. Note out-of-scope ideas in the slice doc instead.
-- Some slices leave a small, clearly marked piece for the developer to write. Don't fill it in.
+- Developer exercises are paused (developer's request): don't leave pieces for the developer to
+  write; implement the whole slice, including any "For you to write" section.
 - Commit after each slice with a message describing the behaviour added.
 
 ## Commands

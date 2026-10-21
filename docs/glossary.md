@@ -8,8 +8,12 @@ Shared vocabulary for the game and the codebase. Use these terms in code, docs, 
 | **Hotspot** | A clickable region in a room: an object, a character, an exit. Has an id, a name (shown on hover), a look line, and an interaction point. |
 | **Interaction point** | Where the player character walks to before interacting with a hotspot. |
 | **Walkable area** | A polygon per room that the player character can move within. Clicks outside it are clamped to the nearest point inside. |
-| **Look** | Right-click on a hotspot or item: the player character describes it. Every hotspot has a look line. |
-| **Interact** | Left-click on a hotspot: walk to it, then do the context-appropriate action (take, use, talk, open). |
+| **Verb** | One of Look, Take, Talk, Use. A hotspot declares which verbs it supports. |
+| **Verb coin** | The ring of verb buttons that opens when you click a hotspot with more than one available verb. |
+| **Available verbs** | The verbs a hotspot offers right now, decided by the core from each verb's `when` conditions. |
+| **Look** | The verb every hotspot has: the player character describes it. Right-click is a shortcut for it. |
+| **Response** | One possible outcome of a verb: optional conditions plus a list of effects. The first matching response wins; the last is an unconditional fallback. |
+| **Condition** | A test against game state: a flag is or isn't set, an item is or isn't held. |
 | **Item** | Something in the inventory. Has an id, name, and look line. |
 | **Use-on** | Applying an inventory item to a hotspot. |
 | **Combine** | Applying one inventory item to another to produce a new item. |
