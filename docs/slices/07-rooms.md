@@ -1,6 +1,6 @@
 # Slice 7 — Rooms (and a stub Gift Shop)
 
-**Status:** awaiting approval · **Milestone:** M2 · **Branch:** `slice-7-rooms` · **Runs alongside:** slice 8 (deploy), in its own session
+**Status:** built, agent play-tested · awaiting PR and developer play-test · **Milestone:** M2 · **Branch:** `slice-7-rooms` · **Runs alongside:** slice 8 (deploy), in its own session
 
 ## Why
 
@@ -64,3 +64,25 @@ Gift Shop puzzles (M3).
 4. Always-winnable across rooms.
 5. View: switching rooms (fade, redraw, place Dana).
 6. Play-test, docs (glossary: entry point, exit), ask to push and open the PR.
+
+## Notes / out-of-scope ideas
+
+- Refactor: `RoomScene` (357 lines) → `RoomScene` coordinator (≈260) + `RoomView` (room and
+  hotspots), `PlayerSprite` (Dana, walking), `Speech` (one line at a time, click-to-skip blocker).
+  The effect queue stays in `RoomScene` because it dispatches every effect type. Regression
+  play-tested before adding rooms.
+- `Room.entries` is required, so the compiler flags any room without entry points. The Lair has a
+  `start` entry, which `initialState` now uses instead of a hard-coded position.
+- Spec deviation: the Lair door's label is "Go through" every time (labels can't be conditional).
+  The first trip plays "Freedom! Or at least... retail." and sets `visitedGiftShop`; later trips are
+  silent.
+- Always-winnable: the room is part of a state's identity; 784 states explored; shortest solution
+  is 12 steps ending at the Gift Shop's front door. New check "every room is reachable", proven to
+  fail with a temporary unreachable room.
+- The app put the parallel deploy session's worktree inside this repo (`.claude/worktrees/`);
+  ignored in `.gitignore`.
+- Play-test: the Lair chain up to the unlocked door was driven through `dispatch` (real-click tested
+  in slices 5–6); the Lair → Gift Shop → Lair → Gift Shop → front door → card → Play again route was
+  real clicks. Dana arrives at the right entry each time; state and Reginald's position persist.
+- Gift Shop label "Door to the Lich's Lair" ran off-screen; renamed "Lair Door".
+- Later: Dana walking out through doors (slice 10, cutscenes); real Gift Shop content (M3).

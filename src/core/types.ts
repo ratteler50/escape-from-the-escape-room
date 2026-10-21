@@ -8,6 +8,7 @@ export type CharacterId = string;
 export type DialogueId = string;
 export type NodeId = string;
 export type OptionId = string;
+export type EntryId = string;
 
 /** Set by the `win` effect. */
 export const WON: FlagId = 'won';
@@ -31,7 +32,9 @@ export type Effect =
   | { type: 'startDialogue'; dialogueId: DialogueId }
   | { type: 'endDialogue' }
   /** The game is won. Sets the `won` flag; the view shows the end card. */
-  | { type: 'win' };
+  | { type: 'win' }
+  /** Move to another room, arriving at one of its named entry points. */
+  | { type: 'goToRoom'; roomId: RoomId; entry: EntryId };
 
 /** One possible outcome of a verb. The first response whose conditions hold is used. */
 export interface Response {
@@ -122,6 +125,8 @@ export interface Dialogue {
 export interface Room {
   id: RoomId;
   name: string;
+  /** Where Dana appears when she arrives, by how she arrived (e.g. "fromGiftShop"). On the floor. */
+  entries: Readonly<Record<EntryId, Point>>;
   walkable: Polygon;
   hotspots: readonly Hotspot[];
 }

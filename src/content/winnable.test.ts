@@ -18,6 +18,7 @@ interface Explored {
 /** Two states that differ only in ways puzzles can't see (position, inventory order) are the same. */
 function stateKey(s: GameState): string {
   return JSON.stringify({
+    room: s.roomId,
     inventory: [...s.inventory].sort(),
     flags: Object.keys(s.flags).filter((f) => s.flags[f]).sort(),
     conversation: s.conversation,
@@ -152,6 +153,12 @@ describe('always winnable', () => {
         `${dead.length} reachable state(s) can no longer win. The shortest way into one:\n${numbered(result.pathTo(dead[0]))}\n` +
           `Its inventory and flags: ${dead[0]}`,
     ).toBe(0);
+  });
+
+  it('lets the player reach every room', () => {
+    const visited = new Set([...result.explored.values()].map((e) => e.state.roomId));
+    const missing = Object.keys(world.rooms).filter((id) => !visited.has(id));
+    expect(missing, `These rooms can never be reached: ${missing.join(', ')}. Add an exit that leads there`).toEqual([]);
   });
 
   it('lets the player obtain every item', () => {
