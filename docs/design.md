@@ -72,11 +72,48 @@ the previous one is playable.
 | Milestone | Content |
 |-----------|---------|
 | **M1 — vertical slice** ✅ playable (slices 1–6) | The Lair, fully playable start to finish: walking, hotspots, look text, inventory, one combination, one dialogue tree, a win state ("To be continued"). Ugly but complete. |
-| **M2 — systems complete** | Save/load (localStorage), room transitions, cutscene/scripting system, polish (hover labels, text speed, skip text), Playwright smoke tests. |
+| **M2 — systems complete** | Room transitions (with a stub Gift Shop), deploy to GitHub Pages, save/load, cutscenes, browser end-to-end tests, polish. Plan below. |
 | **M3 — content** | Gift Shop and Break Room, full puzzle chain, ending. |
 | **M4 — optional polish** | Art pass (vector or AI-generated), SFX, a music loop. No voice. |
 
 Art is placeholder shapes until M4, and the code keeps art swappable.
+
+## M2 plan
+
+Decided in the M2 planning session (2026-10-21).
+
+**Rooms.** Inventory, flags, and conversation history are global. Moving rooms is a `goToRoom
+{ roomId, entry }` effect; each room has named entry points. Exits are hotspots with ⚙ "Go through".
+An exit may take an item away, but only with a line explaining why (the always-winnable test guards
+it). M2 adds a **stub Gift Shop**: placeholder screen, a few look-only hotspots, the door back to the
+Lair, and a "CLOSED FOR REFURBISHMENT" front door that now carries the "To be continued…" win.
+
+**Save/load.** Autosave whenever the game is at rest, plus **3 manual slots**. A ☰ menu button
+(Save, Load, Settings, Quit to title); a title screen (Continue, New game, Load). Saving is allowed
+whenever nothing is playing, including mid-conversation. Saves carry a format version and are
+validated against current content on load; incompatible saves show a message instead of crashing.
+
+**Cutscenes.** More effect types played by the existing speech queue: `walk`, `pause`, `face`. They
+are presentation only: the core passes them through, game state stays flag-based. Reginald walks to
+his mark; Dana walks out through exits. A parallel-actions effect can be added later if needed.
+
+**Deploy.** GitHub Pages from the private repo: the game is public at a URL, the code isn't.
+
+**Browser tests.** Playwright against the production build: one full play-through following the
+always-winnable test's shortest solution with real clicks, no console errors on load, and a save
+round-trip. The dev hook is enabled in production by a `?e2e` URL flag.
+
+**Polish.** Hover-label overlap fixes, text speed setting, hotspot highlight on hover, skip a whole
+sequence, speaker name tags, cursor feedback over exits vs. things.
+
+| Slice | Content | Runs |
+|-------|---------|------|
+| 7 | Rooms + stub Gift Shop; split `RoomScene` into smaller components | Phase A, here |
+| 8 | Deploy to GitHub Pages | Phase A, **parallel session** |
+| 9 | Save/load, title screen, ☰ menu, text speed setting | Phase B |
+| 10 | Cutscenes + skip a whole sequence | Phase C, here |
+| 11 | Playwright end-to-end tests in CI | Phase C, **parallel session** |
+| 12 | Polish: hover labels, highlight, name tags, cursor | Phase D |
 
 ## M1: the Lich's Lair
 
