@@ -1,5 +1,6 @@
 import type { Combination, Item, Room } from '../core/types';
-import { say, says } from './dsl';
+import { say, says, setFlag } from './dsl';
+import { reginaldOnMark, reginaldOnThrone, script } from './reginald';
 
 export const garyArm: Item = {
   id: 'garyArm',
@@ -29,7 +30,7 @@ export const caseKey: Item = {
   look: 'A tiny key on a skull keyring. The keyring says DISPLAY CASE. Head office labels everything except the puzzles.',
 };
 
-export const lairItems = [garyArm, gum, stickyArm, caseKey];
+export const lairItems = [garyArm, gum, stickyArm, caseKey, script];
 
 export const lairCombinations: Combination[] = [
   {
@@ -84,12 +85,17 @@ export const lair: Room = {
       bounds: { x: 540, y: 160, width: 200, height: 260 },
       interactionPoint: { x: 640, y: 460 },
       verbs: {
-        // DRAFT:
-        look: says('A towering throne of bone. The price sticker on the armrest says "SPOOKY SEAT, $49.99".'),
-        // TEMPORARY (slice 3): ungated. Slice 4 gates this behind Reginald leaving the throne.
+        look: {
+          responses: [
+            // DRAFT:
+            { when: [{ notFlag: 'reginaldLeftThrone' }], effects: [say("Reginald is sitting on it. Sitting is a strong word. He's lounging, dramatically.")] },
+            // DRAFT:
+            { effects: [say('A towering throne of bone. The price sticker on the armrest says "SPOOKY SEAT, $49.99".')] },
+          ],
+        },
         take: {
           label: 'Check under the cushion',
-          when: [{ notFlag: 'tookGum' }],
+          when: [{ flag: 'reginaldLeftThrone' }, { notFlag: 'tookGum' }],
           responses: [
             {
               effects: [
@@ -105,6 +111,34 @@ export const lair: Room = {
         use: says(`Handbook Section 7.1: "The Spooky Seat is for liches only." I am not a lich. I'm barely a trainee.`, 'Sit (forbidden)'),
       },
     },
+    {
+      id: 'coffin',
+      name: 'Coffin',
+      bounds: { x: 30, y: 190, width: 110, height: 230 },
+      interactionPoint: { x: 200, y: 470 },
+      verbs: {
+        // DRAFT:
+        look: says('A coffin with a gold star on the lid. "R. VANTABLACK-THORNE: DRESSING ROOM. KNOCK."'),
+        use: {
+          label: 'Open',
+          responses: [
+            {
+              when: [{ notFlag: 'tookScript' }],
+              effects: [
+                // DRAFT:
+                say('Inside: a mirror, hairspray labelled UNDEAD HOLD, and a dog-eared script. His cue is underlined three times: "Rise, foul creature, and face me!"'),
+                { type: 'addItem', itemId: script.id },
+                setFlag('tookScript'),
+              ],
+            },
+            // DRAFT:
+            { effects: [say('Just the mirror and the hairspray. And a signed photo of Reginald, signed by Reginald.')] },
+          ],
+        },
+      },
+    },
+    reginaldOnThrone,
+    reginaldOnMark,
     {
       id: 'gary',
       name: 'Gary',

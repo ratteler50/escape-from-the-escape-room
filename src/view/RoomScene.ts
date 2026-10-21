@@ -1,7 +1,8 @@
 import * as Phaser from 'phaser';
-import { availableVerbs, currentRoom, handle } from '../core/engine';
+import { availableOptions, availableVerbs, currentRoom, handle, visibleHotspots } from '../core/engine';
 import { clampToPolygon, distance, type Point } from '../core/geometry';
-import type { Command, Effect, GameState, Hotspot, ItemId, Room, Verb, World } from '../core/types';
+import { PLAYER, type CharacterId, type Command, type Effect, type GameState, type Hotspot, type ItemId, type Room, type Verb, type World } from '../core/types';
+import { DialoguePanel } from './DialoguePanel';
 import { InventoryBar } from './InventoryBar';
 import { VerbCoin } from './VerbCoin';
 
@@ -14,17 +15,17 @@ const COLORS = {
   floor: 0x3d3328,
   floorOutline: 0x5c4d3c,
   hotspot: 0x6b5b8c,
+  character: 0x4f8a5b,
   player: 0x3fa7d6,
   text: '#ffffff',
-  speech: '#ffe28a',
 };
 
 /**
  * Draws the current room from content and turns clicks into core commands.
  * Holds no puzzle logic: everything the player "learns" comes back from the core as effects.
  *
- * The one piece of state it owns is the held item: the item the player picked "Use with…" on and
- * is about to use on something. That's interface state, not game state, so the core never sees it.
+ * View-only state: the held item (picked "Use with…", not used yet) and the effect queue (effects
+ * the core returned that are still being played, one line at a time).
  */
 export class RoomScene extends Phaser.Scene {
   private world!: World;
@@ -35,13 +36,21 @@ export class RoomScene extends Phaser.Scene {
   private caption!: Phaser.GameObjects.Text;
   private inventory!: InventoryBar;
   private coin!: VerbCoin;
-  private speech: Phaser.GameObjects.Text | undefined;
-  private speechTimer: Phaser.Time.TimerEvent | undefined;
+  private dialogue!: DialoguePanel;
   private walkTween: Phaser.Tweens.Tween | undefined;
 
+  private drawnHotspots: { hotspot: Hotspot; objects: Phaser.GameObjects.GameObject[] }[] = [];
   private held: ItemId | undefined;
   /** Name of the hotspot or item under the pointer, for the caption. */
   private hovered: string | undefined;
+
+  /** Effects still to play. While non-empty or a line is showing, clicks only skip lines. */
+  private queue: Effect[] = [];
+  private busy = false;
+  private skipBlocker!: Phaser.GameObjects.Rectangle;
+  private speech: Phaser.GameObjects.Text | undefined;
+  private speechTimer: Phaser.Time.TimerEvent | undefined;
+  private finishLine: (() => void) | undefined;
 
   constructor() {
     super('RoomScene');
@@ -53,15 +62,19 @@ export class RoomScene extends Phaser.Scene {
     this.room = currentRoom(this.world, this.state);
     this.held = undefined;
     this.hovered = undefined;
+    this.queue = [];
+    this.busy = false;
+    this.drawnHotspots = [];
   }
 
   create(): void {
     this.input.mouse?.disableContextMenu();
     this.drawRoom();
-    this.room.hotspots.forEach((hotspot) => this.createHotspot(hotspot));
+    this.refreshHotspots();
     this.player = this.createPlayer(this.state.player);
     this.caption = this.add.text(0, 0, '', { fontSize: '22px', color: COLORS.text, stroke: '#000000', strokeThickness: 4 }).setDepth(1500).setVisible(false);
     this.coin = new VerbCoin(this);
+    this.dialogue = new DialoguePanel(this);
     this.inventory = new InventoryBar(this, INVENTORY_TOP, {
       onClick: (itemId, pointer) => this.clickItem(itemId, pointer),
       onHover: (itemId) => this.hover(itemId && this.world.items[itemId]?.name),
@@ -69,9 +82,21 @@ export class RoomScene extends Phaser.Scene {
     });
     this.refreshInventory();
 
+    // While lines are playing, this covers everything: a click skips the current line, nothing else.
+    // Nearly transparent rather than invisible: Phaser skips input on objects that don't render.
+    this.skipBlocker = this.add
+      .rectangle(0, 0, this.scale.width, this.scale.height, 0x000000, 0.001)
+      .setOrigin(0, 0)
+      .setDepth(1800)
+      .setVisible(false);
+    this.skipBlocker.on('pointerdown', (_p: Phaser.Input.Pointer, _x: number, _y: number, event: Phaser.Types.Input.EventData) => {
+      event.stopPropagation();
+      this.finishLine?.();
+    });
+
     this.input.on('pointermove', (pointer: Phaser.Input.Pointer) => this.moveCaption(pointer));
     this.input.keyboard?.on('keydown-ESC', () => this.putAway());
-    // Clicks on hotspots, items, the bar, and the coin stop propagation, so this is a floor click.
+    // Clicks on hotspots, items, the bar, panels, and the coin stop propagation, so this is a floor click.
     this.input.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
       if (this.held) return this.putAway();
       if (pointer.leftButtonDown()) this.walkTo({ x: pointer.worldX, y: pointer.worldY });
@@ -86,11 +111,22 @@ export class RoomScene extends Phaser.Scene {
     g.lineStyle(2, COLORS.floorOutline).strokePoints(floor, true);
   }
 
-  private createHotspot(hotspot: Hotspot): void {
+  /** Redraws the hotspots that exist right now. Hotspots can appear, vanish, or move with game state. */
+  private refreshHotspots(): void {
+    this.drawnHotspots.forEach(({ objects }) => objects.forEach((o) => o.destroy()));
+    this.drawnHotspots = visibleHotspots(this.world, this.state).map((hotspot) => ({ hotspot, objects: this.createHotspot(hotspot) }));
+    if (this.caption) this.hover(undefined);
+  }
+
+  private createHotspot(hotspot: Hotspot): Phaser.GameObjects.GameObject[] {
     const { x, y, width, height } = hotspot.bounds;
     // Placeholder art: a labelled rectangle. Real art will replace this in M4.
-    const shape = this.add.rectangle(x, y, width, height, COLORS.hotspot).setOrigin(0, 0).setInteractive({ useHandCursor: true });
-    this.add.text(x + width / 2, y + height / 2, hotspot.name, { fontSize: '18px', color: COLORS.text }).setOrigin(0.5);
+    const color = hotspot.character ? COLORS.character : COLORS.hotspot;
+    const shape = this.add.rectangle(x, y, width, height, color).setOrigin(0, 0).setInteractive({ useHandCursor: true });
+    // Labels sit at the top edge so a character standing in front of a hotspot doesn't hide its name.
+    const label = this.add
+      .text(x + width / 2, y + 14, hotspot.character ? hotspot.name.toUpperCase() : hotspot.name, { fontSize: '18px', color: COLORS.text })
+      .setOrigin(0.5);
 
     shape.on('pointerover', (pointer: Phaser.Input.Pointer) => {
       this.moveCaption(pointer);
@@ -101,6 +137,7 @@ export class RoomScene extends Phaser.Scene {
       event.stopPropagation();
       this.clickHotspot(hotspot, pointer);
     });
+    return [shape, label];
   }
 
   private clickHotspot(hotspot: Hotspot, pointer: Phaser.Input.Pointer): void {
@@ -209,7 +246,6 @@ export class RoomScene extends Phaser.Scene {
       x: to.x,
       y: to.y,
       duration: (distance(from, to) / WALK_SPEED) * 1000,
-      onUpdate: () => this.positionSpeech(),
       onComplete: () => {
         this.walkTween = undefined;
         this.state = { ...this.state, player: to };
@@ -221,30 +257,55 @@ export class RoomScene extends Phaser.Scene {
   private dispatch(command: Command): void {
     const result = handle(this.world, this.state, command);
     this.state = result.state;
-    result.effects.forEach((effect) => this.play(effect));
+    this.queue.push(...result.effects);
+    if (!this.busy) this.playNext();
   }
 
-  private play(effect: Effect): void {
+  /**
+   * Plays queued effects in order. `say` waits for its line to finish (or a click); everything else
+   * plays instantly. The core's state is already final; the queue only paces the presentation.
+   */
+  private playNext(): void {
+    const effect = this.queue.shift();
+    if (!effect) return this.idle();
+
+    this.busy = true;
+    this.skipBlocker.setVisible(true).setInteractive();
+    this.hover(undefined);
     switch (effect.type) {
       case 'say':
-        this.say(effect.text);
-        break;
+        return this.say(effect.text, effect.speaker ?? PLAYER, () => this.playNext());
       case 'addItem':
       case 'removeItem':
         this.refreshInventory();
         break;
       case 'setFlag':
+        this.refreshHotspots();
         break;
+      case 'startDialogue':
+      case 'endDialogue':
+        break;
+    }
+    this.playNext();
+  }
+
+  /** The queue is empty: hand control back to the player, in the room or in the conversation. */
+  private idle(): void {
+    this.busy = false;
+    this.skipBlocker.disableInteractive().setVisible(false);
+    if (this.state.conversation) {
+      this.dialogue.show(availableOptions(this.world, this.state), (optionId) => this.dispatch({ type: 'chooseOption', optionId }));
+    } else {
+      this.dialogue.hide();
     }
   }
 
-  private say(text: string): void {
+  private say(text: string, speaker: CharacterId, onDone: () => void): void {
     this.speech?.destroy();
-    this.speechTimer?.remove();
     this.speech = this.add
       .text(0, 0, text, {
         fontSize: '22px',
-        color: COLORS.speech,
+        color: this.world.characters[speaker]?.color ?? COLORS.text,
         align: 'center',
         wordWrap: { width: 520 },
         stroke: '#000000',
@@ -252,22 +313,34 @@ export class RoomScene extends Phaser.Scene {
       })
       .setOrigin(0.5, 1)
       .setDepth(900);
-    this.positionSpeech();
+    this.positionSpeech(speaker);
 
-    const readingTime = 1500 + text.length * 50;
-    this.speechTimer = this.time.delayedCall(readingTime, () => {
+    let done = false;
+    this.finishLine = () => {
+      if (done) return;
+      done = true;
+      this.speechTimer?.remove();
       this.speech?.destroy();
       this.speech = undefined;
-    });
+      this.finishLine = undefined;
+      onDone();
+    };
+    const readingTime = 1500 + text.length * 50;
+    this.speechTimer = this.time.delayedCall(readingTime, () => this.finishLine?.());
   }
 
-  /** Above Dana's head, kept fully on screen even when she stands near an edge. */
-  private positionSpeech(): void {
+  /** Above the speaker's head (Dana, or the hotspot that is that character), kept fully on screen. */
+  private positionSpeech(speaker: CharacterId): void {
     if (!this.speech) return;
+    const hotspot = this.drawnHotspots.find(({ hotspot }) => hotspot.character === speaker)?.hotspot;
+    const anchor =
+      speaker !== PLAYER && hotspot
+        ? { x: hotspot.bounds.x + hotspot.bounds.width / 2, y: hotspot.bounds.y - 12 }
+        : { x: this.player.x, y: this.player.y - PLAYER_SIZE.height - 12 };
     const halfWidth = this.speech.width / 2;
     this.speech.setPosition(
-      Phaser.Math.Clamp(this.player.x, halfWidth + 10, this.scale.width - halfWidth - 10),
-      Math.max(this.player.y - PLAYER_SIZE.height - 12, this.speech.height + 10),
+      Phaser.Math.Clamp(anchor.x, halfWidth + 10, this.scale.width - halfWidth - 10),
+      Math.max(anchor.y, this.speech.height + 10),
     );
   }
 }

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { pointInPolygon, type Point, type Polygon } from '../core/geometry';
-import type { Response } from '../core/types';
+import { PLAYER, type Effect, type Response } from '../core/types';
 import { initialState, world } from './world';
 
 const LOGICAL_WIDTH = 1280;
@@ -29,6 +29,28 @@ function expectKnownItem(itemId: string, where: string): void {
   ).toBeDefined();
 }
 
+function expectValidEffects(effects: readonly Effect[], where: string): void {
+  for (const effect of effects) {
+    if (effect.type === 'say') {
+      expect(effect.text.trim(), `${where} says an empty line`).not.toBe('');
+      const speaker = effect.speaker ?? PLAYER;
+      expect(
+        world.characters[speaker],
+        `${where} has a line spoken by "${speaker}", who isn't in world.characters (known: ${Object.keys(world.characters).join(', ')})`,
+      ).toBeDefined();
+    }
+    if (effect.type === 'addItem' || effect.type === 'removeItem') {
+      expectKnownItem(effect.itemId, `${where} (${effect.type})`);
+    }
+    if (effect.type === 'startDialogue') {
+      expect(
+        world.dialogues[effect.dialogueId],
+        `${where} starts dialogue "${effect.dialogueId}", which isn't in world.dialogues (known: ${Object.keys(world.dialogues).join(', ')})`,
+      ).toBeDefined();
+    }
+  }
+}
+
 /** The shared rules for any list of responses: verbs, item uses, combinations. */
 function expectValidResponses(responses: readonly Response[], where: string): void {
   expect(responses.length, `${where} has no responses; add at least one`).toBeGreaterThan(0);
@@ -39,14 +61,7 @@ function expectValidResponses(responses: readonly Response[], where: string): vo
   ).toBeUndefined();
 
   for (const [i, response] of responses.entries()) {
-    for (const effect of response.effects) {
-      if (effect.type === 'say') {
-        expect(effect.text.trim(), `${where}.responses[${i}] says an empty line`).not.toBe('');
-      }
-      if (effect.type === 'addItem' || effect.type === 'removeItem') {
-        expectKnownItem(effect.itemId, `${where}.responses[${i}] (${effect.type})`);
-      }
-    }
+    expectValidEffects(response.effects, `${where}.responses[${i}]`);
   }
 }
 
@@ -101,6 +116,60 @@ describe('content validation', () => {
     });
   });
 
+  for (const [key, character] of Object.entries(world.characters)) {
+    it(`character "${key}" is keyed by its id and has a name and colour`, () => {
+      expect(character.id, `world.characters["${key}"] holds a character whose id is "${character.id}"; make them match`).toBe(key);
+      expect(character.name.trim(), `character ${key} has an empty name`).not.toBe('');
+      expect(character.color, `character ${key}'s color "${character.color}" isn't a #rrggbb CSS colour`).toMatch(/^#[0-9a-f]{6}$/i);
+    });
+  }
+
+  it('has the player character', () => {
+    expect(world.characters[PLAYER], `world.characters needs "${PLAYER}": lines with no speaker are hers`).toBeDefined();
+  });
+
+  for (const [key, dialogue] of Object.entries(world.dialogues)) {
+    describe(`dialogue "${key}"`, () => {
+      it('is keyed by its id and starts at a real node', () => {
+        expect(dialogue.id, `world.dialogues["${key}"] holds a dialogue whose id is "${dialogue.id}"; make them match`).toBe(key);
+        expect(dialogue.nodes[dialogue.start], `${key}.start is "${dialogue.start}", which isn't one of its nodes (${Object.keys(dialogue.nodes).join(', ')})`).toBeDefined();
+      });
+
+      it('has a well-formed greeting', () => {
+        // Unlike verbs, a greeting may have no fallback: then nobody says anything first.
+        (dialogue.greeting ?? []).forEach((r, i) => expectValidEffects(r.effects, `${key}.greeting[${i}]`));
+      });
+
+      it('has unique option ids', () => {
+        const ids = Object.values(dialogue.nodes).flatMap((n) => n.options.map((o) => o.id));
+        const dupes = ids.filter((id, i) => ids.indexOf(id) !== i);
+        expect(dupes, `${key} reuses option ids ${dupes.join(', ')}; one-shot tracking needs them unique per dialogue`).toEqual([]);
+      });
+
+      for (const [nodeId, node] of Object.entries(dialogue.nodes)) {
+        it(`node "${nodeId}" can always be left`, () => {
+          const exits = node.options.filter((o) => o.when === undefined && !o.once);
+          expect(
+            exits.length,
+            `${key}.${nodeId} has no option that is always available (no "when", not "once"), so the player ` +
+              `could end up with no options. Add a repeatable way onward or out, like a goodbye`,
+          ).toBeGreaterThan(0);
+        });
+
+        for (const option of node.options) {
+          it(`option "${nodeId}.${option.id}" is well-formed`, () => {
+            const where = `${key}.${nodeId}.${option.id}`;
+            expect(option.text.trim(), `${where} has no text; it's what Dana says`).not.toBe('');
+            if (option.next !== 'end') {
+              expect(dialogue.nodes[option.next], `${where}.next is "${option.next}", which isn't a node in ${key} (${Object.keys(dialogue.nodes).join(', ')}) or "end"`).toBeDefined();
+            }
+            expectValidEffects(option.effects ?? [], where);
+          });
+        }
+      }
+    });
+  }
+
   describe('fallback lines', () => {
     it('has at least one line in each pool, using only known placeholders', () => {
       expect(world.fallbacks.useItemOn.length, 'world.fallbacks.useItemOn is empty').toBeGreaterThan(0);
@@ -127,6 +196,12 @@ describe('content validation', () => {
           it('has a name', () => {
             expect(hotspot.name.trim(), `${hotspot.id} has an empty name; it's what the hover label shows`).not.toBe('');
           });
+
+          if (hotspot.character !== undefined) {
+            it('is a known character', () => {
+              expect(world.characters[hotspot.character!], `${hotspot.id}.character is "${hotspot.character}", which isn't in world.characters`).toBeDefined();
+            });
+          }
 
           it('has a look verb', () => {
             expect(hotspot.verbs.look, `${hotspot.id} has no look verb; every hotspot needs a look line (it's where the jokes live)`).toBeDefined();

@@ -1,5 +1,6 @@
 import type { GameState, World } from '../core/types';
 import { lair, lairCombinations, lairItems } from './lair';
+import { reginald, reginaldDialogue } from './reginald';
 
 export const world: World = {
   rooms: {
@@ -7,6 +8,13 @@ export const world: World = {
   },
   items: Object.fromEntries(lairItems.map((item) => [item.id, item])),
   combinations: [...lairCombinations],
+  characters: {
+    dana: { id: 'dana', name: 'Dana', color: '#ffe28a' },
+    [reginald.id]: reginald,
+  },
+  dialogues: {
+    [reginaldDialogue.id]: reginaldDialogue,
+  },
   fallbacks: {
     // DRAFT: no "the" before {item} or {target}: names like "Gary's Arm" and "Gary" don't take one.
     useItemOn: [
@@ -26,4 +34,6 @@ export const initialState: GameState = {
   player: { x: 640, y: 560 },
   inventory: [],
   flags: {},
+  conversation: null,
+  spentOptions: [],
 };

@@ -4,6 +4,13 @@ export type RoomId = string;
 export type HotspotId = string;
 export type ItemId = string;
 export type FlagId = string;
+export type CharacterId = string;
+export type DialogueId = string;
+export type NodeId = string;
+export type OptionId = string;
+
+/** Who says a line when a `say` effect has no `speaker`. */
+export const PLAYER: CharacterId = 'dana';
 
 /** The verbs on the verb coin, in the order the coin shows them. */
 export const VERBS = ['look', 'take', 'talk', 'use'] as const;
@@ -14,10 +21,12 @@ export type Condition = { flag: FlagId } | { notFlag: FlagId } | { has: ItemId }
 
 /** Output from the core: what happened, in order. The engine applies state changes; the view plays them. */
 export type Effect =
-  | { type: 'say'; text: string }
+  | { type: 'say'; text: string; speaker?: CharacterId }
   | { type: 'addItem'; itemId: ItemId }
   | { type: 'removeItem'; itemId: ItemId }
-  | { type: 'setFlag'; flag: FlagId };
+  | { type: 'setFlag'; flag: FlagId }
+  | { type: 'startDialogue'; dialogueId: DialogueId }
+  | { type: 'endDialogue' };
 
 /** One possible outcome of a verb. The first response whose conditions hold is used. */
 export interface Response {
@@ -39,6 +48,10 @@ export type HotspotVerbs = { look: VerbSpec } & Partial<Record<Exclude<Verb, 'lo
 
 export interface Hotspot {
   id: HotspotId;
+  /** The hotspot only exists while these hold. Omit to always exist. */
+  when?: Condition[];
+  /** If this hotspot is a character, their lines are drawn above it. */
+  character?: CharacterId;
   /** Shown when the cursor hovers over the hotspot. */
   name: string;
   /** Clickable area. Also where the placeholder shape is drawn until real art arrives. */
@@ -64,6 +77,41 @@ export interface Item {
   look: string;
 }
 
+export interface Character {
+  id: CharacterId;
+  name: string;
+  /** CSS colour for this character's speech. */
+  color: string;
+}
+
+/** One of Dana's lines in a conversation. */
+export interface DialogueOption {
+  /** Unique within its dialogue. */
+  id: OptionId;
+  /** What Dana says when it's picked. */
+  text: string;
+  /** Only offered while these hold. */
+  when?: Condition[];
+  /** Gone for good once picked. */
+  once?: boolean;
+  /** Played after Dana says `text`: the reply, plus any state changes. */
+  effects?: Effect[];
+  /** Where the conversation goes next. */
+  next: NodeId | 'end';
+}
+
+export interface DialogueNode {
+  options: DialogueOption[];
+}
+
+export interface Dialogue {
+  id: DialogueId;
+  start: NodeId;
+  /** Played when the conversation starts: first matching response, or nothing if none match. */
+  greeting?: Response[];
+  nodes: Readonly<Record<NodeId, DialogueNode>>;
+}
+
 export interface Room {
   id: RoomId;
   name: string;
@@ -76,6 +124,8 @@ export interface World {
   rooms: Readonly<Record<RoomId, Room>>;
   items: Readonly<Record<ItemId, Item>>;
   combinations: readonly Combination[];
+  characters: Readonly<Record<CharacterId, Character>>;
+  dialogues: Readonly<Record<DialogueId, Dialogue>>;
   /**
    * Generic lines for when nothing specific is written. `{item}`, `{target}`, `{a}` and `{b}` are
    * replaced with names. The engine picks one deterministically, so the same attempt always gets
@@ -93,6 +143,10 @@ export interface GameState {
   player: Point;
   inventory: readonly ItemId[];
   flags: Readonly<Record<FlagId, boolean>>;
+  /** The conversation in progress, if any. */
+  conversation: { dialogueId: DialogueId; nodeId: NodeId } | null;
+  /** One-shot dialogue options already picked, as "dialogueId.optionId". */
+  spentOptions: readonly string[];
 }
 
 /** Input to the core: what the player asked to do. */
@@ -100,7 +154,8 @@ export type Command =
   | { type: 'verb'; verb: Verb; hotspotId: HotspotId }
   | { type: 'lookItem'; itemId: ItemId }
   | { type: 'useItemOn'; itemId: ItemId; hotspotId: HotspotId }
-  | { type: 'combine'; itemIds: readonly [ItemId, ItemId] };
+  | { type: 'combine'; itemIds: readonly [ItemId, ItemId] }
+  | { type: 'chooseOption'; optionId: OptionId };
 
 /** A verb as the coin should show it. */
 export interface VerbOption {

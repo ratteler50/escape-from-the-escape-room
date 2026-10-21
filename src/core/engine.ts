@@ -3,6 +3,8 @@ import {
   type Command,
   type CommandResult,
   type Condition,
+  type Dialogue,
+  type DialogueOption,
   type Effect,
   type GameState,
   type Hotspot,
@@ -24,9 +26,12 @@ const DEFAULT_LABELS: Record<Verb, string> = { look: 'Look', take: 'Take', talk:
  * state and the effects for the view to play. Never mutates its inputs.
  */
 export function handle(world: World, state: GameState, command: Command): CommandResult {
+  if (command.type !== 'chooseOption' && state.conversation) {
+    throw new Error(`Can't "${command.type}" during a conversation; choose a dialogue option instead`);
+  }
   switch (command.type) {
     case 'verb': {
-      const hotspot = findHotspot(currentRoom(world, state), command.hotspotId);
+      const hotspot = findHotspot(world, state, command.hotspotId);
       const spec = hotspot.verbs[command.verb];
       if (!spec || !holds(state, spec.when)) {
         throw new Error(`Verb "${command.verb}" is not available on hotspot "${hotspot.id}"`);
@@ -41,7 +46,7 @@ export function handle(world: World, state: GameState, command: Command): Comman
 
     case 'useItemOn': {
       const item = heldItem(world, state, command.itemId);
-      const hotspot = findHotspot(currentRoom(world, state), command.hotspotId);
+      const hotspot = findHotspot(world, state, command.hotspotId);
       const responses = hotspot.itemUses?.[item.id];
       if (responses) return respond(world, state, responses, `item "${item.id}" on "${hotspot.id}"`);
 
@@ -63,12 +68,43 @@ export function handle(world: World, state: GameState, command: Command): Comman
       const key = [a.id, b.id].sort().join('+');
       return { state, effects: [{ type: 'say', text: pickFallback(world.fallbacks.combine, key, { a: a.name, b: b.name }) }] };
     }
+
+    case 'chooseOption': {
+      const conversation = state.conversation;
+      if (!conversation) throw new Error('Not in a conversation');
+      const option = availableOptions(world, state).find((o) => o.id === command.optionId);
+      if (!option) throw new Error(`Option "${command.optionId}" is not available in "${conversation.dialogueId}.${conversation.nodeId}"`);
+
+      let next = state;
+      if (option.once) next = { ...next, spentOptions: [...next.spentOptions, spentKey(conversation.dialogueId, option)] };
+      const effects: Effect[] = [{ type: 'say', text: option.text }, ...(option.effects ?? [])];
+      if (option.next === 'end') effects.push({ type: 'endDialogue' });
+      else next = { ...next, conversation: { ...conversation, nodeId: option.next } };
+      return run(world, next, effects);
+    }
   }
+}
+
+/** Dana's options right now: the current node's options whose conditions hold, minus spent one-shots. */
+export function availableOptions(world: World, state: GameState): DialogueOption[] {
+  const conversation = state.conversation;
+  if (!conversation) throw new Error('Not in a conversation');
+  const dialogue = findDialogue(world, conversation.dialogueId);
+  const node = dialogue.nodes[conversation.nodeId];
+  if (!node) throw new Error(`No node "${conversation.nodeId}" in dialogue "${dialogue.id}"`);
+  return node.options.filter(
+    (o) => holds(state, o.when) && !(o.once && state.spentOptions.includes(spentKey(dialogue.id, o))),
+  );
+}
+
+/** The current room's hotspots that exist right now. */
+export function visibleHotspots(world: World, state: GameState): Hotspot[] {
+  return currentRoom(world, state).hotspots.filter((h) => holds(state, h.when));
 }
 
 /** The verbs the coin should offer on a hotspot right now, in coin order. */
 export function availableVerbs(world: World, state: GameState, hotspotId: HotspotId): VerbOption[] {
-  const hotspot = findHotspot(currentRoom(world, state), hotspotId);
+  const hotspot = findHotspot(world, state, hotspotId);
   return VERBS.flatMap((verb) => {
     const spec: VerbSpec | undefined = hotspot.verbs[verb];
     if (!spec || !holds(state, spec.when)) return [];
@@ -82,10 +118,20 @@ export function currentRoom(world: World, state: GameState): Room {
   return room;
 }
 
-function findHotspot(room: Room, id: HotspotId): Hotspot {
-  const hotspot = room.hotspots.find((h) => h.id === id);
-  if (!hotspot) throw new Error(`No hotspot "${id}" in room "${room.id}"`);
+function findHotspot(world: World, state: GameState, id: HotspotId): Hotspot {
+  const hotspot = visibleHotspots(world, state).find((h) => h.id === id);
+  if (!hotspot) throw new Error(`No hotspot "${id}" in room "${state.roomId}" right now`);
   return hotspot;
+}
+
+function findDialogue(world: World, id: string): Dialogue {
+  const dialogue = world.dialogues[id];
+  if (!dialogue) throw new Error(`Unknown dialogue "${id}"`);
+  return dialogue;
+}
+
+function spentKey(dialogueId: string, option: DialogueOption): string {
+  return `${dialogueId}.${option.id}`;
 }
 
 function heldItem(world: World, state: GameState, id: ItemId): Item {
@@ -99,7 +145,27 @@ function heldItem(world: World, state: GameState, id: ItemId): Item {
 function respond(world: World, state: GameState, responses: readonly Response[], what: string): CommandResult {
   const response = responses.find((r) => holds(state, r.when));
   if (!response) throw new Error(`No response for ${what} matches the current state`);
-  return { state: response.effects.reduce((s, effect) => apply(world, s, effect), state), effects: response.effects };
+  return run(world, state, response.effects);
+}
+
+/**
+ * Applies effects in order and returns everything that happened. Starting a dialogue also plays its
+ * greeting, so the returned list can be longer than the one passed in.
+ */
+function run(world: World, state: GameState, effects: readonly Effect[]): CommandResult {
+  const queue = [...effects];
+  const played: Effect[] = [];
+  let current = state;
+  while (queue.length > 0) {
+    const effect = queue.shift()!;
+    current = apply(world, current, effect);
+    played.push(effect);
+    if (effect.type === 'startDialogue') {
+      const greeting = findDialogue(world, effect.dialogueId).greeting?.find((r) => holds(current, r.when));
+      if (greeting) queue.unshift(...greeting.effects);
+    }
+  }
+  return { state: current, effects: played };
 }
 
 function holds(state: GameState, conditions: readonly Condition[] = []): boolean {
@@ -124,6 +190,12 @@ function apply(world: World, state: GameState, effect: Effect): GameState {
       return { ...state, inventory: state.inventory.filter((id) => id !== effect.itemId) };
     case 'setFlag':
       return { ...state, flags: { ...state.flags, [effect.flag]: true } };
+    case 'startDialogue': {
+      const dialogue = findDialogue(world, effect.dialogueId);
+      return { ...state, conversation: { dialogueId: dialogue.id, nodeId: dialogue.start } };
+    }
+    case 'endDialogue':
+      return { ...state, conversation: null };
   }
 }
 
