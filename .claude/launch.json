@@ -4,8 +4,29 @@
     {
       "name": "dev",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev", "--", "--port", "5173", "--strictPort"],
+      "runtimeArgs": [
+        "run",
+        "dev",
+        "--",
+        "--port",
+        "5173",
+        "--strictPort"
+      ],
       "port": 5173
+    },
+    {
+      "name": "preview-pages",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": [
+        "vite",
+        "preview",
+        "--base",
+        "/escape-from-the-escape-room/",
+        "--port",
+        "4174",
+        "--strictPort"
+      ],
+      "port": 4174
     }
   ]
 }
