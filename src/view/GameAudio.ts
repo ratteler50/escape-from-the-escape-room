@@ -84,11 +84,6 @@ export class GameAudio {
     sting.play();
   }
 
-  /** Whether a sting is ducking the music now. */
-  get ducked(): boolean {
-    return this.ducks > 0;
-  }
-
   /** Crossfades to a track, looping. `undefined` (a room with no music yet) keeps the current one. */
   playMusic(track: TrackId | undefined): void {
     if (track === undefined) return;
