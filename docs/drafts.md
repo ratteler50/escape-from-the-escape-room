@@ -92,7 +92,7 @@ for an item; "Dana (option)" is a line Dana says when the player picks it in a c
 | `reginald.ts:183` | Reginald | ...! |
 | `reginald.ts:185` | Reginald | ARISE! ARIIIISE! Yes! Find your light, Reginald! |
 | `reginald.ts:190` | Reginald | Behold, mortal, as the light finds me and— ...Gary? |
-| `reginald.ts:192` | Reginald | That is MY spotlight. On MY mark. And it is lovingly illuminating a man with no lines! |
+| `reginald.ts:192` | Reginald | I am ON my mark! The light is meant to fall HERE. Instead it is lovingly illuminating a man with no lines, over THERE! |
 | `reginald.ts:194` | Reginald | Fine. FINE. A true professional holds his mark in the dark. Whoever rigged that is getting a strongly worded note. |
 | `reginald.ts:196` | Dana | He's sulking on his mark, in the dark. Which means the Spooky Seat is unguarded. |
 | `reginald.ts:204` | Reginald | Farewell, mortal! Mind the fourth wall on your way out. |

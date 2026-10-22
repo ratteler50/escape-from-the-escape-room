@@ -189,7 +189,7 @@ export const reginaldDialogue: Dialogue = {
             // DRAFT:
             R('Behold, mortal, as the light finds me and— ...Gary?'),
             // DRAFT:
-            R('That is MY spotlight. On MY mark. And it is lovingly illuminating a man with no lines!'),
+            R('I am ON my mark! The light is meant to fall HERE. Instead it is lovingly illuminating a man with no lines, over THERE!'),
             // DRAFT:
             R('Fine. FINE. A true professional holds his mark in the dark. Whoever rigged that is getting a strongly worded note.'),
             // DRAFT:
