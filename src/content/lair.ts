@@ -56,27 +56,29 @@ export const lairCombinations: Combination[] = [
   },
 ];
 
-// Layout: the back wall fills the top of the screen, the floor is a trapezoid from y=420 down to
-// y=620. Below the floor is the inventory bar.
+// The painting (docs/art/lair.md) sets the layout: hotspot bounds and the walkable floor are fitted
+// to what's painted. The floor runs edge to edge from y=445 down to y=620; below it is the inventory bar.
 export const lair: Room = {
   id: 'lair',
   name: "The Lich's Lair",
+  // Generated from docs/art/lair-layout.svg; bounds were then nudged to match the painting.
+  art: { background: 'assets/rooms/lair.webp' },
   entries: {
     start: { x: 640, y: 560 },
     fromGiftShop: { x: 1060, y: 470 },
   },
   walkable: [
-    { x: 160, y: 420 },
-    { x: 1120, y: 420 },
-    { x: 1220, y: 620 },
-    { x: 60, y: 620 },
+    { x: 60, y: 445 },
+    { x: 1235, y: 445 },
+    { x: 1270, y: 620 },
+    { x: 10, y: 620 },
   ],
   hotspots: [
     {
       id: 'door',
       name: 'Door',
-      bounds: { x: 1040, y: 140, width: 150, height: 280 },
-      interactionPoint: { x: 1080, y: 450 },
+      bounds: { x: 1075, y: 112, width: 158, height: 330 },
+      interactionPoint: { x: 1150, y: 462 },
       verbs: {
         look: {
           responses: [
@@ -116,8 +118,8 @@ export const lair: Room = {
     {
       id: 'throne',
       name: 'Throne',
-      bounds: { x: 540, y: 160, width: 200, height: 260 },
-      interactionPoint: { x: 640, y: 460 },
+      bounds: { x: 515, y: 80, width: 222, height: 360 },
+      interactionPoint: { x: 626, y: 465 },
       verbs: {
         look: {
           responses: [
@@ -150,8 +152,8 @@ export const lair: Room = {
       // the finale (slice 16), when it ends up in the Gift Shop's bargain bin.
       id: 'phylactery',
       name: 'Phylactery',
-      bounds: { x: 470, y: 330, width: 60, height: 90 },
-      interactionPoint: { x: 500, y: 460 },
+      bounds: { x: 428, y: 276, width: 58, height: 146 },
+      interactionPoint: { x: 470, y: 472 },
       verbs: {
         // DRAFT:
         look: says(`A glowing skull-shaped jar on a plinth. The estate-sale sticker says "LOT 47: SPOOKY JAR (ASSORTED), $3.50". It's whispering. Props don't whisper. I'd remember that from training.`),
@@ -164,7 +166,7 @@ export const lair: Room = {
     {
       id: 'coffin',
       name: 'Coffin',
-      bounds: { x: 30, y: 190, width: 110, height: 230 },
+      bounds: { x: 10, y: 175, width: 128, height: 262 },
       interactionPoint: { x: 200, y: 470 },
       verbs: {
         // DRAFT:
@@ -194,8 +196,8 @@ export const lair: Room = {
     {
       id: 'gary',
       name: 'Gary',
-      bounds: { x: 200, y: 180, width: 90, height: 240 },
-      interactionPoint: { x: 260, y: 460 },
+      bounds: { x: 166, y: 156, width: 98, height: 290 },
+      interactionPoint: { x: 220, y: 475 },
       verbs: {
         look: {
           responses: [
@@ -232,7 +234,7 @@ export const lair: Room = {
     {
       id: 'reviews',
       name: 'Customer Reviews',
-      bounds: { x: 800, y: 200, width: 180, height: 130 },
+      bounds: { x: 815, y: 137, width: 180, height: 140 },
       interactionPoint: { x: 890, y: 450 },
       verbs: {
         // DRAFT:
@@ -244,24 +246,24 @@ export const lair: Room = {
     {
       id: 'displayCase',
       name: 'Display Case',
-      bounds: { x: 750, y: 340, width: 110, height: 80 },
-      interactionPoint: { x: 805, y: 460 },
+      bounds: { x: 752, y: 284, width: 112, height: 152 },
+      interactionPoint: { x: 808, y: 470 },
       verbs: {
         look: {
           responses: [
             // DRAFT:
-            { when: [{ flag: 'doorUnlocked' }], effects: [say("The scroll's back on its velvet. The little card says 'ANCIENT RIDDLE (REPRODUCTION)'. It has never been more wrong.")] },
+            { when: [{ flag: 'doorUnlocked' }], effects: [say("The scroll's tucked back under the bone. Its little card says 'ANCIENT RIDDLE (REPRODUCTION)'. It has never been more wrong.")] },
             // DRAFT:
-            { when: [{ flag: 'caseOpen' }], effects: [say("An empty display case. The little card says 'ANCIENT RIDDLE (REPRODUCTION)'.")] },
+            { when: [{ flag: 'caseOpen' }], effects: [say("Just the bone now. Its card says 'BONE (DECORATIVE)'. The scroll's card says 'ANCIENT RIDDLE (REPRODUCTION)', and points at nothing.")] },
             // DRAFT:
-            { effects: [say('An ornate display case. Inside, on velvet: an Ancient Riddle Scroll. The lock is tiny and skull-shaped.')] },
+            { effects: [say("An ornate display case. Inside, on velvet: a bone, labelled 'BONE (DECORATIVE)'. Tucked underneath it: an Ancient Riddle Scroll. The lock is tiny and skull-shaped.")] },
           ],
         },
         use: {
           label: 'Open',
           responses: [
             // DRAFT:
-            { when: [{ flag: 'caseOpen' }], effects: [say("It's open and it's empty. Like my sense of job security.")] },
+            { when: [{ flag: 'caseOpen' }], effects: [say("It's open. All that's left is the decorative bone, and I'm not stealing set dressing on my first day.")] },
             // DRAFT:
             { effects: [say("Locked. The keyhole is shaped like a tiny skull. Head office loves a theme.")] },
           ],
@@ -273,7 +275,7 @@ export const lair: Room = {
             when: [{ notFlag: 'caseOpen' }],
             effects: [
               // DRAFT:
-              say("Click. The case opens. I take the Ancient Riddle Scroll and leave the key in the lock, like a responsible trainee."),
+              say("Click. The case opens. I slide the Ancient Riddle Scroll out from under the bone and leave the key in the lock, like a responsible trainee."),
               { type: 'removeItem', itemId: caseKey.id },
               { type: 'addItem', itemId: riddleScroll.id },
               setFlag('caseOpen'),
@@ -287,8 +289,8 @@ export const lair: Room = {
     {
       id: 'keypad',
       name: 'Keypad',
-      bounds: { x: 985, y: 240, width: 50, height: 80 },
-      interactionPoint: { x: 1010, y: 450 },
+      bounds: { x: 1000, y: 205, width: 44, height: 52 },
+      interactionPoint: { x: 1020, y: 465 },
       verbs: {
         // DRAFT:
         look: says('Four rune buttons and a brass plate: "ENTER CODE TO ESCAPE". Below it, smaller: "NO REFUNDS".'),
@@ -315,7 +317,7 @@ export const lair: Room = {
               // DRAFT:
               say("CLUNK. The door unlocks. I've beaten head office at their own game. By reading."),
               // DRAFT:
-              say('Handbook Section 3: lost property must be returned. I return the scroll to its velvet.'),
+              say('Handbook Section 3: lost property must be returned. I tuck the scroll back under its bone.'),
               { type: 'removeItem', itemId: riddleScroll.id },
             ],
           },
@@ -327,8 +329,8 @@ export const lair: Room = {
     {
       id: 'grate',
       name: 'Floor Grate',
-      bounds: { x: 380, y: 530, width: 130, height: 50 },
-      interactionPoint: { x: 445, y: 515 },
+      bounds: { x: 312, y: 512, width: 204, height: 72 },
+      interactionPoint: { x: 414, y: 498 },
       verbs: {
         look: {
           responses: [

@@ -136,6 +136,13 @@ export interface Room {
   entries: Readonly<Record<EntryId, Point>>;
   walkable: Polygon;
   hotspots: readonly Hotspot[];
+  /** Painted art for the room (M4). Presentation only: the core never reads it. */
+  art?: RoomArt;
+}
+
+export interface RoomArt {
+  /** The background painting, a path under `public/` (e.g. "assets/rooms/lair.webp"), 1280×720. */
+  background: string;
 }
 
 /** All game content. Static: never changes during play. */

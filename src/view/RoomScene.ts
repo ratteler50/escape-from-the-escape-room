@@ -8,7 +8,7 @@ import { showEndCard } from './EndCard';
 import { InventoryBar } from './InventoryBar';
 import { showGameMenu, showSlotList } from './menus';
 import { PlayerSprite, WALK_SPEED } from './PlayerSprite';
-import { RoomView } from './RoomView';
+import { roomArtKey, RoomView } from './RoomView';
 import { Speech } from './Speech';
 import type { GameData } from './TitleScene';
 import { button } from './ui';
@@ -69,6 +69,13 @@ export class RoomScene extends Phaser.Scene {
     this.busy = false;
   }
 
+  /** Loads every room's painting up front, so changing rooms never waits. Rooms without art skip. */
+  preload(): void {
+    for (const room of Object.values(this.world.rooms)) {
+      if (room.art && !this.textures.exists(roomArtKey(room))) this.load.image(roomArtKey(room), room.art.background);
+    }
+  }
+
   create(): void {
     this.input.mouse?.disableContextMenu();
     this.caption = this.add.text(0, 0, '', { fontSize: '22px', color: '#ffffff', stroke: '#000000', strokeThickness: 4 }).setDepth(1500).setVisible(false);
@@ -101,6 +108,9 @@ export class RoomScene extends Phaser.Scene {
     // Above the line-skip blocker, so it can be clicked while a scene plays. Shown only then.
     this.skipButton = button(this, this.scale.width - 90, 590, 'Skip ⏭', () => this.skipScene()).setDepth(1850).setVisible(false);
     this.input.keyboard?.on('keydown-ESC', () => (this.busy ? this.skipScene() : this.putAway()));
+    // Hold H to see everything clickable (the ☰ menu has a sticky toggle for touch players).
+    this.input.keyboard?.on('keydown-H', () => this.roomView.holdReveal(true));
+    this.input.keyboard?.on('keyup-H', () => this.roomView.holdReveal(false));
     // Clicks on hotspots, items, the bar, panels, and the coin stop propagation, so this is a floor click.
     this.input.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
       if (this.held) return this.putAway();
@@ -353,6 +363,7 @@ export class RoomScene extends Phaser.Scene {
             if (result.ok) this.scene.restart({ ...this.data_, state: result.state });
           }, closed),
         quitToTitle: () => this.scene.start('TitleScene', this.data_),
+        revealClickable: { on: this.roomView.revealOn, toggle: () => this.roomView.toggleReveal() },
       },
       closed,
     );

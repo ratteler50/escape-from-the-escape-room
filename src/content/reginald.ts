@@ -33,7 +33,7 @@ const verbs: HotspotVerbs = {
   look: {
     responses: [
       // DRAFT:
-      { when: [{ flag: 'reginaldLeftThrone' }], effects: [say('Reginald, standing on his spotlight mark, waiting for a spotlight that was never installed.')] },
+      { when: [{ flag: 'reginaldLeftThrone' }], effects: [say('Reginald, standing on his mark in the dark, while his spotlight lovingly illuminates Gary.')] },
       // DRAFT:
       { effects: [say("Reginald Vantablack-Thorne, the Lich Lord. Actually undead now. He's never looked happier.")] },
     ],
@@ -66,8 +66,9 @@ export const reginaldOnThrone: Hotspot = {
   name: 'Reginald',
   character: reginald.id,
   when: [{ notFlag: 'reginaldLeftThrone' }],
-  bounds: { x: 600, y: 210, width: 80, height: 190 },
-  interactionPoint: { x: 640, y: 460 },
+  // Centred on the painted throne (its box spans x 515-737, centre 626).
+  bounds: { x: 586, y: 210, width: 80, height: 190 },
+  interactionPoint: { x: 626, y: 465 },
   verbs,
   itemUses,
 };
@@ -77,8 +78,8 @@ export const reginaldOnMark: Hotspot = {
   name: 'Reginald',
   character: reginald.id,
   when: [{ flag: 'reginaldLeftThrone' }],
-  bounds: { x: 380, y: 220, width: 70, height: 200 },
-  interactionPoint: { x: 415, y: 470 },
+  bounds: { x: 370, y: 255, width: 70, height: 200 },
+  interactionPoint: { x: 470, y: 488 },
   verbs,
   itemUses,
 };
@@ -170,7 +171,7 @@ export const reginaldDialogue: Dialogue = {
             // DRAFT:
             R('ARISE! ARIIIISE! Yes! Find your light, Reginald!'),
             // To his spotlight mark: the feet of the reginaldOnMark hotspot.
-            walk(reginald.id, 415, 420),
+            walk(reginald.id, 405, 455),
             setFlag('reginaldLeftThrone'),
             // DRAFT:
             say("He's swept off to his spotlight mark. Which means the Spooky Seat is unguarded."),

@@ -16,53 +16,53 @@ for an item; "Dana (option)" is a line Dana says when the player picks it in a c
 | `lair.ts:30` | Look | A tiny key on a skull keyring. The keyring says DISPLAY CASE. Head office labels everything except the puzzles. |
 | `lair.ts:37` | Look | It reads: "THE ANSWER IS: [INSERT CODE HERE BEFORE PRINTING]". Head office. Of COURSE. Then again, the curse made the whole script real. Does that include the typos? |
 | `lair.ts:49` | Dana | I press the gum onto Gary's fingertip. It's disgusting. It's perfect. |
-| `lair.ts:84` | Dana | Unlocked! Beyond it: the Gift Shop. I can already hear the mugs. |
-| `lair.ts:86` | Dana | A heavy oak door. Well, heavy oak-effect laminate. Section 9 of the Handbook says it should never be locked during business hours. It is locked. |
-| `lair.ts:90` | Dana | Hello? Door? I'd like to speak to your manager. ... Its manager is also a door. |
-| `lair.ts:99` | Dana | Freedom! Or at least... retail. |
-| `lair.ts:111` | Dana | Wrong key. It's for the display case. It literally says so on it. |
-| `lair.ts:114` | Dana | The door remains locked. It is unmoved by my offerings. |
-| `lair.ts:125` | Dana | Reginald is sitting on it. Sitting is a strong word. He's lounging, dramatically. |
-| `lair.ts:127` | Dana | A towering throne of bone. The estate-sale sticker on the armrest says "LOT 12: SPOOKY SEAT (BONE-EFFECT), $49.99". |
-| `lair.ts:137` | Dana | Under the cushion: one wad of pre-owned gum. Handbook Section 3: "Lost property must be logged." Consider it logged. |
-| `lair.ts:145` | Dana | Handbook Section 7.1: "The Spooky Seat is for liches only." I am not a lich. I'm barely a trainee. |
-| `lair.ts:157` | Dana | A glowing skull-shaped jar on a plinth. The estate-sale sticker says "LOT 47: SPOOKY JAR (ASSORTED), $3.50". It's whispering. Props don't whisper. I'd remember that from training. |
-| `lair.ts:159` | Dana | Cable-locked to the plinth. Head office's anti-theft cable: they trust the lich with it, but not the staff. |
-| `lair.ts:161` | Dana | "...my teapot... my good teapot... two dollars..." I don't know what that means. I don't like that I don't know what that means. |
-| `lair.ts:171` | Dana | A coffin with a gold star on the lid. "R. VANTABLACK-THORNE: DRESSING ROOM. KNOCK." |
-| `lair.ts:179` | Dana | Inside: a mirror, hairspray labelled UNDEAD HOLD, and a dog-eared script. His cue is underlined three times: "Rise, foul creature, and face me!" |
-| `lair.ts:185` | Dana | His script's back where it belongs. I know the cue by heart now: "Rise, foul creature, and face me!" |
-| `lair.ts:187` | Dana | Just the mirror and the hairspray. And a signed photo of Reginald, signed by Reginald. |
-| `lair.ts:203` | Dana | Gary, now with 50% fewer arms. He's taking it very well. |
-| `lair.ts:205` | Dana | Gary the skeleton. His name tag says he's been Employee of the Month eleven times. I've never even been Employee of the Shift. |
-| `lair.ts:215` | Dana | Sorry, Gary. I'll bring it back. Probably. Handbook Section 4.2 says nothing about skeletons. |
-| `lair.ts:223` | Dana | Hi, Gary. ... Gary says nothing. Gary has always been a wonderful listener. |
-| `lair.ts:227` | Dana | I offer Gary his arm back. He doesn't want it. He's moved on. |
-| `lair.ts:229` | Dana | I am NOT giving it back to him like this. |
-| `lair.ts:239` | Dana | "One star. Could not escape." "One star. Still here." "Five stars! Very immersive!" That last one's from Reginald's mum. |
-| `lair.ts:241` | Dana | "Two stars. Staff were polite but the lich was hammy." Handbook Section 11: employees may not review their own workplace. I'll sign it "Gary". |
-| `lair.ts:253` | Dana | The scroll's back on its velvet. The little card says 'ANCIENT RIDDLE (REPRODUCTION)'. It has never been more wrong. |
-| `lair.ts:255` | Dana | An empty display case. The little card says 'ANCIENT RIDDLE (REPRODUCTION)'. |
-| `lair.ts:257` | Dana | An ornate display case. Inside, on velvet: an Ancient Riddle Scroll. The lock is tiny and skull-shaped. |
-| `lair.ts:264` | Dana | It's open and it's empty. Like my sense of job security. |
-| `lair.ts:266` | Dana | Locked. The keyhole is shaped like a tiny skull. Head office loves a theme. |
-| `lair.ts:276` | Dana | Click. The case opens. I take the Ancient Riddle Scroll and leave the key in the lock, like a responsible trainee. |
-| `lair.ts:283` | Dana | It's already open. |
-| `lair.ts:294` | Dana | Four rune buttons and a brass plate: "ENTER CODE TO ESCAPE". Below it, smaller: "NO REFUNDS". |
-| `lair.ts:299` | Dana | Already done. C-O-D-E. I'll never forget it. I'll try. |
-| `lair.ts:301` | Dana | L-I-C-H. Nothing. D-O-O-M. Nothing. G-A-R-Y. Nothing, and Gary looks hurt. I need the actual code. |
-| `lair.ts:311` | Dana | "THE ANSWER IS: [INSERT CODE HERE BEFORE PRINTING]." The curse bound itself to the script as printed... |
-| `lair.ts:313` | Dana | ...so the code is literally... C. O. D. E. |
-| `lair.ts:316` | Dana | CLUNK. The door unlocks. I've beaten head office at their own game. By reading. |
-| `lair.ts:318` | Dana | Handbook Section 3: lost property must be returned. I return the scroll to its velvet. |
-| `lair.ts:323` | Dana | The door's already unlocked. I'm not typing CODE again. It felt silly enough the first time. |
-| `lair.ts:336` | Dana | Gary's arm, gummed to the grate, waving at nobody. A pamphlet down there: "Emergency Procedures for Staff". Fire, flood, fainting guest. Nothing about liches. I checked twice. |
-| `lair.ts:338` | Dana | A floor grate. Something small and shiny glints down there, just out of reach. I'd need a longer arm. Or a spare one. |
-| `lair.ts:348` | Dana | I lower the Sticky Arm through the bars... gently... got it! A key. Gary would be proud. Gary is never proud. |
-| `lair.ts:351` | Dana | The gum lets go of the key and grabs the grate instead. Gary's arm is staying there. I'm told that's what gum does. |
-| `lair.ts:357` | Dana | There's nothing else down there worth getting gum on. |
-| `lair.ts:360` | Dana | Gary's fingers brush the key, but it won't stay put. If only they were... stickier. |
-| `lair.ts:363` | Dana | That won't fit through the grate. Most things won't. That's rather the point of a grate. |
+| `lair.ts:86` | Dana | Unlocked! Beyond it: the Gift Shop. I can already hear the mugs. |
+| `lair.ts:88` | Dana | A heavy oak door. Well, heavy oak-effect laminate. Section 9 of the Handbook says it should never be locked during business hours. It is locked. |
+| `lair.ts:92` | Dana | Hello? Door? I'd like to speak to your manager. ... Its manager is also a door. |
+| `lair.ts:101` | Dana | Freedom! Or at least... retail. |
+| `lair.ts:113` | Dana | Wrong key. It's for the display case. It literally says so on it. |
+| `lair.ts:116` | Dana | The door remains locked. It is unmoved by my offerings. |
+| `lair.ts:127` | Dana | Reginald is sitting on it. Sitting is a strong word. He's lounging, dramatically. |
+| `lair.ts:129` | Dana | A towering throne of bone. The estate-sale sticker on the armrest says "LOT 12: SPOOKY SEAT (BONE-EFFECT), $49.99". |
+| `lair.ts:139` | Dana | Under the cushion: one wad of pre-owned gum. Handbook Section 3: "Lost property must be logged." Consider it logged. |
+| `lair.ts:147` | Dana | Handbook Section 7.1: "The Spooky Seat is for liches only." I am not a lich. I'm barely a trainee. |
+| `lair.ts:159` | Dana | A glowing skull-shaped jar on a plinth. The estate-sale sticker says "LOT 47: SPOOKY JAR (ASSORTED), $3.50". It's whispering. Props don't whisper. I'd remember that from training. |
+| `lair.ts:161` | Dana | Cable-locked to the plinth. Head office's anti-theft cable: they trust the lich with it, but not the staff. |
+| `lair.ts:163` | Dana | "...my teapot... my good teapot... two dollars..." I don't know what that means. I don't like that I don't know what that means. |
+| `lair.ts:173` | Dana | A coffin with a gold star on the lid. "R. VANTABLACK-THORNE: DRESSING ROOM. KNOCK." |
+| `lair.ts:181` | Dana | Inside: a mirror, hairspray labelled UNDEAD HOLD, and a dog-eared script. His cue is underlined three times: "Rise, foul creature, and face me!" |
+| `lair.ts:187` | Dana | His script's back where it belongs. I know the cue by heart now: "Rise, foul creature, and face me!" |
+| `lair.ts:189` | Dana | Just the mirror and the hairspray. And a signed photo of Reginald, signed by Reginald. |
+| `lair.ts:205` | Dana | Gary, now with 50% fewer arms. He's taking it very well. |
+| `lair.ts:207` | Dana | Gary the skeleton. His name tag says he's been Employee of the Month eleven times. I've never even been Employee of the Shift. |
+| `lair.ts:217` | Dana | Sorry, Gary. I'll bring it back. Probably. Handbook Section 4.2 says nothing about skeletons. |
+| `lair.ts:225` | Dana | Hi, Gary. ... Gary says nothing. Gary has always been a wonderful listener. |
+| `lair.ts:229` | Dana | I offer Gary his arm back. He doesn't want it. He's moved on. |
+| `lair.ts:231` | Dana | I am NOT giving it back to him like this. |
+| `lair.ts:241` | Dana | "One star. Could not escape." "One star. Still here." "Five stars! Very immersive!" That last one's from Reginald's mum. |
+| `lair.ts:243` | Dana | "Two stars. Staff were polite but the lich was hammy." Handbook Section 11: employees may not review their own workplace. I'll sign it "Gary". |
+| `lair.ts:255` | Dana | The scroll's tucked back under the bone. Its little card says 'ANCIENT RIDDLE (REPRODUCTION)'. It has never been more wrong. |
+| `lair.ts:257` | Dana | Just the bone now. Its card says 'BONE (DECORATIVE)'. The scroll's card says 'ANCIENT RIDDLE (REPRODUCTION)', and points at nothing. |
+| `lair.ts:259` | Dana | An ornate display case. Inside, on velvet: a bone, labelled 'BONE (DECORATIVE)'. Tucked underneath it: an Ancient Riddle Scroll. The lock is tiny and skull-shaped. |
+| `lair.ts:266` | Dana | It's open. All that's left is the decorative bone, and I'm not stealing set dressing on my first day. |
+| `lair.ts:268` | Dana | Locked. The keyhole is shaped like a tiny skull. Head office loves a theme. |
+| `lair.ts:278` | Dana | Click. The case opens. I slide the Ancient Riddle Scroll out from under the bone and leave the key in the lock, like a responsible trainee. |
+| `lair.ts:285` | Dana | It's already open. |
+| `lair.ts:296` | Dana | Four rune buttons and a brass plate: "ENTER CODE TO ESCAPE". Below it, smaller: "NO REFUNDS". |
+| `lair.ts:301` | Dana | Already done. C-O-D-E. I'll never forget it. I'll try. |
+| `lair.ts:303` | Dana | L-I-C-H. Nothing. D-O-O-M. Nothing. G-A-R-Y. Nothing, and Gary looks hurt. I need the actual code. |
+| `lair.ts:313` | Dana | "THE ANSWER IS: [INSERT CODE HERE BEFORE PRINTING]." The curse bound itself to the script as printed... |
+| `lair.ts:315` | Dana | ...so the code is literally... C. O. D. E. |
+| `lair.ts:318` | Dana | CLUNK. The door unlocks. I've beaten head office at their own game. By reading. |
+| `lair.ts:320` | Dana | Handbook Section 3: lost property must be returned. I tuck the scroll back under its bone. |
+| `lair.ts:325` | Dana | The door's already unlocked. I'm not typing CODE again. It felt silly enough the first time. |
+| `lair.ts:338` | Dana | Gary's arm, gummed to the grate, waving at nobody. A pamphlet down there: "Emergency Procedures for Staff". Fire, flood, fainting guest. Nothing about liches. I checked twice. |
+| `lair.ts:340` | Dana | A floor grate. Something small and shiny glints down there, just out of reach. I'd need a longer arm. Or a spare one. |
+| `lair.ts:350` | Dana | I lower the Sticky Arm through the bars... gently... got it! A key. Gary would be proud. Gary is never proud. |
+| `lair.ts:353` | Dana | The gum lets go of the key and grabs the grate instead. Gary's arm is staying there. I'm told that's what gum does. |
+| `lair.ts:359` | Dana | There's nothing else down there worth getting gum on. |
+| `lair.ts:362` | Dana | Gary's fingers brush the key, but it won't stay put. If only they were... stickier. |
+| `lair.ts:365` | Dana | That won't fit through the grate. Most things won't. That's rather the point of a grate. |
 
 ## Reginald (25)
 
@@ -71,28 +71,28 @@ for an item; "Dana (option)" is a line Dana says when the player picks it in a c
 | `reginald.ts:10` | Look | Act One, Scene One. His cue: "Rise, foul creature, and face me!" The margins say PAUSE FOR APPLAUSE eleven times. |
 | `reginald.ts:17` | Dana | "Rise, foul creature, and face me!" Rise, foul creature... and face me! Got it. Word perfect. |
 | `reginald.ts:19` | Dana | Handbook Section 3: lost property must be returned. I pop the script back in his coffin. |
-| `reginald.ts:36` | Dana | Reginald, standing on his spotlight mark, waiting for a spotlight that was never installed. |
+| `reginald.ts:36` | Dana | Reginald, standing on his mark in the dark, while his spotlight lovingly illuminates Gary. |
 | `reginald.ts:38` | Dana | Reginald Vantablack-Thorne, the Lich Lord. Actually undead now. He's never looked happier. |
 | `reginald.ts:49` | Reginald | Unhand that limb! Gary has a CONTRACT! |
 | `reginald.ts:51` | Reginald | My script! ...Keep it, darling. Learn it! Nobody learns their lines any more. |
 | `reginald.ts:56` | Reginald | A MISPRINT? In MY lair? Do you know how many nights I have stood here while guests read THAT? |
 | `reginald.ts:58` | Reginald | Nobody ever escaped, and they all blamed my performance. I shall be writing to head office. In blood. Well, red pen. |
-| `reginald.ts:93` | Reginald | Is that... GARY'S ARM? Gary is a member of the cast! ...Well. The show must go on. |
-| `reginald.ts:96` | Reginald | Ah, my audience returns! Come to bask in the afterglow? |
-| `reginald.ts:101` | Reginald | WHO DARES DISTURB THE LICH LORD? ...Oh. The trainee. |
-| `reginald.ts:103` | Dana | I've got his script right here. If only I knew his cue by heart. |
-| `reginald.ts:107` | Reginald | WHO DARES DISTURB THE LICH LORD? ...Oh. The trainee. |
-| `reginald.ts:118` | Reginald | I am Mortevayne, Dread Sovereign of the— fine. Reginald Vantablack-Thorne. Classically trained. |
-| `reginald.ts:120` | Reginald | I once understudied a Hamlet. He never got sick. Not once. Forty-two performances. |
-| `reginald.ts:130` | Reginald | The curse, darling! That phylactery made everything real. I am a genuine lich now. |
-| `reginald.ts:132` | Reginald | Head office's incident form has two boxes: "slip" and "trip". I ticked "other". I call it a promotion. |
-| `reginald.ts:142` | Reginald | Break character? Mid-performance? Actors' union rules, section nine: the show does not stop until the final cue. |
-| `reginald.ts:152` | Reginald | Section nine, darling. |
-| `reginald.ts:160` | Reginald | I do not take notes from management. I take notes from the muse. |
-| `reginald.ts:169` | Reginald | ...! |
-| `reginald.ts:171` | Reginald | ARISE! ARIIIISE! Yes! Find your light, Reginald! |
-| `reginald.ts:176` | Dana | He's swept off to his spotlight mark. Which means the Spooky Seat is unguarded. |
-| `reginald.ts:184` | Reginald | Farewell, mortal! Mind the fourth wall on your way out. |
+| `reginald.ts:94` | Reginald | Is that... GARY'S ARM? Gary is a member of the cast! ...Well. The show must go on. |
+| `reginald.ts:97` | Reginald | Ah, my audience returns! Come to bask in the afterglow? |
+| `reginald.ts:102` | Reginald | WHO DARES DISTURB THE LICH LORD? ...Oh. The trainee. |
+| `reginald.ts:104` | Dana | I've got his script right here. If only I knew his cue by heart. |
+| `reginald.ts:108` | Reginald | WHO DARES DISTURB THE LICH LORD? ...Oh. The trainee. |
+| `reginald.ts:119` | Reginald | I am Mortevayne, Dread Sovereign of the— fine. Reginald Vantablack-Thorne. Classically trained. |
+| `reginald.ts:121` | Reginald | I once understudied a Hamlet. He never got sick. Not once. Forty-two performances. |
+| `reginald.ts:131` | Reginald | The curse, darling! That phylactery made everything real. I am a genuine lich now. |
+| `reginald.ts:133` | Reginald | Head office's incident form has two boxes: "slip" and "trip". I ticked "other". I call it a promotion. |
+| `reginald.ts:143` | Reginald | Break character? Mid-performance? Actors' union rules, section nine: the show does not stop until the final cue. |
+| `reginald.ts:153` | Reginald | Section nine, darling. |
+| `reginald.ts:161` | Reginald | I do not take notes from management. I take notes from the muse. |
+| `reginald.ts:170` | Reginald | ...! |
+| `reginald.ts:172` | Reginald | ARISE! ARIIIISE! Yes! Find your light, Reginald! |
+| `reginald.ts:177` | Dana | He's swept off to his spotlight mark. Which means the Spooky Seat is unguarded. |
+| `reginald.ts:185` | Reginald | Farewell, mortal! Mind the fourth wall on your way out. |
 
 ## The Gift Shop (29)
 

@@ -13,6 +13,12 @@ const COLORS = {
   highlight: 0xffe28a,
 };
 
+/** `?art=off` in the URL draws placeholder shapes everywhere, painted rooms included (debugging). */
+export const ART_ENABLED = new URLSearchParams(globalThis.location?.search ?? '').get('art') !== 'off';
+
+/** The texture key a room's background painting is loaded under (RoomScene preloads them). */
+export const roomArtKey = (room: Room) => `room-art:${room.id}`;
+
 /** How far below a hotspot's top edge its label's top sits. */
 const LABEL_OFFSET = 3;
 
@@ -22,6 +28,8 @@ const BOB = { height: 8, periodMs: 2400 };
 interface Drawn {
   hotspot: Hotspot;
   objects: Phaser.GameObjects.GameObject[];
+  /** Drawn over a painting: no fill or label unless hovered or revealed. */
+  invisible: boolean;
   /** The bob, for characters who float. */
   bob?: Phaser.Tweens.Tween | undefined;
 }
@@ -32,13 +40,17 @@ export interface RoomViewHandlers {
 }
 
 /**
- * Draws a room (wall, floor) and its hotspots as placeholder art, and reports hotspot hovers and
- * clicks. Knows nothing about rules: it draws the hotspots it's given.
+ * Draws a room and its hotspots, and reports hotspot hovers and clicks. Knows nothing about rules:
+ * it draws the hotspots it's given. A room with a painting (`room.art`) shows it, with its hotspots
+ * as invisible areas that glow when hovered; other rooms get placeholder shapes.
  */
 export class RoomView {
-  private background: Phaser.GameObjects.Graphics | undefined;
+  private background: Phaser.GameObjects.Graphics | Phaser.GameObjects.Image | undefined;
+  private painted = false;
   private drawn: Drawn[] = [];
-  private highlighted: Phaser.GameObjects.Rectangle | undefined;
+  private highlighted: Drawn | undefined;
+  /** "Show everything clickable": from the ☰ menu (sticky) or holding H (while held). */
+  private reveal = { toggled: false, held: false };
 
   constructor(
     private readonly scene: Phaser.Scene,
@@ -46,14 +58,39 @@ export class RoomView {
     private readonly characters: World['characters'],
   ) {}
 
-  /** Draws a room's background. Call again with another room to switch. */
+  /** Draws a room's background. Call again with another room to switch, then `showHotspots`. */
   showRoom(room: Room): void {
     this.background?.destroy();
+    const key = roomArtKey(room);
+    this.painted = ART_ENABLED && room.art !== undefined && this.scene.textures.exists(key);
+    if (this.painted) {
+      const { width, height } = this.scene.scale;
+      this.background = this.scene.add.image(0, 0, key).setOrigin(0, 0).setDisplaySize(width, height).setDepth(0);
+      return;
+    }
     const floor = room.walkable.map((p) => new Phaser.Math.Vector2(p.x, p.y));
-    this.background = this.scene.add.graphics().setDepth(0);
-    this.background.fillStyle(COLORS.wall).fillRect(0, 0, this.scene.scale.width, this.scene.scale.height);
-    this.background.fillStyle(COLORS.floor).fillPoints(floor, true);
-    this.background.lineStyle(2, COLORS.floorOutline).strokePoints(floor, true);
+    const g = this.scene.add.graphics().setDepth(0);
+    g.fillStyle(COLORS.wall).fillRect(0, 0, this.scene.scale.width, this.scene.scale.height);
+    g.fillStyle(COLORS.floor).fillPoints(floor, true);
+    g.lineStyle(2, COLORS.floorOutline).strokePoints(floor, true);
+    this.background = g;
+  }
+
+  /** Turns "show everything clickable" on or off from the menu. Returns the new setting. */
+  toggleReveal(): boolean {
+    this.reveal.toggled = !this.reveal.toggled;
+    this.drawn.forEach((d) => this.style(d));
+    return this.reveal.toggled;
+  }
+
+  get revealOn(): boolean {
+    return this.reveal.toggled;
+  }
+
+  /** Holding H shows everything clickable while it's held. */
+  holdReveal(held: boolean): void {
+    this.reveal.held = held;
+    this.drawn.forEach((d) => this.style(d));
   }
 
   /** Replaces the drawn hotspots. Hotspots can appear, vanish, or move with game state. */
@@ -64,9 +101,12 @@ export class RoomView {
       objects.forEach((o) => o.destroy());
     });
     this.drawn = hotspots.map((hotspot) => {
-      const objects = this.draw(hotspot);
+      const drawn: Drawn = { hotspot, objects: [], invisible: this.painted && !hotspot.character };
+      drawn.objects = this.draw(drawn);
       const floats = hotspot.character !== undefined && this.characters[hotspot.character]?.floats;
-      return { hotspot, objects, ...(floats && { bob: this.bob(objects) }) };
+      if (floats) drawn.bob = this.bob(drawn.objects);
+      this.style(drawn);
+      return drawn;
     });
   }
 
@@ -82,8 +122,28 @@ export class RoomView {
 
   /** Removes the hover outline (pointer left, coin opened, a scene started). */
   clearHighlight(): void {
-    this.highlighted?.setStrokeStyle();
+    const was = this.highlighted;
     this.highlighted = undefined;
+    if (was) this.style(was);
+  }
+
+  /** Fill, outline and label for a drawn hotspot, from its state: hovered, revealed, or at rest. */
+  private style(d: Drawn): void {
+    const [shape, label] = d.objects as [Phaser.GameObjects.Rectangle, Phaser.GameObjects.Text];
+    const hovered = this.highlighted === d;
+    const revealed = this.reveal.toggled || this.reveal.held;
+    if (!d.invisible) {
+      // Placeholder rectangles: solid, labelled, a yellow outline on hover.
+      if (hovered) shape.setStrokeStyle(3, COLORS.highlight);
+      else shape.setStrokeStyle();
+      return;
+    }
+    // Over a painting: nothing at rest; a soft glow on hover; a dashed-looking outline when revealed.
+    shape.setFillStyle(COLORS.highlight, hovered ? 0.12 : 0);
+    if (hovered) shape.setStrokeStyle(3, COLORS.highlight, 0.9);
+    else if (revealed) shape.setStrokeStyle(2, COLORS.highlight, 0.55);
+    else shape.setStrokeStyle();
+    label.setVisible(revealed);
   }
 
   get hotspotIds(): string[] {
@@ -148,9 +208,10 @@ export class RoomView {
     });
   }
 
-  private draw(hotspot: Hotspot): Phaser.GameObjects.GameObject[] {
+  private draw(d: Drawn): Phaser.GameObjects.GameObject[] {
+    const { hotspot } = d;
     const { x, y, width, height } = hotspot.bounds;
-    // Placeholder art: a labelled rectangle. Real art will replace this in M4.
+    // A labelled placeholder rectangle, or (over a painting) an invisible area styled by `style()`.
     const color = hotspot.character ? COLORS.character : COLORS.hotspot;
     // Exits get an arrow cursor pointing toward their side of the screen; everything else the hand.
     const cursor = isExit(hotspot) ? (x + width / 2 < this.scene.scale.width / 2 ? 'w-resize' : 'e-resize') : 'pointer';
@@ -169,11 +230,12 @@ export class RoomView {
 
     shape.on('pointerover', (pointer: Phaser.Input.Pointer) => {
       this.clearHighlight();
-      this.highlighted = shape.setStrokeStyle(3, COLORS.highlight);
+      this.highlighted = d;
+      this.style(d);
       this.handlers.onHover(hotspot, pointer);
     });
     shape.on('pointerout', (pointer: Phaser.Input.Pointer) => {
-      if (this.highlighted === shape) this.clearHighlight();
+      if (this.highlighted === d) this.clearHighlight();
       this.handlers.onHover(undefined, pointer);
     });
     shape.on('pointerdown', (pointer: Phaser.Input.Pointer, _x: number, _y: number, event: Phaser.Types.Input.EventData) => {
