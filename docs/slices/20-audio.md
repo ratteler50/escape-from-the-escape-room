@@ -91,8 +91,8 @@ loops, voice.
 - **Effects:** 14 from Kenney's CC0 packs (Interface, Impact, RPG Audio, Sci-fi), trimmed and
   normalised to −1 dB peak; `keypad` is four ticks, `till` is coins plus a bell. `arise` is the
   opening 8 s of Kevin MacLeod's recording of Bach's Toccata and Fugue in D Minor (CC BY), faded out.
-- **MP3 only, not OGG + MP3:** every browser plays MP3, so one format halves the size (6.2 MB of
-  audio, 6.5 MB of assets in all). The small gap MP3 leaves at a loop point doesn't matter for
+- **MP3 only, not OGG + MP3:** every browser plays MP3, so one format halves the size (4.9 MB of
+  audio: 4.7 MB of music, 0.2 MB of effects; 5.1 MB of assets in all, of the 15 MB budget). The small gap MP3 leaves at a loop point doesn't matter for
   these tracks, which end and start again rather than looping seamlessly.
 - **`fail`** is played by the core, not the view: it's the one place that knows an item use had
   nothing written for it (the generic lines and a hotspot's own `itemFallback`).
