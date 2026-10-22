@@ -1,16 +1,19 @@
-# Slice 21 — Item icons for the Lair
+# Slice 21 — Item icons and the inventory tray
 
 **Status:** awaiting approval · **Milestone:** M4
 
 ## Why
 
 The inventory is still grey boxes with item names in them, the last placeholder in the Lair. With
-icons the Lair is polished end to end (art, characters, overlays, audio, items) before the Gift
-Shop and Break Room copy the whole pipeline (M4 plan, `docs/design.md`; icons added 2026-10-22).
+icons and a styled bar the Lair is polished end to end (art, characters, overlays, audio,
+inventory) before the Gift Shop and Break Room copy the whole pipeline (M4 plan, `docs/design.md`;
+icons added 2026-10-22). Decisions from the slice 21 grilling (2026-10-22).
 
 ## Spec
 
-1. **The icons:** everything you can carry in the Lair, plus the lanyard you start with:
+1. **Icons for all 13 items**, from one sheet so they match. Doing every item now, not only the
+   Lair's, means slices 22–23 have no icon work, and the Gift Shop and Break Room paintings can be
+   made to match the icons (the mug on the rack, the time card) instead of the other way round:
 
    | Item | Icon (matching its look line) |
    |------|------|
@@ -21,41 +24,57 @@ Shop and Break Room copy the whole pipeline (M4 plan, `docs/design.md`; icons ad
    | Display Case Key | a tiny key on a skull keyring with a tag reading DISPLAY CASE |
    | Ancient Riddle Scroll | a rolled parchment scroll, slightly unrolled, tied with a ribbon |
    | Reginald's Script | a dog-eared stapled script with "ACT ONE" on the cover |
+   | Price Gun | a chunky handheld price-tag gun |
+   | Time Card | a punch card with a TRAINEE name line |
+   | Pay Packet | a small brown pay envelope |
+   | One Cent | a single copper coin |
+   | Exact Change | a small neat stack of notes and coins |
+   | "I ESCAPED" Mug | a souvenir mug reading I ESCAPED THE LICH'S LAIR |
 
-   Same style as the characters: flat colour, bold outlines (decision 0005), so items read as
-   "things you hold", not part of the painted room.
-2. **Making them:** one ChatGPT image with all seven in a grid on a plain background (prompt pack
-   `docs/art/prompts-icons.md`, Dana's sheet attached for style), so they match each other. **You
-   approve the sheet** (regenerations welcome). The agent cuts each icon out with
-   `scripts/cut-sprite.py`, square and centred, stored at 2× (128 px) like the sprites.
-3. **Content:** an item can name an `icon` (presentation only; the core ignores it). Content
-   validation checks every icon file exists; each gets a `CREDITS.md` row.
-4. **The inventory bar:**
-   - a slot with an icon shows the icon instead of the name (the name still appears on hover, as
-     now, and in "Use … with …");
-   - the held item's slot keeps its highlight, and a small copy of the icon **follows the pointer**
-     while an item is held (the classic adventure-game "item on the cursor");
-   - items without an icon (the Gift Shop's and Break Room's, until slices 22–23) and `?art=off`
-     keep the text boxes.
-5. **Playwright:** `e2e/game.ts` finds inventory slots by the item's name in the slot's text label,
+   (The exact descriptions follow each item's look line; the prompt pack has the final wording.)
+   Flat colour, bold outlines, like the characters (decision 0005): things you hold, not part of the
+   painted room.
+2. **The inventory tray:** a tacky branded **Escape-O-Rama** plastic tray: franchise purple, the
+   cartoon skull logo from Dana's polo, cheap moulded slots, a sticker reading "STAFF PROPERTY – DO
+   NOT REMOVE". It's on-theme everywhere (the whole place is one cheap franchise). Flat with
+   outlines, like the icons: it's interface, under the room, not in it.
+3. **Making them:** two ChatGPT images from a prompt pack (`docs/art/prompts-inventory.md`, Dana's
+   sheet attached for style):
+   - the **icon sheet**, all 13 in a grid on a plain background;
+   - the **tray sheet**: a tray background that can stretch across the screen, and one moulded slot
+     frame.
+   **You approve each sheet** (regenerations welcome). The agent cuts the pieces out with
+   `scripts/cut-sprite.py`, stored at 2× like the sprites.
+4. **Content:** an item can name an `icon` (presentation only; the core ignores it). Content
+   validation checks every icon file exists; every file gets a `CREDITS.md` row.
+5. **The inventory bar:**
+   - the tray across the bottom, with the slot frame repeated by code (any number of items fits);
+   - a slot shows its icon alone, about 60 px; the name appears on hover in the caption, as now,
+     and in "Use … with …";
+   - hovering a slot grows it slightly (1.1×); the held item's slot glows yellow;
+   - while an item is held, a ~40 px copy of its icon floats beside the pointer, offset down and
+     right so the pointer's tip stays exact for small hotspots;
+   - `?art=off` keeps the plain boxes with names.
+6. **M4 plan:** when the Gift Shop and Break Room are painted (slices 22–23), the icon sheet is
+   attached as a reference so painted props match their icons.
+7. **Playwright:** `e2e/game.ts` finds inventory slots by the item's name in the slot's text label,
    which icons remove. It finds them by item id instead, so the tests don't depend on how a slot
    looks.
 
-Out of scope: icons for the Gift Shop and Break Room items (slices 22–23), animated icons, a
-bigger inventory bar.
+Out of scope: the ☰ button, captions and dialogue panel (slice 24), animated icons.
 
 ## Approvals you'll be asked for
 
-1. The icon sheet.
-2. The icons in place in the game (screenshots), before they're committed.
+1. The icon sheet and the tray sheet.
+2. Both in place in the game (screenshots), before they're committed.
 
 ## Acceptance checks
 
 - Unit tests: validation fails for a missing icon file; assets tests (credits, budget) pass.
 - `npm test`, typecheck, build, Playwright all green.
-- Agent play-test: the Lair's inventory with icons, hover names, the held item following the
-  pointer and its "Use … with …" caption, a Gift Shop item still a text box beside Lair icons,
-  `?art=off`.
+- Agent play-test: the tray and icons in each room, hover names and the grow, the held item's glow
+  and the icon following the pointer with its "Use … with …" caption, a full inventory late in the
+  game, `?art=off`.
 - Developer play-test.
 
 ## Notes
