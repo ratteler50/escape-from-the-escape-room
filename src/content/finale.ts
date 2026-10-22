@@ -23,12 +23,12 @@ export const reginaldFinaleHotspot: Hotspot = {
   name: 'Reginald',
   character: reginald.id,
   when: [{ flag: 'curseLifted' }],
-  // In the Lair doorway; the finale walks his feet to (833, 425), the gap between cardboard Reginald
-  // and STAFF ONLY, clear of Kyle, the till and the bargain bin. No flag may be set after that walk,
+  // In the Lair doorway; the finale walks his feet to (878, 470), in front of the gap between cardboard
+  // Reginald and STAFF ONLY, clear of Kyle, the till and the bargain bin. No flag may be set after that walk,
   // or the hotspot redraw would put him back here.
   pose: 'human',
-  bounds: { x: 75, y: 155, width: 70, height: 265 },
-  interactionPoint: { x: 200, y: 460 },
+  bounds: { x: 68, y: 175, width: 70, height: 265 },
+  interactionPoint: { x: 110, y: 475 },
   verbs: {
     // DRAFT:
     look: says('Reginald, human again, still in full lich make-up. It has never looked less convincing.'),
@@ -81,7 +81,7 @@ export const mugSaleOptions: DialogueOption[] = [
       say('A rumble. The lights flicker. Somewhere, a jar stops whispering.'),
       // DRAFT:
       R('Nooooo!'),
-      walk(reginald.id, 833, 425),
+      walk(reginald.id, 878, 470),
       // DRAFT:
       R("It's gone, darling. All of it. I'm human. I have a PULSE. Do you know what a pulse does to a performance?"),
       // DRAFT:

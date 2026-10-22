@@ -19,7 +19,7 @@ export const kyleHotspot: Hotspot = {
   name: 'Kyle',
   character: kyle.id,
   bounds: { x: 395, y: 150, width: 80, height: 145 },
-  interactionPoint: { x: 455, y: 460 },
+  interactionPoint: { x: 440, y: 480 },
   verbs: {
     // DRAFT:
     look: says("Kyle, behind the till. Earbuds in, phone out. Third summer here. They haven't looked up since the lich started screaming."),

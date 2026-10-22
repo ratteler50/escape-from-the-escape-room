@@ -14,7 +14,7 @@ export const mordecaiHotspot: Hotspot = {
   character: mordecai.id,
   when: [{ notFlag: 'staffDoorOpen' }],
   bounds: { x: 575, y: 120, width: 80, height: 180 },
-  interactionPoint: { x: 600, y: 460 },
+  interactionPoint: { x: 620, y: 480 },
   verbs: {
     // DRAFT:
     look: says("A see-through old man in a dressing gown, hovering over the bargain bin and glaring at it. The Handbook's index goes straight from 'Gherkins' to 'Gift vouchers'."),
@@ -47,7 +47,7 @@ export const mordecaiBackHotspot: Hotspot = {
   character: mordecai.id,
   when: [{ flag: 'mordecaiBack' }],
   bounds: { x: 575, y: 120, width: 80, height: 180 },
-  interactionPoint: { x: 600, y: 460 },
+  interactionPoint: { x: 620, y: 480 },
   verbs: {
     // DRAFT:
     look: says('Mordecai, back over the bargain bin, gazing at his PRICELESS teapot like it might propose.'),

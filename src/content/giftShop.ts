@@ -9,42 +9,49 @@ export const giftShopItems: Item[] = [priceGun, mug];
 const K = (text: string) => line(kyle.id, text);
 const M = (text: string) => line(mordecai.id, text);
 
-// Layout (docs/art/gift-shop-layout.svg): the back wall fills the top of the screen, the floor is a
-// trapezoid from y=420 down to y=620. Left to right: the Lair door, the mug rack, Kyle behind the
-// till, Mordecai over the bargain bin, cardboard Reginald, STAFF ONLY, the front door.
+// The painting (docs/art/prompts-gift-shop.md) sets the layout: hotspot bounds and the walkable floor
+// are fitted to what's painted. Left to right along the back wall: the Lair door, the mug rack, Kyle
+// behind the till, Mordecai over the bargain bin, cardboard Reginald, STAFF ONLY; the front door is
+// on the right-hand wall. The floor runs edge to edge from y=450 down to y=620, rising a little to
+// meet the right wall; below it is the inventory bar.
 export const giftShop: Room = {
   id: 'giftShop',
   name: 'Gift Shop',
+  // Generated from docs/art/gift-shop-layout.svg; bounds were then fitted to the painting.
+  art: {
+    background: 'assets/rooms/gift-shop.webp',
+  },
   entries: {
-    fromLair: { x: 200, y: 470 },
-    fromBreakRoom: { x: 930, y: 470 },
+    fromLair: { x: 110, y: 480 },
+    fromBreakRoom: { x: 954, y: 475 },
   },
   walkable: [
-    { x: 160, y: 420 },
-    { x: 1120, y: 420 },
-    { x: 1220, y: 620 },
-    { x: 60, y: 620 },
+    { x: 10, y: 455 },
+    { x: 1095, y: 452 },
+    { x: 1270, y: 480 },
+    { x: 1270, y: 620 },
+    { x: 10, y: 620 },
   ],
   hotspots: [
     {
       id: 'lairDoor',
       name: 'Lair Door',
-      bounds: { x: 40, y: 140, width: 140, height: 280 },
-      interactionPoint: { x: 200, y: 460 },
+      bounds: { x: 8, y: 160, width: 185, height: 280 },
+      interactionPoint: { x: 110, y: 475 },
       verbs: {
         // DRAFT:
         look: says('The door back to the Lair. The sign over it says EXIT THROUGH THE GIFT SHOP. I did it backwards.'),
         use: {
           label: 'Go through',
-          responses: [{ effects: [walk('dana', 175, 425), { type: 'goToRoom', roomId: 'lair', entry: 'fromGiftShop' }] }],
+          responses: [{ effects: [walk('dana', 103, 458), { type: 'goToRoom', roomId: 'lair', entry: 'fromGiftShop' }] }],
         },
       },
     },
     {
       id: 'mugRack',
       name: 'Mug Rack',
-      bounds: { x: 205, y: 190, width: 120, height: 190 },
-      interactionPoint: { x: 265, y: 460 },
+      bounds: { x: 200, y: 205, width: 128, height: 237 },
+      interactionPoint: { x: 264, y: 475 },
       verbs: {
         // DRAFT:
         look: says(`Mugs: "I ESCAPED THE LICH'S LAIR", $12.99. Nobody has ever escaped, so nobody has ever bought one. Kyle dusts them anyway.`),
@@ -57,8 +64,9 @@ export const giftShop: Room = {
     {
       id: 'till',
       name: 'Till',
-      bounds: { x: 365, y: 300, width: 140, height: 120 },
-      interactionPoint: { x: 435, y: 460 },
+      // The counter and the register at its right end.
+      bounds: { x: 335, y: 272, width: 186, height: 175 },
+      interactionPoint: { x: 428, y: 480 },
       verbs: {
         // DRAFT:
         look: says("Kyle's till. The receipt roll is printed to look like a scroll. Head office really committed to the theme."),
@@ -74,8 +82,9 @@ export const giftShop: Room = {
     {
       id: 'bargainBin',
       name: 'Bargain Bin',
-      bounds: { x: 545, y: 330, width: 140, height: 90 },
-      interactionPoint: { x: 615, y: 460 },
+      // The bin and the teapot sitting on top of it.
+      bounds: { x: 548, y: 294, width: 174, height: 151 },
+      interactionPoint: { x: 635, y: 480 },
       verbs: {
         look: {
           responses: [
@@ -106,7 +115,7 @@ export const giftShop: Room = {
               // DRAFT:
               M('GOOD. And a deal is a deal, child. Watch this.'),
               // Through the STAFF ONLY door: his feet at the bottom of the doorway.
-              walk(mordecai.id, 930, 400),
+              walk(mordecai.id, 954, 420),
               setFlag('teapotRepriced'),
               setFlag('staffDoorOpen'),
               // DRAFT:
@@ -128,8 +137,8 @@ export const giftShop: Room = {
     {
       id: 'standee',
       name: 'Cardboard Reginald',
-      bounds: { x: 725, y: 180, width: 70, height: 240 },
-      interactionPoint: { x: 760, y: 460 },
+      bounds: { x: 729, y: 192, width: 141, height: 252 },
+      interactionPoint: { x: 800, y: 480 },
       verbs: {
         // DRAFT:
         look: says('A life-size cardboard Reginald. Somehow less wooden than the real one.'),
@@ -143,8 +152,9 @@ export const giftShop: Room = {
       id: 'staffDoor',
       name: 'STAFF ONLY',
       when: [{ notFlag: 'staffDoorOpen' }],
-      bounds: { x: 870, y: 150, width: 120, height: 270 },
-      interactionPoint: { x: 930, y: 455 },
+      // The door and the badge reader on the wall at its right.
+      bounds: { x: 887, y: 178, width: 165, height: 257 },
+      interactionPoint: { x: 954, y: 470 },
       verbs: {
         // DRAFT:
         look: says('STAFF ONLY. A badge reader with a little red light, and a sign: TRAINEES, PLEASE ASK A SUPERVISOR. There is no supervisor.'),
@@ -165,8 +175,9 @@ export const giftShop: Room = {
       id: 'staffDoorOpen',
       name: 'STAFF ONLY',
       when: [{ flag: 'staffDoorOpen' }],
-      bounds: { x: 870, y: 150, width: 120, height: 270 },
-      interactionPoint: { x: 930, y: 455 },
+      // The door and the badge reader on the wall at its right.
+      bounds: { x: 887, y: 178, width: 165, height: 257 },
+      interactionPoint: { x: 954, y: 470 },
       verbs: {
         // DRAFT:
         look: says('STAFF ONLY, wide open. Mordecai can\'t touch anything, so I assume he glared at the lock until it gave up. Beyond it: a corridor that smells of burnt coffee.'),
@@ -175,7 +186,7 @@ export const giftShop: Room = {
           responses: [
             {
               effects: [
-                walk('dana', 930, 425),
+                walk('dana', 954, 458),
                 { type: 'goToRoom', roomId: 'breakRoom', entry: 'fromGiftShop' },
                 // Set after leaving, so Mordecai doesn't pop back to the bin mid-cutscene
                 // (setFlag redraws hotspots from the final state).
@@ -189,11 +200,12 @@ export const giftShop: Room = {
     {
       id: 'frontDoor',
       name: 'Front Door',
-      bounds: { x: 1040, y: 140, width: 150, height: 280 },
-      interactionPoint: { x: 1080, y: 450 },
+      // On the right-hand wall, standing open.
+      bounds: { x: 1100, y: 122, width: 175, height: 345 },
+      interactionPoint: { x: 1150, y: 490 },
       verbs: {
         // DRAFT:
-        look: says('"CLOSED FOR REFURBISHMENT." The refurbishment is listed as "ongoing since 2019". The door is ajar anyway.'),
+        look: says('"CLOSED FOR REFURBISHMENT", taped to a door that is standing wide open. Beyond it: the car park, the night, my bus stop. The refurbishment has been ongoing since 2019.'),
         use: {
           label: 'Escape!',
           // The false exit: the script only ends once a guest has bought a souvenir (the mug sale).
@@ -203,7 +215,9 @@ export const giftShop: Room = {
                 // DRAFT:
                 say('EXIT THROUGH THE GIFT SHOP. I haven\'t bought anything. Not even a mug.'),
                 // DRAFT:
-                say('I push. The door pushes back. The curse is very literal.'),
+                say('I step into the doorway. The doorway steps me straight back into the shop.'),
+                // DRAFT:
+                say("The door is open. I'm just not allowed through it. The curse is very literal."),
               ],
             },
           ],
