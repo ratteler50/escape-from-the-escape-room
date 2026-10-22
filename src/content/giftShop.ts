@@ -21,6 +21,11 @@ export const giftShop: Room = {
   music: 'giftShop',
   art: {
     background: 'assets/rooms/gift-shop.webp',
+    // Patches of the painting for what changes in play (docs/art/prompts-gift-shop.md, section 3).
+    overlays: [
+      { image: 'assets/overlays/gift-shop-staff-door-open.webp', at: { x: 860, y: 180 }, when: [{ flag: 'staffDoorOpen' }] },
+      { image: 'assets/overlays/gift-shop-teapot-priceless.webp', at: { x: 562, y: 305 }, when: [{ flag: 'teapotRepriced' }] },
+    ],
   },
   entries: {
     fromLair: { x: 110, y: 480 },
