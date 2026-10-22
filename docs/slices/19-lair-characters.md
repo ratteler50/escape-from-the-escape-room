@@ -18,8 +18,8 @@ finishes the Lair's art so the whole art pipeline is proven on one room before t
    - **Reginald Vantablack-Thorne:** classically trained ham actor turned real lich: a theatrical lich
      costume (tattered robe, crown, a too-long cape), skeletal hands and face now genuinely undead,
      glowing eyes, dramatic posture.
-2. **Sprites** from the approved sheets (the sheet is the reference image), backgrounds removed with
-   Canva's background removal, transparent PNG → WebP with alpha:
+2. **Sprites** from the approved sheets (the sheet is the reference image), generated in ChatGPT on a
+   transparent or flat chroma-green background (green keyed out with `ffmpeg`), → WebP with alpha:
    - Dana, standing;
    - Reginald, standing (on his mark, and in the finale);
    - Reginald, **seated**, lounging on the throne (M4 plan exception).
@@ -54,8 +54,8 @@ walk cycles and a talking pose.
 1. Dana's and Reginald's model sheets (you can ask for regenerations).
 2. The three sprites and four overlays, shown in place in the game (screenshots), before they're
    committed.
-3. One batch of Canva saves (a "characters" design and an overlays page in the Lair design) and
-   one batch of downloads.
+3. Generating the images yourself in ChatGPT from the prompt packs in `docs/art/prompts-*.md`,
+   saving them to `art-inbox/` (Canva's free plan ran out of generations, 2026-10-22).
 
 ## Acceptance checks
 
