@@ -158,6 +158,21 @@ at that size, and that's fine.
 > price sticker with a white border, reading PRICELESS in bold white capitals, slapped on at an
 > angle over the right half of the teapot's belly. Same painted style as the rest of the image.
 
+### 3c. The front door's sign (a fix to the background) → attach `art-inbox/CROP-front-door.png`, save as `art-inbox/front-door-sign.png`
+
+Square (1024×1024). Not an overlay: a play-test note. A CLOSED FOR REFURBISHMENT notice facing into
+a shop with a cashier on duty doesn't hold up, so the notice becomes the shop's hanging two-sided
+OPEN/CLOSED sign, showing the staff side, CLOSED (customers outside see OPEN). The agent patches
+the result into the background itself.
+
+> Edit this exact image. Keep everything identical: framing, size, painting style, colours, the
+> night outside, the street lamps and trees, the green door frame and the push bar. Change only one
+> thing: replace the taped paper notice with a classic hanging shop sign: a small rectangular
+> two-sided card with a rounded border, hanging from a little suction-cup hook by a short string,
+> slightly crooked, white with a red border, reading CLOSED in big bold red capitals, nothing
+> else. It's a bit smaller than the notice was, so the glass and the night show more around it.
+> Same painted style as the rest of the image.
+
 ---
 
 **After you approve them:** the agent crops and scales the background to 1280×720 and fits the
