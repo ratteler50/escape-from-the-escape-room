@@ -1,6 +1,6 @@
 # Slice 22 — The painted Gift Shop
 
-**Status:** awaiting approval · **Milestone:** M4 · runs **in parallel** with slice 23
+**Status:** built, agent play-tested; developer play-test to come · **Milestone:** M4 · runs **in parallel** with slice 23
 
 ## Why
 
@@ -60,3 +60,42 @@ Shared, append-only: `CREDITS.md` rows, one line each in `src/content/audio.ts`,
 ## Notes
 
 - Branch `slice-22-gift-shop-art`, in its own worktree under `.claude/worktrees/`.
+
+## Build notes
+
+- **Background:** one ChatGPT generation from the layout sketch (redrawn in the Lair sketch's style,
+  its notes group hidden in the copy attached) with the Lair as the style reference; approved as is.
+  It came out 16:9, so nothing was cropped. Props drifted 10–80 px, and the front door is on the
+  right-hand wall, standing open: bounds, interaction points, the floor polygon (now edge to edge from
+  y≈450, rising to meet the right wall), both entries and the doorway walks were fitted to the
+  painting. The EXIT THROUGH THE GIFT SHOP sign is over the Lair door, as its look line says.
+- **Front door:** painted open, so its look and use lines were redrafted (the doorway steps Dana
+  back into the shop; "the curse is very literal" kept).
+- **Reginald's finale mark** moved from (833, 425), which fell on the wider cardboard cutout's base,
+  to (878, 470), on the floor in front of the gap by STAFF ONLY.
+- **Kyle:** the sheet's waist-up pose, cut straight from it, 115 px, its bottom edge on the counter.
+- **Mordecai:** the sheet's pointing pose at 225 px, at 80% opacity (`RoomView`, for floating
+  characters). The developer chose a genie look: the tip of his tail sits in the teapot's spout, so
+  his dangling slipper was trimmed off (unreadable at this size anyway) and the painted sprite
+  doesn't bob, which would lift his tail out of the spout; the `?art=off` placeholder still bobs.
+- **Overlays:** STAFF ONLY open (`staffDoorOpen`) and the teapot's PRICELESS starburst sticker
+  (`teapotRepriced`), each an edit of an enlarged crop. The first corridor beyond the door was
+  generic; it was redone in the Break Room's materials (from slice 23's painting) with a glimpse of
+  the room at its far end. The sticker is a sale starburst rather than a price-gun label: at the
+  teapot's 70 px a real label would be a few pixels and the change easy to miss.
+- **Music:** Local Forecast - Elevator (not one of the three kept): cheesy elevator muzak, a
+  deliberately jarring drop from the Lair's Graveyard Shift. 2.2 MB at 96 kbps.
+- **Finale sting:** Der Kleber Sting ("dun dun DUUUN"), 8 s, on Reginald's "Nooooo!". Picked
+  provisionally: the developer wants to judge it in context. Stings duck the music to 25% over
+  300 ms and bring it back when they end (`GameAudio`, `STINGS`).
+- **Assets:** 8.2 MB of the 15 MB budget.
+- **Outside the file list:** `e2e/game.spec.ts` now expects the game to end on the Gift Shop's
+  music and the `finale` sound; `src/view/RoomView.ts` draws floating characters see-through and
+  doesn't bob a painted one.
+- **Agent play-test** (headless, real clicks through the shortest solution, screenshots every second
+  or so): every Gift Shop hotspot on top at its painted spot in each state, holding H, the
+  Lair → Gift Shop crossfade (0.43 at 600 ms, 0.70 by 1.4 s), the re-pricing with Mordecai floating
+  off and STAFF ONLY opening, both overlays, the finale with human Reginald walking to his mark and
+  the sting ducking the music (0.70 → 0.17 for its 8 s, then back), the end card, `?art=off`.
+- **Noticed for slice 23:** the Break Room's painted door back to the Gift Shop is brown wood; this
+  side of it is grey metal.
