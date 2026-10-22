@@ -1,6 +1,6 @@
 # Slice 24 — Story fixes: the code and the curse's rule
 
-**Status:** awaiting approval · **Milestone:** M4 · after PRs #22 and #23 merge
+**Status:** Lair part built · front door line waits for #22 · **Milestone:** M4 · after PRs #22 and #23 merge
 
 ## Why
 
@@ -52,3 +52,14 @@ animation, the phylactery in the bargain bin.
 
 - Branch `slice-24-story-fixes`, from `main` once #22 and #23 have merged (#22 rewrites the
   front door's lines this slice extends).
+
+## Build notes
+
+- **Keypad:** eight letter keys like an old phone, plus ENTER; labelled NUMBER PAD anyway. Wrong
+  guesses are now "L-I-C-H, ENTER. Bzzt."
+- **Scroll:** "THE ANSWER IS: {CODE}". The optional gag went in, short: Dana starts typing the open
+  brace, finds there's no brace key, then reads it literally: C-O-D-E, ENTER.
+- **Script:** its look line gains the last page ("FINALE: The guest escapes THROUGH THE GIFT SHOP and
+  purchases a souvenir. CURTAIN.", "souvenir" underlined twice by head office).
+- **Sweep:** no other content mentioned runes or the old scroll; the design doc's M1 section updated.
+- **Waiting:** the Gift Shop front door's line pointing back to the script, once #22 merges.

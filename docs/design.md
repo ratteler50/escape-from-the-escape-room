@@ -293,8 +293,8 @@ advances), so the text speed setting is visible rather than only changing auto-a
 
 ## M1: the Lich's Lair
 
-**Goal:** open the Lair door to the Gift Shop. The door has a rune keypad; head office's official
-riddle is supposed to provide the code.
+**Goal:** open the Lair door to the Gift Shop. The door has a keypad (eight phone-style letter keys
+and ENTER, since slice 24); head office's official riddle is supposed to provide the code.
 
 ### Puzzle dependency chart
 
@@ -330,8 +330,9 @@ graph TD
    the vacated throne: pre-owned chewing gum. Combine arm + gum.
 3. **The floor grate.** The display case key fell through the grate. Fish it out with the sticky arm.
 4. **The misprinted riddle.** The display case holds the Ancient Riddle Scroll, which reads
-   *"THE ANSWER IS: [INSERT CODE HERE BEFORE PRINTING]"*. The curse bound itself to the script
-   *as printed*, so the code is literally **C-O-D-E**. Use the scroll on the keypad; the door opens.
+   *"THE ANSWER IS: {CODE}"*: head office's template, never filled in. The curse bound itself to
+   the script *as printed*, so the code is literally **C-O-D-E** (slice 24; it used to read
+   "[INSERT CODE HERE BEFORE PRINTING]"). Use the scroll on the keypad; the door opens.
    Showing the scroll to Reginald gets an outraged-on-behalf-of-the-craft reaction line.
 
 ### Reginald's dialogue tree
