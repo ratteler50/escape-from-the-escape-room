@@ -205,42 +205,42 @@ for an item; "Dana (option)" is a line Dana says when the player picks it in a c
 | `breakRoom.ts:129` | Reginald | A GUEST? Then I must stay in character. ...Welcome, mortal, to your DOOM. Do visit the gift shop. |
 | `breakRoom.ts:140` | Reginald | Exact change. In twenty years of touring I have never seen it. Not once. Not even in Hull. |
 | `breakRoom.ts:148` | Reginald | Never say "out" in a theatre, darling. Say "exeunt". *click* |
-| `breakRoom.ts:180` | Dana | The door back to the Gift Shop. This side says STAFF ONLY. The other side also says STAFF ONLY. Very consistent. Very unwelcoming. |
-| `breakRoom.ts:194` | Dana | "EMPLOYEE OF THE MONTH: GARY." Again. Below it: "WHO KEEPS TAKING THE STAPLER? —Management." And: "It is in the Lair. It is the Stapler of Doom now. —R." |
-| `breakRoom.ts:196` | Dana | "STAFF SOCIAL: Bring a dish!" Signed up: Gary (bringing "nothing"), Reginald (bringing "gravitas"). I add "Dana: crisps". Handbook Section 15: always contribute. |
-| `breakRoom.ts:208` | Dana | My card says OUT. I'm officially a guest. I feel lighter. And slightly lost. |
-| `breakRoom.ts:210` | Dana | A punch clock. The sign over it: "STAFF MUST CLOCK OUT BEFORE SHOPPING. NO EXCEPTIONS. NOT EVEN YOU, GARY." |
-| `breakRoom.ts:217` | Dana | I've already clocked out. Clocking out twice would probably mean I owe them a shift. |
-| `breakRoom.ts:219` | Dana | Handbook Section 5: "No card, no clock." I need my time card. Last seen... going somewhere cold? |
-| `breakRoom.ts:229` | Dana | KA-CHUNK. "OUT: 9:47 PM." I am off duty. Legally, I am a guest. |
-| `breakRoom.ts:231` | Dana | Handbook Section 5.3: off-duty staff are customers like anyone else. I tuck my lanyard into my pocket. Off duty means off duty. |
-| `breakRoom.ts:234` | Dana | I file my time card back in the rack, under P. Not under the yogurt. |
-| `breakRoom.ts:239` | Dana | Already stamped OUT. If I punch it again I'll be clocked back IN, and I'm not doing that to myself. |
-| `breakRoom.ts:242` | Dana | It wants a time card, not a lanyard. The clock has standards. |
-| `breakRoom.ts:245` | Dana | The time clock only accepts time cards. It has rejected better things than this. |
-| `breakRoom.ts:256` | Dana | The yogurt, back on duty as a paperweight. Holding down nothing. It looks proud anyway. |
-| `breakRoom.ts:258` | Dana | One strawberry yogurt, pinning down a piece of card. The card says PICKWICK. That is MY time card. |
-| `breakRoom.ts:260` | Dana | A fridge covered in notes. The big one: "WHOEVER KEEPS USING MY YOGURT AS A PAPERWEIGHT: STOP." Underlined so hard the pen went through. |
-| `breakRoom.ts:267` | Dana | It's open. It hums at me disapprovingly. Another note inside says "CLOSE THE DOOR." |
-| `breakRoom.ts:271` | Dana | Inside: one strawberry yogurt, sitting on a piece of card like a paperweight. The card says PICKWICK. |
-| `breakRoom.ts:273` | Dana | Somebody's been using their yogurt as a paperweight. On my time card. In the fridge. I have so many questions. |
-| `breakRoom.ts:286` | Dana | I lift the yogurt, take my time card, and put the yogurt back exactly where it was. Handbook Section 6: respect your colleagues' dairy. |
-| `breakRoom.ts:295` | Dana | I'm not putting that in the fridge. Somebody would leave a note about it. |
-| `breakRoom.ts:304` | Dana | "SNAX-O-RAMA." Fully stocked with one bag of Spooky Crisps, which has been stuck on its spiral since before I was hired. Nobody has the heart to free it. The coin return flap is half-open, and something small and copper is sulking in there. |
-| `breakRoom.ts:309` | Dana | Empty. I check it twice more anyway. Handbook Section 8: be thorough. |
-| `breakRoom.ts:313` | Dana | Clink! One cent. Handbook Section 8: "Found money under five cents belongs to the finder." Finally, a section that helps. |
-| `breakRoom.ts:321` | Dana | The crisps are $1.50, and every cent I've got is spoken for. Hang in there, crisps. |
-| `breakRoom.ts:325` | Dana | I'm not feeding it back. That cent and I have plans. |
-| `breakRoom.ts:327` | Dana | Spend my wages on crisps? The mug is the only thing I need. The crisps can wait. They have been waiting for years. |
-| `breakRoom.ts:329` | Dana | Break exact change? For crisps? Never. |
-| `breakRoom.ts:341` | Dana | My locker's open. Inside: one spare hairnet. We don't serve food. Head office issued it anyway. |
-| `breakRoom.ts:343` | Dana | A row of staff lockers. Mine says TRAINEE. Reginald's has a gold star. Gary's is just a peg. Mine has a combination lock. |
-| `breakRoom.ts:350` | Dana | It's already open. The hairnet and I have nothing more to say to each other. |
-| `breakRoom.ts:355` | Dana | The combination is my employee number. 0... 0... 7. Click! |
-| `breakRoom.ts:357` | Dana | Inside: a spare hairnet and my pay packet. Payday! Twelve dollars and ninety-eight cents. The mug is twelve ninety-nine. Head office, you absolute artists. |
-| `breakRoom.ts:363` | Dana | The combination is my employee number. Which I was told on day one, along with forty other things. Maybe it's written on me somewhere. |
-| `breakRoom.ts:369` | Dana | The lock wants a number, not a lanyard. Though the number IS on the lanyard. I should probably read it. |
-| `breakRoom.ts:379` | Dana | The staff intercom to the Lair. A label: "FOR EMERGENCIES ONLY." Someone has added: "AND REGINALD'S NOTES." |
+| `breakRoom.ts:185` | Dana | The door back to the Gift Shop. This side says STAFF ONLY. The other side also says STAFF ONLY. Very consistent. Very unwelcoming. |
+| `breakRoom.ts:199` | Dana | "EMPLOYEE OF THE MONTH: GARY." Again. Below it: "WHO KEEPS TAKING THE STAPLER? —Management." And: "It is in the Lair. It is the Stapler of Doom now. —R." |
+| `breakRoom.ts:201` | Dana | "STAFF SOCIAL: Bring a dish!" Signed up: Gary (bringing "nothing"), Reginald (bringing "gravitas"). I add "Dana: crisps". Handbook Section 15: always contribute. |
+| `breakRoom.ts:213` | Dana | My card says OUT. I'm officially a guest. I feel lighter. And slightly lost. |
+| `breakRoom.ts:215` | Dana | A punch clock. The sign over it: "STAFF MUST CLOCK OUT BEFORE SHOPPING. NO EXCEPTIONS. NOT EVEN YOU, GARY." |
+| `breakRoom.ts:222` | Dana | I've already clocked out. Clocking out twice would probably mean I owe them a shift. |
+| `breakRoom.ts:224` | Dana | Handbook Section 5: "No card, no clock." I need my time card. Last seen... going somewhere cold? |
+| `breakRoom.ts:234` | Dana | KA-CHUNK. "OUT: 9:47 PM." I am off duty. Legally, I am a guest. |
+| `breakRoom.ts:236` | Dana | Handbook Section 5.3: off-duty staff are customers like anyone else. I tuck my lanyard into my pocket. Off duty means off duty. |
+| `breakRoom.ts:239` | Dana | I file my time card back in the rack, under P. Not under the yogurt. |
+| `breakRoom.ts:244` | Dana | Already stamped OUT. If I punch it again I'll be clocked back IN, and I'm not doing that to myself. |
+| `breakRoom.ts:247` | Dana | It wants a time card, not a lanyard. The clock has standards. |
+| `breakRoom.ts:250` | Dana | The time clock only accepts time cards. It has rejected better things than this. |
+| `breakRoom.ts:261` | Dana | The yogurt, back on duty as a paperweight. Holding down nothing. It looks proud anyway. |
+| `breakRoom.ts:263` | Dana | One strawberry yogurt, pinning down a piece of card. The card says PICKWICK. That is MY time card. |
+| `breakRoom.ts:265` | Dana | A fridge covered in notes. The big one: "WHOEVER KEEPS USING MY YOGURT AS A PAPERWEIGHT: STOP." Underlined so hard the pen went through. |
+| `breakRoom.ts:272` | Dana | It's open. It hums at me disapprovingly. Another note inside says "CLOSE THE DOOR." |
+| `breakRoom.ts:276` | Dana | Inside: one strawberry yogurt, sitting on a piece of card like a paperweight. The card says PICKWICK. |
+| `breakRoom.ts:278` | Dana | Somebody's been using their yogurt as a paperweight. On my time card. In the fridge. I have so many questions. |
+| `breakRoom.ts:291` | Dana | I lift the yogurt, take my time card, and put the yogurt back exactly where it was. Handbook Section 6: respect your colleagues' dairy. |
+| `breakRoom.ts:300` | Dana | I'm not putting that in the fridge. Somebody would leave a note about it. |
+| `breakRoom.ts:309` | Dana | "SNAX-O-RAMA." Fully stocked with one bag of Spooky Crisps, which has been stuck on its spiral since before I was hired. Nobody has the heart to free it. The coin return flap is half-open, and something small and copper is sulking in there. |
+| `breakRoom.ts:314` | Dana | Empty. I check it twice more anyway. Handbook Section 8: be thorough. |
+| `breakRoom.ts:318` | Dana | Clink! One cent. Handbook Section 8: "Found money under five cents belongs to the finder." Finally, a section that helps. |
+| `breakRoom.ts:326` | Dana | The crisps are $1.50, and every cent I've got is spoken for. Hang in there, crisps. |
+| `breakRoom.ts:330` | Dana | I'm not feeding it back. That cent and I have plans. |
+| `breakRoom.ts:332` | Dana | Spend my wages on crisps? The mug is the only thing I need. The crisps can wait. They have been waiting for years. |
+| `breakRoom.ts:334` | Dana | Break exact change? For crisps? Never. |
+| `breakRoom.ts:346` | Dana | My locker's open. Inside: one spare hairnet. We don't serve food. Head office issued it anyway. |
+| `breakRoom.ts:348` | Dana | A row of staff lockers. Mine says TRAINEE. Reginald's has a gold star. Gary's is just a peg. Mine has a combination lock. |
+| `breakRoom.ts:355` | Dana | It's already open. The hairnet and I have nothing more to say to each other. |
+| `breakRoom.ts:360` | Dana | The combination is my employee number. 0... 0... 7. Click! |
+| `breakRoom.ts:362` | Dana | Inside: a spare hairnet and my pay packet. Payday! Twelve dollars and ninety-eight cents. The mug is twelve ninety-nine. Head office, you absolute artists. |
+| `breakRoom.ts:368` | Dana | The combination is my employee number. Which I was told on day one, along with forty other things. Maybe it's written on me somewhere. |
+| `breakRoom.ts:374` | Dana | The lock wants a number, not a lanyard. Though the number IS on the lanyard. I should probably read it. |
+| `breakRoom.ts:384` | Dana | The staff intercom to the Lair. A label: "FOR EMERGENCIES ONLY." Someone has added: "AND REGINALD'S NOTES." |
 
 ## The finale (23)
 

@@ -153,42 +153,47 @@ export const intercomDialogue: Dialogue = {
   },
 };
 
-// Layout as in the other rooms: back wall at the top, the floor a trapezoid from y=420 to y=620.
-// Left to right: the door back to the Gift Shop, noticeboard, time clock, fridge, vending machine,
-// lockers, intercom. See docs/art/break-room-layout.svg.
+// The painting (docs/art/break-room.md) sets the layout: hotspot bounds and the walkable floor are
+// fitted to what's painted. Left to right: the door back to the Gift Shop, noticeboard, time clock,
+// fridge, vending machine, lockers, intercom. The floor runs edge to edge from y=470 down to y=620;
+// below it is the inventory bar.
 export const breakRoom: Room = {
   id: 'breakRoom',
   name: 'Break Room',
+  // Generated from docs/art/break-room-layout.svg; bounds were then fitted to the painting.
+  art: {
+    background: 'assets/rooms/break-room.webp',
+  },
   entries: {
-    fromGiftShop: { x: 200, y: 470 },
+    fromGiftShop: { x: 210, y: 500 },
   },
   walkable: [
-    { x: 160, y: 420 },
-    { x: 1120, y: 420 },
-    { x: 1220, y: 620 },
-    { x: 60, y: 620 },
+    { x: 25, y: 470 },
+    { x: 1255, y: 470 },
+    { x: 1275, y: 620 },
+    { x: 5, y: 620 },
   ],
   hotspots: [
     {
       // Look-only until slice 16 joins the rooms.
       id: 'giftShopDoor',
       name: 'Gift Shop Door',
-      bounds: { x: 40, y: 140, width: 140, height: 280 },
-      interactionPoint: { x: 200, y: 460 },
+      bounds: { x: 36, y: 142, width: 156, height: 320 },
+      interactionPoint: { x: 205, y: 488 },
       verbs: {
         // DRAFT:
         look: says('The door back to the Gift Shop. This side says STAFF ONLY. The other side also says STAFF ONLY. Very consistent. Very unwelcoming.'),
         use: {
           label: 'Go through',
-          responses: [{ effects: [walk('dana', 175, 425), { type: 'goToRoom', roomId: 'giftShop', entry: 'fromBreakRoom' }] }],
+          responses: [{ effects: [walk('dana', 150, 470), { type: 'goToRoom', roomId: 'giftShop', entry: 'fromBreakRoom' }] }],
         },
       },
     },
     {
       id: 'noticeboard',
       name: 'Noticeboard',
-      bounds: { x: 220, y: 170, width: 170, height: 120 },
-      interactionPoint: { x: 305, y: 450 },
+      bounds: { x: 216, y: 186, width: 178, height: 138 },
+      interactionPoint: { x: 305, y: 488 },
       verbs: {
         // DRAFT:
         look: says('"EMPLOYEE OF THE MONTH: GARY." Again. Below it: "WHO KEEPS TAKING THE STAPLER? —Management." And: "It is in the Lair. It is the Stapler of Doom now. —R."'),
@@ -199,8 +204,8 @@ export const breakRoom: Room = {
     {
       id: 'timeClock',
       name: 'Time Clock',
-      bounds: { x: 430, y: 200, width: 70, height: 100 },
-      interactionPoint: { x: 465, y: 450 },
+      bounds: { x: 420, y: 170, width: 102, height: 160 },
+      interactionPoint: { x: 468, y: 488 },
       verbs: {
         look: {
           responses: [
@@ -247,8 +252,8 @@ export const breakRoom: Room = {
     {
       id: 'fridge',
       name: 'Fridge',
-      bounds: { x: 540, y: 150, width: 140, height: 270 },
-      interactionPoint: { x: 610, y: 460 },
+      bounds: { x: 532, y: 166, width: 152, height: 300 },
+      interactionPoint: { x: 608, y: 492 },
       verbs: {
         look: {
           responses: [
@@ -297,8 +302,8 @@ export const breakRoom: Room = {
     {
       id: 'vendingMachine',
       name: 'Vending Machine',
-      bounds: { x: 720, y: 140, width: 130, height: 280 },
-      interactionPoint: { x: 785, y: 460 },
+      bounds: { x: 702, y: 154, width: 158, height: 312 },
+      interactionPoint: { x: 780, y: 492 },
       verbs: {
         // DRAFT:
         look: says('"SNAX-O-RAMA." Fully stocked with one bag of Spooky Crisps, which has been stuck on its spiral since before I was hired. Nobody has the heart to free it. The coin return flap is half-open, and something small and copper is sulking in there.'),
@@ -332,8 +337,8 @@ export const breakRoom: Room = {
     {
       id: 'lockers',
       name: 'Lockers',
-      bounds: { x: 890, y: 150, width: 230, height: 270 },
-      interactionPoint: { x: 1005, y: 460 },
+      bounds: { x: 878, y: 166, width: 248, height: 300 },
+      interactionPoint: { x: 985, y: 492 },
       verbs: {
         look: {
           responses: [
@@ -372,8 +377,8 @@ export const breakRoom: Room = {
     {
       id: 'intercom',
       name: 'Intercom',
-      bounds: { x: 1150, y: 220, width: 60, height: 80 },
-      interactionPoint: { x: 1120, y: 450 },
+      bounds: { x: 1156, y: 242, width: 72, height: 94 },
+      interactionPoint: { x: 1165, y: 488 },
       verbs: {
         // DRAFT:
         look: says('The staff intercom to the Lair. A label: "FOR EMERGENCIES ONLY." Someone has added: "AND REGINALD\'S NOTES."'),

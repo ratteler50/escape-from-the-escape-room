@@ -51,6 +51,21 @@ like the second image".
 
 ---
 
-**After you approve it** (shown in the game with the clickable areas outlined), the agent crops the
-middle 1536×864, scales it to 1280×720, converts it to WebP, and fits the hotspots and the floor to
-what's painted. The record of what was used goes in `docs/art/break-room.md`.
+**After you approve it** (shown in the game with the clickable areas outlined), the agent scales it
+to 1280×720 (cropping the middle 1536×864 first if it came back letterboxed), converts it to WebP,
+and fits the hotspots and the floor to what's painted. The record of what was used goes in
+`docs/art/break-room.md`.
+
+## 1b. Fix: the cent in the coin return → attach `art-inbox/CROP-vending.png`, save as `art-inbox/vending-fixed.png`
+
+`break-room-1` painted the cent lying in the big snack bin at the bottom, where a bag of crisps
+would drop, not in the coin return. This is an **edit** of an enlarged crop of the vending machine
+(portrait, 1024×1536), blended back into the painting, so the rest of the room stays as approved.
+
+> Edit this exact image. Keep everything identical: framing, size, painting style, colours,
+> lighting, the machine, the glass, the spirals and the purple bag of crisps. Change only two
+> things: 1) the big dark delivery bin at the bottom is now completely empty: remove the copper
+> coin from it and paint the inside of the bin dark and empty. 2) The small square opening on the
+> right-hand panel, below the button, becomes a little coin-return cup with a small metal flap
+> tilted half-open, and one single shiny copper cent peeking out from under the flap, catching the
+> light.
