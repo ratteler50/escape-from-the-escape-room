@@ -1,7 +1,7 @@
 import * as Phaser from 'phaser';
 import type { Point } from '../core/geometry';
 import { isExit } from '../core/engine';
-import type { CharacterId, Hotspot, Room } from '../core/types';
+import type { CharacterId, Hotspot, Room, World } from '../core/types';
 
 const COLORS = {
   wall: 0x2b2238,
@@ -12,6 +12,19 @@ const COLORS = {
   text: '#ffffff',
   highlight: 0xffe28a,
 };
+
+/** How far below a hotspot's top edge its label sits. */
+const LABEL_OFFSET = 14;
+
+/** A floating character bobs this many pixels up and back, once per period. */
+const BOB = { height: 8, periodMs: 2400 };
+
+interface Drawn {
+  hotspot: Hotspot;
+  objects: Phaser.GameObjects.GameObject[];
+  /** The bob, for characters who float. */
+  bob?: Phaser.Tweens.Tween | undefined;
+}
 
 export interface RoomViewHandlers {
   onHover: (hotspot: Hotspot | undefined, pointer: Phaser.Input.Pointer) => void;
@@ -24,12 +37,13 @@ export interface RoomViewHandlers {
  */
 export class RoomView {
   private background: Phaser.GameObjects.Graphics | undefined;
-  private drawn: { hotspot: Hotspot; objects: Phaser.GameObjects.GameObject[] }[] = [];
+  private drawn: Drawn[] = [];
   private highlighted: Phaser.GameObjects.Rectangle | undefined;
 
   constructor(
     private readonly scene: Phaser.Scene,
     private readonly handlers: RoomViewHandlers,
+    private readonly characters: World['characters'],
   ) {}
 
   /** Draws a room's background. Call again with another room to switch. */
@@ -45,8 +59,15 @@ export class RoomView {
   /** Replaces the drawn hotspots. Hotspots can appear, vanish, or move with game state. */
   showHotspots(hotspots: readonly Hotspot[]): void {
     this.clearHighlight();
-    this.drawn.forEach(({ objects }) => objects.forEach((o) => o.destroy()));
-    this.drawn = hotspots.map((hotspot) => ({ hotspot, objects: this.draw(hotspot) }));
+    this.drawn.forEach(({ objects, bob }) => {
+      bob?.remove();
+      objects.forEach((o) => o.destroy());
+    });
+    this.drawn = hotspots.map((hotspot) => {
+      const objects = this.draw(hotspot);
+      const floats = hotspot.character !== undefined && this.characters[hotspot.character]?.floats;
+      return { hotspot, objects, ...(floats && { bob: this.bob(objects) }) };
+    });
   }
 
   /** Where a character's lines go: above the hotspot that is that character, if one is drawn. */
@@ -77,9 +98,16 @@ export class RoomView {
       return () => {};
     }
     const { bounds } = entry.hotspot;
+    const targets = entry.objects as unknown as { x: number; y: number }[];
+    // A floating character stops bobbing for the walk, back at rest height, and bobs again after.
+    if (entry.bob) {
+      entry.bob.remove();
+      entry.bob = undefined;
+      targets[0]!.y = bounds.y;
+      targets[1]!.y = bounds.y + LABEL_OFFSET;
+    }
     const dx = to.x - (bounds.x + bounds.width / 2);
     const dy = to.y - (bounds.y + bounds.height);
-    const targets = entry.objects as unknown as { x: number; y: number }[];
     const starts = targets.map((o) => ({ x: o.x, y: o.y }));
     let done = false;
     const finish = () => {
@@ -87,6 +115,8 @@ export class RoomView {
       done = true;
       tween.stop();
       targets.forEach((o, i) => ((o.x = starts[i]!.x + dx), (o.y = starts[i]!.y + dy)));
+      const floats = this.characters[character]?.floats;
+      if (floats && this.drawn.includes(entry)) entry.bob = this.bob(entry.objects);
       onDone();
     };
     const tween = this.scene.tweens.addCounter({
@@ -102,6 +132,18 @@ export class RoomView {
     return finish;
   }
 
+  /** Floats a character's drawn objects gently up and down, forever. Presentation only. */
+  private bob(objects: Phaser.GameObjects.GameObject[]): Phaser.Tweens.Tween {
+    return this.scene.tweens.add({
+      targets: objects,
+      y: `-=${BOB.height}`,
+      duration: BOB.periodMs / 2,
+      ease: 'Sine.easeInOut',
+      yoyo: true,
+      repeat: -1,
+    });
+  }
+
   private draw(hotspot: Hotspot): Phaser.GameObjects.GameObject[] {
     const { x, y, width, height } = hotspot.bounds;
     // Placeholder art: a labelled rectangle. Real art will replace this in M4.
@@ -111,7 +153,7 @@ export class RoomView {
     const shape = this.scene.add.rectangle(x, y, width, height, color).setOrigin(0, 0).setDepth(10).setInteractive({ cursor });
     // Labels sit at the top edge so a character standing in front of a hotspot doesn't hide its name.
     const label = this.scene.add
-      .text(x + width / 2, y + 14, hotspot.character ? hotspot.name.toUpperCase() : hotspot.name, { fontSize: '18px', color: COLORS.text })
+      .text(x + width / 2, y + LABEL_OFFSET, hotspot.character ? hotspot.name.toUpperCase() : hotspot.name, { fontSize: '18px', color: COLORS.text })
       .setOrigin(0.5)
       .setDepth(11);
 

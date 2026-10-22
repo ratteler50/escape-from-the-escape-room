@@ -1,6 +1,8 @@
 import type { GameState, World } from '../core/types';
-import { giftShop } from './giftShop';
+import { giftShop, giftShopItems } from './giftShop';
+import { kyle, kyleDialogue } from './kyle';
 import { lair, lairCombinations, lairItems } from './lair';
+import { mordecai, mordecaiDialogue } from './mordecai';
 import { reginald, reginaldDialogue } from './reginald';
 
 export const world: World = {
@@ -8,14 +10,18 @@ export const world: World = {
     [lair.id]: lair,
     [giftShop.id]: giftShop,
   },
-  items: Object.fromEntries(lairItems.map((item) => [item.id, item])),
+  items: Object.fromEntries([...lairItems, ...giftShopItems].map((item) => [item.id, item])),
   combinations: [...lairCombinations],
   characters: {
     dana: { id: 'dana', name: 'Dana', color: '#ffe28a' },
     [reginald.id]: reginald,
+    [kyle.id]: kyle,
+    [mordecai.id]: mordecai,
   },
   dialogues: {
     [reginaldDialogue.id]: reginaldDialogue,
+    [kyleDialogue.id]: kyleDialogue,
+    [mordecaiDialogue.id]: mordecaiDialogue,
   },
   fallbacks: {
     // DRAFT: no "the" before {item} or {target}: names like "Gary's Arm" and "Gary" don't take one.
