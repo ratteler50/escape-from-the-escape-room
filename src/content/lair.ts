@@ -252,18 +252,18 @@ export const lair: Room = {
         look: {
           responses: [
             // DRAFT:
-            { when: [{ flag: 'doorUnlocked' }], effects: [say("The scroll's back on its velvet. The little card says 'ANCIENT RIDDLE (REPRODUCTION)'. It has never been more wrong.")] },
+            { when: [{ flag: 'doorUnlocked' }], effects: [say("The scroll's tucked back under the bone. Its little card says 'ANCIENT RIDDLE (REPRODUCTION)'. It has never been more wrong.")] },
             // DRAFT:
-            { when: [{ flag: 'caseOpen' }], effects: [say("An empty display case. The little card says 'ANCIENT RIDDLE (REPRODUCTION)'.")] },
+            { when: [{ flag: 'caseOpen' }], effects: [say("Just the bone now. Its card says 'BONE (DECORATIVE)'. The scroll's card says 'ANCIENT RIDDLE (REPRODUCTION)', and points at nothing.")] },
             // DRAFT:
-            { effects: [say('An ornate display case. Inside, on velvet: an Ancient Riddle Scroll. The lock is tiny and skull-shaped.')] },
+            { effects: [say("An ornate display case. Inside, on velvet: a bone, labelled 'BONE (DECORATIVE)'. Tucked underneath it: an Ancient Riddle Scroll. The lock is tiny and skull-shaped.")] },
           ],
         },
         use: {
           label: 'Open',
           responses: [
             // DRAFT:
-            { when: [{ flag: 'caseOpen' }], effects: [say("It's open and it's empty. Like my sense of job security.")] },
+            { when: [{ flag: 'caseOpen' }], effects: [say("It's open. All that's left is the decorative bone, and I'm not stealing set dressing on my first day.")] },
             // DRAFT:
             { effects: [say("Locked. The keyhole is shaped like a tiny skull. Head office loves a theme.")] },
           ],
@@ -275,7 +275,7 @@ export const lair: Room = {
             when: [{ notFlag: 'caseOpen' }],
             effects: [
               // DRAFT:
-              say("Click. The case opens. I take the Ancient Riddle Scroll and leave the key in the lock, like a responsible trainee."),
+              say("Click. The case opens. I slide the Ancient Riddle Scroll out from under the bone and leave the key in the lock, like a responsible trainee."),
               { type: 'removeItem', itemId: caseKey.id },
               { type: 'addItem', itemId: riddleScroll.id },
               setFlag('caseOpen'),
@@ -317,7 +317,7 @@ export const lair: Room = {
               // DRAFT:
               say("CLUNK. The door unlocks. I've beaten head office at their own game. By reading."),
               // DRAFT:
-              say('Handbook Section 3: lost property must be returned. I return the scroll to its velvet.'),
+              say('Handbook Section 3: lost property must be returned. I tuck the scroll back under its bone.'),
               { type: 'removeItem', itemId: riddleScroll.id },
             ],
           },

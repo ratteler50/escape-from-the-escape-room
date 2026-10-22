@@ -41,12 +41,12 @@ for an item; "Dana (option)" is a line Dana says when the player picks it in a c
 | `lair.ts:231` | Dana | I am NOT giving it back to him like this. |
 | `lair.ts:241` | Dana | "One star. Could not escape." "One star. Still here." "Five stars! Very immersive!" That last one's from Reginald's mum. |
 | `lair.ts:243` | Dana | "Two stars. Staff were polite but the lich was hammy." Handbook Section 11: employees may not review their own workplace. I'll sign it "Gary". |
-| `lair.ts:255` | Dana | The scroll's back on its velvet. The little card says 'ANCIENT RIDDLE (REPRODUCTION)'. It has never been more wrong. |
-| `lair.ts:257` | Dana | An empty display case. The little card says 'ANCIENT RIDDLE (REPRODUCTION)'. |
-| `lair.ts:259` | Dana | An ornate display case. Inside, on velvet: an Ancient Riddle Scroll. The lock is tiny and skull-shaped. |
-| `lair.ts:266` | Dana | It's open and it's empty. Like my sense of job security. |
+| `lair.ts:255` | Dana | The scroll's tucked back under the bone. Its little card says 'ANCIENT RIDDLE (REPRODUCTION)'. It has never been more wrong. |
+| `lair.ts:257` | Dana | Just the bone now. Its card says 'BONE (DECORATIVE)'. The scroll's card says 'ANCIENT RIDDLE (REPRODUCTION)', and points at nothing. |
+| `lair.ts:259` | Dana | An ornate display case. Inside, on velvet: a bone, labelled 'BONE (DECORATIVE)'. Tucked underneath it: an Ancient Riddle Scroll. The lock is tiny and skull-shaped. |
+| `lair.ts:266` | Dana | It's open. All that's left is the decorative bone, and I'm not stealing set dressing on my first day. |
 | `lair.ts:268` | Dana | Locked. The keyhole is shaped like a tiny skull. Head office loves a theme. |
-| `lair.ts:278` | Dana | Click. The case opens. I take the Ancient Riddle Scroll and leave the key in the lock, like a responsible trainee. |
+| `lair.ts:278` | Dana | Click. The case opens. I slide the Ancient Riddle Scroll out from under the bone and leave the key in the lock, like a responsible trainee. |
 | `lair.ts:285` | Dana | It's already open. |
 | `lair.ts:296` | Dana | Four rune buttons and a brass plate: "ENTER CODE TO ESCAPE". Below it, smaller: "NO REFUNDS". |
 | `lair.ts:301` | Dana | Already done. C-O-D-E. I'll never forget it. I'll try. |
@@ -54,7 +54,7 @@ for an item; "Dana (option)" is a line Dana says when the player picks it in a c
 | `lair.ts:313` | Dana | "THE ANSWER IS: [INSERT CODE HERE BEFORE PRINTING]." The curse bound itself to the script as printed... |
 | `lair.ts:315` | Dana | ...so the code is literally... C. O. D. E. |
 | `lair.ts:318` | Dana | CLUNK. The door unlocks. I've beaten head office at their own game. By reading. |
-| `lair.ts:320` | Dana | Handbook Section 3: lost property must be returned. I return the scroll to its velvet. |
+| `lair.ts:320` | Dana | Handbook Section 3: lost property must be returned. I tuck the scroll back under its bone. |
 | `lair.ts:325` | Dana | The door's already unlocked. I'm not typing CODE again. It felt silly enough the first time. |
 | `lair.ts:338` | Dana | Gary's arm, gummed to the grate, waving at nobody. A pamphlet down there: "Emergency Procedures for Staff". Fire, flood, fainting guest. Nothing about liches. I checked twice. |
 | `lair.ts:340` | Dana | A floor grate. Something small and shiny glints down there, just out of reach. I'd need a longer arm. Or a spare one. |
