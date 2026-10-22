@@ -54,6 +54,21 @@ won't survive the shrink; that's fine.
 >
 > No text other than the sticker, no shadows on the background.
 
+### 2b. Tray fix → save as `art-inbox/tray-sheet-2.png`
+
+The first tray (`art-inbox/tray-sheet.webp`) works, but its skull had no outline and wasn't the
+franchise logo, and its logo and sticker sat at the left end, where the item slots go. In the
+**same chat**, or a new one with `tray-sheet.webp` attached, also attach
+`art-inbox/REFERENCE-mug-logo.png` (the mug icon, for the logo):
+
+> Edit the first attached image (the purple tray). Keep the tray's shape, size, colours, gloss and
+> the empty square slot below it exactly the same. Make two changes. One: move the round skull
+> logo and the STAFF PROPERTY – DO NOT REMOVE sticker from the LEFT end of the tray to the RIGHT
+> end, in the same order (logo outermost at the far right, sticker just to its left), so the left
+> end and the middle of the tray are plain, empty purple plastic. Two: redraw the skull logo as
+> the same cartoon skull as on the purple mug in the second attached image, cream with dark eye
+> sockets, with a bold dark outline like everything else, centred on its round disc.
+
 ---
 
 **After you approve them**, the agent cuts out the 13 icons, the tray (its logo end, and a plain
