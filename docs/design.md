@@ -132,7 +132,8 @@ and each Canva save, once per slice; downloads are approved in one batch per sli
 **Characters.** Flat colour with hard outlines over the painted rooms. One model sheet per character
 (front and three-quarter, approved first), used as the reference for everything after. One standing
 pose each, mirrored for direction; walking is a code-driven bounce and lean; a talking pose is a
-stretch goal. Backgrounds removed with Canva's background removal; transparent PNG → WebP.
+stretch goal. One exception: **Reginald also gets a seated pose**, lounging on the throne until he
+takes his mark (decided 2026-10-22). Backgrounds removed with Canva's background removal; transparent PNG → WebP.
 
 **Props that change.** Edit the room's background image for each changed state (same scene, one
 change), crop the changed region, show it as an overlay by flag. Gary stays painted in, with an
@@ -153,7 +154,7 @@ are plain files in the repo with a **15 MB** budget, enforced by a test.
 | Slice | Content | Runs |
 |-------|---------|------|
 | 18 | Art system (room backgrounds, invisible hotspots, glow, show-clickable, `?art=off`); Lair background with the phylactery and a spotlight aimed at Gary; `CREDITS.md`; budget | here |
-| 19 | Dana and Reginald model sheets and sprites; sprite rendering, mirroring, bounce-walk; Lair prop overlays | here |
+| 19 | Dana and Reginald model sheets and sprites (Reginald standing and seated); sprite rendering, mirroring, bounce-walk; Lair prop overlays | here |
 | 20 | Audio system; Lair music; the sound-effects set | here |
 | 21 | Gift Shop: background, Kyle and Mordecai sprites, overlays, music | **parallel** with 22 |
 | 22 | Break Room: background, overlays, music, finale sting | **parallel** with 21 |
