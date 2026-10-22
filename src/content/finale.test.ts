@@ -73,7 +73,7 @@ describe('the false exit', () => {
 
 describe('the joined rooms', () => {
   it('goes through the open STAFF ONLY door into the Break Room, and back', () => {
-    const open: GameState = { ...inGiftShop, player: { x: 930, y: 455 }, flags: { staffDoorOpen: true } };
+    const open: GameState = { ...inGiftShop, player: { x: 954, y: 470 }, flags: { staffDoorOpen: true } };
     const inBreakRoom = run(open, use('staffDoorOpen'));
     expect(inBreakRoom.roomId).toBe('breakRoom');
 

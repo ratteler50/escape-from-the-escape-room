@@ -2,7 +2,15 @@ import type { Character, Dialogue, Hotspot } from '../core/types';
 import { line, say, says, setFlag } from './dsl';
 import { kyle } from './kyle';
 
-export const mordecai: Character = { id: 'mordecai', name: 'Mordecai', color: '#a8e0f7', floats: true };
+export const mordecai: Character = {
+  id: 'mordecai',
+  name: 'Mordecai',
+  color: '#a8e0f7',
+  floats: true,
+  // Rising out of his teapot's spout like a genie, pointing down at it (drawn see-through by the
+  // view). His hotspots' bounds put the tip of his tail on the painted spout.
+  sprites: { standing: 'assets/characters/mordecai.webp' },
+};
 
 const M = (text: string) => line(mordecai.id, text);
 const K = (text: string) => line(kyle.id, text);
@@ -13,8 +21,8 @@ export const mordecaiHotspot: Hotspot = {
   name: 'Mordecai',
   character: mordecai.id,
   when: [{ notFlag: 'staffDoorOpen' }],
-  bounds: { x: 575, y: 120, width: 80, height: 180 },
-  interactionPoint: { x: 600, y: 460 },
+  bounds: { x: 581, y: 116, width: 119, height: 201 },
+  interactionPoint: { x: 620, y: 480 },
   verbs: {
     // DRAFT:
     look: says("A see-through old man in a dressing gown, hovering over the bargain bin and glaring at it. The Handbook's index goes straight from 'Gherkins' to 'Gift vouchers'."),
@@ -46,8 +54,8 @@ export const mordecaiBackHotspot: Hotspot = {
   name: 'Mordecai',
   character: mordecai.id,
   when: [{ flag: 'mordecaiBack' }],
-  bounds: { x: 575, y: 120, width: 80, height: 180 },
-  interactionPoint: { x: 600, y: 460 },
+  bounds: { x: 581, y: 116, width: 119, height: 201 },
+  interactionPoint: { x: 620, y: 480 },
   verbs: {
     // DRAFT:
     look: says('Mordecai, back over the bargain bin, gazing at his PRICELESS teapot like it might propose.'),
@@ -104,7 +112,7 @@ export const mordecaiDialogue: Dialogue = {
         },
         {
           id: 'whatsGoingOn',
-          text: 'Do you know why none of the doors will open?',
+          text: "Do you know why I can't leave? The front door's wide open, and it keeps sending me back in.",
           effects: [
             // DRAFT:
             M('My phylactery. The vessel of my very soul. Your head office bought it as a "spooky jar". Three dollars fifty.'),
