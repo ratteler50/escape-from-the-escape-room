@@ -42,6 +42,22 @@ function expectValidEffects(effects: readonly Effect[], where: string): void {
     if (effect.type === 'addItem' || effect.type === 'removeItem') {
       expectKnownItem(effect.itemId, `${where} (${effect.type})`);
     }
+    if (effect.type === 'walk' || effect.type === 'face') {
+      expect(
+        world.characters[effect.character],
+        `${where} has "${effect.character}" ${effect.type}, but they aren't in world.characters (known: ${Object.keys(world.characters).join(', ')})`,
+      ).toBeDefined();
+    }
+    if (effect.type === 'walk') {
+      const { x, y } = effect.to;
+      expect(
+        x >= 0 && x <= LOGICAL_WIDTH && y >= 0 && y <= LOGICAL_HEIGHT,
+        `${where} walks "${effect.character}" to ${fmt(effect.to)}, which is off the ${LOGICAL_WIDTH}×${LOGICAL_HEIGHT} screen`,
+      ).toBe(true);
+    }
+    if (effect.type === 'pause') {
+      expect(effect.ms >= 0 && effect.ms <= 5000, `${where} pauses for ${effect.ms} ms; keep pauses between 0 and 5000 ms`).toBe(true);
+    }
     if (effect.type === 'goToRoom') {
       const room = world.rooms[effect.roomId];
       expect(room, `${where} goes to room "${effect.roomId}", which isn't in world.rooms (known: ${Object.keys(world.rooms).join(', ')})`).toBeDefined();

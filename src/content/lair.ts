@@ -1,5 +1,5 @@
 import type { Combination, Item, Room } from '../core/types';
-import { say, says, setFlag } from './dsl';
+import { say, says, setFlag, walk } from './dsl';
 import { reginaldOnMark, reginaldOnThrone, script } from './reginald';
 
 export const garyArm: Item = {
@@ -97,11 +97,12 @@ export const lair: Room = {
               effects: [
                 // DRAFT:
                 say('Freedom! Or at least... retail.'),
+                walk('dana', 1110, 425),
                 setFlag('visitedGiftShop'),
                 { type: 'goToRoom', roomId: 'giftShop', entry: 'fromLair' },
               ],
             },
-            { effects: [{ type: 'goToRoom', roomId: 'giftShop', entry: 'fromLair' }] },
+            { effects: [walk('dana', 1110, 425), { type: 'goToRoom', roomId: 'giftShop', entry: 'fromLair' }] },
           ],
         },
       },

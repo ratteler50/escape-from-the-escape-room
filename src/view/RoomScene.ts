@@ -7,7 +7,7 @@ import { DialoguePanel } from './DialoguePanel';
 import { showEndCard } from './EndCard';
 import { InventoryBar } from './InventoryBar';
 import { showGameMenu, showSlotList } from './menus';
-import { PlayerSprite } from './PlayerSprite';
+import { PlayerSprite, WALK_SPEED } from './PlayerSprite';
 import { RoomView } from './RoomView';
 import { Speech } from './Speech';
 import type { GameData } from './TitleScene';
@@ -46,6 +46,11 @@ export class RoomScene extends Phaser.Scene {
   private queue: Effect[] = [];
   private busy = false;
   private menuOpen = false;
+  /** Skip ⏭ pressed: play the rest of the queue instantly, keeping every effect that matters. */
+  private skipping = false;
+  /** Ends whatever step is in progress (a line, a walk, a pause) right now. */
+  private finishStep: (() => void) | undefined;
+  private skipButton!: Phaser.GameObjects.Text;
 
   constructor() {
     super('RoomScene');
@@ -56,6 +61,8 @@ export class RoomScene extends Phaser.Scene {
     this.world = data.world;
     this.state = data.state;
     this.menuOpen = false;
+    this.skipping = false;
+    this.finishStep = undefined;
     this.held = undefined;
     this.hovered = undefined;
     this.queue = [];
@@ -91,7 +98,9 @@ export class RoomScene extends Phaser.Scene {
     if (this.state.conversation) this.showDialogueOptions();
 
     this.input.on('pointermove', (pointer: Phaser.Input.Pointer) => this.moveCaption(pointer));
-    this.input.keyboard?.on('keydown-ESC', () => this.putAway());
+    // Above the line-skip blocker, so it can be clicked while a scene plays. Shown only then.
+    this.skipButton = button(this, this.scale.width - 90, 590, 'Skip ⏭', () => this.skipScene()).setDepth(1850).setVisible(false);
+    this.input.keyboard?.on('keydown-ESC', () => (this.busy ? this.skipScene() : this.putAway()));
     // Clicks on hotspots, items, the bar, panels, and the coin stop propagation, so this is a floor click.
     this.input.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
       if (this.held) return this.putAway();
@@ -214,15 +223,29 @@ export class RoomScene extends Phaser.Scene {
    * plays instantly. The core's state is already final; the queue only paces the presentation.
    */
   private playNext(): void {
+    this.finishStep = undefined;
     const effect = this.queue.shift();
     if (!effect) return this.idle();
 
     this.busy = true;
     this.speech.setBlocking(true);
+    this.skipButton.setVisible(true);
     this.hover(undefined);
     switch (effect.type) {
       case 'say':
+        if (this.skipping) break;
         return this.say(effect.text, effect.speaker ?? PLAYER);
+      case 'walk':
+        return this.walkInScene(effect.character, effect.to);
+      case 'pause': {
+        if (this.skipping) break;
+        const timer = this.time.delayedCall(effect.ms, () => this.playNext());
+        this.finishStep = () => (timer.remove(), this.playNext());
+        return;
+      }
+      case 'face':
+        if (effect.character === PLAYER) this.player.face(effect.direction);
+        break;
       case 'addItem':
       case 'removeItem':
         this.refreshInventory();
@@ -236,6 +259,7 @@ export class RoomScene extends Phaser.Scene {
       case 'win':
         // The end card takes over input; the core's state stays as it is (won).
         this.speech.setBlocking(false);
+        this.skipButton.setVisible(false);
         return showEndCard(this, () => this.scene.restart({ ...this.data_, state: this.data_.newGame }));
       case 'goToRoom':
         return this.changeRoom(effect.roomId, effect.entry);
@@ -245,21 +269,51 @@ export class RoomScene extends Phaser.Scene {
 
   /** Fade out, redraw the new room with Dana at her entry point, fade back in, carry on. */
   private changeRoom(roomId: string, entry: string): void {
-    const camera = this.cameras.main;
-    camera.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, () => {
+    const arrive = () => {
       const room = this.world.rooms[roomId]!;
       this.roomView.showRoom(room);
       this.refreshHotspots();
       this.player.placeAt(room.entries[entry]!);
+    };
+    if (this.skipping) {
+      arrive();
+      return this.playNext();
+    }
+    const camera = this.cameras.main;
+    camera.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, () => {
+      arrive();
       camera.fadeIn(250);
       this.playNext();
     });
     camera.fadeOut(250);
   }
 
+  /** A cutscene walk: Dana, or a character drawn as a hotspot. Skipping lands it at once. */
+  private walkInScene(character: CharacterId, to: Point): void {
+    if (character === PLAYER) {
+      this.player.walkTo(to, currentRoom(this.world, this.state).walkable, (at) => {
+        this.state = { ...this.state, player: at };
+        this.playNext();
+      });
+      this.finishStep = () => this.player.finishWalk();
+    } else {
+      this.finishStep = this.roomView.walkCharacter(character, to, WALK_SPEED, () => this.playNext());
+    }
+    if (this.skipping) this.finishStep();
+  }
+
+  /** Skip ⏭ / Escape: finish the current step and play the rest of the scene instantly. */
+  private skipScene(): void {
+    if (!this.busy) return;
+    this.skipping = true;
+    this.finishStep?.();
+  }
+
   /** The queue is empty: hand control back to the player, in the room or in the conversation. */
   private idle(): void {
     this.busy = false;
+    this.skipping = false;
+    this.skipButton.setVisible(false);
     this.speech.setBlocking(false);
     if (this.state.conversation) this.showDialogueOptions();
     else this.dialogue.hide();
@@ -303,5 +357,6 @@ export class RoomScene extends Phaser.Scene {
     const anchor = (speaker !== PLAYER && this.roomView.speakerAnchor(speaker)) || this.player.headAnchor;
     const color = this.world.characters[speaker]?.color ?? '#ffffff';
     this.speech.say(text, color, anchor, () => this.playNext());
+    this.finishStep = () => this.speech.skip();
   }
 }

@@ -14,3 +14,6 @@ export const says = (text: string, label?: string): VerbSpec => ({
 export const line = (speaker: CharacterId, text: string): Effect => ({ type: 'say', text, speaker });
 
 export const setFlag = (flag: string): Effect => ({ type: 'setFlag', flag });
+
+/** Cutscene step: someone walks so their feet end at (x, y). Presentation only. */
+export const walk = (character: CharacterId, x: number, y: number): Effect => ({ type: 'walk', character, to: { x, y } });

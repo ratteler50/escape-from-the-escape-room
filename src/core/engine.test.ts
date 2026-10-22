@@ -454,3 +454,29 @@ describe('rooms', () => {
     expect(() => handle(broken, holding, { type: 'combine', itemIds: ['bulb', 'torch'] })).toThrow(/nowhere/);
   });
 });
+
+describe('presentation-only effects', () => {
+  it('walk, pause, and face pass through without changing state', () => {
+    const staged: World = {
+      ...world,
+      combinations: [
+        {
+          items: ['bulb', 'battery'],
+          responses: [
+            {
+              effects: [
+                { type: 'walk', character: 'parrot', to: { x: 50, y: 50 } },
+                { type: 'pause', ms: 300 },
+                { type: 'face', character: 'dana', direction: 'left' },
+              ],
+            },
+          ],
+        },
+      ],
+    };
+    const holding = { ...start, inventory: ['bulb', 'battery'] };
+    const result = handle(staged, holding, { type: 'combine', itemIds: ['bulb', 'battery'] });
+    expect(result.state).toEqual(holding);
+    expect(result.effects.map((e) => e.type)).toEqual(['walk', 'pause', 'face']);
+  });
+});

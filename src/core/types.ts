@@ -34,7 +34,12 @@ export type Effect =
   /** The game is won. Sets the `won` flag; the view shows the end card. */
   | { type: 'win' }
   /** Move to another room, arriving at one of its named entry points. */
-  | { type: 'goToRoom'; roomId: RoomId; entry: EntryId };
+  | { type: 'goToRoom'; roomId: RoomId; entry: EntryId }
+  // Cutscene steps. Presentation only: the core passes them through and state doesn't change.
+  /** A character (Dana, or one drawn as a hotspot) walks to a point, given as their feet position. */
+  | { type: 'walk'; character: CharacterId; to: Point }
+  | { type: 'pause'; ms: number }
+  | { type: 'face'; character: CharacterId; direction: 'left' | 'right' };
 
 /** One possible outcome of a verb. The first response whose conditions hold is used. */
 export interface Response {

@@ -1,5 +1,5 @@
 import type { Character, Dialogue, Hotspot, HotspotVerbs, Item, Response } from '../core/types';
-import { line, say, setFlag } from './dsl';
+import { line, say, setFlag, walk } from './dsl';
 
 export const reginald: Character = { id: 'reginald', name: 'Reginald', color: '#b9f5a0' };
 
@@ -169,6 +169,8 @@ export const reginaldDialogue: Dialogue = {
             R('...!'),
             // DRAFT:
             R('ARISE! ARIIIISE! Yes! Find your light, Reginald!'),
+            // To his spotlight mark: the feet of the reginaldOnMark hotspot.
+            walk(reginald.id, 415, 420),
             setFlag('reginaldLeftThrone'),
             // DRAFT:
             say("He's swept off to his spotlight mark. Which means the Spooky Seat is unguarded."),
