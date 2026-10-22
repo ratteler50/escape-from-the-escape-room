@@ -124,7 +124,43 @@ cuts out cleanly.
 
 ---
 
+## 3. Overlays
+
+As for the Lair (`prompts-overlays.md`): you edit an **enlarged crop** of the approved painting, so
+ChatGPT has detail to work with and nothing else in the room can drift; the agent shrinks the result
+back with `scripts/make-overlay.py`, keeps only what changed, and feathers the edges. Each in its own
+new chat: attach the crop, ask for an **edit** at the same size, and save under the name given. If
+ChatGPT redraws the whole crop (different colours, lighting or angle), try again with "do not
+redraw; change only what I describe".
+
+### 3a. STAFF ONLY, open → attach `art-inbox/CROP-staff-door.png`, save as `art-inbox/staff-door-open.png`
+
+Portrait (1024×1536). Shown once Mordecai has opened it (`staffDoorOpen`).
+
+> Edit this exact image. Keep everything identical: framing, size, painting style, colours, the
+> flat fluorescent lighting, the purple wall, the grey metal door frame, the badge reader with its
+> red light, and the floor. Change only one thing: the grey door now stands wide open, swung away
+> from us into the room beyond, so we see it edge-on at an angle against the left side of its
+> frame, its STAFF ONLY sign still on it. Through the open doorway: a narrow, dingy staff corridor
+> with scuffed beige walls and a worn grey floor, lit by one flickering strip light, a little
+> darker than the shop. Nothing in the corridor except a cheap plastic chair near the far end.
+
+### 3b. The teapot's PRICELESS sticker → attach `art-inbox/CROP-teapot.png`, save as `art-inbox/teapot-priceless.png`
+
+Landscape (1536×1024). Shown once Dana re-prices it (`teapotRepriced`). The teapot is only about 70 px
+wide in the game, so the sticker must be **big and bold** to read at all; its words won't be legible
+at that size, and that's fine.
+
+> Edit this exact image. Keep everything identical: framing, size, painting style, colours, the
+> lighting, the purple wall, the red wire bin and everything in it, and the teapot's shape,
+> colour and gold emblem. Change only one thing: replace the small yellow square price sticker on
+> the right side of the teapot's belly with a much bigger, slightly crooked, bright red starburst
+> price sticker with a white border, reading PRICELESS in bold white capitals, slapped on at an
+> angle over the right half of the teapot's belly. Same painted style as the rest of the image.
+
+---
+
 **After you approve them:** the agent crops and scales the background to 1280×720 and fits the
 hotspots and the floor to it; it cuts the sprites out of the sheets and shows them in place in the
-game, at their sizes (Dana is 200 px, Reginald 265), before anything is committed. The overlays
-(STAFF ONLY open, the teapot's PRICELESS sticker) come after the background, from crops of it.
+game, at their sizes (Dana is 200 px, Reginald 265), before anything is committed; the overlays
+likewise, shown at the moment they appear.
