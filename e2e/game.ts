@@ -26,6 +26,8 @@ export interface Status {
   line: string | undefined;
   endCard: boolean;
   state: GameState | undefined;
+  /** The music playing, and how often each sound effect has been asked for (GameAudio). */
+  audio: { track: string | undefined; requested: Record<string, number> };
 }
 
 const GAME = { width: 1280, height: 720 };
@@ -102,6 +104,7 @@ function installHelpers(): void {
       line: roomActive ? r.speech.current : undefined,
       endCard: roomActive && r.children.list.some((o: any) => o.type === 'Container' && o.alpha === 1 && o.list.some((c: any) => isText(c, 'THE END?'))),
       state: roomActive ? r.state : undefined,
+      audio: { track: game()?.registry.get('audio')?.track, requested: { ...game()?.registry.get('audio')?.requested } },
     };
   }
 

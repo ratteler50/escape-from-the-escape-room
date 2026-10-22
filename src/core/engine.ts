@@ -1,5 +1,6 @@
 import {
   VERBS,
+  FAIL_SOUND,
   WON,
   type Command,
   type CommandResult,
@@ -61,7 +62,7 @@ export function handle(world: World, state: GameState, command: Command): Comman
       const text =
         hotspot.itemFallback ??
         pickFallback(world.fallbacks.useItemOn, `${item.id}>${hotspot.id}`, { item: item.name, target: hotspot.name });
-      return { state, effects: [{ type: 'say', text }] };
+      return { state, effects: [{ type: 'sound', sound: FAIL_SOUND }, { type: 'say', text }] };
     }
 
     case 'combine': {
@@ -74,7 +75,8 @@ export function handle(world: World, state: GameState, command: Command): Comman
 
       // Sort so the fallback line doesn't depend on which item was picked first.
       const key = [a.id, b.id].sort().join('+');
-      return { state, effects: [{ type: 'say', text: pickFallback(world.fallbacks.combine, key, { a: a.name, b: b.name }) }] };
+      const text = pickFallback(world.fallbacks.combine, key, { a: a.name, b: b.name });
+      return { state, effects: [{ type: 'sound', sound: FAIL_SOUND }, { type: 'say', text }] };
     }
 
     case 'chooseOption': {
@@ -210,6 +212,7 @@ function apply(world: World, state: GameState, effect: Effect): GameState {
     case 'walk':
     case 'pause':
     case 'face':
+    case 'sound':
       return state;
     case 'addItem':
       if (!world.items[effect.itemId]) throw new Error(`Unknown item "${effect.itemId}"`);

@@ -4,6 +4,7 @@ import type { Point } from '../core/geometry';
 import { loadSaveFile, toSaveFile, type SlotId } from '../core/save';
 import { PLAYER, WON, type CharacterId, type Command, type Effect, type GameState, type Hotspot, type ItemId, type Verb, type World } from '../core/types';
 import { DialoguePanel } from './DialoguePanel';
+import { gameAudio, preloadAudio } from './GameAudio';
 import { showEndCard } from './EndCard';
 import { InventoryBar } from './InventoryBar';
 import { showGameMenu, showSlotList } from './menus';
@@ -82,6 +83,8 @@ export class RoomScene extends Phaser.Scene {
     for (const character of Object.values(this.world.characters)) {
       for (const path of Object.values(character.sprites ?? {})) load(artKey(path), path);
     }
+    // Usually already loaded by the title screen.
+    preloadAudio(this, this.world.audio);
   }
 
   create(): void {
@@ -96,6 +99,7 @@ export class RoomScene extends Phaser.Scene {
     }, this.world.characters);
     this.roomView.showRoom(currentRoom(this.world, this.state));
     this.refreshHotspots();
+    gameAudio(this).playMusic(currentRoom(this.world, this.state).music);
     this.player = new PlayerSprite(this, this.state.player, this.world.characters[PLAYER]?.sprites?.standing);
     this.speech = new Speech(this);
     this.coin = new VerbCoin(this);
@@ -119,6 +123,7 @@ export class RoomScene extends Phaser.Scene {
     // Hold H to see everything clickable (the ☰ menu has a sticky toggle for touch players).
     this.input.keyboard?.on('keydown-H', () => this.roomView.holdReveal(true));
     this.input.keyboard?.on('keyup-H', () => this.roomView.holdReveal(false));
+    this.input.keyboard?.on('keydown-M', () => gameAudio(this).toggleMute());
     // Clicks on hotspots, items, the bar, panels, and the coin stop propagation, so this is a floor click.
     this.input.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
       if (this.held) return this.putAway();
@@ -182,6 +187,7 @@ export class RoomScene extends Phaser.Scene {
   }
 
   private hold(itemId: ItemId): void {
+    gameAudio(this).play('select');
     this.held = itemId;
     this.refreshInventory();
     this.updateCaption();
@@ -270,7 +276,13 @@ export class RoomScene extends Phaser.Scene {
       case 'face':
         if (effect.character === PLAYER) this.player.face(effect.direction);
         break;
+      case 'sound':
+        if (!this.skipping) gameAudio(this).play(effect.sound);
+        break;
       case 'addItem':
+        if (!this.skipping) gameAudio(this).play('pickup');
+        this.refreshInventory();
+        break;
       case 'removeItem':
         this.refreshInventory();
         break;
@@ -295,6 +307,7 @@ export class RoomScene extends Phaser.Scene {
   private changeRoom(roomId: string, entry: string): void {
     const arrive = () => {
       const room = this.world.rooms[roomId]!;
+      gameAudio(this).playMusic(room.music);
       this.roomView.showRoom(room);
       this.refreshHotspots();
       this.player.placeAt(room.entries[entry]!);
@@ -303,6 +316,7 @@ export class RoomScene extends Phaser.Scene {
       arrive();
       return this.playNext();
     }
+    gameAudio(this).play('door');
     const camera = this.cameras.main;
     camera.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, () => {
       arrive();

@@ -1,4 +1,5 @@
 import * as Phaser from 'phaser';
+import { gameAudio } from './GameAudio';
 
 const DEPTH = 3000;
 
@@ -38,9 +39,15 @@ export function showEndCard(scene: Phaser.Scene, onPlayAgain: () => void): void 
   button.on('pointerout', () => button.setBackgroundColor('#ffe28a'));
   button.on('pointerdown', (_p: Phaser.Input.Pointer, _x: number, _y: number, event: Phaser.Types.Input.EventData) => {
     event.stopPropagation();
+    gameAudio(scene).play('click');
     onPlayAgain();
   });
 
-  card.add([backdrop, title, subtitle, blurb, button]);
+  // CC BY music has to be credited where players can see it (CREDITS.md has the full lines).
+  const credit = scene.add
+    .text(width / 2, height - 40, 'Music: Kevin MacLeod (incompetech.com), licensed under CC BY 4.0', { fontSize: '16px', color: '#8f84a8' })
+    .setOrigin(0.5);
+
+  card.add([backdrop, title, subtitle, blurb, button, credit]);
   scene.tweens.add({ targets: card, alpha: 1, duration: 800 });
 }

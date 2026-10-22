@@ -1,5 +1,5 @@
 import type { Combination, Item, Room } from '../core/types';
-import { say, says, setFlag, walk } from './dsl';
+import { say, says, setFlag, sound, walk } from './dsl';
 import { reginaldOnMark, reginaldOnThrone, script } from './reginald';
 
 export const garyArm: Item = {
@@ -45,6 +45,7 @@ export const lairCombinations: Combination[] = [
     responses: [
       {
         effects: [
+          sound('squelch'),
           // DRAFT:
           say("I press the gum onto Gary's fingertip. It's disgusting. It's perfect."),
           { type: 'removeItem', itemId: garyArm.id },
@@ -62,6 +63,7 @@ export const lair: Room = {
   id: 'lair',
   name: "The Lich's Lair",
   // Generated from docs/art/lair-layout.svg; bounds were then nudged to match the painting.
+  music: 'lair',
   art: {
     background: 'assets/rooms/lair.webp',
     // Patches of the painting for what changes in play (docs/art/prompts-overlays.md).
@@ -137,13 +139,13 @@ export const lair: Room = {
           ],
         },
         take: {
-          label: 'Check under the cushion',
+          label: 'Check under the armrest',
           when: [{ flag: 'reginaldLeftThrone' }, { notFlag: 'tookGum' }],
           responses: [
             {
               effects: [
                 // DRAFT:
-                say('Under the cushion: one wad of pre-owned gum. Handbook Section 3: "Lost property must be logged." Consider it logged.'),
+                say('Under the armrest: one wad of pre-owned gum, stuck there like under a school desk. Handbook Section 3: "Lost property must be logged." Consider it logged.'),
                 { type: 'addItem', itemId: gum.id },
                 { type: 'setFlag', flag: 'tookGum' },
               ],
@@ -220,6 +222,7 @@ export const lair: Room = {
           responses: [
             {
               effects: [
+                sound('bones'),
                 // DRAFT:
                 say("Sorry, Gary. I'll bring it back. Probably. Handbook Section 4.2 says nothing about skeletons."),
                 { type: 'addItem', itemId: garyArm.id },
@@ -281,6 +284,7 @@ export const lair: Room = {
           {
             when: [{ notFlag: 'caseOpen' }],
             effects: [
+              sound('latch'),
               // DRAFT:
               say("Click. The case opens. I slide the Ancient Riddle Scroll out from under the bone and leave the key in the lock, like a responsible trainee."),
               { type: 'removeItem', itemId: caseKey.id },
@@ -320,7 +324,9 @@ export const lair: Room = {
               say('"THE ANSWER IS: [INSERT CODE HERE BEFORE PRINTING]." The curse bound itself to the script as printed...'),
               // DRAFT:
               say('...so the code is literally... C. O. D. E.'),
+              sound('keypad'),
               setFlag('doorUnlocked'),
+              sound('unlock'),
               // DRAFT:
               say("CLUNK. The door unlocks. I've beaten head office at their own game. By reading."),
               // DRAFT:
@@ -353,6 +359,7 @@ export const lair: Room = {
           {
             when: [{ notFlag: 'gotCaseKey' }],
             effects: [
+              sound('keys'),
               // DRAFT:
               say('I lower the Sticky Arm through the bars... gently... got it! A key. Gary would be proud. Gary is never proud.'),
               { type: 'addItem', itemId: caseKey.id },

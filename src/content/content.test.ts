@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { isExit } from '../core/engine';
 import { pointInPolygon, type Point, type Polygon } from '../core/geometry';
-import { PLAYER, type Effect, type Response } from '../core/types';
+import { FAIL_SOUND, PLAYER, type Effect, type Response } from '../core/types';
 import { initialState, world } from './world';
 
 const LOGICAL_WIDTH = 1280;
@@ -55,6 +55,12 @@ function expectValidEffects(effects: readonly Effect[], where: string): void {
         x >= 0 && x <= LOGICAL_WIDTH && y >= 0 && y <= LOGICAL_HEIGHT,
         `${where} walks "${effect.character}" to ${fmt(effect.to)}, which is off the ${LOGICAL_WIDTH}×${LOGICAL_HEIGHT} screen`,
       ).toBe(true);
+    }
+    if (effect.type === 'sound') {
+      expect(
+        world.audio?.sounds[effect.sound],
+        `${where} plays sound "${effect.sound}", which isn't in world.audio.sounds (known: ${Object.keys(world.audio?.sounds ?? {}).join(', ')})`,
+      ).toBeDefined();
     }
     if (effect.type === 'pause') {
       expect(effect.ms >= 0 && effect.ms <= 5000, `${where} pauses for ${effect.ms} ms; keep pauses between 0 and 5000 ms`).toBe(true);
@@ -172,6 +178,12 @@ describe('content validation', () => {
     });
   }
 
+  it('has audio: the title track and the sound for failed item uses', () => {
+    expect(world.audio, 'world.audio is missing').toBeDefined();
+    expect(world.audio?.music[world.audio.title], `the title track "${world.audio?.title}" isn't in world.audio.music`).toBeDefined();
+    expect(world.audio?.sounds[FAIL_SOUND], `world.audio.sounds needs "${FAIL_SOUND}": the core plays it when an item use fails`).toBeDefined();
+  });
+
   it('has the player character', () => {
     expect(world.characters[PLAYER], `world.characters needs "${PLAYER}": lines with no speaker are Dana's`).toBeDefined();
   });
@@ -253,6 +265,12 @@ describe('content validation', () => {
           const flags = (overlay.when ?? []).flatMap((c) => ('flag' in c ? [c.flag] : 'notFlag' in c ? [c.notFlag] : []));
           const unknown = flags.filter((f) => !known.has(f));
           expect(unknown, `${room.id} overlay ${overlay.image} tests flag(s) ${unknown.join(', ')}, which no effect ever sets (typo?)`).toEqual([]);
+        });
+      }
+
+      if (room.music !== undefined) {
+        it(`plays a known track ("${room.music}")`, () => {
+          expect(world.audio?.music[room.music!], `${room.id}.music is "${room.music}", which isn't in world.audio.music (known: ${Object.keys(world.audio?.music ?? {}).join(', ')})`).toBeDefined();
         });
       }
 
