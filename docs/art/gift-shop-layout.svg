@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" font-family="Helvetica, Arial, sans-serif">
+  <!-- Gift Shop layout reference (slice 14, decision 0005). Every shape sits at its hotspot's exact
+       bounds in src/content/giftShop.ts, kyle.ts and mordecai.ts, in logical 1280x720 coordinates.
+       Characters (Kyle, Mordecai) and state-dependent things (the open STAFF ONLY door) are drawn
+       dashed: they are separate sprites, not part of the background. -->
+
+  <!-- Back wall, with empty space above the props for readability. -->
+  <rect x="0" y="0" width="1280" height="720" fill="#e9e2d0"/>
+  <text x="640" y="60" font-size="28" text-anchor="middle" fill="#7a6f5a">EXIT THROUGH THE GIFT SHOP (banner, empty wall above)</text>
+
+  <!-- Floor: the walkable area trapezoid. Below it is the inventory bar. -->
+  <polygon points="160,420 1120,420 1220,620 60,620" fill="#c8b48e" stroke="#8a7650" stroke-width="2"/>
+  <rect x="0" y="620" width="1280" height="100" fill="#3a3a3a"/>
+  <text x="640" y="680" font-size="20" text-anchor="middle" fill="#cccccc">inventory bar (UI, not background)</text>
+
+  <g stroke="#333" stroke-width="3">
+    <!-- lairDoor 40,140 140x280 -->
+    <rect x="40" y="140" width="140" height="280" fill="#6b4a8c"/>
+    <!-- mugRack 205,190 120x190 -->
+    <rect x="205" y="190" width="120" height="190" fill="#d98c4a"/>
+    <!-- till 365,300 140x120 -->
+    <rect x="365" y="300" width="140" height="120" fill="#8c8c8c"/>
+    <!-- bargainBin 545,330 140x90 -->
+    <rect x="545" y="330" width="140" height="90" fill="#c94a4a"/>
+    <!-- standee 725,180 70x240 -->
+    <rect x="725" y="180" width="70" height="240" fill="#b0a070"/>
+    <!-- staffDoor 870,150 120x270 -->
+    <rect x="870" y="150" width="120" height="270" fill="#5a6e7a"/>
+    <!-- frontDoor 1040,140 150x280 -->
+    <rect x="1040" y="140" width="150" height="280" fill="#4a7a5a"/>
+  </g>
+
+  <!-- Characters: separate sprites. -->
+  <g stroke="#333" stroke-width="3" stroke-dasharray="10 6" fill="none">
+    <!-- kyle 395,150 80x145, standing behind the till -->
+    <rect x="395" y="150" width="80" height="145"/>
+    <!-- mordecai 575,120 80x180, floating (bobs 8px) over the bargain bin -->
+    <rect x="575" y="120" width="80" height="180"/>
+  </g>
+
+  <g font-size="18" text-anchor="middle" fill="#ffffff">
+    <text x="110" y="290">Lair Door</text>
+    <text x="265" y="290">Mug Rack</text>
+    <text x="435" y="365">Till</text>
+    <text x="615" y="380">Bargain Bin</text>
+    <text x="760" y="300" font-size="14">Cardboard</text>
+    <text x="760" y="318" font-size="14">Reginald</text>
+    <text x="930" y="190">STAFF ONLY</text>
+    <text x="930" y="300" font-size="14">badge reader</text>
+    <text x="1115" y="290">Front Door</text>
+  </g>
+  <g font-size="18" text-anchor="middle" fill="#333">
+    <text x="435" y="225">KYLE</text>
+    <text x="615" y="215">MORDECAI</text>
+    <text x="615" y="235" font-size="13">(ghost, floats)</text>
+  </g>
+</svg>

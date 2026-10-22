@@ -149,9 +149,9 @@ silhouettes and empty wall space, ready for the art recipe in decision 0005.
 | Slice | Content | Runs |
 |-------|---------|------|
 | 13 | This plan, decision 0005 (art style), premise fixes, the phylactery in the Lair | here |
-| 14 | Gift Shop: Kyle, Mordecai, price gun, bargain bin, STAFF ONLY, false-exit front door | **parallel** with 15 |
+| 14 | Gift Shop: Kyle, Mordecai, price gun, bargain bin, STAFF ONLY opens (no way through yet) | **parallel** with 15 |
 | 15 | Break Room: fridge, time clock, lockers, vending machine, Reginald's intercom | **parallel** with 14 |
-| 16 | Buying the mug, and the finale cutscene | after 14 + 15 |
+| 16 | Room-to-room wiring (STAFF ONLY ↔ Break Room), the front-door false exit, buying the mug, and the finale cutscene | after 14 + 15 |
 | 17 | Polish, plus the always-winnable test over the whole game | last |
 
 Slices 14 and 15 own separate room files; both touch `world.ts` to register content, a small merge.

@@ -1,7 +1,9 @@
 import type { GameState, World } from '../core/types';
 import { breakRoom, breakRoomCombinations, breakRoomItems, intercomDialogue, lanyard } from './breakRoom';
-import { giftShop } from './giftShop';
+import { giftShop, giftShopItems } from './giftShop';
+import { kyle, kyleDialogue } from './kyle';
 import { lair, lairCombinations, lairItems } from './lair';
+import { mordecai, mordecaiDialogue } from './mordecai';
 import { reginald, reginaldDialogue } from './reginald';
 
 export const world: World = {
@@ -10,14 +12,18 @@ export const world: World = {
     [giftShop.id]: giftShop,
     [breakRoom.id]: breakRoom,
   },
-  items: Object.fromEntries([...lairItems, ...breakRoomItems].map((item) => [item.id, item])),
+  items: Object.fromEntries([...lairItems, ...giftShopItems, ...breakRoomItems].map((item) => [item.id, item])),
   combinations: [...lairCombinations, ...breakRoomCombinations],
   characters: {
     dana: { id: 'dana', name: 'Dana', color: '#ffe28a' },
     [reginald.id]: reginald,
+    [kyle.id]: kyle,
+    [mordecai.id]: mordecai,
   },
   dialogues: {
     [reginaldDialogue.id]: reginaldDialogue,
+    [kyleDialogue.id]: kyleDialogue,
+    [mordecaiDialogue.id]: mordecaiDialogue,
     [intercomDialogue.id]: intercomDialogue,
   },
   fallbacks: {

@@ -97,6 +97,8 @@ export interface Character {
   name: string;
   /** CSS colour for this character's speech. */
   color: string;
+  /** Drawn bobbing gently up and down (a ghost). Presentation only. */
+  floats?: boolean;
 }
 
 /** One of Dana's lines in a conversation. */
