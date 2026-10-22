@@ -8,10 +8,15 @@ export type CharacterId = string;
 export type DialogueId = string;
 export type NodeId = string;
 export type OptionId = string;
+export type SoundId = string;
+export type TrackId = string;
 export type EntryId = string;
 
 /** Set by the `win` effect. */
 export const WON: FlagId = 'won';
+
+/** The sound the core plays when an item use or combination has nothing written for it. */
+export const FAIL_SOUND: SoundId = 'fail';
 
 /** Who says a line when a `say` effect has no `speaker`. */
 export const PLAYER: CharacterId = 'dana';
@@ -39,7 +44,9 @@ export type Effect =
   /** A character (Dana, or one drawn as a hotspot) walks to a point, given as their feet position. */
   | { type: 'walk'; character: CharacterId; to: Point }
   | { type: 'pause'; ms: number }
-  | { type: 'face'; character: CharacterId; direction: 'left' | 'right' };
+  | { type: 'face'; character: CharacterId; direction: 'left' | 'right' }
+  /** A sound effect, by its name in `World.audio.sounds`. Doesn't wait for the sound to finish. */
+  | { type: 'sound'; sound: SoundId };
 
 /** One possible outcome of a verb. The first response whose conditions hold is used. */
 export interface Response {
@@ -151,6 +158,8 @@ export interface Room {
   hotspots: readonly Hotspot[];
   /** Painted art for the room (M4). Presentation only: the core never reads it. */
   art?: RoomArt;
+  /** The music that plays here, by its name in `World.audio.music`. Without one, whatever is playing carries on. */
+  music?: TrackId;
 }
 
 export interface RoomArt {
@@ -186,6 +195,16 @@ export interface World {
     useItemOn: readonly string[];
     combine: readonly string[];
   };
+  /** Sound effects and music (M4). Presentation only. */
+  audio?: WorldAudio;
+}
+
+/** Audio files are paths under `public/` (MP3s). */
+export interface WorldAudio {
+  sounds: Readonly<Record<SoundId, string>>;
+  music: Readonly<Record<TrackId, string>>;
+  /** The title screen's track. */
+  title: TrackId;
 }
 
 /** Everything that changes during play. Plain data so it can be saved later. */

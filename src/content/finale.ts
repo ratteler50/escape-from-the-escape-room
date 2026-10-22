@@ -1,5 +1,5 @@
 import type { DialogueOption, Hotspot, Item } from '../core/types';
-import { line, say, says, setFlag, walk } from './dsl';
+import { line, say, says, setFlag, sound, walk } from './dsl';
 import { reginald } from './reginald';
 
 // The M3 payoff (docs/slices/16-finale.md): Kyle sells the mug, the script is satisfied, the curse
@@ -64,6 +64,7 @@ export const mugSaleOptions: DialogueOption[] = [
       // DRAFT:
       say('Twelve dollars and ninety-nine cents. Exact. I counted it three times.'),
       { type: 'removeItem', itemId: 'exactChange' },
+      sound('till'),
       // DRAFT:
       K('Receipt?'),
       // DRAFT:
@@ -73,6 +74,7 @@ export const mugSaleOptions: DialogueOption[] = [
       say(`I ESCAPED THE LICH'S LAIR. Technically I haven't. But the mug says I have, and the curse is very literal.`),
       // Reginald appears in the Lair doorway (reginaldFinaleHotspot).
       setFlag('curseLifted'),
+      sound('rumble'),
       { type: 'pause', ms: 600 },
       // DRAFT:
       say('A rumble. The lights flicker. Somewhere, a jar stops whispering.'),

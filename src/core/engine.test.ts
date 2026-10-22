@@ -1,9 +1,10 @@
 import { describe, expect, it } from 'vitest';
 import { availableItemAction, availableOptions, availableVerbs, handle, isExit, visibleHotspots, visibleOverlays } from './engine';
-import type { GameState, Room, RoomOverlay, World } from './types';
+import { FAIL_SOUND, type GameState, type Room, type RoomOverlay, type World } from './types';
 
 const say = (text: string) => ({ type: 'say', text }) as const;
 const polly = (text: string) => ({ type: 'say', text, speaker: 'parrot' }) as const;
+const fail = { type: 'sound', sound: FAIL_SOUND } as const;
 
 const world: World = {
   items: {
@@ -139,7 +140,7 @@ const world: World = {
           bounds: { x: 80, y: 80, width: 10, height: 10 },
           interactionPoint: { x: 85, y: 85 },
           verbs: {
-            look: { responses: [{ effects: [say('Down we go?')] }] },
+            look: { responses: [{ effects: [{ type: 'sound', sound: 'creak' }, say('Down we go?')] }] },
             use: { label: 'Go through', responses: [{ effects: [say('Down I go.'), { type: 'goToRoom', roomId: 'cellar', entry: 'fromTestRoom' }] }] },
           },
         },
@@ -260,13 +261,14 @@ describe('handle: items', () => {
 
   it("useItemOn falls back to the hotspot's own line", () => {
     const result = handle(world, holding('bulb'), { type: 'useItemOn', itemId: 'bulb', hotspotId: 'rug' });
-    expect(result.effects).toEqual([say('The rug rejects your offering.')]);
+    expect(result.effects).toEqual([fail, say('The rug rejects your offering.')]);
   });
 
   it('useItemOn falls back to a generic line with names filled in, the same one every time', () => {
     const command = { type: 'useItemOn', itemId: 'battery', hotspotId: 'lamp' } as const;
     const first = handle(world, holding('battery'), command).effects;
-    expect(['No Battery on the Lamp.', 'The Battery and the Lamp? Never.']).toContain((first[0] as { text: string }).text);
+    expect(first[0]).toEqual(fail);
+    expect(['No Battery on the Lamp.', 'The Battery and the Lamp? Never.']).toContain((first[1] as { text: string }).text);
     expect(handle(world, holding('battery'), command).effects).toEqual(first);
   });
 
@@ -280,8 +282,14 @@ describe('handle: items', () => {
 
   it('combine falls back to a generic line for an unlisted pair', () => {
     const result = handle(world, holding('torch', 'bulb'), { type: 'combine', itemIds: ['torch', 'bulb'] });
-    expect(result.effects).toEqual([say('Torch and Light Bulb do not mix.')]);
+    expect(result.effects).toEqual([fail, say('Torch and Light Bulb do not mix.')]);
     expect(result.state.inventory).toEqual(['torch', 'bulb']);
+  });
+
+  it('passes sound effects through without changing state', () => {
+    const result = handle(world, start, { type: 'verb', verb: 'look', hotspotId: 'trapdoor' });
+    expect(result.effects).toContainEqual({ type: 'sound', sound: 'creak' });
+    expect(result.state).toEqual(start);
   });
 
   it('throws when using, looking at, or combining an item that is not held', () => {

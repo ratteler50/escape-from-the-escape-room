@@ -50,10 +50,12 @@ describe('assets', () => {
     expect(missing, `Room art points at files that don't exist: ${missing.join(', ')}`).toEqual([]);
   });
 
-  it('has every room overlay and character sprite on disk', () => {
+  it('has every room overlay, character sprite, sound and track on disk', () => {
     const paths = [
       ...Object.values(world.rooms).flatMap((room) => (room.art?.overlays ?? []).map((o) => [`${room.id} overlay`, o.image])),
       ...Object.values(world.characters).flatMap((c) => Object.entries(c.sprites ?? {}).map(([pose, path]) => [`${c.id} ${pose}`, path])),
+      ...Object.entries(world.audio?.sounds ?? {}).map(([id, path]) => [`sound ${id}`, path]),
+      ...Object.entries(world.audio?.music ?? {}).map(([id, path]) => [`music ${id}`, path]),
     ];
     const missing = paths.filter(([, path]) => !existsSync(join(PUBLIC, path!))).map(([what, path]) => `${what}: public/${path}`);
     expect(missing, `Art points at files that don't exist: ${missing.join(', ')}`).toEqual([]);

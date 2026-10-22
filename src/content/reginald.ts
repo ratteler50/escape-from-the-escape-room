@@ -1,5 +1,5 @@
 import type { Character, Dialogue, Hotspot, HotspotVerbs, Item, Response } from '../core/types';
-import { line, say, setFlag, walk } from './dsl';
+import { line, say, setFlag, sound, walk } from './dsl';
 
 export const reginald: Character = {
   id: 'reginald',
@@ -181,6 +181,7 @@ export const reginaldDialogue: Dialogue = {
           effects: [
             // DRAFT:
             R('...!'),
+            sound('arise'),
             // DRAFT:
             R('ARISE! ARIIIISE! Yes! Find your light, Reginald!'),
             // To his spotlight mark: the feet of the reginaldOnMark hotspot.
