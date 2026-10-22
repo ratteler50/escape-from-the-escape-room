@@ -110,6 +110,13 @@ export function availableItemAction(world: World, state: GameState, itemId: Item
   return action && holds(state, action.when) ? { label: action.label } : null;
 }
 
+/** Whether a hotspot can take Dana to another room (any of its verbs can lead to `goToRoom`). */
+export function isExit(hotspot: Hotspot): boolean {
+  return Object.values(hotspot.verbs).some((spec) =>
+    spec?.responses.some((r) => r.effects.some((e) => e.type === 'goToRoom')),
+  );
+}
+
 /** The current room's hotspots that exist right now. */
 export function visibleHotspots(world: World, state: GameState): Hotspot[] {
   return currentRoom(world, state).hotspots.filter((h) => holds(state, h.when));

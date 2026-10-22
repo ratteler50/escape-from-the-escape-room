@@ -40,6 +40,10 @@ Shared vocabulary for the game and the codebase. Use these terms in code, docs, 
 | **Settings** | Player preferences (text speed), stored apart from saves. |
 | **Cutscene step** | A presentation-only effect (`walk`, `pause`, `face`): the core passes it through, the view animates it. |
 | **Skip** | Skip ⏭ / Escape during a sequence: finish the current step and play the rest instantly, keeping every effect that matters. |
+| **Typewriter** | Lines type out at the text speed. The first click completes a line; the next moves on. |
+| **Name tag** | The speaker's name above a line, for everyone but Dana. |
+| **Highlight** | The outline on the hotspot under the pointer. |
+| **Exit cursor** | The arrow cursor over a hotspot the core reports as an exit (`isExit`). |
 | **Core** | The headless, Phaser-free TypeScript layer: state, content types, rules engine. |
 | **View** | The Phaser layer: renders state, plays effects, converts input into commands. |
 | **Content** | The game's data — rooms, hotspots, items, rules, dialogue — as typed TS modules. |

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { availableItemAction, availableOptions, availableVerbs, handle, visibleHotspots } from './engine';
+import { availableItemAction, availableOptions, availableVerbs, handle, isExit, visibleHotspots } from './engine';
 import type { GameState, World } from './types';
 
 const say = (text: string) => ({ type: 'say', text }) as const;
@@ -478,5 +478,17 @@ describe('presentation-only effects', () => {
     const result = handle(staged, holding, { type: 'combine', itemIds: ['bulb', 'battery'] });
     expect(result.state).toEqual(holding);
     expect(result.effects.map((e) => e.type)).toEqual(['walk', 'pause', 'face']);
+  });
+});
+
+describe('isExit', () => {
+  const hotspot = (id: string) => world.rooms.testRoom!.hotspots.find((h) => h.id === id)!;
+
+  it('is true for a hotspot with a verb that can change room', () => {
+    expect(isExit(hotspot('trapdoor'))).toBe(true);
+  });
+
+  it('is false for everything else', () => {
+    expect(['lamp', 'rug', 'parrot', 'ghost'].map((id) => isExit(hotspot(id)))).toEqual([false, false, false, false]);
   });
 });
