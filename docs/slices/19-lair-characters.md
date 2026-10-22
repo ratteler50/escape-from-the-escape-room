@@ -93,3 +93,6 @@ walk cycles and a talking pose.
 - **Drawing order:** sprites draw in front of every hotspot box (an unpainted room's solid
   placeholders hid human Reginald in the Gift Shop doorway), labels on top.
 - **Display case:** no overlays; its painted bone stays and the scroll is tucked under it (slice 18).
+- **Overlays** approved 2026-10-22: Gary armless (`tookGaryArm`) and his arm gummed to the grate
+  (`gotCaseKey`). Each was an edit of an enlarged crop of the painting; `scripts/make-overlay.py`
+  scales it back, keeps only what changed, and feathers the edges (32×137 px and 169×91 px).
