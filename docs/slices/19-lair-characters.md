@@ -26,8 +26,11 @@ finishes the Lair's art so the whole art pipeline is proven on one room before t
    - Reginald, **human again** for the finale: same costume, a human face in smeared skull make-up,
      human hands (finale look line: "still in full lich make-up"). Made now, from the same sheet, so
      it matches; the finale hotspot uses it wherever it's drawn.
-   Each sprite's feet sit where the hotspot's bottom-centre is today, at about today's heights
-   (Dana ≈ 120 px, Reginald ≈ 190–200 px; seated ≈ 190 px), so no bounds change much.
+   Each sprite's feet sit where the hotspot's bottom-centre is today. Dana stays ≈ 120 px. Reginald
+   grows to **Gary's height**: ≈ 265 px standing, ≈ 230 px seated (a mock-up at 200 px made the
+   star shorter than his own prop skeleton and lost him on the throne). His hotspot bounds grow to
+   fit each sprite (throne, mark, finale); speech anchors follow. His robe is near-black with a
+   crimson lining and gold trim, so he reads against the purple walls (recoloured sheet).
 3. **Rendering:**
    - Dana's placeholder rectangle becomes her sprite, mirrored for facing (replacing the facing
      triangle); walking adds a small code-driven bounce and lean; standing still is still.

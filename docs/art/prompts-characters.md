@@ -52,6 +52,24 @@ outlines so they stand out against the painted rooms (decision 0005, rule 2).
 > draped). Plain flat light-grey background, no scenery, no shadows on the ground, no other
 > characters, no text.
 
+### 2b. Recolour: Reginald's robe → save as `art-inbox/reginald-sheet-2.png`
+
+A mock-up in the Lair showed his purple robe disappearing into the purple walls. In the **same chat**
+as the sheet (or a new one with `art-inbox/reginald-sheet.webp` attached), ask for an edit, not a new
+drawing:
+
+> Edit this exact image. Keep everything identical: the four poses, the line work, his skull, crown,
+> hands, expression, proportions, and the plain grey background. Change only the colours of his
+> clothes: the robe and cape become near-black charcoal, the cape's inner lining and the robe's
+> inner panels become deep crimson red, and keep all the gold trim and the gold skull ornaments
+> exactly as they are. His boots become near-black with gold buckles. Remove the dark block he sits
+> on in the fourth pose: he sits on nothing, with the same pose. Flat colour with bold outlines, as
+> before.
+
+If the edit drifts (a different face or pose), try once more with "do not redraw, recolour only". If
+it still drifts, a new sheet with the section 2 prompt, where "dark-purple robe" becomes "near-black
+robe with a deep crimson lining", is fine too.
+
 ---
 
 **After you approve the sheets**, the next pack asks for the actual sprites (one pose per image, on a
