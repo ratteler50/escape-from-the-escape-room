@@ -168,6 +168,22 @@ are plain files in the repo with a **15 MB** budget, enforced by a test.
 | 23 | Break Room: background (icon sheet attached), overlays, music (the finale sting moved to 22: the finale is in the Gift Shop) | **parallel** with 22 |
 | 24 | Title and end-card key art; loading and size pass; M4 done | last |
 
+### Notes for later (from play-tests, 2026-10-22)
+
+Not scheduled yet; slice 24's spec decides which go in it and which wait for a later milestone.
+
+- **The front door's "CLOSED FOR REFURBISHMENT" sign doesn't hold up.** It faces into the shop,
+  not out, and a closed shop wouldn't have a cashier on duty. Possible fix: a hanging OPEN/CLOSED
+  sign showing CLOSED on the inside, because that's the side staff see while the shop is open. It
+  explains the cashier, and Dana can be pedantic about it.
+- **Dialogue still says the doors won't open.** Kyle's option "the lich is real and the doors won't
+  open" (`kyle.ts`) no longer fits a front door that stands open: the point is that Dana *can't
+  leave* (the curse sends them back). Reword it, and check other lines for the same assumption.
+- **A walk animation** for Dana (and Reginald and Kyle when they walk), instead of the code-driven
+  hop and lean. Needs a few frames per character from the model sheets: a bigger art job, so
+  probably its own slice.
+- **The phylactery in the bargain bin** for the finale's last shot (from slice 22's spec).
+
 ## M3 plan
 
 Decided in the M3 planning session (2026-10-21).
