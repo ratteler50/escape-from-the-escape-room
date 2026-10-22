@@ -45,8 +45,13 @@ Repo: `ratteler50/escape-from-the-escape-room` (private). `main` only changes th
 - `npm test` — all Vitest tests (core, content validation, architecture guard)
 - `npm run typecheck` — strict TypeScript, no emit
 - `npm run build` — typecheck + production bundle in `dist/`
+- `npm run test:e2e` — Playwright end-to-end tests: builds, serves with `vite preview`, and plays the
+  game in Chromium with real clicks (`e2e/`; CI runs them in `.github/workflows/e2e.yml`). First
+  time: `npx playwright install chromium`. `e2e/game.ts` reads view internals to find click
+  targets, so update it when the view's structure changes.
 
-Play-testing: in dev builds the Phaser game is on `window.__game`. The game opens on `TitleScene`;
+Play-testing: in dev builds, and in production builds opened with `?e2e` in the URL, the Phaser game
+is on `window.__game`. The game opens on `TitleScene`;
 `__game.scene.getScene('RoomScene').state` reads game state once a game is running. Saves live in
 `localStorage` under `escape-from-the-escape-room:*`; clear those keys for a fresh start. When driving the browser pane,
 set the viewport to 1280×720 so screen coordinates map to logical coordinates by a fixed scale.

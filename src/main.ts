@@ -20,10 +20,11 @@ const data: GameData = { world, newGame: initialState, store: new LocalStorageSa
 game.scene.add('RoomScene', RoomScene, false);
 game.scene.add('TitleScene', TitleScene, true, data);
 
-// Dev-only hook so automated play-tests can inspect the running game.
+// Hook so automated play-tests can inspect the running game: on in dev builds, and in production
+// builds when the URL has an `?e2e` flag (the Playwright tests use it; see docs/slices/11-e2e.md).
 declare global {
   interface Window {
     __game?: Phaser.Game;
   }
 }
-if (import.meta.env.DEV) window.__game = game;
+if (import.meta.env.DEV || new URLSearchParams(window.location.search).has('e2e')) window.__game = game;
