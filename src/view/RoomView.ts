@@ -13,8 +13,8 @@ const COLORS = {
   highlight: 0xffe28a,
 };
 
-/** How far below a hotspot's top edge its label sits. */
-const LABEL_OFFSET = 14;
+/** How far below a hotspot's top edge its label's top sits. */
+const LABEL_OFFSET = 3;
 
 /** A floating character bobs this many pixels up and back, once per period. */
 const BOB = { height: 8, periodMs: 2400 };
@@ -157,8 +157,14 @@ export class RoomView {
     const shape = this.scene.add.rectangle(x, y, width, height, color).setOrigin(0, 0).setDepth(10).setInteractive({ cursor });
     // Labels sit at the top edge so a character standing in front of a hotspot doesn't hide its name.
     const label = this.scene.add
-      .text(x + width / 2, y + LABEL_OFFSET, hotspot.character ? hotspot.name.toUpperCase() : hotspot.name, { fontSize: '18px', color: COLORS.text })
-      .setOrigin(0.5)
+      // Wrapped to the hotspot's width, so a long name ("Cardboard Reginald") stays inside its box.
+      .text(x + width / 2, y + LABEL_OFFSET, hotspot.character ? hotspot.name.toUpperCase() : hotspot.name, {
+        fontSize: '18px',
+        color: COLORS.text,
+        align: 'center',
+        wordWrap: { width: Math.max(width - 4, 40) },
+      })
+      .setOrigin(0.5, 0)
       .setDepth(11);
 
     shape.on('pointerover', (pointer: Phaser.Input.Pointer) => {

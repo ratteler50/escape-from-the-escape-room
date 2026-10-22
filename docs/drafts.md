@@ -244,28 +244,28 @@ for an item; "Dana (option)" is a line Dana says when the player picks it in a c
 | Where | Who | Line |
 |---|---|---|
 | `finale.ts:16` | Look | "I ESCAPED THE LICH'S LAIR." The first one ever sold. It's still warm from the shelf lights. |
-| `finale.ts:31` | Dana | Reginald, human again, still in full lich make-up. It has never looked less convincing. |
-| `finale.ts:43` | Kyle | Twelve ninety-nine. Cash only, card machine's down. |
-| `finale.ts:45` | Kyle | Exact change. Head office empties the till every hour. |
-| `finale.ts:47` | Dana | Exact change. Every last cent. Of course. |
-| `finale.ts:57` | Kyle | Lanyard. |
-| `finale.ts:59` | Dana | Off duty. Clocked out. See? Pocket. |
-| `finale.ts:61` | Kyle | ...Fine. |
-| `finale.ts:63` | Dana | Twelve dollars and ninety-nine cents. Exact. I counted it three times. |
-| `finale.ts:66` | Kyle | Receipt? |
-| `finale.ts:68` | Dana | Yes please. I want proof. |
-| `finale.ts:71` | Dana | I ESCAPED THE LICH'S LAIR. Technically I haven't. But the mug says I have, and the curse is very literal. |
-| `finale.ts:76` | Dana | A rumble. The lights flicker. Somewhere, a jar stops whispering. |
-| `finale.ts:78` | Reginald | Nooooo! |
-| `finale.ts:81` | Reginald | It's gone, darling. All of it. I'm human. I have a PULSE. Do you know what a pulse does to a performance? |
-| `finale.ts:83` | Reginald | Actors' union, section twelve: wrongful loss of the role of a lifetime. I am filing a grievance. |
-| `finale.ts:85` | Dana | Gary stays one-armed, I'm afraid. His arm is gummed to a floor grate in the Lair. |
-| `finale.ts:87` | Reginald | And the anti-theft cable snapped when the curse broke. Somebody take this. It keeps looking at me. |
-| `finale.ts:89` | Dana | He drops the phylactery into a cardboard box. |
-| `finale.ts:91` | Kyle | Spooky jar. A dollar. Bargain bin. |
-| `finale.ts:93` | Mordecai | ONE DOLLAR?! That jar contains my SOUL! |
-| `finale.ts:95` | Kyle | Final sale. |
-| `finale.ts:98` | Dana | From the bargain bin, very faintly, something whispers: "...one dollar... we'll see about that..." |
+| `finale.ts:32` | Dana | Reginald, human again, still in full lich make-up. It has never looked less convincing. |
+| `finale.ts:44` | Kyle | Twelve ninety-nine. Cash only, card machine's down. |
+| `finale.ts:46` | Kyle | Exact change. Head office empties the till every hour. |
+| `finale.ts:48` | Dana | Exact change. Every last cent. Of course. |
+| `finale.ts:58` | Kyle | Lanyard. |
+| `finale.ts:60` | Dana | Off duty. Clocked out. See? Pocket. |
+| `finale.ts:62` | Kyle | ...Fine. |
+| `finale.ts:64` | Dana | Twelve dollars and ninety-nine cents. Exact. I counted it three times. |
+| `finale.ts:67` | Kyle | Receipt? |
+| `finale.ts:69` | Dana | Yes please. I want proof. |
+| `finale.ts:72` | Dana | I ESCAPED THE LICH'S LAIR. Technically I haven't. But the mug says I have, and the curse is very literal. |
+| `finale.ts:77` | Dana | A rumble. The lights flicker. Somewhere, a jar stops whispering. |
+| `finale.ts:79` | Reginald | Nooooo! |
+| `finale.ts:82` | Reginald | It's gone, darling. All of it. I'm human. I have a PULSE. Do you know what a pulse does to a performance? |
+| `finale.ts:84` | Reginald | Actors' union, section twelve: wrongful loss of the role of a lifetime. I am filing a grievance. |
+| `finale.ts:86` | Dana | Gary stays one-armed, I'm afraid. His arm is gummed to a floor grate in the Lair. |
+| `finale.ts:88` | Reginald | And the anti-theft cable snapped when the curse broke. Somebody take this. It keeps looking at me. |
+| `finale.ts:90` | Dana | He drops the phylactery into a cardboard box. |
+| `finale.ts:92` | Kyle | Spooky jar. A dollar. Bargain bin. |
+| `finale.ts:94` | Mordecai | ONE DOLLAR?! That jar contains my SOUL! |
+| `finale.ts:96` | Kyle | Final sale. |
+| `finale.ts:99` | Dana | From the bargain bin, very faintly, something whispers: "...one dollar... we'll see about that..." |
 
 ## Fallback lines (1)
 

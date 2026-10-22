@@ -31,8 +31,17 @@ Click the floor to walk. Click something to open the verb coin (👁 Look, ✋ T
 Click an item in the inventory bar and choose "Use with…" to use it on something or combine it with
 another item. During conversations, pick Dana's lines from the list; click to skip a line.
 
-Stuck at the start? Reginald won't budge until somebody gives him his cue. Actors keep their
-scripts somewhere close.
+The goal: escape. The curse is very literal about how.
+
+Stuck? Spoiler-light hints, one room at a time:
+
+- **The Lich's Lair:** Reginald won't budge until somebody gives him his cue, and actors keep their
+  scripts somewhere close. Something shiny is out of reach; Gary has arms to spare. And read what
+  head office printed very, very literally.
+- **The Gift Shop:** the ghost wants something done about the bargain bin. Kyle has the right tool,
+  and the Employee Handbook has the right section.
+- **The Break Room:** a customer can't be on the clock, and a mug costs exactly what it costs. Check
+  the fridge, the vending machine, and your own lanyard.
 
 ## Where things are
 
