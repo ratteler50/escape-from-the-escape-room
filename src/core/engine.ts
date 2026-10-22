@@ -194,6 +194,9 @@ function holds(state: GameState, conditions: readonly Condition[] = []): boolean
 function apply(world: World, state: GameState, effect: Effect): GameState {
   switch (effect.type) {
     case 'say':
+    case 'walk':
+    case 'pause':
+    case 'face':
       return state;
     case 'addItem':
       if (!world.items[effect.itemId]) throw new Error(`Unknown item "${effect.itemId}"`);

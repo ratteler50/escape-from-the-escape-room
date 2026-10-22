@@ -1,5 +1,5 @@
 import type { Room } from '../core/types';
-import { say, says } from './dsl';
+import { say, says, walk } from './dsl';
 
 // STUB (M2): proves room transitions. M3 replaces this with the real Gift Shop and its puzzles.
 export const giftShop: Room = {
@@ -25,7 +25,7 @@ export const giftShop: Room = {
         look: says('The door back to the Lair. The sign over it says EXIT THROUGH THE GIFT SHOP. I did it backwards.'),
         use: {
           label: 'Go through',
-          responses: [{ effects: [{ type: 'goToRoom', roomId: 'lair', entry: 'fromGiftShop' }] }],
+          responses: [{ effects: [walk('dana', 175, 425), { type: 'goToRoom', roomId: 'lair', entry: 'fromGiftShop' }] }],
         },
       },
     },
@@ -74,6 +74,7 @@ export const giftShop: Room = {
               effects: [
                 // DRAFT:
                 say("Handbook Section 1, Rule 1: always let the customers win. Today, I'm the customer."),
+                walk('dana', 1110, 425),
                 { type: 'win' },
               ],
             },

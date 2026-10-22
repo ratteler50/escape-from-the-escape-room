@@ -55,6 +55,43 @@ export class RoomView {
     return this.drawn.map(({ hotspot }) => hotspot.id);
   }
 
+  /**
+   * Slides a character's drawn hotspot so its feet (bottom-centre) end at `to`, then calls
+   * `onDone`. Returns a function that finishes the walk immediately. Presentation only: the next
+   * hotspot redraw puts the character wherever the content says.
+   */
+  walkCharacter(character: CharacterId, to: Point, speed: number, onDone: () => void): () => void {
+    const entry = this.drawn.find(({ hotspot }) => hotspot.character === character);
+    if (!entry) {
+      onDone();
+      return () => {};
+    }
+    const { bounds } = entry.hotspot;
+    const dx = to.x - (bounds.x + bounds.width / 2);
+    const dy = to.y - (bounds.y + bounds.height);
+    const targets = entry.objects as unknown as { x: number; y: number }[];
+    const starts = targets.map((o) => ({ x: o.x, y: o.y }));
+    let done = false;
+    const finish = () => {
+      if (done) return;
+      done = true;
+      tween.stop();
+      targets.forEach((o, i) => ((o.x = starts[i]!.x + dx), (o.y = starts[i]!.y + dy)));
+      onDone();
+    };
+    const tween = this.scene.tweens.addCounter({
+      from: 0,
+      to: 1,
+      duration: (Math.hypot(dx, dy) / speed) * 1000,
+      onUpdate: (t) => {
+        const k = t.getValue() ?? 0;
+        targets.forEach((o, i) => ((o.x = starts[i]!.x + dx * k), (o.y = starts[i]!.y + dy * k)));
+      },
+      onComplete: finish,
+    });
+    return finish;
+  }
+
   private draw(hotspot: Hotspot): Phaser.GameObjects.GameObject[] {
     const { x, y, width, height } = hotspot.bounds;
     // Placeholder art: a labelled rectangle. Real art will replace this in M4.
