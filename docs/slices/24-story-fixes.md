@@ -1,6 +1,6 @@
 # Slice 24 — Story fixes: the code and the curse's rule
 
-**Status:** built, agent play-tested · awaiting developer play-test · **Milestone:** M4 · after PRs #22 and #23 merge
+**Status:** built, agent and developer play-tested · **Milestone:** M4 · after PRs #22 and #23 merge
 
 ## Why
 
