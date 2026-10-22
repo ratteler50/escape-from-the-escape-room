@@ -2,7 +2,13 @@ import type { Character, Dialogue, Hotspot, Item } from '../core/types';
 import { line, say, says, setFlag } from './dsl';
 import { mugSaleOptions } from './finale';
 
-export const kyle: Character = { id: 'kyle', name: 'Kyle', color: '#f7a8d8' };
+export const kyle: Character = {
+  id: 'kyle',
+  name: 'Kyle',
+  color: '#f7a8d8',
+  // Waist-up: drawn with the sprite's bottom edge on the painted counter top, so Kyle stands behind it.
+  sprites: { standing: 'assets/characters/kyle.webp' },
+};
 
 const K = (text: string) => line(kyle.id, text);
 
@@ -18,7 +24,7 @@ export const kyleHotspot: Hotspot = {
   id: 'kyle',
   name: 'Kyle',
   character: kyle.id,
-  bounds: { x: 395, y: 150, width: 80, height: 145 },
+  bounds: { x: 348, y: 219, width: 105, height: 115 },
   interactionPoint: { x: 440, y: 480 },
   verbs: {
     // DRAFT:

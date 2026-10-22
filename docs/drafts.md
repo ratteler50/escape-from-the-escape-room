@@ -136,54 +136,54 @@ for an item; "Dana (option)" is a line Dana says when the player picks it in a c
 
 | Where | Who | Line |
 |---|---|---|
-| `kyle.ts:14` | Look | Kyle's price gun. Someone has written "KYLE'S DEPARTMENT" down the handle in glitter pen. The labels say whatever I make them say. |
-| `kyle.ts:25` | Dana | Kyle, behind the till. Earbuds in, phone out. Third summer here. They haven't looked up since the lich started screaming. |
-| `kyle.ts:33` | Kyle | Don't. |
-| `kyle.ts:41` | Kyle | Mm. |
-| `kyle.ts:50` | Kyle | Kyle. Gift shop. |
-| `kyle.ts:52` | Kyle | Third summer. Don't learn my name, nobody does. |
-| `kyle.ts:61` | Kyle | New show feature, probably. Head office never tells us anything. |
-| `kyle.ts:63` | Kyle | They changed the bag charge last month. We found out from a customer. |
-| `kyle.ts:74` | Kyle | Lanyard. |
-| `kyle.ts:77` | Kyle | You're wearing a lanyard. Staff can't buy merch. It's on the till. |
-| `kyle.ts:79` | Dana | I've never wanted to be a customer so badly in my life. |
-| `kyle.ts:90` | Kyle | Lanyard. |
-| `kyle.ts:99` | Kyle | Sick projection. Is that new? |
-| `kyle.ts:102` | Kyle | Huh. Good resolution. |
-| `kyle.ts:113` | Kyle | ... |
-| `kyle.ts:115` | Kyle | Re-pricing is my department. Technically. |
-| `kyle.ts:117` | Kyle | Bring it back. It's got my name on it. |
-| `kyle.ts:120` | Dana | I've been issued equipment. I'd like to thank the Handbook. |
-| `kyle.ts:128` | Kyle | Mm. |
+| `kyle.ts:20` | Look | Kyle's price gun. Someone has written "KYLE'S DEPARTMENT" down the handle in glitter pen. The labels say whatever I make them say. |
+| `kyle.ts:31` | Dana | Kyle, behind the till. Earbuds in, phone out. Third summer here. They haven't looked up since the lich started screaming. |
+| `kyle.ts:39` | Kyle | Don't. |
+| `kyle.ts:47` | Kyle | Mm. |
+| `kyle.ts:56` | Kyle | Kyle. Gift shop. |
+| `kyle.ts:58` | Kyle | Third summer. Don't learn my name, nobody does. |
+| `kyle.ts:67` | Kyle | New show feature, probably. Head office never tells us anything. |
+| `kyle.ts:69` | Kyle | They changed the bag charge last month. We found out from a customer. |
+| `kyle.ts:80` | Kyle | Lanyard. |
+| `kyle.ts:83` | Kyle | You're wearing a lanyard. Staff can't buy merch. It's on the till. |
+| `kyle.ts:85` | Dana | I've never wanted to be a customer so badly in my life. |
+| `kyle.ts:96` | Kyle | Lanyard. |
+| `kyle.ts:105` | Kyle | Sick projection. Is that new? |
+| `kyle.ts:108` | Kyle | Huh. Good resolution. |
+| `kyle.ts:119` | Kyle | ... |
+| `kyle.ts:121` | Kyle | Re-pricing is my department. Technically. |
+| `kyle.ts:123` | Kyle | Bring it back. It's got my name on it. |
+| `kyle.ts:126` | Dana | I've been issued equipment. I'd like to thank the Handbook. |
+| `kyle.ts:134` | Kyle | Mm. |
 
 ## Mordecai (24)
 
 | Where | Who | Line |
 |---|---|---|
-| `mordecai.ts:20` | Dana | A see-through old man in a dressing gown, hovering over the bargain bin and glaring at it. The Handbook's index goes straight from 'Gherkins' to 'Gift vouchers'. |
-| `mordecai.ts:31` | Mordecai | You would PRICE me? I am Mordecai the Moderately Powerful! |
-| `mordecai.ts:33` | Mordecai | ...Out of interest. What would you have put? |
-| `mordecai.ts:35` | Dana | I'd rather not say. |
-| `mordecai.ts:53` | Dana | Mordecai, back over the bargain bin, gazing at his PRICELESS teapot like it might propose. |
-| `mordecai.ts:60` | Mordecai | Priceless. Say it with me, child. PRICELESS. |
-| `mordecai.ts:62` | Dana | Priceless. |
-| `mordecai.ts:64` | Mordecai | Now go and finish whatever wretched errand keeps you here. I have admiring to do. |
-| `mordecai.ts:72` | Mordecai | Not. One. More. Sticker. |
-| `mordecai.ts:83` | Mordecai | BEHOLD! Mordecai the Moderately Powerful! |
-| `mordecai.ts:85` | Kyle | Store closes at nine. |
-| `mordecai.ts:87` | Mordecai | I was BEHOLDING. |
-| `mordecai.ts:99` | Mordecai | A wizard, child. Retired. Then deceased. Moderately powerful in both. |
-| `mordecai.ts:101` | Mordecai | Your head office bought my entire estate. Lot by lot. Including, it seems, me. |
-| `mordecai.ts:110` | Mordecai | My phylactery. The vessel of my very soul. Your head office bought it as a "spooky jar". Three dollars fifty. |
-| `mordecai.ts:112` | Mordecai | Tonight it woke, and it was cross, and so was I. It has bound this whole shabby place to the escape room's script. |
-| `mordecai.ts:114` | Dana | Handbook Section 1: nobody has ever beaten the escape room. It says that like it's a selling point. |
-| `mordecai.ts:124` | Mordecai | Upset? My GOOD TEAPOT is in your bargain bin. Two dollars. Next to an eraser shaped like a smaller eraser. |
-| `mordecai.ts:126` | Kyle | Bargain bin is final sale. |
-| `mordecai.ts:128` | Mordecai | I cannot lift so much as a sticker. I can only float through walls, which is less useful than it sounds. |
-| `mordecai.ts:130` | Mordecai | Re-price it. PROPERLY. Do that, and I shall open any door in this building for you. |
-| `mordecai.ts:133` | Dana | Re-pricing is done with a price gun. Kyle has the price gun. I'll need a Handbook section. |
-| `mordecai.ts:142` | Mordecai | TWO. DOLLARS. |
-| `mordecai.ts:149` | Mordecai | Mind the merchandise on your way out. Most of it is mine. |
+| `mordecai.ts:28` | Dana | A see-through old man in a dressing gown, hovering over the bargain bin and glaring at it. The Handbook's index goes straight from 'Gherkins' to 'Gift vouchers'. |
+| `mordecai.ts:39` | Mordecai | You would PRICE me? I am Mordecai the Moderately Powerful! |
+| `mordecai.ts:41` | Mordecai | ...Out of interest. What would you have put? |
+| `mordecai.ts:43` | Dana | I'd rather not say. |
+| `mordecai.ts:61` | Dana | Mordecai, back over the bargain bin, gazing at his PRICELESS teapot like it might propose. |
+| `mordecai.ts:68` | Mordecai | Priceless. Say it with me, child. PRICELESS. |
+| `mordecai.ts:70` | Dana | Priceless. |
+| `mordecai.ts:72` | Mordecai | Now go and finish whatever wretched errand keeps you here. I have admiring to do. |
+| `mordecai.ts:80` | Mordecai | Not. One. More. Sticker. |
+| `mordecai.ts:91` | Mordecai | BEHOLD! Mordecai the Moderately Powerful! |
+| `mordecai.ts:93` | Kyle | Store closes at nine. |
+| `mordecai.ts:95` | Mordecai | I was BEHOLDING. |
+| `mordecai.ts:107` | Mordecai | A wizard, child. Retired. Then deceased. Moderately powerful in both. |
+| `mordecai.ts:109` | Mordecai | Your head office bought my entire estate. Lot by lot. Including, it seems, me. |
+| `mordecai.ts:118` | Mordecai | My phylactery. The vessel of my very soul. Your head office bought it as a "spooky jar". Three dollars fifty. |
+| `mordecai.ts:120` | Mordecai | Tonight it woke, and it was cross, and so was I. It has bound this whole shabby place to the escape room's script. |
+| `mordecai.ts:122` | Dana | Handbook Section 1: nobody has ever beaten the escape room. It says that like it's a selling point. |
+| `mordecai.ts:132` | Mordecai | Upset? My GOOD TEAPOT is in your bargain bin. Two dollars. Next to an eraser shaped like a smaller eraser. |
+| `mordecai.ts:134` | Kyle | Bargain bin is final sale. |
+| `mordecai.ts:136` | Mordecai | I cannot lift so much as a sticker. I can only float through walls, which is less useful than it sounds. |
+| `mordecai.ts:138` | Mordecai | Re-price it. PROPERLY. Do that, and I shall open any door in this building for you. |
+| `mordecai.ts:141` | Dana | Re-pricing is done with a price gun. Kyle has the price gun. I'll need a Handbook section. |
+| `mordecai.ts:150` | Mordecai | TWO. DOLLARS. |
+| `mordecai.ts:157` | Mordecai | Mind the merchandise on your way out. Most of it is mine. |
 
 ## The Break Room (53)
 
