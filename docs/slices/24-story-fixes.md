@@ -1,6 +1,6 @@
 # Slice 24 — Story fixes: the code and the curse's rule
 
-**Status:** Lair part built · front door line waits for #22 · **Milestone:** M4 · after PRs #22 and #23 merge
+**Status:** built, agent play-tested · awaiting developer play-test · **Milestone:** M4 · after PRs #22 and #23 merge
 
 ## Why
 
@@ -62,4 +62,5 @@ animation, the phylactery in the bargain bin.
 - **Script:** its look line gains the last page ("FINALE: The guest escapes THROUGH THE GIFT SHOP and
   purchases a souvenir. CURTAIN.", "souvenir" underlined twice by head office).
 - **Sweep:** no other content mentioned runes or the old scroll; the design doc's M1 section updated.
-- **Waiting:** the Gift Shop front door's line pointing back to the script, once #22 merges.
+- **Front door** (after #22 merged): Dana's last bounce line now names the rule from Reginald's
+  script: the guest escapes through the gift shop, with a souvenir.
