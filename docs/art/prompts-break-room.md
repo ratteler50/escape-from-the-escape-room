@@ -69,3 +69,67 @@ would drop, not in the coin return. This is an **edit** of an enlarged crop of t
 > right-hand panel, below the button, becomes a little coin-return cup with a small metal flap
 > tilted half-open, and one single shiny copper cent peeking out from under the flap, catching the
 > light.
+
+---
+
+## 2. Overlays
+
+Three things in the Break Room change during play. As for the Lair (`docs/art/prompts-overlays.md`),
+each overlay is an **edit of an enlarged crop** of the approved painting: attach the crop, ask for
+an edit at the same size and framing, save under the name given. If ChatGPT redraws the whole crop
+(different colours, lighting or angle), try again with "do not redraw; change only what I
+describe". The agent shrinks each result back, keeps only what changed, and feathers the edges.
+
+The two fridge overlays stack: the open fridge, then the card gone from it, drawn on top. So 2b is
+an edit of 2a's result, and the two line up. Clocking out has no overlay: Dana's lanyard flips to
+OFF DUTY in the inventory instead (section 3).
+
+### 2a. The fridge open → attach `art-inbox/CROP-fridge.png` (square), save as `art-inbox/fridge-open.png`
+
+Shown once Dana opens the fridge (`fridgeOpen`).
+
+> Edit this exact image. Keep everything identical: framing, size, painting style, colours,
+> lighting, the wall, the punch clock, its sign, the card rack, the floor, the red machine at the
+> right edge, and the fridge's top freezer door with its notes. Change only one thing: the fridge's
+> big LOWER door is swung wide open toward the viewer on its left-hand hinge. Show the inside of the
+> door at a steep angle, so it is narrow and does not cover the punch clock, with a couple of empty
+> door shelves and a curled sticky note on it. Inside the fridge, lit by the fridge's cold white
+> light: empty wire shelves, and on the middle shelf one strawberry yogurt pot (pink, with a
+> strawberry on the label) sitting on top of a paper time card, like a paperweight. The time card
+> is cream with a printed grid and IN / OUT columns, like the time card icon in the game; leave its
+> corner sticking out from under the yogurt so it's easy to see. Nothing else inside.
+
+### 2b. Just the yogurt → attach your `fridge-open.png`, save as `art-inbox/fridge-yogurt.png`
+
+Shown once Dana has taken the time card (`tookTimeCard`). Use the **same chat** as 2a, or attach
+2a's result to a new one.
+
+> Edit this exact image. Keep everything identical, including the yogurt exactly where it is.
+> Change only one thing: remove the paper time card from under the yogurt. The yogurt now sits
+> directly on the bare wire shelf.
+
+### 2c. Dana's locker open → attach `art-inbox/CROP-locker.png` (portrait), save as `art-inbox/locker-open.png`
+
+Shown once Dana opens their locker (`lockerOpen`). The pay packet comes out at the same moment, so
+it isn't painted.
+
+> Edit this exact image. Keep everything identical: framing, size, painting style, colours,
+> lighting, the wall, the floor, the left and right lockers, and the gold star. Change only one
+> thing: the MIDDLE locker (the one labelled TRAINEE, with the combination lock) is open. Its door
+> has swung open toward the viewer on its left-hand hinge, so we see the inside of the door at a
+> steep angle, narrow, partly in front of the left locker; the TRAINEE label and the lock stay on
+> the door. Inside the locker, in shadow: a bare metal interior, an empty coat hook, a small top
+> shelf, and hanging from the hook one single white hairnet, sad and limp. Nothing else inside.
+
+---
+
+## 3. The Off-Duty Lanyard icon → attach `art-inbox/CROP-lanyard.png` (square), save as `art-inbox/lanyard-off-duty.png`
+
+Clocking out swaps the Staff Lanyard for the same lanyard with its badge flipped round. The crop
+is the lanyard from the icon sheet its icon was cut from, enlarged.
+
+> Edit this exact image. Keep everything identical: framing, size, art style, the bold outlines,
+> the flat colours, the patterned skull strap, the clip and the plain grey background. Change only
+> the badge: it is flipped round to show its back, a plain white plastic card reading OFF DUTY in
+> the same bold black letters. Also remove the small black shape cut off at the right-hand edge, so
+> the background there is plain grey.

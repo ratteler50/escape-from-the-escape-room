@@ -21,7 +21,9 @@ music.
    - the fridge open, a strawberry yogurt pinning down a time card (`fridgeOpen`);
    - the fridge open, just the yogurt (`tookTimeCard`);
    - Dana's locker open, one spare hairnet inside (`lockerOpen`);
-   - the time card in the clock's slot, stamped OUT (`offDuty`).
+   - ~~the time card in the clock's slot, stamped OUT (`offDuty`)~~: replaced while building (see
+     below) by the **Off-Duty Lanyard**: clocking out swaps the Staff Lanyard for the same lanyard
+     with its badge flipped round to OFF DUTY, with its own icon.
 4. **Music:** you pick the Break Room's track from the three kept for later rooms (whichever slice
    22 doesn't take, or the same one; `docs/audio/music.md`).
 5. **Records:** `CREDITS.md`, prompts in `docs/art/`, validation and asset tests as for the Lair.
@@ -51,3 +53,9 @@ Shared, append-only: `CREDITS.md` rows, one line each in `src/content/audio.ts`,
 ## Notes
 
 - Branch `slice-23-break-room-art`, in its own worktree under `.claude/worktrees/`.
+- **Changed while building (developer, 2026-10-22):** no clock overlay. Dana's line says they file
+  the card back in the rack, and the painted rack's cards are too small to show OUT, so clocking out
+  shows in the inventory instead: the lanyard (Kyle's reason for not selling to staff) flips to OFF
+  DUTY. Content, not just art, but all in this slice's files (`breakRoom.ts`, a new icon).
+- **Out of scope, for later:** the Lair's display case shows no change when opened (slice 19 decided
+  it needed no overlay); the developer wants to revisit that.

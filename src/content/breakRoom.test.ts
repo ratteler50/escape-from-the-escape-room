@@ -73,6 +73,15 @@ describe('the Break Room', () => {
     });
   }
 
+  it('swaps the Staff Lanyard for the Off-Duty Lanyard when Dana clocks out, and never shows both', () => {
+    const result = explore(withGoal(goals['off duty and holding Exact Change']!), start);
+    const wrong = [...result.explored.entries()].find(([, { state }]) => {
+      const has = (id: string) => state.inventory.includes(id);
+      return state.flags.offDuty ? has('lanyard') || !has('offDutyLanyard') : has('offDutyLanyard') || !has('lanyard');
+    });
+    expect(wrong && `Wrong lanyard after:\n${numbered(result.pathTo(wrong[0]))}`).toBeUndefined();
+  });
+
   it('prints the shortest way to both', () => {
     const result = explore(withGoal(goals['off duty and holding Exact Change']!), start);
     const steps = result.pathTo(firstWin(result)!);

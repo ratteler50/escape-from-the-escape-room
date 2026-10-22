@@ -7,28 +7,41 @@ import { reginald } from './reginald';
 // vending machine's cent to the pay packet for exact change. Reginald is only heard here, over
 // the intercom: he has no hotspot, so his lines show over Dana with his name tag.
 
+// Both lanyards carry the employee number, so either one can be read (a player may clock out first).
+const checkTheNumber: Item['action'] = {
+  label: 'Check the number',
+  responses: [
+    // DRAFT:
+    { when: [{ flag: 'knowsEmployeeNumber' }], effects: [say('Employee number 007. Still 007. Still licensed to clock in.')] },
+    {
+      effects: [
+        // DRAFT:
+        say('I squint at the small print. Employee number... 007. Licensed to clock in.'),
+        // DRAFT:
+        say("0-0-7. Handbook Section 2: know your number. Now I do. I'll never forget it."),
+        setFlag('knowsEmployeeNumber'),
+      ],
+    },
+  ],
+};
+
 export const lanyard: Item = {
   id: 'lanyard',
   name: 'Staff Lanyard',
   icon: 'assets/icons/lanyard.webp',
   // DRAFT:
   look: 'My lanyard. TRAINEE in huge letters, my employee number in tiny ones. Head office\'s priorities, in font sizes.',
-  action: {
-    label: 'Check the number',
-    responses: [
-      // DRAFT:
-      { when: [{ flag: 'knowsEmployeeNumber' }], effects: [say('Employee number 007. Still 007. Still licensed to clock in.')] },
-      {
-        effects: [
-          // DRAFT:
-          say('I squint at the small print. Employee number... 007. Licensed to clock in.'),
-          // DRAFT:
-          say("0-0-7. Handbook Section 2: know your number. Now I do. I'll never forget it."),
-          setFlag('knowsEmployeeNumber'),
-        ],
-      },
-    ],
-  },
+  action: checkTheNumber,
+};
+
+/** The same lanyard, badge flipped round: what Dana holds once they've clocked out (slice 23). */
+export const offDutyLanyard: Item = {
+  id: 'offDutyLanyard',
+  name: 'Off-Duty Lanyard',
+  icon: 'assets/icons/lanyard-off-duty.webp',
+  // DRAFT:
+  look: 'My lanyard, badge flipped round. The back says OFF DUTY. It has never been used before. It still smells new.',
+  action: checkTheNumber,
 };
 
 export const timeCard: Item = {
@@ -63,7 +76,7 @@ export const exactChange: Item = {
   look: '$12.99. Exactly. Not a cent over, not a cent under. The till has never seen anything so beautiful.',
 };
 
-export const breakRoomItems = [lanyard, timeCard, payPacket, oneCent, exactChange];
+export const breakRoomItems = [lanyard, offDutyLanyard, timeCard, payPacket, oneCent, exactChange];
 
 export const breakRoomCombinations: Combination[] = [
   {
@@ -163,6 +176,13 @@ export const breakRoom: Room = {
   // Generated from docs/art/break-room-layout.svg; bounds were then fitted to the painting.
   art: {
     background: 'assets/rooms/break-room.webp',
+    // Patches of the painting for what changes in play (docs/art/prompts-break-room.md). Drawn in
+    // order: the yogurt-only patch covers the card in the open fridge.
+    overlays: [
+      { image: 'assets/overlays/break-room-fridge-open.webp', at: { x: 451, y: 224 }, when: [{ flag: 'fridgeOpen' }] },
+      { image: 'assets/overlays/break-room-fridge-yogurt.webp', at: { x: 585, y: 351 }, when: [{ flag: 'tookTimeCard' }] },
+      { image: 'assets/overlays/break-room-locker-open.webp', at: { x: 875, y: 146 }, when: [{ flag: 'lockerOpen' }] },
+    ],
   },
   entries: {
     fromGiftShop: { x: 210, y: 500 },
@@ -233,7 +253,9 @@ export const breakRoom: Room = {
               // DRAFT:
               say('KA-CHUNK. "OUT: 9:47 PM." I am off duty. Legally, I am a guest.'),
               // DRAFT:
-              say('Handbook Section 5.3: off-duty staff are customers like anyone else. I tuck my lanyard into my pocket. Off duty means off duty.'),
+              say('Handbook Section 5.3: off-duty staff are customers like anyone else. I flip my badge round to the side that says OFF DUTY. Off duty means off duty.'),
+              { type: 'removeItem', itemId: lanyard.id },
+              { type: 'addItem', itemId: offDutyLanyard.id },
               setFlag('offDuty'),
               // DRAFT:
               say('I file my time card back in the rack, under P. Not under the yogurt.'),
@@ -253,7 +275,8 @@ export const breakRoom: Room = {
       id: 'fridge',
       name: 'Fridge',
       bounds: { x: 532, y: 166, width: 152, height: 300 },
-      interactionPoint: { x: 608, y: 492 },
+      // Beside the fridge, not in front of it, so Dana doesn't hide what's inside once it's open.
+      interactionPoint: { x: 712, y: 492 },
       verbs: {
         look: {
           responses: [
@@ -338,7 +361,8 @@ export const breakRoom: Room = {
       id: 'lockers',
       name: 'Lockers',
       bounds: { x: 878, y: 166, width: 248, height: 300 },
-      interactionPoint: { x: 985, y: 492 },
+      // In front of Reginald's locker, so Dana doesn't hide the inside of theirs once it's open.
+      interactionPoint: { x: 1050, y: 492 },
       verbs: {
         look: {
           responses: [
@@ -372,6 +396,8 @@ export const breakRoom: Room = {
       itemUses: {
         // DRAFT:
         [lanyard.id]: [{ effects: [say("The lock wants a number, not a lanyard. Though the number IS on the lanyard. I should probably read it.")] }],
+        // DRAFT:
+        [offDutyLanyard.id]: [{ effects: [say("The lock wants a number, not a lanyard. Though the number IS on the lanyard. I should probably read it.")] }],
       },
     },
     {
