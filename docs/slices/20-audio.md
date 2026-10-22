@@ -1,6 +1,6 @@
 # Slice 20 — Audio: the system, the Lair's music, the sound effects
 
-**Status:** built, agent play-tested · awaiting developer play-test · **Milestone:** M4
+**Status:** built, agent and developer play-tested · **Milestone:** M4
 
 ## Why
 
