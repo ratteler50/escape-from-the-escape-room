@@ -25,11 +25,11 @@ test('plays the shortest solution through to "THE END?"', async ({ page }) => {
   const end = await status(page);
   expect(end.endCard, 'the "THE END?" card is showing').toBe(true);
   // Every story sound on the way (the agent can't hear them, so check they were asked for), and the
-  // Lair's music still playing: the Gift Shop and Break Room have none yet, so it carries on.
-  const story = ['bones', 'squelch', 'keys', 'latch', 'keypad', 'unlock', 'arise', 'till', 'rumble'];
+  // Gift Shop's music playing: the game ends there.
+  const story = ['bones', 'squelch', 'keys', 'latch', 'keypad', 'unlock', 'arise', 'till', 'rumble', 'finale'];
   const ui = ['click', 'coin', 'select', 'pickup', 'door'];
   expect([...story, ...ui].filter((sound) => !end.audio.requested[sound]), 'sounds never played').toEqual([]);
-  expect(end.audio.track).toBe('lair');
+  expect(end.audio.track).toBe('giftShop');
 });
 
 test('loads with no console errors', async ({ page }) => {

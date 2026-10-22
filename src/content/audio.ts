@@ -20,10 +20,12 @@ export const audio: WorldAudio = {
     arise: 'assets/audio/sfx/arise.mp3',
     till: 'assets/audio/sfx/till.mp3',
     rumble: 'assets/audio/sfx/rumble.mp3',
+    finale: 'assets/audio/sfx/finale.mp3',
   },
   music: {
     title: 'assets/audio/music/title.mp3',
     lair: 'assets/audio/music/lair.mp3',
+    giftShop: 'assets/audio/music/gift-shop.mp3',
   },
   title: 'title',
 };

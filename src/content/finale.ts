@@ -79,6 +79,8 @@ export const mugSaleOptions: DialogueOption[] = [
       { type: 'pause', ms: 600 },
       // DRAFT:
       say('A rumble. The lights flicker. Somewhere, a jar stops whispering.'),
+      // Dun dun DUUUN (ducks the music while it plays).
+      sound('finale'),
       // DRAFT:
       R('Nooooo!'),
       walk(reginald.id, 878, 470),

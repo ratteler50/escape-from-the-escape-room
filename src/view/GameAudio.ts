@@ -11,6 +11,11 @@ import { settings } from './storage';
 
 const CROSSFADE_MS = 1000;
 
+// Stings duck the music: it dips while one plays and comes back when it ends.
+const STINGS: ReadonlySet<SoundId> = new Set(['finale']);
+const DUCK_LEVEL = 0.25;
+const DUCK_MS = 300;
+
 const soundKey = (id: SoundId) => `sound:${id}`;
 const musicKey = (id: TrackId) => `music:${id}`;
 
@@ -22,6 +27,7 @@ interface Fade {
   from: number;
   to: number;
   elapsed: number;
+  ms: number;
   onDone?: () => void;
 }
 
@@ -47,6 +53,8 @@ export class GameAudio {
   /** The track that should be playing: it may be waiting for the browser to unlock audio. */
   private wanted: TrackId | undefined;
   private fades: Fade[] = [];
+  /** How many stings are playing: while any are, the music sits at DUCK_LEVEL. */
+  private ducks = 0;
   /** How often each effect has been asked for, heard or not (for tests: the agent can't hear). */
   readonly requested: Record<SoundId, number> = {};
 
@@ -61,7 +69,24 @@ export class GameAudio {
   play(id: SoundId): void {
     this.requested[id] = (this.requested[id] ?? 0) + 1;
     if (this.game.sound.locked || !this.game.cache.audio.exists(soundKey(id))) return;
-    this.game.sound.play(soundKey(id), { volume: settings.effectsVolume / 100 });
+    if (!STINGS.has(id)) {
+      this.game.sound.play(soundKey(id), { volume: settings.effectsVolume / 100 });
+      return;
+    }
+    const sting = this.game.sound.add(soundKey(id), { volume: settings.effectsVolume / 100 });
+    sting.once(Phaser.Sound.Events.COMPLETE, () => {
+      sting.destroy();
+      this.ducks--;
+      this.fadeMusic(DUCK_MS);
+    });
+    this.ducks++;
+    this.fadeMusic(DUCK_MS);
+    sting.play();
+  }
+
+  /** Whether a sting is ducking the music now. */
+  get ducked(): boolean {
+    return this.ducks > 0;
   }
 
   /** Crossfades to a track, looping. `undefined` (a room with no music yet) keeps the current one. */
@@ -80,7 +105,7 @@ export class GameAudio {
   applyVolumes(): void {
     if (!this.music) return;
     this.fades = this.fades.filter((f) => f.sound !== this.music!.sound);
-    this.music.sound.volume = settings.musicVolume / 100;
+    this.music.sound.volume = this.musicLevel();
   }
 
   /** Mutes or unmutes everything, and remembers it. Returns whether it's now muted. */
@@ -98,25 +123,35 @@ export class GameAudio {
     const next = this.game.sound.add(musicKey(track), { loop: true }) as Playing;
     next.play();
     this.music = { track, sound: next };
-    this.fade(next, settings.musicVolume / 100, 0);
+    this.fade(next, this.musicLevel(), 0);
     if (old) this.fade(old.sound, 0, old.sound.volume, () => old.sound.destroy());
   }
 
-  /** Fades from `from` (default: where it is now) to `to` over the crossfade time. */
-  private fade(sound: Playing, to: number, from = sound.volume, onDone?: () => void): void {
+  /** The music's volume: the setting, ducked while a sting plays. */
+  private musicLevel(): number {
+    return (settings.musicVolume / 100) * (this.ducks > 0 ? DUCK_LEVEL : 1);
+  }
+
+  /** Fades the current track to where it should be now (after a sting starts or ends). */
+  private fadeMusic(ms: number): void {
+    if (this.music) this.fade(this.music.sound, this.musicLevel(), this.music.sound.volume, undefined, ms);
+  }
+
+  /** Fades from `from` (default: where it is now) to `to`, over the crossfade time by default. */
+  private fade(sound: Playing, to: number, from = sound.volume, onDone?: () => void, ms = CROSSFADE_MS): void {
     this.fades = this.fades.filter((f) => f.sound !== sound);
     sound.volume = from;
-    this.fades.push({ sound, from, to, elapsed: 0, ...(onDone && { onDone }) });
+    this.fades.push({ sound, from, to, elapsed: 0, ms, ...(onDone && { onDone }) });
   }
 
   private step(delta: number): void {
     if (this.fades.length === 0) return;
     for (const f of this.fades) {
-      f.elapsed = Math.min(f.elapsed + delta, CROSSFADE_MS);
-      f.sound.volume = f.from + (f.to - f.from) * (f.elapsed / CROSSFADE_MS);
+      f.elapsed = Math.min(f.elapsed + delta, f.ms);
+      f.sound.volume = f.from + (f.to - f.from) * (f.elapsed / f.ms);
     }
-    const done = this.fades.filter((f) => f.elapsed >= CROSSFADE_MS);
-    this.fades = this.fades.filter((f) => f.elapsed < CROSSFADE_MS);
+    const done = this.fades.filter((f) => f.elapsed >= f.ms);
+    this.fades = this.fades.filter((f) => f.elapsed < f.ms);
     done.forEach((f) => f.onDone?.());
   }
 }

@@ -33,3 +33,4 @@ Click a link to listen (each opens the MP3).
 - **Kept for later rooms** (the developer liked all three): Sneaky Snitch, Scheming Weasel (slower)
   and Investigations, for the Gift Shop and the Break Room (slices 22–23). The finale sting is
   picked in 23.
+- **Gift Shop** (slice 22): [Local Forecast - Elevator](https://incompetech.com/music/royalty-free/mp3-royaltyfree/Local%20Forecast%20-%20Elevator.mp3) (3:09), not one of the three kept: cheesy elevator muzak, mixed to sound like cheap speakers, a deliberately jarring drop from the Lair's spooky Graveyard Shift to retail under strip lights.

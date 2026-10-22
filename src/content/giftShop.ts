@@ -18,6 +18,7 @@ export const giftShop: Room = {
   id: 'giftShop',
   name: 'Gift Shop',
   // Generated from docs/art/gift-shop-layout.svg; bounds were then fitted to the painting.
+  music: 'giftShop',
   art: {
     background: 'assets/rooms/gift-shop.webp',
   },

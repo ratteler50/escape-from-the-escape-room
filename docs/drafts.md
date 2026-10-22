@@ -101,36 +101,36 @@ for an item; "Dana (option)" is a line Dana says when the player picks it in a c
 
 | Where | Who | Line |
 |---|---|---|
-| `giftShop.ts:43` | Dana | The door back to the Lair. The sign over it says EXIT THROUGH THE GIFT SHOP. I did it backwards. |
-| `giftShop.ts:57` | Dana | Mugs: "I ESCAPED THE LICH'S LAIR", $12.99. Nobody has ever escaped, so nobody has ever bought one. Kyle dusts them anyway. |
-| `giftShop.ts:61` | Dana | I could mark a mug down to a cent. Handbook Section 14.1: no re-pricing for personal gain. I hate that I know that. |
-| `giftShop.ts:72` | Dana | Kyle's till. The receipt roll is printed to look like a scroll. Head office really committed to the theme. |
-| `giftShop.ts:74` | Kyle | That's my department. |
-| `giftShop.ts:78` | Kyle | Don't. |
-| `giftShop.ts:92` | Dana | The teapot's sticker now says PRICELESS. The rest of the bin looks jealous. |
-| `giftShop.ts:94` | Dana | The bargain bin: three lich snow globes, an eraser shaped like a smaller eraser, and a rather nice teapot. $2. |
-| `giftShop.ts:98` | Dana | Bargain bin stock is final sale, and I am staff. Two rules, one teapot. |
-| `giftShop.ts:105` | Dana | It's already priceless. You can't go higher than priceless. I asked the Handbook. |
-| `giftShop.ts:110` | Dana | Ka-chunk. One new sticker: PRICELESS. |
-| `giftShop.ts:112` | Mordecai | Priceless. PRICELESS! At last, someone in this establishment with taste. |
-| `giftShop.ts:114` | Kyle | We can't sell that now. |
-| `giftShop.ts:116` | Mordecai | GOOD. And a deal is a deal, child. Watch this. |
-| `giftShop.ts:122` | Dana | A clunk from the other side. The STAFF ONLY door swings open. |
-| `giftShop.ts:124` | Kyle | Huh. Is that new? |
-| `giftShop.ts:126` | Dana | I hand the price gun back to Kyle. Re-pricing is their department. |
-| `giftShop.ts:128` | Kyle | It's got my name on it. |
-| `giftShop.ts:144` | Dana | A life-size cardboard Reginald. Somehow less wooden than the real one. |
-| `giftShop.ts:148` | Dana | Cardboard Reginald, $1. No. He'd find out. He'd be devastated. |
-| `giftShop.ts:160` | Dana | STAFF ONLY. A badge reader with a little red light, and a sign: TRAINEES, PLEASE ASK A SUPERVISOR. There is no supervisor. |
-| `giftShop.ts:164` | Dana | I hold up my trainee badge. The reader blinks red. It knows. |
-| `giftShop.ts:169` | Dana | I label the door $4.99. Still locked, but now it's affordable. |
-| `giftShop.ts:172` | Dana | The badge reader blinks red. It only wants a proper staff badge, and that wasn't one. |
-| `giftShop.ts:183` | Dana | STAFF ONLY, wide open. Mordecai can't touch anything, so I assume he glared at the lock until it gave up. Beyond it: a corridor that smells of burnt coffee. |
-| `giftShop.ts:208` | Dana | "CLOSED FOR REFURBISHMENT", taped to a door that is standing wide open. Beyond it: the car park, the night, my bus stop. The refurbishment has been ongoing since 2019. |
-| `giftShop.ts:216` | Dana | EXIT THROUGH THE GIFT SHOP. I haven't bought anything. Not even a mug. |
-| `giftShop.ts:218` | Dana | I step into the doorway. The doorway steps me straight back into the shop. |
-| `giftShop.ts:220` | Dana | The door is open. I'm just not allowed through it. The curse is very literal. |
-| `giftShop.ts:228` | Dana | I label the front door FREE. It's still closed for refurbishment. |
+| `giftShop.ts:44` | Dana | The door back to the Lair. The sign over it says EXIT THROUGH THE GIFT SHOP. I did it backwards. |
+| `giftShop.ts:58` | Dana | Mugs: "I ESCAPED THE LICH'S LAIR", $12.99. Nobody has ever escaped, so nobody has ever bought one. Kyle dusts them anyway. |
+| `giftShop.ts:62` | Dana | I could mark a mug down to a cent. Handbook Section 14.1: no re-pricing for personal gain. I hate that I know that. |
+| `giftShop.ts:73` | Dana | Kyle's till. The receipt roll is printed to look like a scroll. Head office really committed to the theme. |
+| `giftShop.ts:75` | Kyle | That's my department. |
+| `giftShop.ts:79` | Kyle | Don't. |
+| `giftShop.ts:93` | Dana | The teapot's sticker now says PRICELESS. The rest of the bin looks jealous. |
+| `giftShop.ts:95` | Dana | The bargain bin: three lich snow globes, an eraser shaped like a smaller eraser, and a rather nice teapot. $2. |
+| `giftShop.ts:99` | Dana | Bargain bin stock is final sale, and I am staff. Two rules, one teapot. |
+| `giftShop.ts:106` | Dana | It's already priceless. You can't go higher than priceless. I asked the Handbook. |
+| `giftShop.ts:111` | Dana | Ka-chunk. One new sticker: PRICELESS. |
+| `giftShop.ts:113` | Mordecai | Priceless. PRICELESS! At last, someone in this establishment with taste. |
+| `giftShop.ts:115` | Kyle | We can't sell that now. |
+| `giftShop.ts:117` | Mordecai | GOOD. And a deal is a deal, child. Watch this. |
+| `giftShop.ts:123` | Dana | A clunk from the other side. The STAFF ONLY door swings open. |
+| `giftShop.ts:125` | Kyle | Huh. Is that new? |
+| `giftShop.ts:127` | Dana | I hand the price gun back to Kyle. Re-pricing is their department. |
+| `giftShop.ts:129` | Kyle | It's got my name on it. |
+| `giftShop.ts:145` | Dana | A life-size cardboard Reginald. Somehow less wooden than the real one. |
+| `giftShop.ts:149` | Dana | Cardboard Reginald, $1. No. He'd find out. He'd be devastated. |
+| `giftShop.ts:161` | Dana | STAFF ONLY. A badge reader with a little red light, and a sign: TRAINEES, PLEASE ASK A SUPERVISOR. There is no supervisor. |
+| `giftShop.ts:165` | Dana | I hold up my trainee badge. The reader blinks red. It knows. |
+| `giftShop.ts:170` | Dana | I label the door $4.99. Still locked, but now it's affordable. |
+| `giftShop.ts:173` | Dana | The badge reader blinks red. It only wants a proper staff badge, and that wasn't one. |
+| `giftShop.ts:184` | Dana | STAFF ONLY, wide open. Mordecai can't touch anything, so I assume he glared at the lock until it gave up. Beyond it: a corridor that smells of burnt coffee. |
+| `giftShop.ts:209` | Dana | "CLOSED FOR REFURBISHMENT", taped to a door that is standing wide open. Beyond it: the car park, the night, my bus stop. The refurbishment has been ongoing since 2019. |
+| `giftShop.ts:217` | Dana | EXIT THROUGH THE GIFT SHOP. I haven't bought anything. Not even a mug. |
+| `giftShop.ts:219` | Dana | I step into the doorway. The doorway steps me straight back into the shop. |
+| `giftShop.ts:221` | Dana | The door is open. I'm just not allowed through it. The curse is very literal. |
+| `giftShop.ts:229` | Dana | I label the front door FREE. It's still closed for refurbishment. |
 
 ## Kyle (19)
 
@@ -260,16 +260,16 @@ for an item; "Dana (option)" is a line Dana says when the player picks it in a c
 | `finale.ts:72` | Dana | Yes please. I want proof. |
 | `finale.ts:75` | Dana | I ESCAPED THE LICH'S LAIR. Technically I haven't. But the mug says I have, and the curse is very literal. |
 | `finale.ts:81` | Dana | A rumble. The lights flicker. Somewhere, a jar stops whispering. |
-| `finale.ts:83` | Reginald | Nooooo! |
-| `finale.ts:86` | Reginald | It's gone, darling. All of it. I'm human. I have a PULSE. Do you know what a pulse does to a performance? |
-| `finale.ts:88` | Reginald | Actors' union, section twelve: wrongful loss of the role of a lifetime. I am filing a grievance. |
-| `finale.ts:90` | Dana | Gary stays one-armed, I'm afraid. His arm is gummed to a floor grate in the Lair. |
-| `finale.ts:92` | Reginald | And the anti-theft cable snapped when the curse broke. Somebody take this. It keeps looking at me. |
-| `finale.ts:94` | Dana | He drops the phylactery into a cardboard box. |
-| `finale.ts:96` | Kyle | Spooky jar. A dollar. Bargain bin. |
-| `finale.ts:98` | Mordecai | ONE DOLLAR?! That jar contains my SOUL! |
-| `finale.ts:100` | Kyle | Final sale. |
-| `finale.ts:103` | Dana | From the bargain bin, very faintly, something whispers: "...one dollar... we'll see about that..." |
+| `finale.ts:85` | Reginald | Nooooo! |
+| `finale.ts:88` | Reginald | It's gone, darling. All of it. I'm human. I have a PULSE. Do you know what a pulse does to a performance? |
+| `finale.ts:90` | Reginald | Actors' union, section twelve: wrongful loss of the role of a lifetime. I am filing a grievance. |
+| `finale.ts:92` | Dana | Gary stays one-armed, I'm afraid. His arm is gummed to a floor grate in the Lair. |
+| `finale.ts:94` | Reginald | And the anti-theft cable snapped when the curse broke. Somebody take this. It keeps looking at me. |
+| `finale.ts:96` | Dana | He drops the phylactery into a cardboard box. |
+| `finale.ts:98` | Kyle | Spooky jar. A dollar. Bargain bin. |
+| `finale.ts:100` | Mordecai | ONE DOLLAR?! That jar contains my SOUL! |
+| `finale.ts:102` | Kyle | Final sale. |
+| `finale.ts:105` | Dana | From the bargain bin, very faintly, something whispers: "...one dollar... we'll see about that..." |
 
 ## Fallback lines (1)
 
