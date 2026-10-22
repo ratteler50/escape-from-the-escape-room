@@ -4,3 +4,5 @@ coverage/
 .DS_Store
 .claude/settings.local.json
 .claude/worktrees/
+test-results/
+playwright-report/
