@@ -14,12 +14,12 @@ async function newGame(page: Page): Promise<void> {
   await settle(page, 'the first room');
 }
 
-test('plays the shortest solution through to "To be continued…"', async ({ page }) => {
+test('plays the shortest solution through to "THE END?"', async ({ page }) => {
   await open(page);
   await newGame(page);
   await playThrough(page, world, initialState, solution);
   const end = await status(page);
-  expect(end.endCard, 'the "To be continued…" card is showing').toBe(true);
+  expect(end.endCard, 'the "THE END?" card is showing').toBe(true);
 });
 
 test('loads with no console errors', async ({ page }) => {

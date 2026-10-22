@@ -100,7 +100,7 @@ function installHelpers(): void {
       busy: roomActive && r.busy,
       walking: roomActive && r.player.isWalking,
       line: roomActive ? r.speech.current : undefined,
-      endCard: roomActive && r.children.list.some((o: any) => o.type === 'Container' && o.alpha === 1 && o.list.some((c: any) => isText(c, 'To be continued…'))),
+      endCard: roomActive && r.children.list.some((o: any) => o.type === 'Container' && o.alpha === 1 && o.list.some((c: any) => isText(c, 'THE END?'))),
       state: roomActive ? r.state : undefined,
     };
   }

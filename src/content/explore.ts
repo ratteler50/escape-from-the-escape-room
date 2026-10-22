@@ -14,15 +14,79 @@ interface Explored {
   parent: { key: string; command: Command } | null;
 }
 
-/** Two states that differ only in ways puzzles can't see (position, inventory order) are the same. */
-export function stateKey(s: GameState): string {
+/** Flags and spent dialogue options that can't change what the player can do. */
+export interface Flavour {
+  flags: ReadonlySet<string>;
+  spentOptions: ReadonlySet<string>;
+}
+
+/**
+ * Two states that differ only in ways puzzles can't see (position, inventory order, and any
+ * `flavour` bits) are the same. Exploration passes `flavour`; the end-to-end tests compare exactly.
+ */
+export function stateKey(s: GameState, flavour?: Flavour): string {
   return JSON.stringify({
     room: s.roomId,
     inventory: [...s.inventory].sort(),
-    flags: Object.keys(s.flags).filter((f) => s.flags[f]).sort(),
+    flags: Object.keys(s.flags)
+      .filter((f) => s.flags[f] && !flavour?.flags.has(f))
+      .sort(),
     conversation: s.conversation,
-    spent: [...s.spentOptions].sort(),
+    spent: s.spentOptions.filter((o) => !flavour?.spentOptions.has(o)).sort(),
   });
+}
+
+/**
+ * Finds the bits a state can carry that never affect what the player can do, so exploration can
+ * merge states that differ only in them. Without this, every independent one-off line of dialogue
+ * doubles the number of states (slice 16 hit the cap that way). Two kinds:
+ * - flags that no condition anywhere reads (set, never checked);
+ * - spent `once` dialogue options whose effects are pure presentation (lines, pauses, walks) plus,
+ *   at most, setting such unread flags. Having heard a line can't open or close any path.
+ * Options with real effects (items, read flags, room changes) stay distinct: merging those could
+ * hide a dead end.
+ */
+export function flavourBits(w: World): Flavour {
+  const read = new Set<string>();
+  const seen = new Set<object>();
+  const visit = (node: unknown): void => {
+    if (!node || typeof node !== 'object' || seen.has(node)) return;
+    seen.add(node);
+    // Conditions are the only objects with a `flag`/`notFlag` and no `type` (setFlag effects have one).
+    const o = node as Record<string, unknown>;
+    if (!('type' in o)) {
+      if (typeof o.flag === 'string') read.add(o.flag);
+      if (typeof o.notFlag === 'string') read.add(o.notFlag);
+    }
+    Object.values(o).forEach(visit);
+  };
+  visit(w);
+  read.add(WON);
+
+  const isFlavourFlag = (flag: string) => !read.has(flag);
+  const presentation = new Set(['say', 'pause', 'face', 'walk']);
+  const flags = new Set<string>();
+  const spentOptions = new Set<string>();
+  for (const dialogue of Object.values(w.dialogues)) {
+    for (const node of Object.values(dialogue.nodes)) {
+      for (const option of node.options) {
+        const effects = option.effects ?? [];
+        effects.forEach((e) => e.type === 'setFlag' && isFlavourFlag(e.flag) && flags.add(e.flag));
+        const pure = effects.every((e) => presentation.has(e.type) || (e.type === 'setFlag' && isFlavourFlag(e.flag)));
+        if (option.once && pure) spentOptions.add(`${dialogue.id}.${option.id}`);
+      }
+    }
+  }
+  // Flags set anywhere else (verbs, item uses, combinations) and never read are flavour too.
+  const collectSetFlags = (node: unknown, inner = new Set<object>()): void => {
+    if (!node || typeof node !== 'object' || inner.has(node)) return;
+    inner.add(node);
+    const o = node as Record<string, unknown>;
+    if (o.type === 'setFlag' && typeof o.flag === 'string' && isFlavourFlag(o.flag)) flags.add(o.flag);
+    Object.values(o).forEach((v) => collectSetFlags(v, inner));
+  };
+  collectSetFlags(w);
+  return { flags, spentOptions };
 }
 
 /** Every command the UI could offer in this state. */
@@ -69,7 +133,8 @@ export function explore(w: World, start: GameState) {
   const explored = new Map<string, Explored>();
   const reverseEdges = new Map<string, Set<string>>();
   const errors: { key: string; command: Command; message: string }[] = [];
-  const startKey = stateKey(start);
+  const flavour = flavourBits(w);
+  const startKey = stateKey(start, flavour);
   explored.set(startKey, { state: start, parent: null });
   const queue = [startKey];
 
@@ -84,7 +149,7 @@ export function explore(w: World, start: GameState) {
         errors.push({ key, command, message: (e as Error).message });
         continue;
       }
-      const nextKey = stateKey(next);
+      const nextKey = stateKey(next, flavour);
       if (!reverseEdges.has(nextKey)) reverseEdges.set(nextKey, new Set());
       reverseEdges.get(nextKey)!.add(key);
       if (!explored.has(nextKey)) {

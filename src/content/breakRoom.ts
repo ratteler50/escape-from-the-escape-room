@@ -1,5 +1,5 @@
 import type { Combination, Dialogue, Item, Room } from '../core/types';
-import { line, say, says, setFlag } from './dsl';
+import { line, say, says, setFlag, walk } from './dsl';
 import { reginald } from './reginald';
 
 // The Break Room (slice 15): three parallel puzzles from the M3 plan (docs/design.md). Clock out
@@ -173,6 +173,10 @@ export const breakRoom: Room = {
       verbs: {
         // DRAFT:
         look: says('The door back to the Gift Shop. This side says STAFF ONLY. The other side also says STAFF ONLY. Very consistent. Very unwelcoming.'),
+        use: {
+          label: 'Go through',
+          responses: [{ effects: [walk('dana', 175, 425), { type: 'goToRoom', roomId: 'giftShop', entry: 'fromBreakRoom' }] }],
+        },
       },
     },
     {

@@ -50,3 +50,4 @@ Shared vocabulary for the game and the codebase. Use these terms in code, docs, 
 | **Puzzle dependency chart** | A graph of what the player needs to obtain or do before something else becomes possible. Lives in `docs/design.md`. |
 | **Slice** | One small, end-to-end unit of work with its own spec in `docs/slices/`. |
 | **Milestone** | A playable checkpoint (M1–M4). See `docs/design.md`. |
+| **Flavour bits** | Flags no condition reads, and spent once-only dialogue options that only say lines. They can't change what the player can do, so the always-winnable explorer merges states that differ only in them (`explore.ts`). |

@@ -216,6 +216,9 @@ export class RoomScene extends Phaser.Scene {
   private dispatch(command: Command): void {
     const result = handle(this.world, this.state, command);
     this.state = result.state;
+    // An option that ends the conversation hides the options at once, rather than after its replies:
+    // they may be a whole cutscene (Reginald's exit, the finale) that the panel would cover.
+    if (command.type === 'chooseOption' && !this.state.conversation) this.dialogue.hide();
     this.queue.push(...result.effects);
     if (!this.busy) this.playNext();
   }

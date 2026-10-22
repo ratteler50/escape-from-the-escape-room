@@ -39,6 +39,40 @@ export const mordecaiHotspot: Hotspot = {
   },
 };
 
+// Back by the bargain bin, admiring his teapot, once Dana has been through STAFF ONLY (giftShop.ts).
+// He has to be here for the finale (finale.ts).
+export const mordecaiBackHotspot: Hotspot = {
+  id: 'mordecaiBack',
+  name: 'Mordecai',
+  character: mordecai.id,
+  when: [{ flag: 'mordecaiBack' }],
+  bounds: { x: 575, y: 120, width: 80, height: 180 },
+  interactionPoint: { x: 600, y: 460 },
+  verbs: {
+    // DRAFT:
+    look: says('Mordecai, back over the bargain bin, gazing at his PRICELESS teapot like it might propose.'),
+    talk: {
+      label: 'Address the apparition',
+      responses: [
+        {
+          effects: [
+            // DRAFT:
+            M('Priceless. Say it with me, child. PRICELESS.'),
+            // DRAFT:
+            say('Priceless.'),
+            // DRAFT:
+            M('Now go and finish whatever wretched errand keeps you here. I have admiring to do.'),
+          ],
+        },
+      ],
+    },
+  },
+  itemUses: {
+    // DRAFT:
+    priceGun: [{ effects: [M('Not. One. More. Sticker.')] }],
+  },
+};
+
 export const mordecaiDialogue: Dialogue = {
   id: 'mordecai',
   start: 'hub',

@@ -49,12 +49,6 @@ describe('the Gift Shop chain', () => {
     expect(result.state.inventory, 'the Price Gun stays for jokes').toContain('priceGun');
   });
 
-  it('has no way through the open STAFF ONLY door yet (slice 16 joins the rooms)', () => {
-    const open: GameState = { ...arrived, flags: { staffDoorOpen: true } };
-    const door = visibleHotspots(world, open).find((h) => h.id === 'staffDoorOpen')!;
-    expect(door.verbs.use).toBeUndefined();
-  });
-
   it('floats Mordecai, and nobody else', () => {
     const floating = Object.values(world.characters).filter((c) => c.floats).map((c) => c.id);
     expect(floating).toEqual(['mordecai']);

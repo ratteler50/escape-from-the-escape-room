@@ -201,7 +201,7 @@ describe('content validation', () => {
 
   it('marks exactly the doors between rooms as exits (for the cursor)', () => {
     const exits = Object.values(world.rooms).flatMap((r) => r.hotspots.filter(isExit).map((h) => `${r.id}.${h.id}`));
-    expect(exits.sort()).toEqual(['giftShop.lairDoor', 'lair.door']);
+    expect(exits.sort()).toEqual(['breakRoom.giftShopDoor', 'giftShop.lairDoor', 'giftShop.staffDoorOpen', 'lair.door']);
   });
 
   describe('fallback lines', () => {

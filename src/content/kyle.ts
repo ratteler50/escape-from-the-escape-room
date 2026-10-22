@@ -1,5 +1,6 @@
 import type { Character, Dialogue, Hotspot, Item } from '../core/types';
 import { line, say, says, setFlag } from './dsl';
+import { mugSaleOptions } from './finale';
 
 export const kyle: Character = { id: 'kyle', name: 'Kyle', color: '#f7a8d8' };
 
@@ -65,6 +66,7 @@ export const kyleDialogue: Dialogue = {
         {
           id: 'buyMug',
           text: 'Can I buy an "I ESCAPED" mug?',
+          when: [{ notFlag: 'offDuty' }],
           once: true,
           effects: [
             // DRAFT:
@@ -82,11 +84,12 @@ export const kyleDialogue: Dialogue = {
         {
           id: 'mugAgain',
           text: 'About that mug...',
-          when: [{ flag: 'kyleWontSellToStaff' }],
+          when: [{ flag: 'kyleWontSellToStaff' }, { notFlag: 'offDuty' }],
           // DRAFT:
           effects: [K('Lanyard.')],
           next: 'hub',
         },
+        ...mugSaleOptions,
         {
           id: 'ghost',
           text: 'Kyle. There is a ghost by the bargain bin.',

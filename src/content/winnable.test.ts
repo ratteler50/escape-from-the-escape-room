@@ -2,10 +2,6 @@ import { describe, expect, it } from 'vitest';
 import { describeCommand, explore, firstWin, STATE_CAP } from './explore';
 import { initialState, world } from './world';
 
-// Not reachable from the start yet: slice 16 joins the Break Room to the Gift Shop, then empties
-// these. Until then breakRoom.test.ts explores it from inside.
-const NOT_YET_REACHABLE = { rooms: ['breakRoom'], items: ['timeCard', 'payPacket', 'oneCent', 'exactChange'] };
-
 // Enforces the design rule "no deaths, no dead ends" (docs/design.md): explores every game state the
 // player can reach (explore.ts), then checks the win is still reachable from each one.
 
@@ -47,13 +43,13 @@ describe('always winnable', () => {
 
   it('lets the player reach every room', () => {
     const visited = new Set([...result.explored.values()].map((e) => e.state.roomId));
-    const missing = Object.keys(world.rooms).filter((id) => !visited.has(id) && !NOT_YET_REACHABLE.rooms.includes(id));
+    const missing = Object.keys(world.rooms).filter((id) => !visited.has(id));
     expect(missing, `These rooms can never be reached: ${missing.join(', ')}. Add an exit that leads there`).toEqual([]);
   });
 
   it('lets the player obtain every item', () => {
     const obtained = new Set([...result.explored.values()].flatMap((e) => e.state.inventory));
-    const missing = Object.keys(world.items).filter((id) => !obtained.has(id) && !NOT_YET_REACHABLE.items.includes(id));
+    const missing = Object.keys(world.items).filter((id) => !obtained.has(id));
     expect(missing, `These items can never be obtained: ${missing.join(', ')}. Add a way to get them, or remove them`).toEqual([]);
   });
 

@@ -3,7 +3,7 @@ import * as Phaser from 'phaser';
 const DEPTH = 3000;
 
 /**
- * The "To be continued…" card shown when the game is won. Covers everything and swallows input, so
+ * The "THE END?" card shown when the game is won. Covers everything and swallows input, so
  * the room can't be played behind it. Play again is the only way on.
  */
 export function showEndCard(scene: Phaser.Scene, onPlayAgain: () => void): void {
@@ -18,11 +18,11 @@ export function showEndCard(scene: Phaser.Scene, onPlayAgain: () => void): void 
     .text(width / 2, height / 2 - 110, 'Escape From the Escape Room', { fontSize: '44px', color: '#ffe28a' })
     .setOrigin(0.5);
   const subtitle = scene.add
-    .text(width / 2, height / 2 - 40, 'To be continued…', { fontSize: '30px', color: '#c9b6ff' })
+    .text(width / 2, height / 2 - 40, 'THE END?', { fontSize: '30px', color: '#c9b6ff' })
     .setOrigin(0.5);
   const blurb = scene.add
     // DRAFT:
-    .text(width / 2, height / 2 + 20, "Dana escaped the Lich's Lair. The Gift Shop awaits.", { fontSize: '22px', color: '#ffffff' })
+    .text(width / 2, height / 2 + 20, "Dana escaped through the gift shop. The jar is still whispering.", { fontSize: '22px', color: '#ffffff' })
     .setOrigin(0.5);
 
   const button = scene.add
