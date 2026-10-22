@@ -119,7 +119,7 @@ export const lair: Room = {
       id: 'throne',
       name: 'Throne',
       bounds: { x: 515, y: 80, width: 222, height: 360 },
-      interactionPoint: { x: 640, y: 460 },
+      interactionPoint: { x: 626, y: 465 },
       verbs: {
         look: {
           responses: [

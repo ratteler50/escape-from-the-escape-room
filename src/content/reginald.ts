@@ -66,8 +66,9 @@ export const reginaldOnThrone: Hotspot = {
   name: 'Reginald',
   character: reginald.id,
   when: [{ notFlag: 'reginaldLeftThrone' }],
-  bounds: { x: 600, y: 210, width: 80, height: 190 },
-  interactionPoint: { x: 640, y: 460 },
+  // Centred on the painted throne (its box spans x 515-737, centre 626).
+  bounds: { x: 586, y: 210, width: 80, height: 190 },
+  interactionPoint: { x: 626, y: 465 },
   verbs,
   itemUses,
 };

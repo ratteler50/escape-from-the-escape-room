@@ -77,22 +77,22 @@ for an item; "Dana (option)" is a line Dana says when the player picks it in a c
 | `reginald.ts:51` | Reginald | My script! ...Keep it, darling. Learn it! Nobody learns their lines any more. |
 | `reginald.ts:56` | Reginald | A MISPRINT? In MY lair? Do you know how many nights I have stood here while guests read THAT? |
 | `reginald.ts:58` | Reginald | Nobody ever escaped, and they all blamed my performance. I shall be writing to head office. In blood. Well, red pen. |
-| `reginald.ts:93` | Reginald | Is that... GARY'S ARM? Gary is a member of the cast! ...Well. The show must go on. |
-| `reginald.ts:96` | Reginald | Ah, my audience returns! Come to bask in the afterglow? |
-| `reginald.ts:101` | Reginald | WHO DARES DISTURB THE LICH LORD? ...Oh. The trainee. |
-| `reginald.ts:103` | Dana | I've got his script right here. If only I knew his cue by heart. |
-| `reginald.ts:107` | Reginald | WHO DARES DISTURB THE LICH LORD? ...Oh. The trainee. |
-| `reginald.ts:118` | Reginald | I am Mortevayne, Dread Sovereign of the— fine. Reginald Vantablack-Thorne. Classically trained. |
-| `reginald.ts:120` | Reginald | I once understudied a Hamlet. He never got sick. Not once. Forty-two performances. |
-| `reginald.ts:130` | Reginald | The curse, darling! That phylactery made everything real. I am a genuine lich now. |
-| `reginald.ts:132` | Reginald | Head office's incident form has two boxes: "slip" and "trip". I ticked "other". I call it a promotion. |
-| `reginald.ts:142` | Reginald | Break character? Mid-performance? Actors' union rules, section nine: the show does not stop until the final cue. |
-| `reginald.ts:152` | Reginald | Section nine, darling. |
-| `reginald.ts:160` | Reginald | I do not take notes from management. I take notes from the muse. |
-| `reginald.ts:169` | Reginald | ...! |
-| `reginald.ts:171` | Reginald | ARISE! ARIIIISE! Yes! Find your light, Reginald! |
-| `reginald.ts:176` | Dana | He's swept off to his spotlight mark. Which means the Spooky Seat is unguarded. |
-| `reginald.ts:184` | Reginald | Farewell, mortal! Mind the fourth wall on your way out. |
+| `reginald.ts:94` | Reginald | Is that... GARY'S ARM? Gary is a member of the cast! ...Well. The show must go on. |
+| `reginald.ts:97` | Reginald | Ah, my audience returns! Come to bask in the afterglow? |
+| `reginald.ts:102` | Reginald | WHO DARES DISTURB THE LICH LORD? ...Oh. The trainee. |
+| `reginald.ts:104` | Dana | I've got his script right here. If only I knew his cue by heart. |
+| `reginald.ts:108` | Reginald | WHO DARES DISTURB THE LICH LORD? ...Oh. The trainee. |
+| `reginald.ts:119` | Reginald | I am Mortevayne, Dread Sovereign of the— fine. Reginald Vantablack-Thorne. Classically trained. |
+| `reginald.ts:121` | Reginald | I once understudied a Hamlet. He never got sick. Not once. Forty-two performances. |
+| `reginald.ts:131` | Reginald | The curse, darling! That phylactery made everything real. I am a genuine lich now. |
+| `reginald.ts:133` | Reginald | Head office's incident form has two boxes: "slip" and "trip". I ticked "other". I call it a promotion. |
+| `reginald.ts:143` | Reginald | Break character? Mid-performance? Actors' union rules, section nine: the show does not stop until the final cue. |
+| `reginald.ts:153` | Reginald | Section nine, darling. |
+| `reginald.ts:161` | Reginald | I do not take notes from management. I take notes from the muse. |
+| `reginald.ts:170` | Reginald | ...! |
+| `reginald.ts:172` | Reginald | ARISE! ARIIIISE! Yes! Find your light, Reginald! |
+| `reginald.ts:177` | Dana | He's swept off to his spotlight mark. Which means the Spooky Seat is unguarded. |
+| `reginald.ts:185` | Reginald | Farewell, mortal! Mind the fourth wall on your way out. |
 
 ## The Gift Shop (29)
 
