@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import type { World } from '../core/types';
+import { WON, type World } from '../core/types';
 import { explore, flavourBits, shortestSolution } from './explore';
 import { initialState, world } from './world';
 
@@ -49,6 +49,18 @@ describe('flavour bits', () => {
 
   it('never treats a flag that a condition reads as flavour', () => {
     for (const flag of ['heardTeapot', 'offDuty', 'staffDoorOpen', 'won']) expect(flavour.flags).not.toContain(flag);
+  });
+
+  it('ends every winning game holding only the lanyard and the mug: used-up items leave', () => {
+    const KEEPERS = ['lanyard', 'mug'];
+    const result = explore(world, initialState);
+    const leftovers = new Set(
+      [...result.explored.values()].filter((e) => e.state.flags[WON]).flatMap((e) => e.state.inventory.filter((id) => !KEEPERS.includes(id))),
+    );
+    expect(
+      [...leftovers],
+      `These items can still be in the inventory at the end: remove each after its last use, with a line (docs/slices/17-polish.md)`,
+    ).toEqual([]);
   });
 
   it('keeps the whole game well under the state cap, and the shortest solution ends with the sale', () => {

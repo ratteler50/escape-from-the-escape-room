@@ -46,7 +46,7 @@ describe('the Gift Shop chain', () => {
     expect(hotspotIds(result.state)).toContain('staffDoorOpen');
     expect(hotspotIds(result.state)).not.toContain('staffDoor');
     expect(hotspotIds(result.state)).not.toContain('mordecai');
-    expect(result.state.inventory, 'the Price Gun stays for jokes').toContain('priceGun');
+    expect(result.state.inventory, 'the Price Gun goes back to Kyle once its job is done (slice 17)').not.toContain('priceGun');
   });
 
   it('floats Mordecai, and nobody else', () => {

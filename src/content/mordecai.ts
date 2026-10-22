@@ -111,7 +111,7 @@ export const mordecaiDialogue: Dialogue = {
             // DRAFT:
             M('Tonight it woke, and it was cross, and so was I. It has bound this whole shabby place to the escape room\'s script.'),
             // DRAFT:
-            say('Handbook Section 2: nobody has ever beaten the escape room. It says that like it\'s a selling point.'),
+            say('Handbook Section 1: nobody has ever beaten the escape room. It says that like it\'s a selling point.'),
           ],
           next: 'hub',
         },

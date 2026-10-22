@@ -82,7 +82,7 @@ export const mugSaleOptions: DialogueOption[] = [
       // DRAFT:
       R("Actors' union, section nine: wrongful loss of the role of a lifetime. I am filing a grievance."),
       // DRAFT:
-      say("Gary stays one-armed, I'm afraid. His arm is now mostly gum."),
+      say("Gary stays one-armed, I'm afraid. His arm is gummed to a floor grate in the Lair."),
       // DRAFT:
       R('And this fell off its plinth when the curse broke. Somebody take it. It keeps looking at me.'),
       // DRAFT:

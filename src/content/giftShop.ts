@@ -113,6 +113,11 @@ export const giftShop: Room = {
               say('A clunk from the other side. The STAFF ONLY door swings open.'),
               // DRAFT:
               K('Huh. Is that new?'),
+              // DRAFT:
+              say('I hand the price gun back to Kyle. Re-pricing is their department.'),
+              // DRAFT:
+              K("It's got my name on it."),
+              { type: 'removeItem', itemId: 'priceGun' },
             ],
           },
         ],
@@ -196,7 +201,7 @@ export const giftShop: Room = {
             {
               effects: [
                 // DRAFT:
-                say('EXIT THROUGH THE GIFT SHOP. I haven\'t bought anything.'),
+                say('EXIT THROUGH THE GIFT SHOP. I haven\'t bought anything. Not even a mug.'),
                 // DRAFT:
                 say('I push. The door pushes back. The curse is very literal.'),
               ],
