@@ -78,7 +78,7 @@ export class RoomScene extends Phaser.Scene {
         this.hover(hotspot?.name);
       },
       onClick: (hotspot, pointer) => this.clickHotspot(hotspot, pointer),
-    });
+    }, this.world.characters);
     this.roomView.showRoom(currentRoom(this.world, this.state));
     this.refreshHotspots();
     this.player = new PlayerSprite(this, this.state.player);
