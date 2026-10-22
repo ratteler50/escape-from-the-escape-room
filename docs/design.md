@@ -184,8 +184,6 @@ Not scheduled yet; slice 25's spec decides which go in it and which wait for a l
   hop and lean. Needs a few frames per character from the model sheets: a bigger art job, so
   probably its own slice.
 - **The phylactery in the bargain bin** for the finale's last shot (from slice 22's spec).
-- **A keypad close-up**: clicking the Lair keypad shows it big, with buttons you press (eight
-  phone-letter keys and ENTER, per slice 24). A feature of its own.
 
 ## M3 plan
 

@@ -38,8 +38,8 @@ All text: no new art, items or flags. (Key art and polish, the old slice 24, bec
    that explain the ending, and fix what contradicts the above. The Handbook master list in
    `docs/design.md` stays as it is unless a new section is quoted.
 
-Out of scope: a keypad close-up with pressable buttons (a feature; in the M4 "notes for later"), the
-walk animation, the phylactery in the bargain bin.
+Out of scope: a keypad close-up with pressable buttons (not wanted: the text carries it), the walk
+animation, the phylactery in the bargain bin.
 
 ## Acceptance checks
 
