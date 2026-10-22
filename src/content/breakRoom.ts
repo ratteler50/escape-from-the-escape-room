@@ -173,6 +173,7 @@ export const intercomDialogue: Dialogue = {
 export const breakRoom: Room = {
   id: 'breakRoom',
   name: 'Break Room',
+  music: 'breakRoom',
   // Generated from docs/art/break-room-layout.svg; bounds were then fitted to the painting.
   art: {
     background: 'assets/rooms/break-room.webp',

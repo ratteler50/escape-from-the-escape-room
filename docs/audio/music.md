@@ -33,3 +33,5 @@ Click a link to listen (each opens the MP3).
 - **Kept for later rooms** (the developer liked all three): Sneaky Snitch, Scheming Weasel (slower)
   and Investigations, for the Gift Shop and the Break Room (slices 22–23). The finale sting is
   picked in 23.
+- **Break Room** (slice 23): Sneaky Snitch: Dana tiptoes around the staff lockers and someone
+  else's yogurt, which suits its tiptoeing oboe.

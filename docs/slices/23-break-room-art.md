@@ -1,6 +1,6 @@
 # Slice 23 — The painted Break Room
 
-**Status:** awaiting approval · **Milestone:** M4 · runs **in parallel** with slice 22
+**Status:** built and agent play-tested; developer play-test next · **Milestone:** M4 · runs **in parallel** with slice 22
 
 ## Why
 
@@ -59,3 +59,35 @@ Shared, append-only: `CREDITS.md` rows, one line each in `src/content/audio.ts`,
   DUTY. Content, not just art, but all in this slice's files (`breakRoom.ts`, a new icon).
 - **Out of scope, for later:** the Lair's display case shows no change when opened (slice 19 decided
   it needed no overlay); the developer wants to revisit that.
+
+## Build notes
+
+- **Layout sketch:** the slice-15 sketch was at the right coordinates but had id labels, red
+  interaction dots, a dashed floor outline and an "inventory bar" box, which a painter copies. Redrawn
+  like the Lair's: props only, plus what the look lines mention (the clock's sign and card rack, the
+  stuck crisps, the cent, Reginald's star, Gary's peg instead of a fourth locker), the floor carried
+  on under the tray. Rendered letterboxed to 1536×1024 for ChatGPT.
+- **Background** (`docs/art/break-room.md`): first attempt approved. ChatGPT returned 16:9
+  (1672×941), so it scaled straight to 1280×720. Props sat about 40 px lower than sketched; bounds,
+  interaction points, the entry and the floor (edge to edge, y=470–620) were fitted to the painting
+  by drawing them over it. The cent was painted in the snack bin: an edit of a vending-machine crop
+  moved it into the coin return, blended in permanently with `scripts/make-overlay.py`. 108 KB.
+- **Overlays** (approved in place): the fridge open with the yogurt on the time card (240×256 px),
+  the card gone (69×40 px), Dana's locker open with its hairnet (185×333 px). The card-gone patch is
+  cut from an edit of the open-fridge edit and drawn on top of it, so the two always line up.
+- **No clock overlay** (see Notes): clocking out swaps the Staff Lanyard for the **Off-Duty
+  Lanyard** (badge flipped to OFF DUTY; icon an edit of the lanyard from the first icon sheet, cut
+  with `scripts/cut-icons.py`). Both lanyards share "Check the number". Every win now ends holding
+  the Off-Duty Lanyard and the mug (`explore.test.ts`); a new Break Room test checks Dana never holds
+  both lanyards, or the wrong one.
+- **Interaction points:** Dana stood in front of what just opened (the yogurt, the hairnet), so the
+  fridge's moved beside it (712) and the lockers' in front of Reginald's locker (1050).
+- **Music:** Sneaky Snitch (the developer's pick), re-encoded from 320 to 96 kbps: 1.6 MB. The end
+  card's "Music: Kevin MacLeod" line already covers it. The Playwright play-through now ends with the
+  Break Room's music still playing (the Gift Shop has none until slice 22).
+- **Tests:** 421 unit tests; Playwright (play-through, console errors, autosave) green.
+- **Agent play-test** (headless): every hotspot outlined over its painted prop (holding H), hover
+  glow and names; each overlay at its moment and the Off-Duty Lanyard in the tray; the full game by
+  real clicks; the Gift Shop → Break Room crossfade (from the title track, since the Gift Shop has no
+  track on this branch: 0.65/0.05 → 0.02/0.68 over ~0.8 s, then the Break Room's alone at 0.70);
+  `?art=off` draws the boxes and no overlays.
