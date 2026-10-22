@@ -139,13 +139,13 @@ export const lair: Room = {
           ],
         },
         take: {
-          label: 'Check under the cushion',
+          label: 'Check under the armrest',
           when: [{ flag: 'reginaldLeftThrone' }, { notFlag: 'tookGum' }],
           responses: [
             {
               effects: [
                 // DRAFT:
-                say('Under the cushion: one wad of pre-owned gum. Handbook Section 3: "Lost property must be logged." Consider it logged.'),
+                say('Under the armrest: one wad of pre-owned gum, stuck there like under a school desk. Handbook Section 3: "Lost property must be logged." Consider it logged.'),
                 { type: 'addItem', itemId: gum.id },
                 { type: 'setFlag', flag: 'tookGum' },
               ],

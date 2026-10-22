@@ -24,7 +24,7 @@ for an item; "Dana (option)" is a line Dana says when the player picks it in a c
 | `lair.ts:125` | Dana | The door remains locked. It is unmoved by my offerings. |
 | `lair.ts:136` | Dana | Reginald is sitting on it. Sitting is a strong word. He's lounging, dramatically. |
 | `lair.ts:138` | Dana | A towering throne of bone. The estate-sale sticker on the armrest says "LOT 12: SPOOKY SEAT (BONE-EFFECT), $49.99". |
-| `lair.ts:148` | Dana | Under the cushion: one wad of pre-owned gum. Handbook Section 3: "Lost property must be logged." Consider it logged. |
+| `lair.ts:148` | Dana | Under the armrest: one wad of pre-owned gum, stuck there like under a school desk. Handbook Section 3: "Lost property must be logged." Consider it logged. |
 | `lair.ts:156` | Dana | Handbook Section 7.1: "The Spooky Seat is for liches only." I am not a lich. I'm barely a trainee. |
 | `lair.ts:168` | Dana | A glowing skull-shaped jar on a plinth. The estate-sale sticker says "LOT 47: SPOOKY JAR (ASSORTED), $3.50". It's whispering. Props don't whisper. I'd remember that from training. |
 | `lair.ts:170` | Dana | Cable-locked to the plinth. Head office's anti-theft cable: they trust the lich with it, but not the staff. |

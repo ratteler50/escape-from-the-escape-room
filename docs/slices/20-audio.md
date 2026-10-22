@@ -104,3 +104,5 @@ loops, voice.
   the title track starts on a click on nothing; title → Lair crossfade (0.51 / 0.19 at 400 ms, then
   the Lair alone at 0.70); M mutes and unmutes and is saved; Music − twice gives 0.50, saved, and
   still 0.50 on the title track after a reload.
+- **Also in this PR:** the gum is now under the throne's armrest, not a cushion: the painted
+  throne has no cushion (spotted in the developer's play-test).
