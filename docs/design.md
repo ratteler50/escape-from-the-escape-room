@@ -123,17 +123,20 @@ Decided in the M4 planning session (2026-10-22). Style: decision 0005 (hand-pain
 **Order.** Prove the whole pipeline on the Lair (art, characters, overlays, audio: slices 18–20),
 then repeat it for the Gift Shop and Break Room in parallel (21–22), then key art and polish (23).
 
-**Art pipeline (Canva).** A layout sketch at exact hotspot coordinates (`docs/art/`) → image-to-image
-generation with the A2 recipe, plus an approved image as a style reference → placed in a Canva
-design (one per room, each asset a page, all in a Canva folder "Escape-O-Rama assets") → saved →
-exported as PNG at exact size → WebP in `public/assets/`. The developer approves each generated image
-and each Canva save, once per slice; downloads are approved in one batch per slice.
+**Art pipeline.** A layout sketch at exact hotspot coordinates (`docs/art/`) plus a style reference
+→ image generation → crop and scale to exact size → WebP in `public/assets/`. The Lair background
+was made with Canva (folder "Escape-O-Rama assets"). From slice 19 on, the developer generates in
+**ChatGPT** from prompt packs the agent writes (`docs/art/prompts-*.md`), and saves the results to
+`art-inbox/` (git-ignored); the agent does everything after that. Canva's free plan allows only 20 AI
+generations a month, which M4 can't fit (2026-10-22). The developer approves each image before it's
+committed.
 
 **Characters.** Flat colour with hard outlines over the painted rooms. One model sheet per character
 (front and three-quarter, approved first), used as the reference for everything after. One standing
 pose each, mirrored for direction; walking is a code-driven bounce and lean; a talking pose is a
 stretch goal. One exception: **Reginald also gets a seated pose**, lounging on the throne until he
-takes his mark (decided 2026-10-22). Backgrounds removed with Canva's background removal; transparent PNG → WebP.
+takes his mark (decided 2026-10-22). Sprites come with a transparent
+background, or a flat chroma-green one keyed out locally with `ffmpeg`; WebP with alpha.
 
 **Props that change.** Edit the room's background image for each changed state (same scene, one
 change), crop the changed region, show it as an overlay by flag. Gary stays painted in, with an

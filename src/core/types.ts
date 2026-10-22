@@ -65,6 +65,8 @@ export interface Hotspot {
   when?: Condition[];
   /** If this hotspot is a character, their lines are drawn above it. */
   character?: CharacterId;
+  /** Which of the character's sprites to draw (default `standing`). Presentation only. */
+  pose?: Exclude<Pose, 'standing'>;
   /** Shown when the cursor hovers over the hotspot. */
   name: string;
   /** Clickable area. Also where the placeholder shape is drawn until real art arrives. */
@@ -99,7 +101,18 @@ export interface Character {
   color: string;
   /** Drawn bobbing gently up and down (a ghost). Presentation only. */
   floats?: boolean;
+  /** Painted sprites by pose (M4). Presentation only: the core never reads them. */
+  sprites?: CharacterSprites;
 }
+
+export type Pose = 'standing' | 'seated' | 'human';
+
+/**
+ * Sprite images, paths under `public/`, facing right, with transparent backgrounds. Stored at twice
+ * their on-screen size (so they stay sharp when the game is scaled up); drawn with their feet at the
+ * bottom-centre of the character's hotspot, or at Dana's position.
+ */
+export type CharacterSprites = { standing: string } & Partial<Record<Exclude<Pose, 'standing'>, string>>;
 
 /** One of Dana's lines in a conversation. */
 export interface DialogueOption {
@@ -143,6 +156,18 @@ export interface Room {
 export interface RoomArt {
   /** The background painting, a path under `public/` (e.g. "assets/rooms/lair.webp"), 1280×720. */
   background: string;
+  /** Patches of edited painting drawn over the background while their conditions hold. */
+  overlays?: readonly RoomOverlay[];
+}
+
+/** A changed piece of a room's painting (Gary missing an arm), drawn at its spot on the background. */
+export interface RoomOverlay {
+  /** A path under `public/`, at the background's scale (1 image pixel = 1 logical pixel). */
+  image: string;
+  /** Where the image's top-left corner goes. */
+  at: Point;
+  /** Drawn only while these hold. Omit to always draw. */
+  when?: Condition[];
 }
 
 /** All game content. Static: never changes during play. */

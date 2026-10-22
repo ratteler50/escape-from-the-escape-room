@@ -1,7 +1,7 @@
 import * as Phaser from 'phaser';
 import type { Point } from '../core/geometry';
 import { isExit } from '../core/engine';
-import type { CharacterId, Hotspot, Room, World } from '../core/types';
+import type { CharacterId, Hotspot, Pose, Room, RoomOverlay, World } from '../core/types';
 
 const COLORS = {
   wall: 0x2b2238,
@@ -19,8 +19,21 @@ export const ART_ENABLED = new URLSearchParams(globalThis.location?.search ?? ''
 /** The texture key a room's background painting is loaded under (RoomScene preloads them). */
 export const roomArtKey = (room: Room) => `room-art:${room.id}`;
 
+/** The texture key any other art file (a sprite, an overlay) is loaded under, by its path. */
+export const artKey = (path: string) => `art:${path}`;
+
+/** Sprites are stored at twice their on-screen size (see `CharacterSprites`). */
+export const SPRITE_SCALE = 0.5;
+
 /** How far below a hotspot's top edge its label's top sits. */
 const LABEL_OFFSET = 3;
+
+/**
+ * Drawing order. Character sprites stand in front of every hotspot box (the solid placeholders in
+ * unpainted rooms included); clicks still reach the boxes, since sprites aren't interactive. Labels
+ * go on top of everything so revealed names stay readable.
+ */
+const DEPTH = { overlay: 1, hotspot: 10, sprite: 12, label: 13 };
 
 /** A floating character bobs this many pixels up and back, once per period. */
 const BOB = { height: 8, periodMs: 2400 };
@@ -32,6 +45,8 @@ interface Drawn {
   invisible: boolean;
   /** The bob, for characters who float. */
   bob?: Phaser.Tweens.Tween | undefined;
+  /** The character's painted sprite, under the invisible clickable box. */
+  sprite?: Phaser.GameObjects.Image | undefined;
 }
 
 export interface RoomViewHandlers {
@@ -47,6 +62,7 @@ export interface RoomViewHandlers {
 export class RoomView {
   private background: Phaser.GameObjects.Graphics | Phaser.GameObjects.Image | undefined;
   private painted = false;
+  private overlays: Phaser.GameObjects.Image[] = [];
   private drawn: Drawn[] = [];
   private highlighted: Drawn | undefined;
   /** "Show everything clickable": from the ☰ menu (sticky) or holding H (while held). */
@@ -76,6 +92,16 @@ export class RoomView {
     this.background = g;
   }
 
+  /** Replaces the painting's overlays (Gary missing an arm). Drawn only over a painting. */
+  showOverlays(overlays: readonly RoomOverlay[]): void {
+    this.overlays.forEach((o) => o.destroy());
+    this.overlays = this.painted
+      ? overlays
+          .filter((o) => this.scene.textures.exists(artKey(o.image)))
+          .map((o) => this.scene.add.image(o.at.x, o.at.y, artKey(o.image)).setOrigin(0, 0).setDepth(DEPTH.overlay))
+      : [];
+  }
+
   /** Turns "show everything clickable" on or off from the menu. Returns the new setting. */
   toggleReveal(): boolean {
     this.reveal.toggled = !this.reveal.toggled;
@@ -101,13 +127,27 @@ export class RoomView {
       objects.forEach((o) => o.destroy());
     });
     this.drawn = hotspots.map((hotspot) => {
-      const drawn: Drawn = { hotspot, objects: [], invisible: this.painted && !hotspot.character };
+      const spriteKey = this.spriteKey(hotspot);
+      // A character with a sprite is drawn as the sprite, with an invisible box on top to click.
+      const drawn: Drawn = { hotspot, objects: [], invisible: (this.painted && !hotspot.character) || spriteKey !== undefined };
       drawn.objects = this.draw(drawn);
+      if (spriteKey) {
+        const { x, y, width, height } = hotspot.bounds;
+        drawn.sprite = this.scene.add.image(x + width / 2, y + height, spriteKey).setOrigin(0.5, 1).setScale(SPRITE_SCALE).setDepth(DEPTH.sprite);
+        drawn.objects.push(drawn.sprite);
+      }
       const floats = hotspot.character !== undefined && this.characters[hotspot.character]?.floats;
       if (floats) drawn.bob = this.bob(drawn.objects);
       this.style(drawn);
       return drawn;
     });
+  }
+
+  /** The texture of a character hotspot's sprite in its pose, if art is on and it has one. */
+  private spriteKey(hotspot: Hotspot, pose: Pose = hotspot.pose ?? 'standing'): string | undefined {
+    if (!ART_ENABLED || hotspot.character === undefined) return undefined;
+    const path = this.characters[hotspot.character]?.sprites?.[pose];
+    return path !== undefined && this.scene.textures.exists(artKey(path)) ? artKey(path) : undefined;
   }
 
   /** Where a character's lines go: above the hotspot that is that character, if one is drawn. */
@@ -169,9 +209,16 @@ export class RoomView {
       entry.bob = undefined;
       targets[0]!.y = bounds.y;
       targets[1]!.y = bounds.y + LABEL_OFFSET;
+      if (entry.sprite) entry.sprite.y = bounds.y + bounds.height;
     }
     const dx = to.x - (bounds.x + bounds.width / 2);
     const dy = to.y - (bounds.y + bounds.height);
+    if (entry.sprite) {
+      // He gets up off the throne to walk, and faces where he's going.
+      const standing = entry.hotspot.pose === 'seated' ? this.spriteKey(entry.hotspot, 'standing') : undefined;
+      if (standing) entry.sprite.setTexture(standing);
+      if (Math.abs(dx) > 1) entry.sprite.setFlipX(dx < 0);
+    }
     const starts = targets.map((o) => ({ x: o.x, y: o.y }));
     let done = false;
     const finish = () => {
@@ -215,7 +262,7 @@ export class RoomView {
     const color = hotspot.character ? COLORS.character : COLORS.hotspot;
     // Exits get an arrow cursor pointing toward their side of the screen; everything else the hand.
     const cursor = isExit(hotspot) ? (x + width / 2 < this.scene.scale.width / 2 ? 'w-resize' : 'e-resize') : 'pointer';
-    const shape = this.scene.add.rectangle(x, y, width, height, color).setOrigin(0, 0).setDepth(10).setInteractive({ cursor });
+    const shape = this.scene.add.rectangle(x, y, width, height, color).setOrigin(0, 0).setDepth(DEPTH.hotspot).setInteractive({ cursor });
     // Labels sit at the top edge so a character standing in front of a hotspot doesn't hide its name.
     const label = this.scene.add
       // Wrapped to the hotspot's width, so a long name ("Cardboard Reginald") stays inside its box.
@@ -226,7 +273,7 @@ export class RoomView {
         wordWrap: { width: Math.max(width - 4, 40) },
       })
       .setOrigin(0.5, 0)
-      .setDepth(11);
+      .setDepth(DEPTH.label);
 
     shape.on('pointerover', (pointer: Phaser.Input.Pointer) => {
       this.clearHighlight();

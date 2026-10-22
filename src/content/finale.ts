@@ -25,7 +25,8 @@ export const reginaldFinaleHotspot: Hotspot = {
   // In the Lair doorway; the finale walks his feet to (833, 425), the gap between cardboard Reginald
   // and STAFF ONLY, clear of Kyle, the till and the bargain bin. No flag may be set after that walk,
   // or the hotspot redraw would put him back here.
-  bounds: { x: 75, y: 220, width: 70, height: 200 },
+  pose: 'human',
+  bounds: { x: 75, y: 155, width: 70, height: 265 },
   interactionPoint: { x: 200, y: 460 },
   verbs: {
     // DRAFT:

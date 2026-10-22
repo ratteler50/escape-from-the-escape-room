@@ -1,7 +1,16 @@
 import type { Character, Dialogue, Hotspot, HotspotVerbs, Item, Response } from '../core/types';
 import { line, say, setFlag, walk } from './dsl';
 
-export const reginald: Character = { id: 'reginald', name: 'Reginald', color: '#b9f5a0' };
+export const reginald: Character = {
+  id: 'reginald',
+  name: 'Reginald',
+  color: '#b9f5a0',
+  sprites: {
+    standing: 'assets/characters/reginald.webp',
+    seated: 'assets/characters/reginald-seated.webp',
+    human: 'assets/characters/reginald-human.webp',
+  },
+};
 
 export const script: Item = {
   id: 'script',
@@ -66,8 +75,10 @@ export const reginaldOnThrone: Hotspot = {
   name: 'Reginald',
   character: reginald.id,
   when: [{ notFlag: 'reginaldLeftThrone' }],
-  // Centred on the painted throne (its box spans x 515-737, centre 626).
-  bounds: { x: 586, y: 210, width: 80, height: 190 },
+  pose: 'seated',
+  // Centred on the painted throne (its box spans x 515-737, centre 626), his body only: the seated
+  // sprite (230 px tall) sits with its feet at this box's bottom-centre.
+  bounds: { x: 588, y: 220, width: 80, height: 230 },
   interactionPoint: { x: 626, y: 465 },
   verbs,
   itemUses,
@@ -78,7 +89,9 @@ export const reginaldOnMark: Hotspot = {
   name: 'Reginald',
   character: reginald.id,
   when: [{ flag: 'reginaldLeftThrone' }],
-  bounds: { x: 370, y: 255, width: 70, height: 200 },
+  // Feet on the painted mark (405, 455). Narrow, his body only (the sprite is 265 px tall), so the
+  // phylactery's plinth just to his right stays clickable.
+  bounds: { x: 377, y: 190, width: 56, height: 265 },
   interactionPoint: { x: 470, y: 488 },
   verbs,
   itemUses,

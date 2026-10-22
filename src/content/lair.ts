@@ -62,7 +62,14 @@ export const lair: Room = {
   id: 'lair',
   name: "The Lich's Lair",
   // Generated from docs/art/lair-layout.svg; bounds were then nudged to match the painting.
-  art: { background: 'assets/rooms/lair.webp' },
+  art: {
+    background: 'assets/rooms/lair.webp',
+    // Patches of the painting for what changes in play (docs/art/prompts-overlays.md).
+    overlays: [
+      { image: 'assets/overlays/lair-gary-armless.webp', at: { x: 235, y: 211 }, when: [{ flag: 'tookGaryArm' }] },
+      { image: 'assets/overlays/lair-grate-arm.webp', at: { x: 318, y: 507 }, when: [{ flag: 'gotCaseKey' }] },
+    ],
+  },
   entries: {
     start: { x: 640, y: 560 },
     fromGiftShop: { x: 1060, y: 470 },

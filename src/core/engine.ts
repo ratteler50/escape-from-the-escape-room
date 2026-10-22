@@ -14,6 +14,7 @@ import {
   type ItemId,
   type Response,
   type Room,
+  type RoomOverlay,
   type Verb,
   type VerbOption,
   type VerbSpec,
@@ -120,6 +121,11 @@ export function isExit(hotspot: Hotspot): boolean {
 /** The current room's hotspots that exist right now. */
 export function visibleHotspots(world: World, state: GameState): Hotspot[] {
   return currentRoom(world, state).hotspots.filter((h) => holds(state, h.when));
+}
+
+/** A room's painting overlays to draw right now, in content order. */
+export function visibleOverlays(room: Room, state: GameState): RoomOverlay[] {
+  return (room.art?.overlays ?? []).filter((o) => holds(state, o.when));
 }
 
 /** The verbs the coin should offer on a hotspot right now, in coin order. */
