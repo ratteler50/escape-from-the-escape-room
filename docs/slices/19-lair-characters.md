@@ -22,7 +22,10 @@ finishes the Lair's art so the whole art pipeline is proven on one room before t
    transparent or flat chroma-green background (green keyed out with `ffmpeg`), → WebP with alpha:
    - Dana, standing;
    - Reginald, standing (on his mark, and in the finale);
-   - Reginald, **seated**, lounging on the throne (M4 plan exception).
+   - Reginald, **seated**, lounging on the throne (M4 plan exception);
+   - Reginald, **human again** for the finale: same costume, a human face in smeared skull make-up,
+     human hands (finale look line: "still in full lich make-up"). Made now, from the same sheet, so
+     it matches; the finale hotspot uses it wherever it's drawn.
    Each sprite's feet sit where the hotspot's bottom-centre is today, at about today's heights
    (Dana ≈ 120 px, Reginald ≈ 190–200 px; seated ≈ 190 px), so no bounds change much.
 3. **Rendering:**
@@ -40,8 +43,8 @@ finishes the Lair's art so the whole art pipeline is proven on one room before t
    (content changed in slice 18 to match the painting).
    Content gets a small `overlays` list on a room's art (image, position, condition); the view
    draws each over the background while its condition holds.
-5. **Content shape:** characters name their sprites (`standing`, optional `seated`); a character
-   hotspot may say `pose: 'seated'` (Reginald on the throne). Presentation only; the core ignores it.
+5. **Content shape:** characters name their sprites (`standing`, optional `seated` and `human`); a
+   character hotspot may say `pose: 'seated'` (Reginald on the throne) or `pose: 'human'` (the finale). Presentation only; the core ignores it.
 6. **Records:** every image in `CREDITS.md`; prompts in `docs/art/characters.md` and
    `docs/art/lair.md`; content validation checks every sprite and overlay file exists; the 15 MB
    budget still holds.
@@ -52,7 +55,7 @@ walk cycles and a talking pose.
 ## Approvals you'll be asked for
 
 1. Dana's and Reginald's model sheets (you can ask for regenerations).
-2. The three sprites and two overlays, shown in place in the game (screenshots), before they're
+2. The four sprites and two overlays, shown in place in the game (screenshots), before they're
    committed.
 3. Generating the images yourself in ChatGPT from the prompt packs in `docs/art/prompts-*.md`,
    saving them to `art-inbox/` (Canva's free plan ran out of generations, 2026-10-22).
