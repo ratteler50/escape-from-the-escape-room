@@ -9,6 +9,7 @@ const K = (text: string) => line(kyle.id, text);
 export const priceGun: Item = {
   id: 'priceGun',
   name: 'Price Gun',
+  icon: 'assets/icons/price-gun.webp',
   // DRAFT:
   look: `Kyle's price gun. Someone has written "KYLE'S DEPARTMENT" down the handle in glitter pen. The labels say whatever I make them say.`,
 };

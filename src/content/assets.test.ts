@@ -50,10 +50,16 @@ describe('assets', () => {
     expect(missing, `Room art points at files that don't exist: ${missing.join(', ')}`).toEqual([]);
   });
 
-  it('has every room overlay, character sprite, sound and track on disk', () => {
+  it('gives every item an icon', () => {
+    const missing = Object.values(world.items).filter((item) => !item.icon).map((item) => item.id);
+    expect(missing, `These items have no icon (slice 21 made one for every item): ${missing.join(', ')}`).toEqual([]);
+  });
+
+  it('has every room overlay, character sprite, item icon, sound and track on disk', () => {
     const paths = [
       ...Object.values(world.rooms).flatMap((room) => (room.art?.overlays ?? []).map((o) => [`${room.id} overlay`, o.image])),
       ...Object.values(world.characters).flatMap((c) => Object.entries(c.sprites ?? {}).map(([pose, path]) => [`${c.id} ${pose}`, path])),
+      ...Object.values(world.items).flatMap((item) => (item.icon ? [[`${item.id} icon`, item.icon]] : [])),
       ...Object.entries(world.audio?.sounds ?? {}).map(([id, path]) => [`sound ${id}`, path]),
       ...Object.entries(world.audio?.music ?? {}).map(([id, path]) => [`music ${id}`, path]),
     ];

@@ -12,6 +12,7 @@ const R = (text: string) => line(reginald.id, text);
 export const mug: Item = {
   id: 'mug',
   name: '"I ESCAPED" Mug',
+  icon: 'assets/icons/mug.webp',
   // DRAFT:
   look: `"I ESCAPED THE LICH'S LAIR." The first one ever sold. It's still warm from the shelf lights.`,
 };

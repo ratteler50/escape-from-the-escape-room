@@ -5,6 +5,7 @@ import { reginaldOnMark, reginaldOnThrone, script } from './reginald';
 export const garyArm: Item = {
   id: 'garyArm',
   name: "Gary's Arm",
+  icon: 'assets/icons/gary-arm.webp',
   // DRAFT:
   look: "Gary's left arm. Surprisingly light. He's been skipping arm day for decades.",
 };
@@ -12,6 +13,7 @@ export const garyArm: Item = {
 export const gum: Item = {
   id: 'gum',
   name: 'Pre-Owned Gum',
+  icon: 'assets/icons/gum.webp',
   // DRAFT:
   look: 'A wad of gum from under the Spooky Seat. Still tacky. In both senses.',
 };
@@ -19,6 +21,7 @@ export const gum: Item = {
 export const stickyArm: Item = {
   id: 'stickyArm',
   name: 'Sticky Arm',
+  icon: 'assets/icons/sticky-arm.webp',
   // DRAFT:
   look: "Gary's arm, now with a gum fingertip. I've invented a tool. Or a crime.",
 };
@@ -26,6 +29,7 @@ export const stickyArm: Item = {
 export const caseKey: Item = {
   id: 'caseKey',
   name: 'Display Case Key',
+  icon: 'assets/icons/case-key.webp',
   // DRAFT:
   look: 'A tiny key on a skull keyring. The keyring says DISPLAY CASE. Head office labels everything except the puzzles.',
 };
@@ -33,6 +37,7 @@ export const caseKey: Item = {
 export const riddleScroll: Item = {
   id: 'riddleScroll',
   name: 'Ancient Riddle Scroll',
+  icon: 'assets/icons/riddle-scroll.webp',
   // DRAFT:
   look: 'It reads: "THE ANSWER IS: [INSERT CODE HERE BEFORE PRINTING]". Head office. Of COURSE. Then again, the curse made the whole script real. Does that include the typos?',
 };
