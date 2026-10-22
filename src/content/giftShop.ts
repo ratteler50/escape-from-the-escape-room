@@ -169,7 +169,7 @@ export const giftShop: Room = {
       interactionPoint: { x: 930, y: 455 },
       verbs: {
         // DRAFT:
-        look: says('STAFF ONLY, wide open. Mordecai unlocked it from the other side. Beyond it: a corridor that smells of burnt coffee.'),
+        look: says('STAFF ONLY, wide open. Mordecai can\'t touch anything, so I assume he glared at the lock until it gave up. Beyond it: a corridor that smells of burnt coffee.'),
         use: {
           label: 'Go through',
           responses: [

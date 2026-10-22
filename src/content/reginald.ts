@@ -14,7 +14,7 @@ export const script: Item = {
       {
         effects: [
           // DRAFT:
-          say('"Rise, foul creature, and face me." Rise, foul creature... and face me. Got it. Word perfect.'),
+          say('"Rise, foul creature, and face me!" Rise, foul creature... and face me! Got it. Word perfect.'),
           // DRAFT:
           say('Handbook Section 3: lost property must be returned. I pop the script back in his coffin.'),
           { type: 'removeItem', itemId: 'script' },
@@ -46,7 +46,7 @@ const verbs: HotspotVerbs = {
 
 const itemUses: Partial<Record<string, Response[]>> = {
   // DRAFT:
-  garyArm: [{ effects: [R("Put that back! Gary is a member of the cast!"), say('Gary seems fine with it.')] }],
+  garyArm: [{ effects: [R("Unhand that limb! Gary has a CONTRACT!"), say('Gary seems fine with it.')] }],
   // DRAFT:
   script: [{ effects: [R('My script! ...Keep it, darling. Learn it! Nobody learns their lines any more.')] }],
   riddleScroll: [

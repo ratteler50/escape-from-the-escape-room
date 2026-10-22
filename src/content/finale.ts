@@ -80,11 +80,11 @@ export const mugSaleOptions: DialogueOption[] = [
       // DRAFT:
       R("It's gone, darling. All of it. I'm human. I have a PULSE. Do you know what a pulse does to a performance?"),
       // DRAFT:
-      R("Actors' union, section nine: wrongful loss of the role of a lifetime. I am filing a grievance."),
+      R("Actors' union, section twelve: wrongful loss of the role of a lifetime. I am filing a grievance."),
       // DRAFT:
       say("Gary stays one-armed, I'm afraid. His arm is gummed to a floor grate in the Lair."),
       // DRAFT:
-      R('And this fell off its plinth when the curse broke. Somebody take it. It keeps looking at me.'),
+      R('And the anti-theft cable snapped when the curse broke. Somebody take this. It keeps looking at me.'),
       // DRAFT:
       say('He drops the phylactery into a cardboard box.'),
       // DRAFT:

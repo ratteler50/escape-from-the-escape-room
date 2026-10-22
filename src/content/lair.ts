@@ -315,7 +315,7 @@ export const lair: Room = {
               // DRAFT:
               say("CLUNK. The door unlocks. I've beaten head office at their own game. By reading."),
               // DRAFT:
-              say('Handbook Section 3: props go back where they came from. I return the scroll to its velvet.'),
+              say('Handbook Section 3: lost property must be returned. I return the scroll to its velvet.'),
               { type: 'removeItem', itemId: riddleScroll.id },
             ],
           },

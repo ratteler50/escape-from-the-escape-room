@@ -17,7 +17,7 @@ export const mordecaiHotspot: Hotspot = {
   interactionPoint: { x: 600, y: 460 },
   verbs: {
     // DRAFT:
-    look: says("A see-through old man in a dressing gown, hovering over the bargain bin and glaring at it. Not in the Handbook. I checked twice."),
+    look: says("A see-through old man in a dressing gown, hovering over the bargain bin and glaring at it. The Handbook's index goes straight from 'Gherkins' to 'Gift vouchers'."),
     talk: {
       label: 'Address the apparition',
       responses: [{ effects: [{ type: 'startDialogue', dialogueId: 'mordecai' }] }],
@@ -107,7 +107,7 @@ export const mordecaiDialogue: Dialogue = {
           text: 'Do you know why none of the doors will open?',
           effects: [
             // DRAFT:
-            M('My phylactery. The vessel of my very soul. Your head office sold it as a "spooky jar". Three dollars fifty.'),
+            M('My phylactery. The vessel of my very soul. Your head office bought it as a "spooky jar". Three dollars fifty.'),
             // DRAFT:
             M('Tonight it woke, and it was cross, and so was I. It has bound this whole shabby place to the escape room\'s script.'),
             // DRAFT:

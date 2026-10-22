@@ -4,7 +4,7 @@ import { clampToPolygon, distance, type Point, type Polygon } from '../core/geom
 export const WALK_SPEED = 300; // logical pixels per second
 const SIZE = { width: 50, height: 120 };
 
-/** Dana on screen: a placeholder rectangle that walks in straight lines and faces where she goes. */
+/** Dana on screen: a placeholder rectangle that walks in straight lines and faces where they go. */
 export class PlayerSprite {
   private readonly container: Phaser.GameObjects.Container;
   /** Placeholder for facing until real art: a small triangle at head height. */
@@ -15,7 +15,7 @@ export class PlayerSprite {
     private readonly scene: Phaser.Scene,
     at: Point,
   ) {
-    // The container's origin is Dana's feet, so its position is her spot on the floor.
+    // The container's origin is Dana's feet, so its position is their spot on the floor.
     const body = scene.add.rectangle(0, 0, SIZE.width, SIZE.height, 0x3fa7d6).setOrigin(0.5, 1);
     const label = scene.add.text(0, -SIZE.height / 2, 'DANA', { fontSize: '16px', color: '#ffffff' }).setOrigin(0.5);
     this.facingMarker = scene.add.triangle(SIZE.width / 2 + 8, -SIZE.height + 22, 0, 0, 12, 8, 0, 16, 0xffe28a);
@@ -53,7 +53,7 @@ export class PlayerSprite {
 
   /**
    * Walk in a straight line to `target`, clamped to the walkable area, then call `onArrive` with
-   * where she ended up. A new walk cancels the old one, and its `onArrive` never fires.
+   * where they ended up. A new walk cancels the old one, and its `onArrive` never fires.
    */
   walkTo(target: Point, walkable: Polygon, onArrive: (at: Point) => void): void {
     this.walk?.tween.stop();
