@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <!-- Layout reference for the Lair background (decision 0005): every prop at its hotspot's exact
+       bounds in src/content/lair.ts, flat shapes only. Generated art follows this layout. Characters
+       (Dana, Reginald) are sprites, not part of the background. -->
+  <rect width="1280" height="720" fill="#6e6a78"/>
+  <!-- floor: the walkable area, and the strip under the inventory bar -->
+  <polygon points="160,420 1120,420 1220,620 60,620" fill="#8a7a66"/>
+  <polygon points="60,620 1220,620 1280,720 0,720" fill="#7a6c5a"/>
+  <!-- coffin, upright: x30-140 y190-420 -->
+  <polygon points="55,190 115,190 140,250 120,420 50,420 30,250" fill="#4a3a30"/>
+  <!-- Gary the skeleton on a stand: x200-290 y180-420 -->
+  <circle cx="245" cy="205" r="22" fill="#ddd8c8"/><rect x="232" y="228" width="26" height="110" fill="#ddd8c8"/>
+  <rect x="205" y="240" width="18" height="80" fill="#ddd8c8"/><rect x="267" y="240" width="18" height="80" fill="#ddd8c8"/>
+  <rect x="228" y="338" width="12" height="82" fill="#ddd8c8"/><rect x="250" y="338" width="12" height="82" fill="#ddd8c8"/>
+  <!-- spotlight rig high on the wall, its beam landing on Gary instead of on Reginald's mark -->
+  <rect x="408" y="36" width="44" height="34" fill="#2a2a30"/>
+  <polygon points="412,70 448,70 305,420 185,420" fill="#fff3a0" fill-opacity="0.45"/>
+  <!-- Reginald's taped mark on the floor, left in the dark: around his feet at (415, 420) -->
+  <path d="M392,428 L438,446 M438,428 L392,446" stroke="#e8d040" stroke-width="6"/>
+  <!-- phylactery: a small jar on a low plinth, x470-530 y330-420 -->
+  <rect x="478" y="372" width="44" height="48" fill="#4a3a30"/>
+  <ellipse cx="500" cy="352" rx="20" ry="22" fill="#9fe0a0"/>
+  <!-- throne: x540-740 y160-420, tall back -->
+  <rect x="570" y="160" width="140" height="170" fill="#5a4a6a"/><rect x="540" y="300" width="200" height="120" fill="#5a4a6a"/>
+  <!-- customer reviews board: x800-980 y200-330 -->
+  <rect x="800" y="200" width="180" height="130" fill="#c8b890"/>
+  <!-- display case on a pedestal: x750-860 y340-420 -->
+  <rect x="765" y="340" width="80" height="50" fill="#a8c8d0"/><rect x="750" y="390" width="110" height="30" fill="#4a3a30"/>
+  <!-- keypad: x985-1035 y240-320 -->
+  <rect x="990" y="245" width="40" height="70" fill="#3a3a44"/>
+  <!-- door: x1040-1190 y140-420 -->
+  <path d="M1040,420 L1040,200 Q1115,120 1190,200 L1190,420 Z" fill="#5a3a20"/>
+  <!-- floor grate: x380-510 y530-580 -->
+  <rect x="380" y="530" width="130" height="50" fill="#2e2e2e"/>
+</svg>

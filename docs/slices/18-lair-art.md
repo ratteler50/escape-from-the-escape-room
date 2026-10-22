@@ -1,6 +1,6 @@
 # Slice 18 — The art system and the Lair background
 
-**Status:** awaiting approval · **Milestone:** M4 (first slice)
+**Status:** built, agent play-tested · awaiting developer play-test · **Milestone:** M4 (first slice)
 
 ## Why
 
@@ -62,3 +62,27 @@ Out of scope: character sprites and prop overlays (slice 19), audio (slice 20), 
 
 - Built stacked on `slice-17-polish` while PR #15 finishes CI; rebased onto `main` with
   `git rebase --onto` once it merges, before opening the PR.
+
+## Build notes
+
+- **Background:** two candidates generated from `docs/art/lair-layout.svg` (recipe A2, with the A2
+  image as a style reference). Both saved in the Canva design "Escape-O-Rama: Lich's Lair" (folder
+  "Escape-O-Rama assets"), exported at 1280×720 and compared at full size; the developer chose
+  **candidate 2** (brighter, candles either side of the throne). As WebP it's **83 KB**. Prompt and
+  references: `docs/art/lair.md`. Raw candidates stay out of git (`docs/art/candidates/`, ignored).
+- **Fitting to the painting:** an overlay of hotspot bounds on the painting showed Gary, the
+  phylactery, the keypad, the reviews board, the display case, the door and the grate off by
+  20–60 px, and the floor far narrower than painted. Bounds, interaction points and the floor
+  polygon now match the painting; Reginald's mark (and his "ARISE!" walk) moved onto the painted X
+  at (405, 455). The layout sketch stays as the generation reference; the content is the truth.
+- **Hover feedback over art:** invisible areas; a soft yellow glow and the name on hover; holding H
+  or the ☰ menu toggle outlines everything clickable with labels. Characters stay placeholder
+  rectangles until slice 19.
+- **Tests:** `assets.test.ts` checks credits coverage, the 15 MB budget, and that room art exists;
+  the first two were shown to fail on purpose. 401 unit tests and the Playwright play-through pass.
+- **Play-tested headless** with screenshots (the browser pane doesn't render while the app window
+  is off screen): the painted Lair, hover on Gary, holding H, the menu toggle with real clicks,
+  `?art=off`, and the Gift Shop unchanged.
+- **Canva:** the test design "TEST export" from the M4 investigation can be deleted from your Canva
+  account.
+

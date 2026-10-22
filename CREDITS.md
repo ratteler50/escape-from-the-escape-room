@@ -9,3 +9,4 @@ author, license and a link.
 
 | File | What | Source / tool | Author | License | Link or prompt |
 |------|------|---------------|--------|---------|----------------|
+| `assets/rooms/lair.webp` | The Lich's Lair background | Canva image generation (image-to-image), exported 1280×720, WebP via cwebp | Generated for this project | AI-generated for this game; subject to Canva's terms for generated content | Prompt and references: `docs/art/lair.md` |
