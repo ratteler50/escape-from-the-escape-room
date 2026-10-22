@@ -17,9 +17,13 @@ escape room franchise. Their lanyard says TRAINEE. They have memorised the Emplo
 nothing useful.
 
 To cut costs, head office bought the room props from a dead wizard's estate sale. One "prop" — the
-phylactery on the Lich's Lair altar — is real. It has bound the room's puzzle script with genuine
-magic: the only way out is to actually **beat the escape room**. Nobody ever has, because head
-office designed the puzzles and they are unsolvable as written.
+phylactery on a plinth by the Lich's Lair throne — is real. **Tonight** it woke up and bound the
+room's puzzle script with genuine magic: the only way out is to actually **beat the escape room**.
+Nobody ever has, because head office designed the puzzles and they are unsolvable as written.
+
+**Escape-O-Rama is otherwise completely mundane.** Before tonight there was no magic anywhere: no
+ghosts on the payroll, no curse procedures, nobody trapped. The comedy is ordinary retail life
+colliding with one real curse. Content must not imply magic was normal before tonight.
 
 The running theme: **the official solution never works; the improvised one does.**
 
@@ -27,7 +31,7 @@ The running theme: **the official solution never works; the improvised one does.
 
 PG, absurdist, wordplay, light fourth-wall poking. Never mean-spirited, never grimdark.
 
-### Cast (M1)
+### Cast
 
 - **Dana Pickwick** — protagonist. Earnest, polite to absurdity (including to the undead), quotes
   the Employee Handbook constantly ("Section 4.2: Never touch the guests. It says nothing about
@@ -36,8 +40,15 @@ PG, absurdist, wordplay, light fourth-wall poking. Never mean-spirited, never gr
   the lich for minimum wage. The curse made him a *real* lich, and he regards this as a promotion.
   Refuses to break character, quotes his union contract. Obstacle and reluctant helper.
 - **Gary** — a prop skeleton. Reginald considers him a member of the cast.
-
-Gift Shop and Break Room casts are designed at the start of M3.
+- **Kyle** (M3) — the Gift Shop cashier: a queer nonbinary femme (they/them), third summer at
+  Escape-O-Rama, earbuds in, phone out, as few words as possible. "That's not my department." "I
+  just work here." Assumes everything tonight (the lich, the ghost, the locked doors) is a new show
+  feature head office forgot to mention. Follows till rules to the letter, because thinking is not
+  in the job description. The straight man to the curse.
+- **Mordecai the Moderately Powerful** (M3) — the dead wizard whose estate head office bought. The
+  curse woke his ghost tonight; he floats around the Gift Shop, outraged that his possessions are
+  "spooky décor" at markdown prices. Can't touch anything, can float through walls. Kyle thinks he's
+  a hologram and talks over his monologues.
 
 ## Design rules
 
@@ -73,10 +84,77 @@ the previous one is playable.
 |-----------|---------|
 | **M1 — vertical slice** ✅ playable (slices 1–6) | The Lair, fully playable start to finish: walking, hotspots, look text, inventory, one combination, one dialogue tree, a win state ("To be continued"). Ugly but complete. |
 | **M2 — systems complete** ✅ (slices 7–12) | Room transitions (with a stub Gift Shop), deploy to GitHub Pages, save/load, cutscenes, browser end-to-end tests, polish. Plan below. |
-| **M3 — content** | Gift Shop and Break Room, full puzzle chain, ending. |
+| **M3 — content** (slices 13–17) | Gift Shop and Break Room, full puzzle chain, ending. Plan below. |
 | **M4 — optional polish** | Art pass (vector or AI-generated), SFX, a music loop. No voice. |
 
 Art is placeholder shapes until M4, and the code keeps art swappable.
+
+## M3 plan
+
+Decided in the M3 planning session (2026-10-21).
+
+**Goal: exit through the gift shop.** The escape room's script ends when a **guest** escapes and
+buys a souvenir. Dana must buy the "I ESCAPED THE LICH'S LAIR" mug ($12.99), but they're **staff**:
+Kyle won't sell merchandise to anyone wearing a lanyard. They have to clock out to legally become a
+customer, and find the money. The front door is a false exit: "EXIT THROUGH THE GIFT SHOP. I haven't
+bought anything. The curse is very literal."
+
+**Rooms.** Lair ↔ Gift Shop ↔ Break Room, in a line. The Break Room is behind a STAFF ONLY door that
+a trainee badge doesn't open. No new character in the Break Room: object puzzles plus office comedy
+(fridge notes, lockers, vending machine), with Reginald heard over the intercom.
+
+**Reginald** stays in the Lair during M3, heard on the intercom, and walks into the Gift Shop for
+the finale (cutscene system). **Dialogue:** regular trees for Kyle and Mordecai; no mini-game.
+
+### M3 puzzle dependency chart
+
+```mermaid
+graph TD
+  ARRIVE([Dana enters the Gift Shop]) --> KYLE{Talk to Kyle:<br/>'Can't sell to staff'}
+  ARRIVE --> MORD{Talk to Mordecai:<br/>furious his teapot is in the<br/>bargain bin at $2}
+  MORD --> ASKGUN{Kyle dialogue, unlocked by Mordecai:<br/>quote Handbook §14, 'staff may borrow<br/>equipment for re-pricing'}
+  ASKGUN --> GUN[/Item: Price Gun/]
+  GUN --> REPRICE[Use Price Gun on Bargain Bin<br/>→ teapot now 'PRICELESS']
+  REPRICE --> STAFF[Mordecai floats through<br/>STAFF ONLY and opens it]
+  STAFF --> BREAK([Break Room])
+  BREAK --> FRIDGE[Fridge note: 'STOP using my yogurt<br/>as a paperweight' → Time Card under it]
+  FRIDGE --> CLOCK[Use Time Card on Time Clock<br/>→ Dana is OFF DUTY: a guest]
+  BREAK --> LANYARD[Look at Staff Lanyard<br/>→ employee number]
+  LANYARD --> LOCKER[Locker combo = employee number<br/>→ Pay Packet: $12.98]
+  BREAK --> VEND[Vending machine coin return<br/>→ One Cent]
+  LOCKER --> COMBINE((Combine))
+  VEND --> COMBINE
+  COMBINE --> CASH[/Item: $12.99, exact/]
+  CLOCK --> BUY{Buy the mug from Kyle}
+  CASH --> BUY
+  BUY --> FINALE([Finale])
+```
+
+Four puzzles: Mordecai's favour (via Kyle's price gun) opens STAFF ONLY; the time card and clocking
+out; lanyard → locker → pay packet; the cent for exact change. The Break Room's three branches run
+in parallel.
+
+### Finale
+
+Buying the mug satisfies the script and the curse lifts. Reginald walks in from the Lair and turns
+back into a human actor: devastated to lose the role of a lifetime, he announces a union grievance.
+Gary stays one-armed. Reginald knocks the phylactery into a box; Kyle prices it at $1 for the
+bargain bin; Mordecai is appalled. Last shot: the phylactery whispering from the bargain bin.
+
+### Art readiness
+
+Each new room gets a layout reference sketch at its exact hotspot coordinates, with clear
+silhouettes and empty wall space, ready for the art recipe in decision 0005.
+
+| Slice | Content | Runs |
+|-------|---------|------|
+| 13 | This plan, decision 0005 (art style), premise fixes, the phylactery in the Lair | here |
+| 14 | Gift Shop: Kyle, Mordecai, price gun, bargain bin, STAFF ONLY, false-exit front door | **parallel** with 15 |
+| 15 | Break Room: fridge, time clock, lockers, vending machine, Reginald's intercom | **parallel** with 14 |
+| 16 | Buying the mug, and the finale cutscene | after 14 + 15 |
+| 17 | Polish, plus the always-winnable test over the whole game | last |
+
+Slices 14 and 15 own separate room files; both touch `world.ts` to register content, a small merge.
 
 ## M2 plan
 
@@ -148,10 +226,10 @@ graph TD
 ### Puzzles
 
 1. **The cue line.** The coffin is Reginald's "dressing room"; inside is his dog-eared script.
-   **Memorising** it (an item action) teaches Dana the cue and she returns the script, so what
-   unlocks the dialogue option is what she *knows*, not what she holds. Feeding him the cue: he
-   performs "ARISE!" and leaves the throne for his spotlight mark. If she talks to him holding the
-   unread script, she muses that she'd need the cue by heart.
+   **Memorising** it (an item action) teaches Dana the cue and they return the script, so what
+   unlocks the dialogue option is what they *know*, not what they hold. Feeding him the cue: he
+   performs "ARISE!" and leaves the throne for his spotlight mark. If they talk to him holding the
+   unread script, they muse that they'd need the cue by heart.
 2. **The sticky arm.** Gary's arm can be taken at any time (Reginald protests if he sees it). Under
    the vacated throne: pre-owned chewing gum. Combine arm + gum.
 3. **The floor grate.** The display case key fell through the grate. Fish it out with the sticky arm.
@@ -168,8 +246,8 @@ one-shot, others repeatable.
 
 ### Look-only hotspots (hooks for later)
 
-The phylactery (whispers; bolted down with corporate anti-theft cable), the intercom "hint button",
-the fog machine, the Customer Reviews board.
+The phylactery (whispers; bolted down with corporate anti-theft cable; added in slice 13), the
+intercom "hint button", the fog machine, the Customer Reviews board.
 
 ## Technical approach
 

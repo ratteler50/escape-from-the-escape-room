@@ -223,7 +223,7 @@ describe('content validation', () => {
         it(`entry "${entryId}" is on the floor`, () => {
           expect(
             pointInPolygon(point, room.walkable),
-            `${room.id}.entries.${entryId} ${fmt(point)} is off the floor, so Dana would arrive somewhere she can't stand; ${describeArea(room.walkable)}`,
+            `${room.id}.entries.${entryId} ${fmt(point)} is off the floor, so Dana would arrive somewhere they can't stand; ${describeArea(room.walkable)}`,
           ).toBe(true);
         });
       }

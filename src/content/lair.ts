@@ -124,7 +124,7 @@ export const lair: Room = {
             // DRAFT:
             { when: [{ notFlag: 'reginaldLeftThrone' }], effects: [say("Reginald is sitting on it. Sitting is a strong word. He's lounging, dramatically.")] },
             // DRAFT:
-            { effects: [say('A towering throne of bone. The price sticker on the armrest says "SPOOKY SEAT, $49.99".')] },
+            { effects: [say('A towering throne of bone. The estate-sale sticker on the armrest says "LOT 12: SPOOKY SEAT (BONE-EFFECT), $49.99".')] },
           ],
         },
         take: {
@@ -143,6 +143,22 @@ export const lair: Room = {
         },
         // DRAFT:
         use: says(`Handbook Section 7.1: "The Spooky Seat is for liches only." I am not a lich. I'm barely a trainee.`, 'Sit (forbidden)'),
+      },
+    },
+    {
+      // The one real prop: the source of tonight's curse (docs/design.md, Premise). Look-only until
+      // the finale (slice 16), when it ends up in the Gift Shop's bargain bin.
+      id: 'phylactery',
+      name: 'Phylactery',
+      bounds: { x: 470, y: 330, width: 60, height: 90 },
+      interactionPoint: { x: 500, y: 460 },
+      verbs: {
+        // DRAFT:
+        look: says(`A glowing skull-shaped jar on a plinth. The estate-sale sticker says "LOT 47: SPOOKY JAR (ASSORTED), $3.50". It's whispering. Props don't whisper. I'd remember that from training.`),
+        // DRAFT:
+        take: says("Cable-locked to the plinth. Head office's anti-theft cable: they trust the lich with it, but not the staff.", 'Pocket it'),
+        // DRAFT:
+        talk: says(`"...my teapot... my good teapot... two dollars..." I don't know what that means. I don't like that I don't know what that means.`, 'Listen closely'),
       },
     },
     {
@@ -220,7 +236,7 @@ export const lair: Room = {
       interactionPoint: { x: 890, y: 450 },
       verbs: {
         // DRAFT:
-        look: says('"One star. Could not escape." "One star. Still here." "Five stars! Very immersive. Please send help." That last one is dated 2019.'),
+        look: says('"One star. Could not escape." "One star. Still here." "Five stars! Very immersive!" That last one\'s from Reginald\'s mum.'),
         // DRAFT:
         use: says(`"Two stars. Staff were polite but the lich was hammy." Handbook Section 11: employees may not review their own workplace. I'll sign it "Gary".`, 'Leave a review'),
       },
@@ -312,7 +328,7 @@ export const lair: Room = {
         look: {
           responses: [
             // DRAFT:
-            { when: [{ flag: 'gotCaseKey' }], effects: [say('Just a grate now. A pamphlet down there says "So You\'ve Been Cursed: A Guide for Staff".')] },
+            { when: [{ flag: 'gotCaseKey' }], effects: [say('Just a grate now. A pamphlet down there: "Emergency Procedures for Staff". Fire, flood, fainting guest. Nothing about liches. I checked twice.')] },
             // DRAFT:
             { effects: [say('A floor grate. Something small and shiny glints down there, just out of reach. Of course.')] },
           ],

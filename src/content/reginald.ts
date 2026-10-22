@@ -129,7 +129,7 @@ export const reginaldDialogue: Dialogue = {
             // DRAFT:
             R('The curse, darling! That phylactery made everything real. I am a genuine lich now.'),
             // DRAFT:
-            R('Head office calls it a "cursed incident". I call it a promotion.'),
+            R('Head office\'s incident form has two boxes: "slip" and "trip". I ticked "other". I call it a promotion.'),
           ],
           next: 'hub',
         },
