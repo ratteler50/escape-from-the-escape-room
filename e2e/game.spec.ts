@@ -14,12 +14,16 @@ async function newGame(page: Page): Promise<void> {
   await settle(page, 'the first room');
 }
 
-test('plays the shortest solution through to "To be continued…"', async ({ page }) => {
+test('plays the shortest solution through to "THE END?"', async ({ page }) => {
+  // The whole game since slice 16: 29 steps over three rooms plus the finale's walks and pauses.
+  // About 45s locally, but CI runners are up to ~8x slower (6+ minutes), so this one test gets a
+  // budget of its own. A stuck step still fails with its own name (play.ts: ~30s per ordinary step).
+  test.setTimeout(15 * 60_000);
   await open(page);
   await newGame(page);
   await playThrough(page, world, initialState, solution);
   const end = await status(page);
-  expect(end.endCard, 'the "To be continued…" card is showing').toBe(true);
+  expect(end.endCard, 'the "THE END?" card is showing').toBe(true);
 });
 
 test('loads with no console errors', async ({ page }) => {

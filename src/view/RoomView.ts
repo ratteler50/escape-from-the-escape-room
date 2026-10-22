@@ -72,8 +72,12 @@ export class RoomView {
 
   /** Where a character's lines go: above the hotspot that is that character, if one is drawn. */
   speakerAnchor(character: CharacterId): Point | undefined {
-    const hotspot = this.drawn.find(({ hotspot }) => hotspot.character === character)?.hotspot;
-    return hotspot && { x: hotspot.bounds.x + hotspot.bounds.width / 2, y: hotspot.bounds.y - 12 };
+    const entry = this.drawn.find(({ hotspot }) => hotspot.character === character);
+    if (!entry) return undefined;
+    // From the drawn shape, not the content's bounds: a cutscene walk may have moved it (the finale
+    // walks Reginald in from the doorway and he speaks from where he stands).
+    const shape = entry.objects[0] as Phaser.GameObjects.Rectangle;
+    return { x: shape.x + entry.hotspot.bounds.width / 2, y: shape.y - 12 };
   }
 
   /** Removes the hover outline (pointer left, coin opened, a scene started). */

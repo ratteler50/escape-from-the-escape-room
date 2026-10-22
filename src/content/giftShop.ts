@@ -1,9 +1,10 @@
 import type { Item, Room } from '../core/types';
 import { line, say, says, setFlag, walk } from './dsl';
 import { kyle, kyleHotspot, priceGun } from './kyle';
-import { mordecai, mordecaiHotspot } from './mordecai';
+import { mordecai, mordecaiBackHotspot, mordecaiHotspot } from './mordecai';
+import { mug, reginaldFinaleHotspot } from './finale';
 
-export const giftShopItems: Item[] = [priceGun];
+export const giftShopItems: Item[] = [priceGun, mug];
 
 const K = (text: string) => line(kyle.id, text);
 const M = (text: string) => line(mordecai.id, text);
@@ -16,6 +17,7 @@ export const giftShop: Room = {
   name: 'Gift Shop',
   entries: {
     fromLair: { x: 200, y: 470 },
+    fromBreakRoom: { x: 930, y: 470 },
   },
   walkable: [
     { x: 160, y: 420 },
@@ -117,6 +119,7 @@ export const giftShop: Room = {
       },
     },
     mordecaiHotspot,
+    mordecaiBackHotspot,
     {
       id: 'standee',
       name: 'Cardboard Reginald',
@@ -154,7 +157,6 @@ export const giftShop: Room = {
       itemFallback: "The badge reader blinks red. It only wants a proper staff badge, and that wasn't one.",
     },
     {
-      // Open, but not yet a way through: slice 16 joins it to the Break Room.
       id: 'staffDoorOpen',
       name: 'STAFF ONLY',
       when: [{ flag: 'staffDoorOpen' }],
@@ -163,6 +165,20 @@ export const giftShop: Room = {
       verbs: {
         // DRAFT:
         look: says('STAFF ONLY, wide open. Mordecai unlocked it from the other side. Beyond it: a corridor that smells of burnt coffee.'),
+        use: {
+          label: 'Go through',
+          responses: [
+            {
+              effects: [
+                walk('dana', 930, 425),
+                { type: 'goToRoom', roomId: 'breakRoom', entry: 'fromGiftShop' },
+                // Set after leaving, so Mordecai doesn't pop back to the bin mid-cutscene
+                // (setFlag redraws hotspots from the final state).
+                setFlag('mordecaiBack'),
+              ],
+            },
+          ],
+        },
       },
     },
     {
@@ -175,13 +191,14 @@ export const giftShop: Room = {
         look: says('"CLOSED FOR REFURBISHMENT." The refurbishment is listed as "ongoing since 2019". The door is ajar anyway.'),
         use: {
           label: 'Escape!',
+          // The false exit: the script only ends once a guest has bought a souvenir (the mug sale).
           responses: [
             {
               effects: [
                 // DRAFT:
-                say("Handbook Section 1, Rule 1: always let the customers win. Today, I'm the customer."),
-                walk('dana', 1110, 425),
-                { type: 'win' },
+                say('EXIT THROUGH THE GIFT SHOP. I haven\'t bought anything.'),
+                // DRAFT:
+                say('I push. The door pushes back. The curse is very literal.'),
               ],
             },
           ],
@@ -192,5 +209,6 @@ export const giftShop: Room = {
         priceGun: [{ effects: [say("I label the front door FREE. It's still closed for refurbishment.")] }],
       },
     },
+    reginaldFinaleHotspot,
   ],
 };
