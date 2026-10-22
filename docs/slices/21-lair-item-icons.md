@@ -1,6 +1,6 @@
 # Slice 21 — Item icons and the inventory tray
 
-**Status:** built, agent play-tested · awaiting developer play-test · **Milestone:** M4
+**Status:** built, agent and developer play-tested · **Milestone:** M4
 
 ## Why
 
