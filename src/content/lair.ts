@@ -250,8 +250,8 @@ export const lair: Room = {
         look: {
           responses: [
             // DRAFT:
-            // DRAFT:
             { when: [{ flag: 'doorUnlocked' }], effects: [say("The scroll's back on its velvet. The little card says 'ANCIENT RIDDLE (REPRODUCTION)'. It has never been more wrong.")] },
+            // DRAFT:
             { when: [{ flag: 'caseOpen' }], effects: [say("An empty display case. The little card says 'ANCIENT RIDDLE (REPRODUCTION)'.")] },
             // DRAFT:
             { effects: [say('An ornate display case. Inside, on velvet: an Ancient Riddle Scroll. The lock is tiny and skull-shaped.')] },

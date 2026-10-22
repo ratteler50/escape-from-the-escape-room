@@ -41,8 +41,8 @@ for an item; "Dana (option)" is a line Dana says when the player picks it in a c
 | `lair.ts:229` | Dana | I am NOT giving it back to him like this. |
 | `lair.ts:239` | Dana | "One star. Could not escape." "One star. Still here." "Five stars! Very immersive!" That last one's from Reginald's mum. |
 | `lair.ts:241` | Dana | "Two stars. Staff were polite but the lich was hammy." Handbook Section 11: employees may not review their own workplace. I'll sign it "Gary". |
-| `lair.ts:254` | Dana | The scroll's back on its velvet. The little card says 'ANCIENT RIDDLE (REPRODUCTION)'. It has never been more wrong. |
-| `lair.ts:254` | Dana | The scroll's back on its velvet. The little card says 'ANCIENT RIDDLE (REPRODUCTION)'. It has never been more wrong. |
+| `lair.ts:253` | Dana | The scroll's back on its velvet. The little card says 'ANCIENT RIDDLE (REPRODUCTION)'. It has never been more wrong. |
+| `lair.ts:255` | Dana | An empty display case. The little card says 'ANCIENT RIDDLE (REPRODUCTION)'. |
 | `lair.ts:257` | Dana | An ornate display case. Inside, on velvet: an Ancient Riddle Scroll. The lock is tiny and skull-shaped. |
 | `lair.ts:264` | Dana | It's open and it's empty. Like my sense of job security. |
 | `lair.ts:266` | Dana | Locked. The keyhole is shaped like a tiny skull. Head office loves a theme. |

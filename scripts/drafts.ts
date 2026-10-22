@@ -66,6 +66,8 @@ export function draftsIn(file: string, source: string): Draft[] {
   lines.forEach((l, i) => {
     if (!l.includes('// DRAFT:')) return;
     for (let j = i + 1; j < Math.min(i + 5, lines.length); j++) {
+      // Stacked markers would otherwise both claim the same line; the stacked one claims nothing.
+      if (lines[j]!.includes('// DRAFT:')) return;
       const found = spoken(lines[j]!);
       if (found) {
         drafts.push({ file, line: j + 1, ...found });
