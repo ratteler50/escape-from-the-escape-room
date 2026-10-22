@@ -166,11 +166,12 @@ are plain files in the repo with a **15 MB** budget, enforced by a test.
 | 21 | Item icons for all 13 items (one sheet); the branded Escape-O-Rama inventory tray; icon on the held item | here |
 | 22 | Gift Shop: background (icon sheet attached, so painted props match), Kyle and Mordecai sprites, overlays, music, finale sting | **parallel** with 23 |
 | 23 | Break Room: background (icon sheet attached), overlays, music (the finale sting moved to 22: the finale is in the Gift Shop) | **parallel** with 22 |
-| 24 | Title and end-card key art; loading and size pass; M4 done | last |
+| 24 | Story fixes: the phone-letter keypad, the {CODE} scroll, the script's last page plants the ending's rule (text only) | after 22 + 23 |
+| 25 | Title and end-card key art; loading and size pass; M4 done | last |
 
 ### Notes for later (from play-tests, 2026-10-22)
 
-Not scheduled yet; slice 24's spec decides which go in it and which wait for a later milestone.
+Not scheduled yet; slice 25's spec decides which go in it and which wait for a later milestone.
 
 - **The front door's "CLOSED FOR REFURBISHMENT" sign doesn't hold up** (being fixed in PR #22). It faces into the shop,
   not out, and a closed shop wouldn't have a cashier on duty. Possible fix: a hanging OPEN/CLOSED
@@ -183,6 +184,8 @@ Not scheduled yet; slice 24's spec decides which go in it and which wait for a l
   hop and lean. Needs a few frames per character from the model sheets: a bigger art job, so
   probably its own slice.
 - **The phylactery in the bargain bin** for the finale's last shot (from slice 22's spec).
+- **A keypad close-up**: clicking the Lair keypad shows it big, with buttons you press (eight
+  phone-letter keys and ENTER, per slice 24). A feature of its own.
 
 ## M3 plan
 
