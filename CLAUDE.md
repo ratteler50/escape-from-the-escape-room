@@ -36,8 +36,13 @@ Repo: `ratteler50/escape-from-the-escape-room` (private). `main` only changes th
   the PR. The developer play-tests, reviews, and merges (squash merge); the agent doesn't merge.
 - The PR description links the slice spec and lists what was play-tested
   (`.github/pull_request_template.md`).
-- CI (`.github/workflows/ci.yml`) runs typecheck, tests, and build on every PR. A PR is only ready
-  for review once CI is green. Node version comes from `.nvmrc`.
+- CI runs on every PR: `ci.yml` (typecheck, tests, build) and `e2e.yml` (Playwright). Both are
+  required on `main`. A PR is only ready for review once both are green. Node version comes from
+  `.nvmrc`.
+- Make a new check **required only after the PR that adds its workflow has merged**. Otherwise
+  every other open PR waits forever for a check its branch can't produce (learned in M2 Phase C).
+- Parallel sessions get worktrees under `.claude/worktrees/` (ignored). Each owns a disjoint set of
+  files, named in its brief.
 
 ## Commands
 

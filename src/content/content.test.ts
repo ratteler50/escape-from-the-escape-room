@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { isExit } from '../core/engine';
 import { pointInPolygon, type Point, type Polygon } from '../core/geometry';
 import { PLAYER, type Effect, type Response } from '../core/types';
 import { initialState, world } from './world';
@@ -197,6 +198,11 @@ describe('content validation', () => {
       }
     });
   }
+
+  it('marks exactly the doors between rooms as exits (for the cursor)', () => {
+    const exits = Object.values(world.rooms).flatMap((r) => r.hotspots.filter(isExit).map((h) => `${r.id}.${h.id}`));
+    expect(exits.sort()).toEqual(['giftShop.lairDoor', 'lair.door']);
+  });
 
   describe('fallback lines', () => {
     it('has at least one line in each pool, using only known placeholders', () => {

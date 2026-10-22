@@ -1,5 +1,6 @@
 import * as Phaser from 'phaser';
 import type { Point } from '../core/geometry';
+import { isExit } from '../core/engine';
 import type { CharacterId, Hotspot, Room } from '../core/types';
 
 const COLORS = {
@@ -9,6 +10,7 @@ const COLORS = {
   hotspot: 0x6b5b8c,
   character: 0x4f8a5b,
   text: '#ffffff',
+  highlight: 0xffe28a,
 };
 
 export interface RoomViewHandlers {
@@ -23,6 +25,7 @@ export interface RoomViewHandlers {
 export class RoomView {
   private background: Phaser.GameObjects.Graphics | undefined;
   private drawn: { hotspot: Hotspot; objects: Phaser.GameObjects.GameObject[] }[] = [];
+  private highlighted: Phaser.GameObjects.Rectangle | undefined;
 
   constructor(
     private readonly scene: Phaser.Scene,
@@ -41,6 +44,7 @@ export class RoomView {
 
   /** Replaces the drawn hotspots. Hotspots can appear, vanish, or move with game state. */
   showHotspots(hotspots: readonly Hotspot[]): void {
+    this.clearHighlight();
     this.drawn.forEach(({ objects }) => objects.forEach((o) => o.destroy()));
     this.drawn = hotspots.map((hotspot) => ({ hotspot, objects: this.draw(hotspot) }));
   }
@@ -49,6 +53,12 @@ export class RoomView {
   speakerAnchor(character: CharacterId): Point | undefined {
     const hotspot = this.drawn.find(({ hotspot }) => hotspot.character === character)?.hotspot;
     return hotspot && { x: hotspot.bounds.x + hotspot.bounds.width / 2, y: hotspot.bounds.y - 12 };
+  }
+
+  /** Removes the hover outline (pointer left, coin opened, a scene started). */
+  clearHighlight(): void {
+    this.highlighted?.setStrokeStyle();
+    this.highlighted = undefined;
   }
 
   get hotspotIds(): string[] {
@@ -96,15 +106,24 @@ export class RoomView {
     const { x, y, width, height } = hotspot.bounds;
     // Placeholder art: a labelled rectangle. Real art will replace this in M4.
     const color = hotspot.character ? COLORS.character : COLORS.hotspot;
-    const shape = this.scene.add.rectangle(x, y, width, height, color).setOrigin(0, 0).setDepth(10).setInteractive({ useHandCursor: true });
+    // Exits get an arrow cursor pointing toward their side of the screen; everything else the hand.
+    const cursor = isExit(hotspot) ? (x + width / 2 < this.scene.scale.width / 2 ? 'w-resize' : 'e-resize') : 'pointer';
+    const shape = this.scene.add.rectangle(x, y, width, height, color).setOrigin(0, 0).setDepth(10).setInteractive({ cursor });
     // Labels sit at the top edge so a character standing in front of a hotspot doesn't hide its name.
     const label = this.scene.add
       .text(x + width / 2, y + 14, hotspot.character ? hotspot.name.toUpperCase() : hotspot.name, { fontSize: '18px', color: COLORS.text })
       .setOrigin(0.5)
       .setDepth(11);
 
-    shape.on('pointerover', (pointer: Phaser.Input.Pointer) => this.handlers.onHover(hotspot, pointer));
-    shape.on('pointerout', (pointer: Phaser.Input.Pointer) => this.handlers.onHover(undefined, pointer));
+    shape.on('pointerover', (pointer: Phaser.Input.Pointer) => {
+      this.clearHighlight();
+      this.highlighted = shape.setStrokeStyle(3, COLORS.highlight);
+      this.handlers.onHover(hotspot, pointer);
+    });
+    shape.on('pointerout', (pointer: Phaser.Input.Pointer) => {
+      if (this.highlighted === shape) this.clearHighlight();
+      this.handlers.onHover(undefined, pointer);
+    });
     shape.on('pointerdown', (pointer: Phaser.Input.Pointer, _x: number, _y: number, event: Phaser.Types.Input.EventData) => {
       event.stopPropagation();
       this.handlers.onClick(hotspot, pointer);

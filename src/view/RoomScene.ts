@@ -177,6 +177,7 @@ export class RoomScene extends Phaser.Scene {
 
   private hover(name: string | undefined): void {
     this.hovered = name;
+    if (name === undefined) this.roomView.clearHighlight();
     this.updateCaption();
   }
 
@@ -185,14 +186,15 @@ export class RoomScene extends Phaser.Scene {
     if (heldName) {
       this.caption.setText(`Use ${heldName} with${this.hovered ? ` ${this.hovered}` : '…'}`).setVisible(true);
     } else {
-      this.caption.setText(this.hovered ?? '').setVisible(this.hovered !== undefined && !this.coin?.isOpen);
+      // Hidden while a line is showing, so it never sits on top of speech.
+      this.caption.setText(this.hovered ?? '').setVisible(this.hovered !== undefined && !this.coin?.isOpen && !this.busy);
     }
   }
 
   private moveCaption(pointer: Phaser.Input.Pointer): void {
     // Keep the caption on screen near the right edge.
     const x = Math.min(pointer.worldX + 16, this.scale.width - this.caption.width - 8);
-    this.caption.setPosition(x, pointer.worldY - 32);
+    this.caption.setPosition(x, Math.max(pointer.worldY - 32, 8));
   }
 
   private refreshInventory(): void {
@@ -356,7 +358,8 @@ export class RoomScene extends Phaser.Scene {
   private say(text: string, speaker: CharacterId): void {
     const anchor = (speaker !== PLAYER && this.roomView.speakerAnchor(speaker)) || this.player.headAnchor;
     const color = this.world.characters[speaker]?.color ?? '#ffffff';
-    this.speech.say(text, color, anchor, () => this.playNext());
-    this.finishStep = () => this.speech.skip();
+    const name = speaker === PLAYER ? undefined : this.world.characters[speaker]?.name;
+    this.speech.say(text, color, anchor, () => this.playNext(), name);
+    this.finishStep = () => this.speech.finishNow();
   }
 }
