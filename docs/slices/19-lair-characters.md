@@ -18,21 +18,23 @@ finishes the Lair's art so the whole art pipeline is proven on one room before t
    - **Reginald Vantablack-Thorne:** classically trained ham actor turned real lich: a theatrical lich
      costume (tattered robe, crown, a too-long cape), skeletal hands and face now genuinely undead,
      glowing eyes, dramatic posture.
-2. **Sprites** from the approved sheets (the sheet is the reference image), generated in ChatGPT on a
-   transparent or flat chroma-green background (green keyed out with `ffmpeg`), → WebP with alpha:
+2. **Sprites** from the approved sheets: Dana standing and Reginald seated are cut straight from
+   the sheets; the others are generated in ChatGPT with the sheet as the reference image, on a transparent
+   or plain background (keyed out with `ffmpeg`). All become WebP with alpha:
    - Dana, standing;
-   - Reginald, standing (on his mark, and in the finale);
+   - Reginald, standing (on his mark), in a narrow pose that leaves the phylactery clickable;
    - Reginald, **seated**, lounging on the throne (M4 plan exception);
    - Reginald, **human again** for the finale: same costume, a human face in smeared skull make-up,
      human hands (finale look line: "still in full lich make-up"). Made now, from the same sheet, so
      it matches; the finale hotspot uses it wherever it's drawn.
-   Each sprite's feet sit where the hotspot's bottom-centre is today. Dana stays ≈ 120 px. Reginald
+   Each sprite's feet sit where the hotspot's bottom-centre is today. Dana grows to ≈ 200 px (at
+   120 px, next to a 265 px Reginald and Gary, Dana looked like a child). Reginald
    grows to **Gary's height**: ≈ 265 px standing, ≈ 230 px seated (a mock-up at 200 px made the
    star shorter than his own prop skeleton and lost him on the throne). His hotspot bounds grow to
    fit each sprite (throne, mark, finale); speech anchors follow. His robe is near-black with a
    crimson lining and gold trim, so he reads against the purple walls (recoloured sheet).
 3. **Rendering:**
-   - Dana's placeholder rectangle becomes her sprite, mirrored for facing (replacing the facing
+   - Dana's placeholder rectangle becomes their sprite, mirrored for facing (replacing the facing
      triangle); walking adds a small code-driven bounce and lean; standing still is still.
    - A character hotspot draws its character's sprite (standing, or seated when the content says
      so) with the existing invisible clickable box on top, so clicks, the glow, H, and Playwright
