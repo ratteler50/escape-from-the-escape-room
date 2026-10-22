@@ -26,6 +26,7 @@ export const audio: WorldAudio = {
     title: 'assets/audio/music/title.mp3',
     lair: 'assets/audio/music/lair.mp3',
     giftShop: 'assets/audio/music/gift-shop.mp3',
+    breakRoom: 'assets/audio/music/break-room.mp3',
   },
   title: 'title',
 };

@@ -51,8 +51,8 @@ describe('flavour bits', () => {
     for (const flag of ['heardTeapot', 'offDuty', 'staffDoorOpen', 'won']) expect(flavour.flags).not.toContain(flag);
   });
 
-  it('ends every winning game holding only the lanyard and the mug: used-up items leave', () => {
-    const KEEPERS = ['lanyard', 'mug'];
+  it('ends every winning game holding only the lanyard (flipped to OFF DUTY) and the mug: used-up items leave', () => {
+    const KEEPERS = ['offDutyLanyard', 'mug'];
     const result = explore(world, initialState);
     const leftovers = new Set(
       [...result.explored.values()].filter((e) => e.state.flags[WON]).flatMap((e) => e.state.inventory.filter((id) => !KEEPERS.includes(id))),
