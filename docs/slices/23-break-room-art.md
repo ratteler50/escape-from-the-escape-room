@@ -1,6 +1,6 @@
 # Slice 23 — The painted Break Room
 
-**Status:** built and agent play-tested; developer play-test next · **Milestone:** M4 · runs **in parallel** with slice 22
+**Status:** built, agent and developer play-tested · **Milestone:** M4 · runs **in parallel** with slice 22
 
 ## Why
 
