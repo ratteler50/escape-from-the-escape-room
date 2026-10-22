@@ -5,7 +5,7 @@
 ## Why
 
 The game is silent. M4's audio plan (`docs/design.md`, M4 plan) proves audio on the Lair first, like
-the art: the system, the title and Lair music, and the whole sound-effects set, so slices 21–22 only
+the art: the system, the title and Lair music, and the whole sound-effects set, so slices 22–23 only
 add their rooms' music.
 
 ## Spec
@@ -45,7 +45,7 @@ add their rooms' music.
    content exists.
 3. **Music:** a room names its music track (`music: 'lair'`); the title screen plays the title track.
    Changing rooms **crossfades** (about 1 s). Rooms without a track yet (Gift Shop, Break Room until
-   21–22) keep the current track playing. Tracks loop.
+   22–23) keep the current track playing. Tracks loop.
 4. **Browsers block sound until the player clicks**, so music starts on the title screen's first click
    (any click, not only a button). Until then, nothing plays and nothing errors.
 5. **Settings** (the existing ☰ → Settings panel, and from the title screen): Music volume and
@@ -58,7 +58,7 @@ add their rooms' music.
 7. **CC-BY attribution:** CC-BY music needs credit where players can see it, so the end card gets a
    small "Music: …" line, besides `CREDITS.md`.
 
-Out of scope: Gift Shop and Break Room music (21–22), the finale sting (22), footsteps and ambient
+Out of scope: Gift Shop and Break Room music (22–23), the finale sting (23), footsteps and ambient
 loops, voice.
 
 ## Approvals you'll be asked for

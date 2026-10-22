@@ -111,7 +111,7 @@ the previous one is playable.
 | **M1 — vertical slice** ✅ playable (slices 1–6) | The Lair, fully playable start to finish: walking, hotspots, look text, inventory, one combination, one dialogue tree, a win state ("To be continued"). Ugly but complete. |
 | **M2 — systems complete** ✅ (slices 7–12) | Room transitions (with a stub Gift Shop), deploy to GitHub Pages, save/load, cutscenes, browser end-to-end tests, polish. Plan below. |
 | **M3 — content** ✅ complete (slices 13–17) | Gift Shop and Break Room, full puzzle chain, ending. Plan below. |
-| **M4 — art and audio** (slices 18–23) | Painted backgrounds, character sprites, prop overlays, music and sound effects. No voice. Plan below. |
+| **M4 — art and audio** (slices 18–24) | Painted backgrounds, character sprites, prop overlays, item icons, music and sound effects. No voice. Plan below. |
 
 Art is placeholder shapes until M4, and the code keeps art swappable.
 
@@ -120,8 +120,10 @@ Art is placeholder shapes until M4, and the code keeps art swappable.
 Decided in the M4 planning session (2026-10-22). Style: decision 0005 (hand-painted cartoon, recipe
 "A2" on branch `prototype/lair-art-style`).
 
-**Order.** Prove the whole pipeline on the Lair (art, characters, overlays, audio: slices 18–20),
-then repeat it for the Gift Shop and Break Room in parallel (21–22), then key art and polish (23).
+**Order.** Prove the whole pipeline on the Lair (art, characters, overlays, audio, item icons:
+slices 18–21), so the Lair is polished end to end, then repeat it for the Gift Shop and Break Room in
+parallel (22–23), then key art and polish (24). Item icons were added on 2026-10-22: the first plan
+left the inventory as text boxes.
 
 **Art pipeline.** A layout sketch at exact hotspot coordinates (`docs/art/`) plus a style reference
 → image generation → crop and scale to exact size → WebP in `public/assets/`. The Lair background
@@ -159,9 +161,10 @@ are plain files in the repo with a **15 MB** budget, enforced by a test.
 | 18 | Art system (room backgrounds, invisible hotspots, glow, show-clickable, `?art=off`); Lair background with the phylactery and a spotlight aimed at Gary; `CREDITS.md`; budget | here |
 | 19 | Dana and Reginald model sheets and sprites (Reginald standing and seated); sprite rendering, mirroring, bounce-walk; Lair prop overlays | here |
 | 20 | Audio system; Lair music; the sound-effects set | here |
-| 21 | Gift Shop: background, Kyle and Mordecai sprites, overlays, music | **parallel** with 22 |
-| 22 | Break Room: background, overlays, music, finale sting | **parallel** with 21 |
-| 23 | Title and end-card key art; loading and size pass; M4 done | last |
+| 21 | Item icons for everything you can carry in the Lair (and the lanyard); shown in the inventory bar and on the held item | here |
+| 22 | Gift Shop: background, Kyle and Mordecai sprites, overlays, music, its item icons | **parallel** with 23 |
+| 23 | Break Room: background, overlays, music, finale sting, its item icons | **parallel** with 22 |
+| 24 | Title and end-card key art; loading and size pass; M4 done | last |
 
 ## M3 plan
 

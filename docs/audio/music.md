@@ -31,5 +31,5 @@ Click a link to listen (each opens the MP3).
 - **Title:** Netherworld Shanty.
 - **Lair:** Graveyard Shift: the spookiest, for the first room; the rooms after it get lighter.
 - **Kept for later rooms** (the developer liked all three): Sneaky Snitch, Scheming Weasel (slower)
-  and Investigations, for the Gift Shop and the Break Room (slices 21–22). The finale sting is
-  picked in 22.
+  and Investigations, for the Gift Shop and the Break Room (slices 22–23). The finale sting is
+  picked in 23.
