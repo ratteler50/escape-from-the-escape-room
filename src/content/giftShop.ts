@@ -211,7 +211,7 @@ export const giftShop: Room = {
       interactionPoint: { x: 1150, y: 490 },
       verbs: {
         // DRAFT:
-        look: says('"CLOSED FOR REFURBISHMENT", taped to a door that is standing wide open. Beyond it: the car park, the night, my bus stop. The refurbishment has been ongoing since 2019.'),
+        look: says("Wide open, with a little sign hanging on the glass that says CLOSED. That's the staff side; out in the car park it says OPEN. Handbook Section 9: never locked during business hours. It isn't. It just won't let me through."),
         use: {
           label: 'Escape!',
           // The false exit: the script only ends once a guest has bought a souvenir (the mug sale).
@@ -231,7 +231,7 @@ export const giftShop: Room = {
       },
       itemUses: {
         // DRAFT:
-        priceGun: [{ effects: [say("I label the front door FREE. It's still closed for refurbishment.")] }],
+        priceGun: [{ effects: [say('I label the front door FREE. The sign still says CLOSED. To me, specifically.')] }],
       },
     },
     reginaldFinaleHotspot,

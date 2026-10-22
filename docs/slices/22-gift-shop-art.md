@@ -99,3 +99,8 @@ Shared, append-only: `CREDITS.md` rows, one line each in `src/content/audio.ts`,
   the sting ducking the music (0.70 → 0.17 for its 8 s, then back), the end card, `?art=off`.
 - **Noticed for slice 23:** the Break Room's painted door back to the Gift Shop is brown wood; this
   side of it is grey metal.
+- **After the developer's play-test:** the front door's CLOSED FOR REFURBISHMENT notice didn't hold
+  up (it faced into a shop with a cashier on duty), so it's now the shop's hanging OPEN/CLOSED sign
+  showing the staff side, CLOSED: a ChatGPT edit of an enlarged crop, patched into the background
+  (prompt §3c). The door's look and price-gun lines follow it (Handbook Section 9). Kyle's and
+  Mordecai's "why won't the doors open?" options now say the open door keeps sending Dana back in.

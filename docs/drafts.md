@@ -126,11 +126,11 @@ for an item; "Dana (option)" is a line Dana says when the player picks it in a c
 | `giftShop.ts:175` | Dana | I label the door $4.99. Still locked, but now it's affordable. |
 | `giftShop.ts:178` | Dana | The badge reader blinks red. It only wants a proper staff badge, and that wasn't one. |
 | `giftShop.ts:189` | Dana | STAFF ONLY, wide open. Mordecai can't touch anything, so I assume he glared at the lock until it gave up. Beyond it: a corridor that smells of burnt coffee. |
-| `giftShop.ts:214` | Dana | "CLOSED FOR REFURBISHMENT", taped to a door that is standing wide open. Beyond it: the car park, the night, my bus stop. The refurbishment has been ongoing since 2019. |
+| `giftShop.ts:214` | Dana | Wide open, with a little sign hanging on the glass that says CLOSED. That's the staff side; out in the car park it says OPEN. Handbook Section 9: never locked during business hours. It isn't. It just won't let me through. |
 | `giftShop.ts:222` | Dana | EXIT THROUGH THE GIFT SHOP. I haven't bought anything. Not even a mug. |
 | `giftShop.ts:224` | Dana | I step into the doorway. The doorway steps me straight back into the shop. |
 | `giftShop.ts:226` | Dana | The door is open. I'm just not allowed through it. The curse is very literal. |
-| `giftShop.ts:234` | Dana | I label the front door FREE. It's still closed for refurbishment. |
+| `giftShop.ts:234` | Dana | I label the front door FREE. The sign still says CLOSED. To me, specifically. |
 
 ## Kyle (19)
 
