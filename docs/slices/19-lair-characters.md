@@ -78,3 +78,18 @@ walk cycles and a talking pose.
 ## Notes
 
 - Built stacked on `slice-18-lair-art` (itself waiting on PR #15); rebased onto `main` before its PR.
+
+## Build notes
+
+- **Pipeline:** Canva's free plan ran out of generations, so the art moved to ChatGPT: the developer
+  generates from prompt packs (`docs/art/prompts-*.md`), the agent cuts, sizes and wires it in.
+- **Model sheets** approved 2026-10-22. A mock-up in the Lair showed Reginald too small next to Gary
+  and his purple robe lost against the purple walls: he was recoloured black and crimson and grew
+  to Gary's height (265 px); Dana grew from 120 to 200 px to match.
+- **Sprites** approved in place 2026-10-22: Dana and seated Reginald cut straight from the sheets,
+  standing and human Reginald generated from the recoloured sheet. Cut with
+  `scripts/cut-sprite.py` (flood fill from the edges; a plain colour key ate light colours inside
+  the figures). Stored at 2× their on-screen size.
+- **Drawing order:** sprites draw in front of every hotspot box (an unpainted room's solid
+  placeholders hid human Reginald in the Gift Shop doorway), labels on top.
+- **Display case:** no overlays; its painted bone stays and the scroll is tucked under it (slice 18).
