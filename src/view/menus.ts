@@ -92,20 +92,27 @@ export interface GameMenuActions {
   save: () => void;
   load: () => void;
   quitToTitle: () => void;
+  /** "Show everything clickable": its current setting, and a toggle that returns the new one. */
+  revealClickable: { on: boolean; toggle: () => boolean };
 }
 
 /** The ☰ menu during play. */
 export function showGameMenu(scene: Phaser.Scene, actions: GameMenuActions, onClose: () => void): void {
-  const box = modal(scene, DEPTH, 420, 470, 'Menu');
+  const box = modal(scene, DEPTH, 460, 540, 'Menu');
   const { width, height } = scene.scale;
   const item = (i: number, label: string, run: () => void) =>
-    box.add(button(scene, width / 2, height / 2 - 120 + i * 72, label, () => {
+    box.add(button(scene, width / 2, height / 2 - 156 + i * 72, label, () => {
       box.destroy();
       run();
     }));
   item(0, 'Save', actions.save);
   item(1, 'Load', actions.load);
   item(2, 'Settings', () => showSettings(scene, () => showGameMenu(scene, actions, onClose)));
-  item(3, 'Quit to title', actions.quitToTitle);
-  item(4, 'Close', onClose);
+  const { revealClickable } = actions;
+  item(3, `Show clickable things: ${revealClickable.on ? 'On' : 'Off'}`, () => {
+    const on = revealClickable.toggle();
+    showGameMenu(scene, { ...actions, revealClickable: { ...revealClickable, on } }, onClose);
+  });
+  item(4, 'Quit to title', actions.quitToTitle);
+  item(5, 'Close', onClose);
 }

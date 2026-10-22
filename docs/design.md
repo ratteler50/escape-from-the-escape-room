@@ -111,9 +111,53 @@ the previous one is playable.
 | **M1 — vertical slice** ✅ playable (slices 1–6) | The Lair, fully playable start to finish: walking, hotspots, look text, inventory, one combination, one dialogue tree, a win state ("To be continued"). Ugly but complete. |
 | **M2 — systems complete** ✅ (slices 7–12) | Room transitions (with a stub Gift Shop), deploy to GitHub Pages, save/load, cutscenes, browser end-to-end tests, polish. Plan below. |
 | **M3 — content** ✅ complete (slices 13–17) | Gift Shop and Break Room, full puzzle chain, ending. Plan below. |
-| **M4 — optional polish** | Art pass (vector or AI-generated), SFX, a music loop. No voice. |
+| **M4 — art and audio** (slices 18–23) | Painted backgrounds, character sprites, prop overlays, music and sound effects. No voice. Plan below. |
 
 Art is placeholder shapes until M4, and the code keeps art swappable.
+
+## M4 plan
+
+Decided in the M4 planning session (2026-10-22). Style: decision 0005 (hand-painted cartoon, recipe
+"A2" on branch `prototype/lair-art-style`).
+
+**Order.** Prove the whole pipeline on the Lair (art, characters, overlays, audio: slices 18–20),
+then repeat it for the Gift Shop and Break Room in parallel (21–22), then key art and polish (23).
+
+**Art pipeline (Canva).** A layout sketch at exact hotspot coordinates (`docs/art/`) → image-to-image
+generation with the A2 recipe, plus an approved image as a style reference → placed in a Canva
+design (one per room, each asset a page, all in a Canva folder "Escape-O-Rama assets") → saved →
+exported as PNG at exact size → WebP in `public/assets/`. The developer approves each generated image
+and each Canva save, once per slice; downloads are approved in one batch per slice.
+
+**Characters.** Flat colour with hard outlines over the painted rooms. One model sheet per character
+(front and three-quarter, approved first), used as the reference for everything after. One standing
+pose each, mirrored for direction; walking is a code-driven bounce and lean; a talking pose is a
+stretch goal. Backgrounds removed with Canva's background removal; transparent PNG → WebP.
+
+**Props that change.** Edit the room's background image for each changed state (same scene, one
+change), crop the changed region, show it as an overlay by flag. Gary stays painted in, with an
+overlay for the missing arm.
+
+**Hotspots over art.** Invisible areas; hover shows the cursor, the name and a soft glow; holding H
+or a ☰ menu toggle outlines everything clickable. `?art=off` brings back placeholder rectangles.
+
+**Audio.** Music: CC0 or CC-BY library tracks, shortlisted by the agent (it can't hear), picked by the
+developer by ear: a title track, one loop per room, a finale sting. Sound effects: 12–15, CC0 only
+(Kenney, Freesound CC0). Music and effects volume plus mute in Settings, saved; music starts on the
+title screen's first click; crossfades between rooms.
+
+**Rules.** The game is public on GitHub Pages, so every asset's license must allow public web use.
+`CREDITS.md` lists every asset (tool and prompt for generated art); a test checks coverage. Assets
+are plain files in the repo with a **15 MB** budget, enforced by a test.
+
+| Slice | Content | Runs |
+|-------|---------|------|
+| 18 | Art system (room backgrounds, invisible hotspots, glow, show-clickable, `?art=off`); Lair background with the phylactery and a spotlight aimed at Gary; `CREDITS.md`; budget | here |
+| 19 | Dana and Reginald model sheets and sprites; sprite rendering, mirroring, bounce-walk; Lair prop overlays | here |
+| 20 | Audio system; Lair music; the sound-effects set | here |
+| 21 | Gift Shop: background, Kyle and Mordecai sprites, overlays, music | **parallel** with 22 |
+| 22 | Break Room: background, overlays, music, finale sting | **parallel** with 21 |
+| 23 | Title and end-card key art; loading and size pass; M4 done | last |
 
 ## M3 plan
 
