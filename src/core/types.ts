@@ -132,7 +132,7 @@ export interface Dialogue {
 export interface Room {
   id: RoomId;
   name: string;
-  /** Where Dana appears when she arrives, by how she arrived (e.g. "fromGiftShop"). On the floor. */
+  /** Where Dana appears when they arrive, by how they arrived (e.g. "fromGiftShop"). On the floor. */
   entries: Readonly<Record<EntryId, Point>>;
   walkable: Polygon;
   hotspots: readonly Hotspot[];

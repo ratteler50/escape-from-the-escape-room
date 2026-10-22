@@ -34,7 +34,7 @@ export const riddleScroll: Item = {
   id: 'riddleScroll',
   name: 'Ancient Riddle Scroll',
   // DRAFT:
-  look: 'It reads: "THE ANSWER IS: [INSERT CODE HERE BEFORE PRINTING]". Head office. Of course. Of COURSE.',
+  look: 'It reads: "THE ANSWER IS: [INSERT CODE HERE BEFORE PRINTING]". Head office. Of COURSE. Then again, the curse made the whole script real. Does that include the typos?',
 };
 
 export const lairItems = [garyArm, gum, stickyArm, caseKey, script, riddleScroll];
@@ -250,6 +250,8 @@ export const lair: Room = {
         look: {
           responses: [
             // DRAFT:
+            { when: [{ flag: 'doorUnlocked' }], effects: [say("The scroll's back on its velvet. The little card says 'ANCIENT RIDDLE (REPRODUCTION)'. It has never been more wrong.")] },
+            // DRAFT:
             { when: [{ flag: 'caseOpen' }], effects: [say("An empty display case. The little card says 'ANCIENT RIDDLE (REPRODUCTION)'.")] },
             // DRAFT:
             { effects: [say('An ornate display case. Inside, on velvet: an Ancient Riddle Scroll. The lock is tiny and skull-shaped.')] },
@@ -312,6 +314,9 @@ export const lair: Room = {
               setFlag('doorUnlocked'),
               // DRAFT:
               say("CLUNK. The door unlocks. I've beaten head office at their own game. By reading."),
+              // DRAFT:
+              say('Handbook Section 3: lost property must be returned. I return the scroll to its velvet.'),
+              { type: 'removeItem', itemId: riddleScroll.id },
             ],
           },
           // DRAFT:
@@ -328,9 +333,9 @@ export const lair: Room = {
         look: {
           responses: [
             // DRAFT:
-            { when: [{ flag: 'gotCaseKey' }], effects: [say('Just a grate now. A pamphlet down there: "Emergency Procedures for Staff". Fire, flood, fainting guest. Nothing about liches. I checked twice.')] },
+            { when: [{ flag: 'gotCaseKey' }], effects: [say('Gary\'s arm, gummed to the grate, waving at nobody. A pamphlet down there: "Emergency Procedures for Staff". Fire, flood, fainting guest. Nothing about liches. I checked twice.')] },
             // DRAFT:
-            { effects: [say('A floor grate. Something small and shiny glints down there, just out of reach. Of course.')] },
+            { effects: [say('A floor grate. Something small and shiny glints down there, just out of reach. I\'d need a longer arm. Or a spare one.')] },
           ],
         },
       },
@@ -342,6 +347,9 @@ export const lair: Room = {
               // DRAFT:
               say('I lower the Sticky Arm through the bars... gently... got it! A key. Gary would be proud. Gary is never proud.'),
               { type: 'addItem', itemId: caseKey.id },
+              // DRAFT:
+              say("The gum lets go of the key and grabs the grate instead. Gary's arm is staying there. I'm told that's what gum does."),
+              { type: 'removeItem', itemId: stickyArm.id },
               { type: 'setFlag', flag: 'gotCaseKey' },
             ],
           },

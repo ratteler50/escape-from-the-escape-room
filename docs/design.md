@@ -50,6 +50,32 @@ PG, absurdist, wordplay, light fourth-wall poking. Never mean-spirited, never gr
   "spooky décor" at markdown prices. Can't touch anything, can float through walls. Kyle thinks he's
   a hologram and talks over his monologues.
 
+### The Employee Handbook
+
+Dana quotes it constantly. Each section means one thing everywhere; check this list before quoting a
+section, and add new ones here.
+
+| Section | Rule |
+|---------|------|
+| 1 | Nobody has ever beaten the escape room (stated like a selling point) |
+| 2 | Know your number (your employee number) |
+| 3 | Lost property must be returned (and logged) |
+| 4.2 | Never touch the guests (says nothing about liches, or skeletons) |
+| 5 | No card, no clock |
+| 5.3 | Off-duty staff are customers like anyone else |
+| 6 | Respect your colleagues' dairy |
+| 7.1 | The Spooky Seat is for liches only |
+| 8 | Be thorough; found money under five cents belongs to the finder |
+| 9 | Doors must never be locked during business hours |
+| 10 | Always offer exact change |
+| 11 | Employees may not review their own workplace |
+| 12 | Do not improvise with props |
+| 14 / 14.1 | Staff may borrow equipment for re-pricing / but not for personal gain |
+| 15 | Always contribute |
+
+Reginald's **actors' union contract** is separate: section nine, the show does not stop until the
+final cue; section twelve, wrongful loss of a role.
+
 ## Design rules
 
 - **No deaths, no dead ends.** The game is always winnable from any reachable state. Enforced by an
@@ -84,7 +110,7 @@ the previous one is playable.
 |-----------|---------|
 | **M1 — vertical slice** ✅ playable (slices 1–6) | The Lair, fully playable start to finish: walking, hotspots, look text, inventory, one combination, one dialogue tree, a win state ("To be continued"). Ugly but complete. |
 | **M2 — systems complete** ✅ (slices 7–12) | Room transitions (with a stub Gift Shop), deploy to GitHub Pages, save/load, cutscenes, browser end-to-end tests, polish. Plan below. |
-| **M3 — content** (slices 13–17) | Gift Shop and Break Room, full puzzle chain, ending. Plan below. |
+| **M3 — content** ✅ complete (slices 13–17) | Gift Shop and Break Room, full puzzle chain, ending. Plan below. |
 | **M4 — optional polish** | Art pass (vector or AI-generated), SFX, a music loop. No voice. |
 
 Art is placeholder shapes until M4, and the code keeps art swappable.

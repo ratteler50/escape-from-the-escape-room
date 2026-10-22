@@ -225,6 +225,9 @@ export const breakRoom: Room = {
               // DRAFT:
               say('Handbook Section 5.3: off-duty staff are customers like anyone else. I tuck my lanyard into my pocket. Off duty means off duty.'),
               setFlag('offDuty'),
+              // DRAFT:
+              say('I file my time card back in the rack, under P. Not under the yogurt.'),
+              { type: 'removeItem', itemId: timeCard.id },
             ],
           },
           // DRAFT:
@@ -293,7 +296,7 @@ export const breakRoom: Room = {
       interactionPoint: { x: 785, y: 460 },
       verbs: {
         // DRAFT:
-        look: says('"SNAX-O-RAMA." Fully stocked with one bag of Spooky Crisps, which has been stuck on its spiral since before I was hired. Nobody has the heart to free it.'),
+        look: says('"SNAX-O-RAMA." Fully stocked with one bag of Spooky Crisps, which has been stuck on its spiral since before I was hired. Nobody has the heart to free it. The coin return flap is half-open, and something small and copper is sulking in there.'),
         take: {
           label: 'Press coin return',
           responses: [
@@ -346,7 +349,7 @@ export const breakRoom: Room = {
                 // DRAFT:
                 say('The combination is my employee number. 0... 0... 7. Click!'),
                 // DRAFT:
-                say('Inside: a spare hairnet and my pay packet. Payday!'),
+                say('Inside: a spare hairnet and my pay packet. Payday! Twelve dollars and ninety-eight cents. The mug is twelve ninety-nine. Head office, you absolute artists.'),
                 { type: 'addItem', itemId: payPacket.id },
                 setFlag('lockerOpen'),
               ],

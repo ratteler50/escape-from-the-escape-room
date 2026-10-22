@@ -272,7 +272,7 @@ export class RoomScene extends Phaser.Scene {
     this.playNext();
   }
 
-  /** Fade out, redraw the new room with Dana at her entry point, fade back in, carry on. */
+  /** Fade out, redraw the new room with Dana at their entry point, fade back in, carry on. */
   private changeRoom(roomId: string, entry: string): void {
     const arrive = () => {
       const room = this.world.rooms[roomId]!;

@@ -22,7 +22,8 @@ export const reginaldFinaleHotspot: Hotspot = {
   name: 'Reginald',
   character: reginald.id,
   when: [{ flag: 'curseLifted' }],
-  // In the Lair doorway; the finale walks his feet to (520, 425). No flag may be set after that walk,
+  // In the Lair doorway; the finale walks his feet to (833, 425), the gap between cardboard Reginald
+  // and STAFF ONLY, clear of Kyle, the till and the bargain bin. No flag may be set after that walk,
   // or the hotspot redraw would put him back here.
   bounds: { x: 75, y: 220, width: 70, height: 200 },
   interactionPoint: { x: 200, y: 460 },
@@ -76,15 +77,15 @@ export const mugSaleOptions: DialogueOption[] = [
       say('A rumble. The lights flicker. Somewhere, a jar stops whispering.'),
       // DRAFT:
       R('Nooooo!'),
-      walk(reginald.id, 520, 425),
+      walk(reginald.id, 833, 425),
       // DRAFT:
       R("It's gone, darling. All of it. I'm human. I have a PULSE. Do you know what a pulse does to a performance?"),
       // DRAFT:
-      R("Actors' union, section nine: wrongful loss of the role of a lifetime. I am filing a grievance."),
+      R("Actors' union, section twelve: wrongful loss of the role of a lifetime. I am filing a grievance."),
       // DRAFT:
-      say("Gary stays one-armed, I'm afraid. His arm is now mostly gum."),
+      say("Gary stays one-armed, I'm afraid. His arm is gummed to a floor grate in the Lair."),
       // DRAFT:
-      R('And this fell off its plinth when the curse broke. Somebody take it. It keeps looking at me.'),
+      R('And the anti-theft cable snapped when the curse broke. Somebody take this. It keeps looking at me.'),
       // DRAFT:
       say('He drops the phylactery into a cardboard box.'),
       // DRAFT:
