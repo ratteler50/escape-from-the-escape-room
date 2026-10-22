@@ -187,7 +187,13 @@ export const reginaldDialogue: Dialogue = {
             walk(reginald.id, 405, 455),
             setFlag('reginaldLeftThrone'),
             // DRAFT:
-            say("He's swept off to his spotlight mark. Which means the Spooky Seat is unguarded."),
+            R('Behold, mortal, as the light finds me and— ...Gary?'),
+            // DRAFT:
+            R('That is MY spotlight. On MY mark. And it is lovingly illuminating a man with no lines!'),
+            // DRAFT:
+            R('Fine. FINE. A true professional holds his mark in the dark. Whoever rigged that is getting a strongly worded note.'),
+            // DRAFT:
+            say("He's sulking on his mark, in the dark. Which means the Spooky Seat is unguarded."),
           ],
           next: 'end',
         },
