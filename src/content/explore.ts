@@ -41,7 +41,7 @@ export function stateKey(s: GameState, flavour?: Flavour): string {
  * merge states that differ only in them. Without this, every independent one-off line of dialogue
  * doubles the number of states (slice 16 hit the cap that way). Two kinds:
  * - flags that no condition anywhere reads (set, never checked);
- * - spent `once` dialogue options whose effects are pure presentation (lines, pauses, walks) plus,
+ * - spent `once` dialogue options whose effects are pure presentation (lines, pauses, walks, sounds) plus,
  *   at most, setting such unread flags, and that lead back to the node they're in. Having heard a
  *   line can't open or close any path.
  * Options with real effects (items, read flags, room changes) or that lead elsewhere (another node,
@@ -66,7 +66,7 @@ export function flavourBits(w: World): Flavour {
   read.add(WON);
 
   const isFlavourFlag = (flag: string) => !read.has(flag);
-  const presentation = new Set(['say', 'pause', 'face', 'walk']);
+  const presentation = new Set(['say', 'pause', 'face', 'walk', 'sound']);
   const flags = new Set<string>();
   const spentOptions = new Set<string>();
   for (const dialogue of Object.values(w.dialogues)) {
