@@ -112,7 +112,7 @@ export const mordecaiDialogue: Dialogue = {
         },
         {
           id: 'whatsGoingOn',
-          text: 'Do you know why none of the doors will open?',
+          text: "Do you know why I can't leave? The front door's wide open, and it keeps sending me back in.",
           effects: [
             // DRAFT:
             M('My phylactery. The vessel of my very soul. Your head office bought it as a "spooky jar". Three dollars fifty.'),

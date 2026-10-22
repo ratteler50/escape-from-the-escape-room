@@ -61,7 +61,7 @@ export const kyleDialogue: Dialogue = {
         },
         {
           id: 'whatsGoingOn',
-          text: "Kyle, the lich is real and the doors won't open. What's going on?",
+          text: "Kyle, the lich is real, and every time I walk out of the front door I walk straight back in. What's going on?",
           effects: [
             // DRAFT:
             K('New show feature, probably. Head office never tells us anything.'),
