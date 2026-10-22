@@ -42,9 +42,11 @@ export function stateKey(s: GameState, flavour?: Flavour): string {
  * doubles the number of states (slice 16 hit the cap that way). Two kinds:
  * - flags that no condition anywhere reads (set, never checked);
  * - spent `once` dialogue options whose effects are pure presentation (lines, pauses, walks) plus,
- *   at most, setting such unread flags. Having heard a line can't open or close any path.
- * Options with real effects (items, read flags, room changes) stay distinct: merging those could
- * hide a dead end.
+ *   at most, setting such unread flags, and that lead back to the node they're in. Having heard a
+ *   line can't open or close any path.
+ * Options with real effects (items, read flags, room changes) or that lead elsewhere (another node,
+ * the end of the conversation) stay distinct: merging those could hide a dead end, e.g. a once-only
+ * way into a node, or the only way out of a conversation.
  */
 export function flavourBits(w: World): Flavour {
   const read = new Set<string>();
@@ -68,12 +70,12 @@ export function flavourBits(w: World): Flavour {
   const flags = new Set<string>();
   const spentOptions = new Set<string>();
   for (const dialogue of Object.values(w.dialogues)) {
-    for (const node of Object.values(dialogue.nodes)) {
+    for (const [nodeId, node] of Object.entries(dialogue.nodes)) {
       for (const option of node.options) {
         const effects = option.effects ?? [];
         effects.forEach((e) => e.type === 'setFlag' && isFlavourFlag(e.flag) && flags.add(e.flag));
         const pure = effects.every((e) => presentation.has(e.type) || (e.type === 'setFlag' && isFlavourFlag(e.flag)));
-        if (option.once && pure) spentOptions.add(`${dialogue.id}.${option.id}`);
+        if (option.once && pure && option.next === nodeId) spentOptions.add(`${dialogue.id}.${option.id}`);
       }
     }
   }

@@ -73,6 +73,10 @@ Finale).
   (items, read flags, room changes) stay distinct so a dead end can't hide. The whole game is now
   **1,820 states**, shortest solution 29 steps. `explore.test.ts` pins the rule down. The cap is
   unchanged. Playwright still compares exact state keys.
+  Tightened after review: a spent say-only option only counts as flavour if it also **leads back to
+  the node it's in**. One that opens another node, or is the only way out of a conversation, changes
+  where the conversation can go, and merging it could hide a dead end. No current option hit this
+  (all seven merged ones loop back); a test with deliberately bad options guards it.
 - **Mordecai's return** is set when Dana first goes through STAFF ONLY, not when the door opens:
   `setFlag` redraws hotspots from the final state, so he'd have popped back to the bin mid-cutscene.
 - **Bug fixed: speech anchored to content, not the screen.** A character's lines were placed at the
