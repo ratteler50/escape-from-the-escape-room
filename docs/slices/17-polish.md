@@ -1,6 +1,6 @@
 # Slice 17 — M3 polish: clues, consistency, the draft script
 
-**Status:** approved, in progress · **Milestone:** M3 (last slice)
+**Status:** built, agent play-tested · awaiting developer play-test · **Milestone:** M3 (last slice)
 
 ## Why
 
@@ -78,3 +78,31 @@ out, 6 colleagues' dairy, 7.1 the Spooky Seat, 8 be thorough, 9 doors unlocked i
 ## Notes
 
 - Built stacked on `slice-16-finale` while PR #14 waits for CI; rebased onto `main` with `git rebase --onto` once it merges, before opening the PR.
+
+## Build notes
+
+- **Clue fixes:** all five weak spots got their line (table above); Handbook Section 2 now means
+  only "know your number"; the escape-room rule is Section 1. `docs/design.md` has the full list.
+- **Consistency pass** (a read-only review of every visible line, then fixes): who bought the
+  phylactery, how its cable came loose, how a ghost who can't touch anything opened a door, a
+  repeated "checked twice" and a repeated Gary line, Reginald's two union "section nines", a missing
+  "!" in the cue, and leftover she/her comments for Dana. Kept on purpose: "One star. Still here."
+  (a frustrated customer, not a trapped one), Kyle's two "Is that new?" (their running bit), and
+  "less wooden than the real one" (mild, DRAFT, the developer's call).
+- **Used-up items:** the Sticky Arm stays gummed to the grate, the scroll goes back on its velvet,
+  the price gun goes back to Kyle, the time card goes back in the rack, each with a line. A test
+  checks every winning state holds only the lanyard and the mug; it was shown to fail (by name) with
+  the time card's removal undone. slice 14's test expecting the price gun to stay was updated.
+- **The draft script:** `npm run drafts` → `docs/drafts.md` (227 lines). Runs on Node's built-in
+  TypeScript; also picks up any new content file. The freshness test was shown to fail on a stale file.
+- **Staging:** labels wrap to their hotspot's width (a single long word like "Phylactery" still
+  overflows its narrow plinth; fine for placeholder art); Reginald's finale mark moved to (833, 425).
+- **Play-test:** played in the browser from New game with real clicks through step 19 (Mordecai
+  re-pricing), reading every line; a mid-game reload of the pane also exercised Continue, which
+  restored the exact state. The pane then stopped rendering frames (the app window wasn't in view),
+  so the rest was played headless: a temporary Playwright run of the real solution with screenshots
+  of the finale, confirming Reginald's new mark and the lanyard + mug inventory at the end. The
+  regular Playwright play-through (all 29 steps) passes.
+- **Built stacked** on `slice-16-finale` while #14 waited for CI, then rebased onto `main` with
+  `git rebase --onto` once it merged (the squash commit's tree matched the branch tip exactly).
+
