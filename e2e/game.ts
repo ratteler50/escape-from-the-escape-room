@@ -12,7 +12,7 @@ import type { GameState } from '../src/core/types';
 /** Something on screen the test can click. */
 export type Target =
   | { kind: 'hotspot'; id: string }
-  | { kind: 'item'; name: string }
+  | { kind: 'item'; id: string }
   | { kind: 'coin'; icon: string }
   | { kind: 'option'; text: string }
   | { kind: 'button'; scene: string; label: string }
@@ -44,12 +44,9 @@ function installHelpers(): void {
     switch (target.kind) {
       case 'hotspot':
         return r.roomView.drawn.find((d: any) => d.hotspot.id === target.id)?.objects[0];
-      case 'item': {
-        // Slots are [box, label, box, label, …]; the box is the clickable part.
-        const slots = r.inventory.slots;
-        const i = slots.findIndex((o: any) => isText(o, target.name));
-        return i > 0 ? slots[i - 1] : undefined;
-      }
+      case 'item':
+        // Each slot's clickable box carries its item's id (it may show an icon or the name).
+        return r.inventory.slots.find((o: any) => o.getData?.('itemId') === target.id);
       case 'coin': {
         // [blocker, caption, disc, icon, disc, icon, …]
         const objects = r.coin.objects;

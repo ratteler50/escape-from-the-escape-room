@@ -96,6 +96,8 @@ export interface Combination {
 export interface Item {
   id: ItemId;
   name: string;
+  /** The inventory icon, a path under `public/`: square, transparent, at 2× its on-screen size. Presentation only. */
+  icon?: string;
   look: string;
   /** Something Dana can do with the item itself (read, eat, memorise). A third button on its coin. */
   action?: VerbSpec & { label: string };

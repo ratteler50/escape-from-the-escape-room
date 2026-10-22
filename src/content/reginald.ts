@@ -15,6 +15,7 @@ export const reginald: Character = {
 export const script: Item = {
   id: 'script',
   name: "Reginald's Script",
+  icon: 'assets/icons/script.webp',
   // DRAFT:
   look: 'Act One, Scene One. His cue: "Rise, foul creature, and face me!" The margins say PAUSE FOR APPLAUSE eleven times.',
   action: {

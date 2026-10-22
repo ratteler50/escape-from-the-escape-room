@@ -10,6 +10,7 @@ import { reginald } from './reginald';
 export const lanyard: Item = {
   id: 'lanyard',
   name: 'Staff Lanyard',
+  icon: 'assets/icons/lanyard.webp',
   // DRAFT:
   look: 'My lanyard. TRAINEE in huge letters, my employee number in tiny ones. Head office\'s priorities, in font sizes.',
   action: {
@@ -33,6 +34,7 @@ export const lanyard: Item = {
 export const timeCard: Item = {
   id: 'timeCard',
   name: 'Time Card',
+  icon: 'assets/icons/time-card.webp',
   // DRAFT:
   look: '"D. PICKWICK, TRAINEE. IN: 4:00 PM." Slightly chilled, and faintly strawberry-scented.',
 };
@@ -40,6 +42,7 @@ export const timeCard: Item = {
 export const payPacket: Item = {
   id: 'payPacket',
   name: 'Pay Packet',
+  icon: 'assets/icons/pay-packet.webp',
   // DRAFT:
   look: "My pay packet: $12.98. The mug is $12.99. Head office has paid me exactly one cent less than a mug. I'd admire it if it weren't me.",
 };
@@ -47,6 +50,7 @@ export const payPacket: Item = {
 export const oneCent: Item = {
   id: 'oneCent',
   name: 'One Cent',
+  icon: 'assets/icons/one-cent.webp',
   // DRAFT:
   look: 'One cent, from the coin return. Worth almost nothing. Unless you are exactly one cent short of something.',
 };
@@ -54,6 +58,7 @@ export const oneCent: Item = {
 export const exactChange: Item = {
   id: 'exactChange',
   name: 'Exact Change',
+  icon: 'assets/icons/exact-change.webp',
   // DRAFT:
   look: '$12.99. Exactly. Not a cent over, not a cent under. The till has never seen anything so beautiful.',
 };

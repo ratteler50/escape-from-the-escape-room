@@ -6,7 +6,7 @@ import { PLAYER, WON, type CharacterId, type Command, type Effect, type GameStat
 import { DialoguePanel } from './DialoguePanel';
 import { gameAudio, preloadAudio } from './GameAudio';
 import { showEndCard } from './EndCard';
-import { InventoryBar } from './InventoryBar';
+import { INVENTORY_ART, InventoryBar, iconKey } from './InventoryBar';
 import { showGameMenu, showSlotList } from './menus';
 import { PlayerSprite, WALK_SPEED } from './PlayerSprite';
 import { artKey, roomArtKey, RoomView } from './RoomView';
@@ -16,6 +16,7 @@ import { button } from './ui';
 import { VerbCoin } from './VerbCoin';
 
 const INVENTORY_TOP = 630;
+const HELD_ICON_SIZE = 40;
 const VERB_ICONS: Record<Verb, string> = { look: '👁', take: '✋', talk: '💬', use: '⚙' };
 
 /**
@@ -41,6 +42,8 @@ export class RoomScene extends Phaser.Scene {
   private dialogue!: DialoguePanel;
 
   private held: ItemId | undefined;
+  /** The held item's icon, floating beside the pointer. */
+  private heldIcon: Phaser.GameObjects.Image | undefined;
   /** Name of the hotspot or item under the pointer, for the caption. */
   private hovered: string | undefined;
   /** Effects still to play. While playing, clicks only skip lines. */
@@ -83,6 +86,8 @@ export class RoomScene extends Phaser.Scene {
     for (const character of Object.values(this.world.characters)) {
       for (const path of Object.values(character.sprites ?? {})) load(artKey(path), path);
     }
+    for (const item of Object.values(this.world.items)) if (item.icon) load(artKey(item.icon), item.icon);
+    for (const path of Object.values(INVENTORY_ART)) load(artKey(path), path);
     // Usually already loaded by the title screen.
     preloadAudio(this, this.world.audio);
   }
@@ -116,7 +121,10 @@ export class RoomScene extends Phaser.Scene {
     // A loaded save may be mid-conversation: put its options back up.
     if (this.state.conversation) this.showDialogueOptions();
 
-    this.input.on('pointermove', (pointer: Phaser.Input.Pointer) => this.moveCaption(pointer));
+    this.input.on('pointermove', (pointer: Phaser.Input.Pointer) => {
+      this.moveCaption(pointer);
+      this.moveHeldIcon(pointer);
+    });
     // Above the line-skip blocker, so it can be clicked while a scene plays. Shown only then.
     this.skipButton = button(this, this.scale.width - 90, 590, 'Skip ⏭', () => this.skipScene()).setDepth(1850).setVisible(false);
     this.input.keyboard?.on('keydown-ESC', () => (this.busy ? this.skipScene() : this.putAway()));
@@ -189,6 +197,11 @@ export class RoomScene extends Phaser.Scene {
   private hold(itemId: ItemId): void {
     gameAudio(this).play('select');
     this.held = itemId;
+    this.heldIcon?.destroy();
+    const icon = iconKey(this, this.world.items[itemId]);
+    // Offset down and right, so the pointer's tip stays exact for small hotspots.
+    this.heldIcon = icon ? this.add.image(0, 0, icon).setDisplaySize(HELD_ICON_SIZE, HELD_ICON_SIZE).setOrigin(0, 0).setDepth(1550) : undefined;
+    this.moveHeldIcon(this.input.activePointer);
     this.refreshInventory();
     this.updateCaption();
   }
@@ -196,6 +209,8 @@ export class RoomScene extends Phaser.Scene {
   private putAway(): void {
     if (!this.held) return;
     this.held = undefined;
+    this.heldIcon?.destroy();
+    this.heldIcon = undefined;
     this.refreshInventory();
     this.updateCaption();
   }
@@ -214,6 +229,10 @@ export class RoomScene extends Phaser.Scene {
       // Hidden while a line is showing, so it never sits on top of speech.
       this.caption.setText(this.hovered ?? '').setVisible(this.hovered !== undefined && !this.coin?.isOpen && !this.busy);
     }
+  }
+
+  private moveHeldIcon(pointer: Phaser.Input.Pointer): void {
+    this.heldIcon?.setPosition(pointer.worldX + 14, pointer.worldY + 14);
   }
 
   private moveCaption(pointer: Phaser.Input.Pointer): void {

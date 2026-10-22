@@ -123,7 +123,9 @@ Decided in the M4 planning session (2026-10-22). Style: decision 0005 (hand-pain
 **Order.** Prove the whole pipeline on the Lair (art, characters, overlays, audio, item icons:
 slices 18–21), so the Lair is polished end to end, then repeat it for the Gift Shop and Break Room in
 parallel (22–23), then key art and polish (24). Item icons were added on 2026-10-22: the first plan
-left the inventory as text boxes.
+left the inventory as text boxes. Slice 21 makes every item's icon at once, from one sheet, and a
+styled inventory tray, so the Lair looks finished before the next room starts; the later rooms'
+paintings take the icon sheet as a reference so props match their icons.
 
 **Art pipeline.** A layout sketch at exact hotspot coordinates (`docs/art/`) plus a style reference
 → image generation → crop and scale to exact size → WebP in `public/assets/`. The Lair background
@@ -161,9 +163,9 @@ are plain files in the repo with a **15 MB** budget, enforced by a test.
 | 18 | Art system (room backgrounds, invisible hotspots, glow, show-clickable, `?art=off`); Lair background with the phylactery and a spotlight aimed at Gary; `CREDITS.md`; budget | here |
 | 19 | Dana and Reginald model sheets and sprites (Reginald standing and seated); sprite rendering, mirroring, bounce-walk; Lair prop overlays | here |
 | 20 | Audio system; Lair music; the sound-effects set | here |
-| 21 | Item icons for everything you can carry in the Lair (and the lanyard); shown in the inventory bar and on the held item | here |
-| 22 | Gift Shop: background, Kyle and Mordecai sprites, overlays, music, its item icons | **parallel** with 23 |
-| 23 | Break Room: background, overlays, music, finale sting, its item icons | **parallel** with 22 |
+| 21 | Item icons for all 13 items (one sheet); the branded Escape-O-Rama inventory tray; icon on the held item | here |
+| 22 | Gift Shop: background (icon sheet attached, so painted props match), Kyle and Mordecai sprites, overlays, music | **parallel** with 23 |
+| 23 | Break Room: background (icon sheet attached), overlays, music, finale sting | **parallel** with 22 |
 | 24 | Title and end-card key art; loading and size pass; M4 done | last |
 
 ## M3 plan
