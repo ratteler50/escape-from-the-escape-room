@@ -39,7 +39,7 @@ export const riddleScroll: Item = {
   name: 'Ancient Riddle Scroll',
   icon: 'assets/icons/riddle-scroll.webp',
   // DRAFT:
-  look: 'It reads: "THE ANSWER IS: [INSERT CODE HERE BEFORE PRINTING]". Head office. Of COURSE. Then again, the curse made the whole script real. Does that include the typos?',
+  look: 'It reads: "THE ANSWER IS: {CODE}". Head office used a template and never filled in the blank. Of COURSE. Then again, the curse made the whole script real, exactly as printed. Does that include the blanks?',
 };
 
 export const lairItems = [garyArm, gum, stickyArm, caseKey, script, riddleScroll];
@@ -309,14 +309,14 @@ export const lair: Room = {
       interactionPoint: { x: 1020, y: 465 },
       verbs: {
         // DRAFT:
-        look: says('Four rune buttons and a brass plate: "ENTER CODE TO ESCAPE". Below it, smaller: "NO REFUNDS".'),
+        look: says('Eight brass buttons with letters on them, like an old phone (ABC, DEF, all the way to WXYZ), and one that says ENTER. No numbers at all. Someone has labelled it NUMBER PAD. A brass plate: "ENTER CODE TO ESCAPE". Below it, smaller: "NO REFUNDS".'),
         use: {
           label: 'Enter a code',
           responses: [
             // DRAFT:
-            { when: [{ flag: 'doorUnlocked' }], effects: [say("Already done. C-O-D-E. I'll never forget it. I'll try.")] },
+            { when: [{ flag: 'doorUnlocked' }], effects: [say("Already done. C-O-D-E, ENTER. I'll never forget it. I'll try.")] },
             // DRAFT:
-            { effects: [say("L-I-C-H. Nothing. D-O-O-M. Nothing. G-A-R-Y. Nothing, and Gary looks hurt. I need the actual code.")] },
+            { effects: [say("L-I-C-H, ENTER. Bzzt. D-O-O-M, ENTER. Bzzt. G-A-R-Y, ENTER. Bzzt, and Gary looks hurt. I need the actual code.")] },
           ],
         },
       },
@@ -326,9 +326,9 @@ export const lair: Room = {
             when: [{ notFlag: 'doorUnlocked' }],
             effects: [
               // DRAFT:
-              say('"THE ANSWER IS: [INSERT CODE HERE BEFORE PRINTING]." The curse bound itself to the script as printed...'),
+              say('"THE ANSWER IS: {CODE}." The curly brackets just mark the blank that nobody filled in. What\'s printed in the blank is the word CODE.'),
               // DRAFT:
-              say('...so the code is literally... C. O. D. E.'),
+              say('The curse bound the script exactly as printed. So the answer isn\'t a code. It\'s the word CODE. C. O. D. E. ENTER.'),
               sound('keypad'),
               setFlag('doorUnlocked'),
               sound('unlock'),

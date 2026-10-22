@@ -14,7 +14,7 @@ for an item; "Dana (option)" is a line Dana says when the player picks it in a c
 | `lair.ts:18` | Look | A wad of gum from under the Spooky Seat. Still tacky. In both senses. |
 | `lair.ts:26` | Look | Gary's arm, now with a gum fingertip. I've invented a tool. Or a crime. |
 | `lair.ts:34` | Look | A tiny key on a skull keyring. The keyring says DISPLAY CASE. Head office labels everything except the puzzles. |
-| `lair.ts:42` | Look | It reads: "THE ANSWER IS: [INSERT CODE HERE BEFORE PRINTING]". Head office. Of COURSE. Then again, the curse made the whole script real. Does that include the typos? |
+| `lair.ts:42` | Look | It reads: "THE ANSWER IS: {CODE}". Head office used a template and never filled in the blank. Of COURSE. Then again, the curse made the whole script real, exactly as printed. Does that include the blanks? |
 | `lair.ts:55` | Dana | I press the gum onto Gary's fingertip. It's disgusting. It's perfect. |
 | `lair.ts:100` | Dana | Unlocked! Beyond it: the Gift Shop. I can already hear the mugs. |
 | `lair.ts:102` | Dana | A heavy oak door. Well, heavy oak-effect laminate. Section 9 of the Handbook says it should never be locked during business hours. It is locked. |
@@ -48,11 +48,11 @@ for an item; "Dana (option)" is a line Dana says when the player picks it in a c
 | `lair.ts:283` | Dana | Locked. The keyhole is shaped like a tiny skull. Head office loves a theme. |
 | `lair.ts:294` | Dana | Click. The case opens. I slide the Ancient Riddle Scroll out from under the bone and leave the key in the lock, like a responsible trainee. |
 | `lair.ts:301` | Dana | It's already open. |
-| `lair.ts:312` | Dana | Four rune buttons and a brass plate: "ENTER CODE TO ESCAPE". Below it, smaller: "NO REFUNDS". |
-| `lair.ts:317` | Dana | Already done. C-O-D-E. I'll never forget it. I'll try. |
-| `lair.ts:319` | Dana | L-I-C-H. Nothing. D-O-O-M. Nothing. G-A-R-Y. Nothing, and Gary looks hurt. I need the actual code. |
-| `lair.ts:329` | Dana | "THE ANSWER IS: [INSERT CODE HERE BEFORE PRINTING]." The curse bound itself to the script as printed... |
-| `lair.ts:331` | Dana | ...so the code is literally... C. O. D. E. |
+| `lair.ts:312` | Dana | Eight brass buttons with letters on them, like an old phone (ABC, DEF, all the way to WXYZ), and one that says ENTER. No numbers at all. Someone has labelled it NUMBER PAD. A brass plate: "ENTER CODE TO ESCAPE". Below it, smaller: "NO REFUNDS". |
+| `lair.ts:317` | Dana | Already done. C-O-D-E, ENTER. I'll never forget it. I'll try. |
+| `lair.ts:319` | Dana | L-I-C-H, ENTER. Bzzt. D-O-O-M, ENTER. Bzzt. G-A-R-Y, ENTER. Bzzt, and Gary looks hurt. I need the actual code. |
+| `lair.ts:329` | Dana | "THE ANSWER IS: {CODE}." The curly brackets just mark the blank that nobody filled in. What's printed in the blank is the word CODE. |
+| `lair.ts:331` | Dana | The curse bound the script exactly as printed. So the answer isn't a code. It's the word CODE. C. O. D. E. ENTER. |
 | `lair.ts:336` | Dana | CLUNK. The door unlocks. I've beaten head office at their own game. By reading. |
 | `lair.ts:338` | Dana | Handbook Section 3: lost property must be returned. I tuck the scroll back under its bone. |
 | `lair.ts:343` | Dana | The door's already unlocked. I'm not typing CODE again. It felt silly enough the first time. |
@@ -68,7 +68,7 @@ for an item; "Dana (option)" is a line Dana says when the player picks it in a c
 
 | Where | Who | Line |
 |---|---|---|
-| `reginald.ts:20` | Look | Act One, Scene One. His cue: "Rise, foul creature, and face me!" The margins say PAUSE FOR APPLAUSE eleven times. |
+| `reginald.ts:20` | Look | Act One, Scene One. His cue: "Rise, foul creature, and face me!" The margins say PAUSE FOR APPLAUSE eleven times. The last page: "FINALE: The guest escapes THROUGH THE GIFT SHOP and purchases a souvenir. CURTAIN." Head office has underlined "souvenir" twice. |
 | `reginald.ts:27` | Dana | "Rise, foul creature, and face me!" Rise, foul creature... and face me! Got it. Word perfect. |
 | `reginald.ts:29` | Dana | Handbook Section 3: lost property must be returned. I pop the script back in his coffin. |
 | `reginald.ts:46` | Dana | Reginald, standing on his mark in the dark, while his spotlight lovingly illuminates Gary. |
@@ -129,7 +129,7 @@ for an item; "Dana (option)" is a line Dana says when the player picks it in a c
 | `giftShop.ts:214` | Dana | Wide open, with a little sign hanging on the glass that says CLOSED. That's the staff side; out in the car park it says OPEN. Handbook Section 9: never locked during business hours. It isn't. It just won't let me through. |
 | `giftShop.ts:222` | Dana | EXIT THROUGH THE GIFT SHOP. I haven't bought anything. Not even a mug. |
 | `giftShop.ts:224` | Dana | I step into the doorway. The doorway steps me straight back into the shop. |
-| `giftShop.ts:226` | Dana | The door is open. I'm just not allowed through it. The curse is very literal. |
+| `giftShop.ts:226` | Dana | The door is open. I'm just not allowed through it. Reginald's script ends with the guest escaping through the gift shop, with a souvenir. The curse is very literal. |
 | `giftShop.ts:234` | Dana | I label the front door FREE. The sign still says CLOSED. To me, specifically. |
 
 ## Kyle (19)

@@ -166,7 +166,24 @@ are plain files in the repo with a **15 MB** budget, enforced by a test.
 | 21 | Item icons for all 13 items (one sheet); the branded Escape-O-Rama inventory tray; icon on the held item | here |
 | 22 | Gift Shop: background (icon sheet attached, so painted props match), Kyle and Mordecai sprites, overlays, music, finale sting | **parallel** with 23 |
 | 23 | Break Room: background (icon sheet attached), overlays, music (the finale sting moved to 22: the finale is in the Gift Shop) | **parallel** with 22 |
-| 24 | Title and end-card key art; loading and size pass; M4 done | last |
+| 24 | Story fixes: the phone-letter keypad, the {CODE} scroll, the script's last page plants the ending's rule (text only) | after 22 + 23 |
+| 25 | Title and end-card key art; loading and size pass; M4 done | last |
+
+### Notes for later (from play-tests, 2026-10-22)
+
+Not scheduled yet; slice 25's spec decides which go in it and which wait for a later milestone.
+
+- **The front door's "CLOSED FOR REFURBISHMENT" sign doesn't hold up** (fixed in PR #22: a hanging OPEN/CLOSED sign). It faces into the shop,
+  not out, and a closed shop wouldn't have a cashier on duty. Possible fix: a hanging OPEN/CLOSED
+  sign showing CLOSED on the inside, because that's the side staff see while the shop is open. It
+  explains the cashier, and Dana can be pedantic about it.
+- **Dialogue still says the doors won't open** (fixed in PR #22). Kyle's option "the lich is real and the doors won't
+  open" (`kyle.ts`) no longer fits a front door that stands open: the point is that Dana *can't
+  leave* (the curse sends them back). Reword it, and check other lines for the same assumption.
+- **A walk animation** for Dana (and Reginald and Kyle when they walk), instead of the code-driven
+  hop and lean. Needs a few frames per character from the model sheets: a bigger art job, so
+  probably its own slice.
+- **The phylactery in the bargain bin** for the finale's last shot (from slice 22's spec).
 
 ## M3 plan
 
@@ -276,8 +293,8 @@ advances), so the text speed setting is visible rather than only changing auto-a
 
 ## M1: the Lich's Lair
 
-**Goal:** open the Lair door to the Gift Shop. The door has a rune keypad; head office's official
-riddle is supposed to provide the code.
+**Goal:** open the Lair door to the Gift Shop. The door has a keypad (eight phone-style letter keys
+and ENTER, since slice 24); head office's official riddle is supposed to provide the code.
 
 ### Puzzle dependency chart
 
@@ -313,8 +330,9 @@ graph TD
    the vacated throne: pre-owned chewing gum. Combine arm + gum.
 3. **The floor grate.** The display case key fell through the grate. Fish it out with the sticky arm.
 4. **The misprinted riddle.** The display case holds the Ancient Riddle Scroll, which reads
-   *"THE ANSWER IS: [INSERT CODE HERE BEFORE PRINTING]"*. The curse bound itself to the script
-   *as printed*, so the code is literally **C-O-D-E**. Use the scroll on the keypad; the door opens.
+   *"THE ANSWER IS: {CODE}"*: head office's template, never filled in. The curse bound itself to
+   the script *as printed*, so the code is literally **C-O-D-E** (slice 24; it used to read
+   "[INSERT CODE HERE BEFORE PRINTING]"). Use the scroll on the keypad; the door opens.
    Showing the scroll to Reginald gets an outraged-on-behalf-of-the-craft reaction line.
 
 ### Reginald's dialogue tree

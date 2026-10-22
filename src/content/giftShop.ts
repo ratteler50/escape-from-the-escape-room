@@ -223,7 +223,7 @@ export const giftShop: Room = {
                 // DRAFT:
                 say('I step into the doorway. The doorway steps me straight back into the shop.'),
                 // DRAFT:
-                say("The door is open. I'm just not allowed through it. The curse is very literal."),
+                say("The door is open. I'm just not allowed through it. Reginald's script ends with the guest escaping through the gift shop, with a souvenir. The curse is very literal."),
               ],
             },
           ],

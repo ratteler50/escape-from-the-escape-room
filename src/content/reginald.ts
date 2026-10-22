@@ -17,7 +17,7 @@ export const script: Item = {
   name: "Reginald's Script",
   icon: 'assets/icons/script.webp',
   // DRAFT:
-  look: 'Act One, Scene One. His cue: "Rise, foul creature, and face me!" The margins say PAUSE FOR APPLAUSE eleven times.',
+  look: 'Act One, Scene One. His cue: "Rise, foul creature, and face me!" The margins say PAUSE FOR APPLAUSE eleven times. The last page: "FINALE: The guest escapes THROUGH THE GIFT SHOP and purchases a souvenir. CURTAIN." Head office has underlined "souvenir" twice.',
   action: {
     label: 'Memorise',
     responses: [
