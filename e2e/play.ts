@@ -13,7 +13,7 @@ const USE_WITH = '✋';
 
 /** Clicks through one command from state `before`. */
 async function perform(page: Page, w: World, before: GameState, command: Command): Promise<void> {
-  const item = (id: string) => ({ kind: 'item', name: w.items[id]?.name ?? id }) as const;
+  const item = (id: string) => ({ kind: 'item', id }) as const;
   switch (command.type) {
     case 'verb': {
       await click(page, { kind: 'hotspot', id: command.hotspotId });
