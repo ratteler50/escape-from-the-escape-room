@@ -1,6 +1,6 @@
 # Slice 22 — The painted Gift Shop
 
-**Status:** built, agent play-tested; developer play-test to come · **Milestone:** M4 · runs **in parallel** with slice 23
+**Status:** built, agent and developer play-tested · **Milestone:** M4 · runs **in parallel** with slice 23
 
 ## Why
 
