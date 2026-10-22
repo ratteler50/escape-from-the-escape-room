@@ -1,6 +1,6 @@
 # Slice 18 — The art system and the Lair background
 
-**Status:** built, agent play-tested · awaiting developer play-test · **Milestone:** M4 (first slice)
+**Status:** built, agent and developer play-tested (with slice 19) · **Milestone:** M4 (first slice)
 
 ## Why
 
