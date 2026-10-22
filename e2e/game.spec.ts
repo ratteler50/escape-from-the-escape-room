@@ -15,6 +15,10 @@ async function newGame(page: Page): Promise<void> {
 }
 
 test('plays the shortest solution through to "THE END?"', async ({ page }) => {
+  // The whole game since slice 16: 29 steps over three rooms plus the finale's walks and pauses.
+  // About 45s locally, but CI runners are several times slower, so this one test gets a budget of its
+  // own. A stuck step still fails fast with its own name (settle's 30s per step).
+  test.setTimeout(10 * 60_000);
   await open(page);
   await newGame(page);
   await playThrough(page, world, initialState, solution);

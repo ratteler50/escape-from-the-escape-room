@@ -94,3 +94,7 @@ Finale).
 - Placeholder crowding in the Gift Shop: the "Cardboard Reginald" label is wider than its hotspot,
   and in the finale Reginald stands over the till and bargain bin, so labels and speech overlap.
 - After the win, the queued `endDialogue` effect never plays (the end card takes over). Harmless.
+- **CI: the full play-through hit Playwright's 120s per-test limit.** It takes about 45s locally but
+  runs several times slower on CI runners (the autosave test: 3.7s locally, 28s on CI). It was slow,
+  not stuck: each step's own 30s wait never fired. That one test now has a 10-minute budget; the rest
+  keep the default.
