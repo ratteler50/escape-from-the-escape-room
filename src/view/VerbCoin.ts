@@ -1,4 +1,5 @@
 import * as Phaser from 'phaser';
+import { gameAudio } from './GameAudio';
 import type { Point } from '../core/geometry';
 
 /** One button on the coin. `id` is what `onPick` receives. */
@@ -30,6 +31,7 @@ export class VerbCoin {
 
   open<Id extends string>(at: Point, title: string, options: readonly CoinOption<Id>[], onPick: (id: Id) => void): void {
     this.close();
+    gameAudio(this.scene).play('coin');
     const { width, height } = this.scene.scale;
 
     const blocker = this.scene.add

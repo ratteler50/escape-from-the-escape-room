@@ -1,4 +1,5 @@
 import * as Phaser from 'phaser';
+import { gameAudio } from './GameAudio';
 
 // Small building blocks for menus: a modal overlay and a text button. Sized for a fingertip, like
 // the verb coin, so menus work on a trackpad or a phone.
@@ -57,6 +58,7 @@ export function button(
   text.on('pointerout', () => text.setColor(UI.text));
   text.on('pointerdown', ((_p, _x, _y, e) => {
     e.stopPropagation();
+    gameAudio(scene).play('click');
     onClick();
   }) satisfies PointerHandler);
   return text;

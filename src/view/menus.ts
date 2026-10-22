@@ -1,7 +1,8 @@
 import * as Phaser from 'phaser';
 import { SLOTS, loadSaveFile, type SaveStore, type SlotId } from '../core/save';
 import type { World } from '../core/types';
-import { TEXT_SPEEDS, settings, type TextSpeed } from './storage';
+import { gameAudio } from './GameAudio';
+import { TEXT_SPEEDS, settings, stepVolume, type TextSpeed } from './storage';
 import { button, modal } from './ui';
 
 const DEPTH = 2500; // above the room, panels, and coin; below the end card
@@ -67,22 +68,49 @@ export function confirm(scene: Phaser.Scene, question: string, onYes: () => void
   box.add(button(scene, width / 2 + 90, height / 2 + 40, 'No', () => box.destroy()));
 }
 
-/** Settings: for now, just text speed. Applies immediately and is remembered. */
+/** Settings: text speed and sound. Each change applies immediately and is remembered. */
 export function showSettings(scene: Phaser.Scene, onClose: () => void): void {
-  const box = modal(scene, DEPTH, 640, 340, 'Settings');
+  const box = modal(scene, DEPTH, 640, 520, 'Settings');
   const { width, height } = scene.scale;
-  box.add(scene.add.text(width / 2, height / 2 - 60, 'Text speed', { fontSize: '24px', color: '#c9b6ff' }).setOrigin(0.5));
+  const reopen = () => {
+    box.destroy();
+    showSettings(scene, onClose);
+  };
+  const heading = (y: number, text: string) =>
+    box.add(scene.add.text(width / 2 - 250, y, text, { fontSize: '24px', color: '#c9b6ff' }).setOrigin(0, 0.5));
 
   // Picking a speed reopens the panel so the ● moves to the new choice.
+  heading(height / 2 - 150, 'Text speed');
   (Object.keys(TEXT_SPEEDS) as TextSpeed[]).forEach((speed, i) => {
     const label = `${settings.textSpeed === speed ? '● ' : ''}${speed[0]!.toUpperCase()}${speed.slice(1)}`;
-    box.add(button(scene, width / 2 + (i - 1) * 170, height / 2 + 10, label, () => {
+    box.add(button(scene, width / 2 + (i - 1) * 170, height / 2 - 100, label, () => {
       settings.textSpeed = speed;
-      box.destroy();
-      showSettings(scene, onClose);
+      reopen();
     }));
   });
-  box.add(button(scene, width / 2, height / 2 + 110, 'Back', () => {
+
+  // Volumes: − and + in steps of 10.
+  const audio = gameAudio(scene);
+  const volume = (y: number, name: string, get: () => number, set: (v: number) => void) => {
+    heading(y, name);
+    box.add(scene.add.text(width / 2 + 120, y, `${get()}`, { fontSize: '24px', color: '#ffffff' }).setOrigin(0.5));
+    const change = (direction: 1 | -1) => () => {
+      set(stepVolume(get(), direction));
+      audio.applyVolumes();
+      reopen();
+    };
+    box.add(button(scene, width / 2 + 40, y, '−', change(-1), get() > 0));
+    box.add(button(scene, width / 2 + 200, y, '+', change(1), get() < 100));
+  };
+  volume(height / 2 - 30, 'Music', () => settings.musicVolume, (v) => (settings.musicVolume = v));
+  volume(height / 2 + 40, 'Effects', () => settings.effectsVolume, (v) => (settings.effectsVolume = v));
+  heading(height / 2 + 110, 'Sound (M)');
+  box.add(button(scene, width / 2 + 120, height / 2 + 110, settings.muted ? 'Muted' : 'On', () => {
+    audio.toggleMute();
+    reopen();
+  }));
+
+  box.add(button(scene, width / 2, height / 2 + 195, 'Back', () => {
     box.destroy();
     onClose();
   }));

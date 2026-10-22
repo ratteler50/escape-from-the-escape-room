@@ -1,6 +1,6 @@
 # Slice 20 — Audio: the system, the Lair's music, the sound effects
 
-**Status:** awaiting approval · **Milestone:** M4
+**Status:** built, agent play-tested · awaiting developer play-test · **Milestone:** M4
 
 ## Why
 
@@ -82,3 +82,25 @@ loops, voice.
 ## Notes
 
 - Branch `slice-20-audio`, from `main` (slices 18 and 19 are merged).
+
+## Build notes
+
+- **Music** (`docs/audio/music.md`): Netherworld Shanty on the title screen, Graveyard Shift in the
+  Lair (the developer swapped from Sneaky Snitch: spookiest first, lighter rooms after). Sneaky
+  Snitch, Scheming Weasel and Investigations are kept for the Gift Shop and Break Room.
+- **Effects:** 14 from Kenney's CC0 packs (Interface, Impact, RPG Audio, Sci-fi), trimmed and
+  normalised to −1 dB peak; `keypad` is four ticks, `till` is coins plus a bell. `arise` is the
+  opening 8 s of Kevin MacLeod's recording of Bach's Toccata and Fugue in D Minor (CC BY), faded out.
+- **MP3 only, not OGG + MP3:** every browser plays MP3, so one format halves the size (6.2 MB of
+  audio, 6.5 MB of assets in all). The small gap MP3 leaves at a loop point doesn't matter for
+  these tracks, which end and start again rather than looping seamlessly.
+- **`fail`** is played by the core, not the view: it's the one place that knows an item use had
+  nothing written for it (the generic lines and a hotspot's own `itemFallback`).
+- **Crossfades** run on the game's clock, not a scene's, so quitting to the title mid-fade can't
+  leave a track playing. Effects are skipped during Skip ⏭.
+- **Tests:** the Playwright play-through now checks every story and UI sound is asked for and the
+  Lair's music is still playing at the end; the console-error test waits for the Lair's music.
+- **Agent play-test** (headless, reading the audio state): locked and silent before any click;
+  the title track starts on a click on nothing; title → Lair crossfade (0.51 / 0.19 at 400 ms, then
+  the Lair alone at 0.70); M mutes and unmutes and is saved; Music − twice gives 0.50, saved, and
+  still 0.50 on the title track after a reload.

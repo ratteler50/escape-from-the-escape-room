@@ -1,4 +1,5 @@
 import * as Phaser from 'phaser';
+import { gameAudio } from './GameAudio';
 import type { DialogueOption, OptionId } from '../core/types';
 
 const LINE_HEIGHT = 40; // tall enough to hit comfortably on a trackpad or a phone
@@ -47,6 +48,7 @@ export class DialoguePanel {
       text.on('pointerout', () => text.setColor(COLORS.text));
       text.on('pointerdown', (_p: Phaser.Input.Pointer, _x: number, _y: number, event: Phaser.Types.Input.EventData) => {
         event.stopPropagation();
+        gameAudio(this.scene).play('click');
         this.hide();
         onPick(option.id);
       });
