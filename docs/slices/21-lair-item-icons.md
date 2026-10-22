@@ -1,6 +1,6 @@
 # Slice 21 — Item icons and the inventory tray
 
-**Status:** awaiting approval · **Milestone:** M4
+**Status:** built, agent play-tested · awaiting developer play-test · **Milestone:** M4
 
 ## Why
 
@@ -83,3 +83,22 @@ Out of scope: the ☰ button, captions and dialogue panel (slice 24), animated i
 ## Notes
 
 - Branch `slice-21-lair-item-icons`, from `main` once PR #20 (audio) has merged.
+
+## Build notes
+
+- **Icons:** the first icon sheet's 12, plus the Sticky Arm from a second sheet (its gum was too
+  small to tell it from Gary's Arm at 60 px; the second sheet redrew everything, and the developer
+  preferred the first's other icons). A piece of the Exact Change icon's note was placed behind the
+  pay packet's window so it reads as money. `scripts/cut-icons.py` cuts a sheet into square icons;
+  see-through enclosed gaps (keyring, lanyard loop, mug handle, the arm's fingers) are opt-in per
+  icon, since the pay packet's grey window looks the same as background.
+- **Tray:** the developer moved the logo and sticker to the right end (Dana holds at most 4 items,
+  from the explorer, so that end is always empty) and the skull to the mug's logo, in ChatGPT; the
+  agent then removed the dark disc under the skull (mirroring the plain left end over the right),
+  and used the first tray's sticker, which the disc hadn't clipped. `scripts/make-tray.py`
+  stretches the tray's plain middle to 2560 × 180 and cuts the slot.
+- **Playwright** finds inventory slots by item id (`setData('itemId')`).
+- **Agent play-test** (headless screenshots): the tray in the Lair and the Break Room, hover grow and
+  name, the held Sticky Arm at the pointer with "Use Sticky Arm with Floor Grate", the held slot's
+  yellow outline, `?art=off` boxes. A grey hairline along the tray's top edge (sheet background
+  left by the resize) was found and cleared.

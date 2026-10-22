@@ -6,7 +6,7 @@ import { PLAYER, WON, type CharacterId, type Command, type Effect, type GameStat
 import { DialoguePanel } from './DialoguePanel';
 import { gameAudio, preloadAudio } from './GameAudio';
 import { showEndCard } from './EndCard';
-import { InventoryBar, iconKey } from './InventoryBar';
+import { INVENTORY_ART, InventoryBar, iconKey } from './InventoryBar';
 import { showGameMenu, showSlotList } from './menus';
 import { PlayerSprite, WALK_SPEED } from './PlayerSprite';
 import { artKey, roomArtKey, RoomView } from './RoomView';
@@ -87,6 +87,7 @@ export class RoomScene extends Phaser.Scene {
       for (const path of Object.values(character.sprites ?? {})) load(artKey(path), path);
     }
     for (const item of Object.values(this.world.items)) if (item.icon) load(artKey(item.icon), item.icon);
+    for (const path of Object.values(INVENTORY_ART)) load(artKey(path), path);
     // Usually already loaded by the title screen.
     preloadAudio(this, this.world.audio);
   }

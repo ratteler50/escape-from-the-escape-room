@@ -8,6 +8,18 @@ const ICON_SIZE = 62;
 const HOVER_SCALE = 1.1;
 const DEPTH = 1000;
 
+/**
+ * The inventory's art (slice 21): the Escape-O-Rama tray and its moulded slot, at 2× their size on
+ * screen. Interface, not content, so the view names them; RoomScene preloads them.
+ */
+export const INVENTORY_ART = { tray: 'assets/ui/tray.webp', slot: 'assets/ui/slot.webp' } as const;
+
+/** A texture key for inventory art, if art is on and it's loaded. */
+function uiKey(scene: Phaser.Scene, path: string): string | undefined {
+  const key = artKey(path);
+  return ART_ENABLED && scene.textures.exists(key) ? key : undefined;
+}
+
 /** The texture an item's icon is loaded under, if art is on and it has one loaded. */
 export function iconKey(scene: Phaser.Scene, item: Item | undefined): string | undefined {
   if (!ART_ENABLED || !item?.icon) return undefined;
@@ -24,9 +36,10 @@ export interface InventoryBarHandlers {
 }
 
 /**
- * The strip of item slots along the bottom of the screen. Each slot shows its item's icon (the name
- * is the hover caption), or, without one or with `?art=off`, the name in a box. Knows nothing about
- * rules: it shows the items it's given and reports clicks.
+ * The strip of item slots along the bottom of the screen: the Escape-O-Rama tray with a moulded slot
+ * per item, each showing its item's icon (the name is the hover caption). Without art (`?art=off`,
+ * or an item with no icon) it falls back to plain boxes and names. Knows nothing about rules: it
+ * shows the items it's given and reports clicks.
  */
 export class InventoryBar {
   private slots: Phaser.GameObjects.GameObject[] = [];
@@ -43,6 +56,9 @@ export class InventoryBar {
       .setOrigin(0, 0)
       .setDepth(DEPTH)
       .setInteractive();
+    // The tray sits on the dark strip, which shows at its rounded corners.
+    const tray = uiKey(scene, INVENTORY_ART.tray);
+    if (tray) scene.add.image(0, top, tray).setOrigin(0, 0).setDisplaySize(width, height - top).setDepth(DEPTH);
     background.on('pointerdown', (_p: Phaser.Input.Pointer, _x: number, _y: number, event: Phaser.Types.Input.EventData) => {
       event.stopPropagation();
       this.handlers.onEmptyClick();
@@ -63,13 +79,18 @@ export class InventoryBar {
       const held = item.id === heldId;
       const icon = iconKey(this.scene, item);
 
+      // Over the tray, a moulded slot with a clear box on top to click (yellow when held);
+      // otherwise a plain box.
+      const slotArt = uiKey(this.scene, INVENTORY_ART.slot);
+      const frame = slotArt ? this.scene.add.image(x, y, slotArt).setDisplaySize(SLOT_SIZE, SLOT_SIZE).setDepth(DEPTH + 1) : undefined;
       const box = this.scene.add
-        .rectangle(x, y, SLOT_SIZE, SLOT_SIZE, held ? 0x5a4a8a : 0x2c2540)
-        .setStrokeStyle(held ? 4 : 2, held ? 0xffe28a : 0x6b5b8c)
+        .rectangle(x, y, SLOT_SIZE, SLOT_SIZE, held ? 0x5a4a8a : 0x2c2540, frame ? 0 : 1)
         .setDepth(DEPTH + 1)
         .setInteractive({ useHandCursor: true })
         // How the e2e tests find a slot, whatever it looks like.
         .setData('itemId', item.id);
+      if (held) box.setStrokeStyle(4, 0xffe28a);
+      else if (!frame) box.setStrokeStyle(2, 0x6b5b8c);
       const content = icon
         ? this.scene.add.image(x, y, icon).setDisplaySize(ICON_SIZE, ICON_SIZE)
         : this.scene.add.text(x, y, item.name, {
@@ -79,11 +100,9 @@ export class InventoryBar {
             wordWrap: { width: SLOT_SIZE - 8 },
           }).setOrigin(0.5);
       content.setDepth(DEPTH + 2);
-      const restScale = { box: box.scaleX, content: content.scaleX };
-      const grow = (factor: number) => {
-        box.setScale(restScale.box * factor);
-        content.setScale(restScale.content * factor);
-      };
+      const parts = [box, content, ...(frame ? [frame] : [])];
+      const rest = parts.map((p) => p.scaleX);
+      const grow = (factor: number) => parts.forEach((p, i) => p.setScale(rest[i]! * factor));
 
       box.on('pointerover', () => {
         this.hovering = true;
@@ -99,7 +118,7 @@ export class InventoryBar {
         event.stopPropagation();
         this.handlers.onClick(item.id, pointer);
       });
-      return [box, content];
+      return [box, content, ...(frame ? [frame] : [])];
     });
   }
 }
