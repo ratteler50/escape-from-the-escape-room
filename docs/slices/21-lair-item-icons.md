@@ -48,7 +48,10 @@ icons added 2026-10-22). Decisions from the slice 21 grilling (2026-10-22).
 4. **Content:** an item can name an `icon` (presentation only; the core ignores it). Content
    validation checks every icon file exists; every file gets a `CREDITS.md` row.
 5. **The inventory bar:**
-   - the tray across the bottom, with the slot frame repeated by code (any number of items fits);
+   - the tray across the bottom, with the slot frame repeated by code. Slots start at the left as
+     now; the logo and sticker sit at the **right** end, moved there by the agent from the generated
+     tray (decided at the tray review: Dana never holds more than 4 items, so the right end is
+     always empty and the branding fills it);
    - a slot shows its icon alone, about 60 px; the name appears on hover in the caption, as now,
      and in "Use … with …";
    - hovering a slot grows it slightly (1.1×); the held item's slot glows yellow;
