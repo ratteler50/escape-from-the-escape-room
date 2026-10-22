@@ -1,6 +1,6 @@
 # Slice 19 — Lair characters and prop overlays
 
-**Status:** awaiting approval · **Milestone:** M4
+**Status:** built, agent and developer play-tested · **Milestone:** M4
 
 ## Why
 
