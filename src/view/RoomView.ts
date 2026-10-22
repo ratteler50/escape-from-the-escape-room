@@ -37,6 +37,8 @@ const DEPTH = { overlay: 1, hotspot: 10, sprite: 12, label: 13 };
 
 /** A floating character bobs this many pixels up and back, once per period. */
 const BOB = { height: 8, periodMs: 2400 };
+/** Floating characters are ghosts (Mordecai): their sprites are drawn a little see-through. */
+const GHOST_ALPHA = 0.8;
 
 interface Drawn {
   hotspot: Hotspot;
@@ -137,7 +139,9 @@ export class RoomView {
         drawn.objects.push(drawn.sprite);
       }
       const floats = hotspot.character !== undefined && this.characters[hotspot.character]?.floats;
-      if (floats) drawn.bob = this.bob(drawn.objects);
+      // Painted, Mordecai's tail sits in his teapot's spout, so only his placeholder bobs.
+      if (floats && !spriteKey) drawn.bob = this.bob(drawn.objects);
+      if (floats) drawn.sprite?.setAlpha(GHOST_ALPHA);
       this.style(drawn);
       return drawn;
     });
@@ -227,7 +231,7 @@ export class RoomView {
       tween.stop();
       targets.forEach((o, i) => ((o.x = starts[i]!.x + dx), (o.y = starts[i]!.y + dy)));
       const floats = this.characters[character]?.floats;
-      if (floats && this.drawn.includes(entry)) entry.bob = this.bob(entry.objects);
+      if (floats && !entry.sprite && this.drawn.includes(entry)) entry.bob = this.bob(entry.objects);
       onDone();
     };
     const tween = this.scene.tweens.addCounter({

@@ -164,8 +164,8 @@ are plain files in the repo with a **15 MB** budget, enforced by a test.
 | 19 | Dana and Reginald model sheets and sprites (Reginald standing and seated); sprite rendering, mirroring, bounce-walk; Lair prop overlays | here |
 | 20 | Audio system; Lair music; the sound-effects set | here |
 | 21 | Item icons for all 13 items (one sheet); the branded Escape-O-Rama inventory tray; icon on the held item | here |
-| 22 | Gift Shop: background (icon sheet attached, so painted props match), Kyle and Mordecai sprites, overlays, music | **parallel** with 23 |
-| 23 | Break Room: background (icon sheet attached), overlays, music, finale sting | **parallel** with 22 |
+| 22 | Gift Shop: background (icon sheet attached, so painted props match), Kyle and Mordecai sprites, overlays, music, finale sting | **parallel** with 23 |
+| 23 | Break Room: background (icon sheet attached), overlays, music (the finale sting moved to 22: the finale is in the Gift Shop) | **parallel** with 22 |
 | 24 | Title and end-card key art; loading and size pass; M4 done | last |
 
 ## M3 plan

@@ -2,7 +2,13 @@ import type { Character, Dialogue, Hotspot, Item } from '../core/types';
 import { line, say, says, setFlag } from './dsl';
 import { mugSaleOptions } from './finale';
 
-export const kyle: Character = { id: 'kyle', name: 'Kyle', color: '#f7a8d8' };
+export const kyle: Character = {
+  id: 'kyle',
+  name: 'Kyle',
+  color: '#f7a8d8',
+  // Waist-up: drawn with the sprite's bottom edge on the painted counter top, so Kyle stands behind it.
+  sprites: { standing: 'assets/characters/kyle.webp' },
+};
 
 const K = (text: string) => line(kyle.id, text);
 
@@ -18,8 +24,8 @@ export const kyleHotspot: Hotspot = {
   id: 'kyle',
   name: 'Kyle',
   character: kyle.id,
-  bounds: { x: 395, y: 150, width: 80, height: 145 },
-  interactionPoint: { x: 455, y: 460 },
+  bounds: { x: 348, y: 219, width: 105, height: 115 },
+  interactionPoint: { x: 440, y: 480 },
   verbs: {
     // DRAFT:
     look: says("Kyle, behind the till. Earbuds in, phone out. Third summer here. They haven't looked up since the lich started screaming."),
@@ -55,7 +61,7 @@ export const kyleDialogue: Dialogue = {
         },
         {
           id: 'whatsGoingOn',
-          text: "Kyle, the lich is real and the doors won't open. What's going on?",
+          text: "Kyle, the lich is real, and every time I walk out of the front door I walk straight back in. What's going on?",
           effects: [
             // DRAFT:
             K('New show feature, probably. Head office never tells us anything.'),
