@@ -68,31 +68,31 @@ for an item; "Dana (option)" is a line Dana says when the player picks it in a c
 
 | Where | Who | Line |
 |---|---|---|
-| `reginald.ts:10` | Look | Act One, Scene One. His cue: "Rise, foul creature, and face me!" The margins say PAUSE FOR APPLAUSE eleven times. |
-| `reginald.ts:17` | Dana | "Rise, foul creature, and face me!" Rise, foul creature... and face me! Got it. Word perfect. |
-| `reginald.ts:19` | Dana | Handbook Section 3: lost property must be returned. I pop the script back in his coffin. |
-| `reginald.ts:36` | Dana | Reginald, standing on his mark in the dark, while his spotlight lovingly illuminates Gary. |
-| `reginald.ts:38` | Dana | Reginald Vantablack-Thorne, the Lich Lord. Actually undead now. He's never looked happier. |
-| `reginald.ts:49` | Reginald | Unhand that limb! Gary has a CONTRACT! |
-| `reginald.ts:51` | Reginald | My script! ...Keep it, darling. Learn it! Nobody learns their lines any more. |
-| `reginald.ts:56` | Reginald | A MISPRINT? In MY lair? Do you know how many nights I have stood here while guests read THAT? |
-| `reginald.ts:58` | Reginald | Nobody ever escaped, and they all blamed my performance. I shall be writing to head office. In blood. Well, red pen. |
-| `reginald.ts:94` | Reginald | Is that... GARY'S ARM? Gary is a member of the cast! ...Well. The show must go on. |
-| `reginald.ts:97` | Reginald | Ah, my audience returns! Come to bask in the afterglow? |
-| `reginald.ts:102` | Reginald | WHO DARES DISTURB THE LICH LORD? ...Oh. The trainee. |
-| `reginald.ts:104` | Dana | I've got his script right here. If only I knew his cue by heart. |
-| `reginald.ts:108` | Reginald | WHO DARES DISTURB THE LICH LORD? ...Oh. The trainee. |
-| `reginald.ts:119` | Reginald | I am Mortevayne, Dread Sovereign of the— fine. Reginald Vantablack-Thorne. Classically trained. |
-| `reginald.ts:121` | Reginald | I once understudied a Hamlet. He never got sick. Not once. Forty-two performances. |
-| `reginald.ts:131` | Reginald | The curse, darling! That phylactery made everything real. I am a genuine lich now. |
-| `reginald.ts:133` | Reginald | Head office's incident form has two boxes: "slip" and "trip". I ticked "other". I call it a promotion. |
-| `reginald.ts:143` | Reginald | Break character? Mid-performance? Actors' union rules, section nine: the show does not stop until the final cue. |
-| `reginald.ts:153` | Reginald | Section nine, darling. |
-| `reginald.ts:161` | Reginald | I do not take notes from management. I take notes from the muse. |
-| `reginald.ts:170` | Reginald | ...! |
-| `reginald.ts:172` | Reginald | ARISE! ARIIIISE! Yes! Find your light, Reginald! |
-| `reginald.ts:177` | Dana | He's swept off to his spotlight mark. Which means the Spooky Seat is unguarded. |
-| `reginald.ts:185` | Reginald | Farewell, mortal! Mind the fourth wall on your way out. |
+| `reginald.ts:19` | Look | Act One, Scene One. His cue: "Rise, foul creature, and face me!" The margins say PAUSE FOR APPLAUSE eleven times. |
+| `reginald.ts:26` | Dana | "Rise, foul creature, and face me!" Rise, foul creature... and face me! Got it. Word perfect. |
+| `reginald.ts:28` | Dana | Handbook Section 3: lost property must be returned. I pop the script back in his coffin. |
+| `reginald.ts:45` | Dana | Reginald, standing on his mark in the dark, while his spotlight lovingly illuminates Gary. |
+| `reginald.ts:47` | Dana | Reginald Vantablack-Thorne, the Lich Lord. Actually undead now. He's never looked happier. |
+| `reginald.ts:58` | Reginald | Unhand that limb! Gary has a CONTRACT! |
+| `reginald.ts:60` | Reginald | My script! ...Keep it, darling. Learn it! Nobody learns their lines any more. |
+| `reginald.ts:65` | Reginald | A MISPRINT? In MY lair? Do you know how many nights I have stood here while guests read THAT? |
+| `reginald.ts:67` | Reginald | Nobody ever escaped, and they all blamed my performance. I shall be writing to head office. In blood. Well, red pen. |
+| `reginald.ts:107` | Reginald | Is that... GARY'S ARM? Gary is a member of the cast! ...Well. The show must go on. |
+| `reginald.ts:110` | Reginald | Ah, my audience returns! Come to bask in the afterglow? |
+| `reginald.ts:115` | Reginald | WHO DARES DISTURB THE LICH LORD? ...Oh. The trainee. |
+| `reginald.ts:117` | Dana | I've got his script right here. If only I knew his cue by heart. |
+| `reginald.ts:121` | Reginald | WHO DARES DISTURB THE LICH LORD? ...Oh. The trainee. |
+| `reginald.ts:132` | Reginald | I am Mortevayne, Dread Sovereign of the— fine. Reginald Vantablack-Thorne. Classically trained. |
+| `reginald.ts:134` | Reginald | I once understudied a Hamlet. He never got sick. Not once. Forty-two performances. |
+| `reginald.ts:144` | Reginald | The curse, darling! That phylactery made everything real. I am a genuine lich now. |
+| `reginald.ts:146` | Reginald | Head office's incident form has two boxes: "slip" and "trip". I ticked "other". I call it a promotion. |
+| `reginald.ts:156` | Reginald | Break character? Mid-performance? Actors' union rules, section nine: the show does not stop until the final cue. |
+| `reginald.ts:166` | Reginald | Section nine, darling. |
+| `reginald.ts:174` | Reginald | I do not take notes from management. I take notes from the muse. |
+| `reginald.ts:183` | Reginald | ...! |
+| `reginald.ts:185` | Reginald | ARISE! ARIIIISE! Yes! Find your light, Reginald! |
+| `reginald.ts:190` | Dana | He's swept off to his spotlight mark. Which means the Spooky Seat is unguarded. |
+| `reginald.ts:198` | Reginald | Farewell, mortal! Mind the fourth wall on your way out. |
 
 ## The Gift Shop (29)
 
@@ -244,28 +244,28 @@ for an item; "Dana (option)" is a line Dana says when the player picks it in a c
 | Where | Who | Line |
 |---|---|---|
 | `finale.ts:16` | Look | "I ESCAPED THE LICH'S LAIR." The first one ever sold. It's still warm from the shelf lights. |
-| `finale.ts:32` | Dana | Reginald, human again, still in full lich make-up. It has never looked less convincing. |
-| `finale.ts:44` | Kyle | Twelve ninety-nine. Cash only, card machine's down. |
-| `finale.ts:46` | Kyle | Exact change. Head office empties the till every hour. |
-| `finale.ts:48` | Dana | Exact change. Every last cent. Of course. |
-| `finale.ts:58` | Kyle | Lanyard. |
-| `finale.ts:60` | Dana | Off duty. Clocked out. See? Pocket. |
-| `finale.ts:62` | Kyle | ...Fine. |
-| `finale.ts:64` | Dana | Twelve dollars and ninety-nine cents. Exact. I counted it three times. |
-| `finale.ts:67` | Kyle | Receipt? |
-| `finale.ts:69` | Dana | Yes please. I want proof. |
-| `finale.ts:72` | Dana | I ESCAPED THE LICH'S LAIR. Technically I haven't. But the mug says I have, and the curse is very literal. |
-| `finale.ts:77` | Dana | A rumble. The lights flicker. Somewhere, a jar stops whispering. |
-| `finale.ts:79` | Reginald | Nooooo! |
-| `finale.ts:82` | Reginald | It's gone, darling. All of it. I'm human. I have a PULSE. Do you know what a pulse does to a performance? |
-| `finale.ts:84` | Reginald | Actors' union, section twelve: wrongful loss of the role of a lifetime. I am filing a grievance. |
-| `finale.ts:86` | Dana | Gary stays one-armed, I'm afraid. His arm is gummed to a floor grate in the Lair. |
-| `finale.ts:88` | Reginald | And the anti-theft cable snapped when the curse broke. Somebody take this. It keeps looking at me. |
-| `finale.ts:90` | Dana | He drops the phylactery into a cardboard box. |
-| `finale.ts:92` | Kyle | Spooky jar. A dollar. Bargain bin. |
-| `finale.ts:94` | Mordecai | ONE DOLLAR?! That jar contains my SOUL! |
-| `finale.ts:96` | Kyle | Final sale. |
-| `finale.ts:99` | Dana | From the bargain bin, very faintly, something whispers: "...one dollar... we'll see about that..." |
+| `finale.ts:33` | Dana | Reginald, human again, still in full lich make-up. It has never looked less convincing. |
+| `finale.ts:45` | Kyle | Twelve ninety-nine. Cash only, card machine's down. |
+| `finale.ts:47` | Kyle | Exact change. Head office empties the till every hour. |
+| `finale.ts:49` | Dana | Exact change. Every last cent. Of course. |
+| `finale.ts:59` | Kyle | Lanyard. |
+| `finale.ts:61` | Dana | Off duty. Clocked out. See? Pocket. |
+| `finale.ts:63` | Kyle | ...Fine. |
+| `finale.ts:65` | Dana | Twelve dollars and ninety-nine cents. Exact. I counted it three times. |
+| `finale.ts:68` | Kyle | Receipt? |
+| `finale.ts:70` | Dana | Yes please. I want proof. |
+| `finale.ts:73` | Dana | I ESCAPED THE LICH'S LAIR. Technically I haven't. But the mug says I have, and the curse is very literal. |
+| `finale.ts:78` | Dana | A rumble. The lights flicker. Somewhere, a jar stops whispering. |
+| `finale.ts:80` | Reginald | Nooooo! |
+| `finale.ts:83` | Reginald | It's gone, darling. All of it. I'm human. I have a PULSE. Do you know what a pulse does to a performance? |
+| `finale.ts:85` | Reginald | Actors' union, section twelve: wrongful loss of the role of a lifetime. I am filing a grievance. |
+| `finale.ts:87` | Dana | Gary stays one-armed, I'm afraid. His arm is gummed to a floor grate in the Lair. |
+| `finale.ts:89` | Reginald | And the anti-theft cable snapped when the curse broke. Somebody take this. It keeps looking at me. |
+| `finale.ts:91` | Dana | He drops the phylactery into a cardboard box. |
+| `finale.ts:93` | Kyle | Spooky jar. A dollar. Bargain bin. |
+| `finale.ts:95` | Mordecai | ONE DOLLAR?! That jar contains my SOUL! |
+| `finale.ts:97` | Kyle | Final sale. |
+| `finale.ts:100` | Dana | From the bargain bin, very faintly, something whispers: "...one dollar... we'll see about that..." |
 
 ## Fallback lines (1)
 

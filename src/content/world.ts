@@ -15,7 +15,7 @@ export const world: World = {
   items: Object.fromEntries([...lairItems, ...giftShopItems, ...breakRoomItems].map((item) => [item.id, item])),
   combinations: [...lairCombinations, ...breakRoomCombinations],
   characters: {
-    dana: { id: 'dana', name: 'Dana', color: '#ffe28a' },
+    dana: { id: 'dana', name: 'Dana', color: '#ffe28a', sprites: { standing: 'assets/characters/dana.webp' } },
     [reginald.id]: reginald,
     [kyle.id]: kyle,
     [mordecai.id]: mordecai,

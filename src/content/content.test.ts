@@ -90,6 +90,25 @@ function expectValidResponses(responses: readonly Response[], where: string): vo
   }
 }
 
+/** Every flag some effect in the content can set: what a condition may sensibly test. */
+function flagsSetAnywhere(): Set<string> {
+  const effects: Effect[] = [
+    ...Object.values(world.rooms).flatMap((room) =>
+      room.hotspots.flatMap((h) => [
+        ...Object.values(h.verbs).flatMap((spec) => spec?.responses ?? []),
+        ...Object.values(h.itemUses ?? {}).flatMap((responses) => responses ?? []),
+      ]),
+    ),
+    ...world.combinations.flatMap((c) => c.responses),
+    ...Object.values(world.items).flatMap((item) => item.action?.responses ?? []),
+    ...Object.values(world.dialogues).flatMap((d) => [
+      ...(d.greeting ?? []),
+      ...Object.values(d.nodes).flatMap((node) => node.options.map((o) => ({ effects: o.effects ?? [] }))),
+    ]),
+  ].flatMap((r) => r.effects);
+  return new Set(effects.flatMap((e) => (e.type === 'setFlag' ? [e.flag] : [])));
+}
+
 function expectOnlyPlaceholders(template: string, allowed: string[], where: string): void {
   const used = [...template.matchAll(/\{(\w+)\}/g)].map((m) => m[1]!);
   const unknown = used.filter((name) => !allowed.includes(name));
@@ -154,7 +173,7 @@ describe('content validation', () => {
   }
 
   it('has the player character', () => {
-    expect(world.characters[PLAYER], `world.characters needs "${PLAYER}": lines with no speaker are hers`).toBeDefined();
+    expect(world.characters[PLAYER], `world.characters needs "${PLAYER}": lines with no speaker are Dana's`).toBeDefined();
   });
 
   for (const [key, dialogue] of Object.entries(world.dialogues)) {
@@ -228,6 +247,15 @@ describe('content validation', () => {
         });
       }
 
+      for (const [i, overlay] of (room.art?.overlays ?? []).entries()) {
+        it(`overlay ${i} (${overlay.image}) tests only flags the content sets`, () => {
+          const known = flagsSetAnywhere();
+          const flags = (overlay.when ?? []).flatMap((c) => ('flag' in c ? [c.flag] : 'notFlag' in c ? [c.notFlag] : []));
+          const unknown = flags.filter((f) => !known.has(f));
+          expect(unknown, `${room.id} overlay ${overlay.image} tests flag(s) ${unknown.join(', ')}, which no effect ever sets (typo?)`).toEqual([]);
+        });
+      }
+
       it('has unique hotspot ids', () => {
         const ids = room.hotspots.map((h) => h.id);
         const dupes = ids.filter((id, i) => ids.indexOf(id) !== i);
@@ -243,6 +271,16 @@ describe('content validation', () => {
           if (hotspot.character !== undefined) {
             it('is a known character', () => {
               expect(world.characters[hotspot.character!], `${hotspot.id}.character is "${hotspot.character}", which isn't in world.characters`).toBeDefined();
+            });
+          }
+
+          if (hotspot.pose !== undefined) {
+            it(`has a "${hotspot.pose}" sprite for its pose`, () => {
+              const sprites = hotspot.character === undefined ? undefined : world.characters[hotspot.character]?.sprites;
+              expect(
+                sprites?.[hotspot.pose!],
+                `${hotspot.id} has pose "${hotspot.pose}", but ${hotspot.character === undefined ? 'it isn\'t a character' : `character "${hotspot.character}" has no "${hotspot.pose}" sprite`}; add the sprite or drop the pose`,
+              ).toBeDefined();
             });
           }
 

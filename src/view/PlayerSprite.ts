@@ -1,24 +1,43 @@
 import * as Phaser from 'phaser';
 import { clampToPolygon, distance, type Point, type Polygon } from '../core/geometry';
+import { ART_ENABLED, artKey, SPRITE_SCALE } from './RoomView';
 
 export const WALK_SPEED = 300; // logical pixels per second
+/** The placeholder rectangle, when there's no sprite (or `?art=off`). */
 const SIZE = { width: 50, height: 120 };
+/** Walking with a sprite: a small hop per step and a lean into the walk, all in code (no walk cycle). */
+const STEP = { hop: 5, periodMs: 150, leanDegrees: 3 };
 
-/** Dana on screen: a placeholder rectangle that walks in straight lines and faces where they go. */
+/**
+ * Dana on screen: their sprite (or a placeholder rectangle) that walks in straight lines and faces
+ * where they go.
+ */
 export class PlayerSprite {
   private readonly container: Phaser.GameObjects.Container;
-  /** Placeholder for facing until real art: a small triangle at head height. */
-  private readonly facingMarker: Phaser.GameObjects.Triangle;
-  private walk: { tween: Phaser.Tweens.Tween; to: Point; onArrive: (at: Point) => void } | undefined;
+  /** Dana's painted sprite, facing right unless flipped. Absent when drawn as a placeholder. */
+  private readonly sprite: Phaser.GameObjects.Image | undefined;
+  /** The placeholder's facing: a small triangle at head height. */
+  private readonly facingMarker: Phaser.GameObjects.Triangle | undefined;
+  private readonly height: number;
+  private facingDirection: 'left' | 'right' = 'right';
+  private walk: { tween: Phaser.Tweens.Tween; step: Phaser.Tweens.Tween | undefined; to: Point; onArrive: (at: Point) => void } | undefined;
 
   constructor(
     private readonly scene: Phaser.Scene,
     at: Point,
+    spritePath?: string,
   ) {
     // The container's origin is Dana's feet, so its position is their spot on the floor.
+    if (ART_ENABLED && spritePath !== undefined && scene.textures.exists(artKey(spritePath))) {
+      this.sprite = scene.add.image(0, 0, artKey(spritePath)).setOrigin(0.5, 1).setScale(SPRITE_SCALE);
+      this.height = this.sprite.displayHeight;
+      this.container = scene.add.container(at.x, at.y, [this.sprite]).setDepth(500);
+      return;
+    }
     const body = scene.add.rectangle(0, 0, SIZE.width, SIZE.height, 0x3fa7d6).setOrigin(0.5, 1);
     const label = scene.add.text(0, -SIZE.height / 2, 'DANA', { fontSize: '16px', color: '#ffffff' }).setOrigin(0.5);
     this.facingMarker = scene.add.triangle(SIZE.width / 2 + 8, -SIZE.height + 22, 0, 0, 12, 8, 0, 16, 0xffe28a);
+    this.height = SIZE.height;
     this.container = scene.add.container(at.x, at.y, [body, label, this.facingMarker]).setDepth(500);
   }
 
@@ -31,22 +50,25 @@ export class PlayerSprite {
   }
 
   get facing(): 'left' | 'right' {
-    return this.facingMarker.scaleX < 0 ? 'left' : 'right';
+    return this.facingDirection;
   }
 
   /** Where Dana's lines go. */
   get headAnchor(): Point {
-    return { x: this.container.x, y: this.container.y - SIZE.height - 12 };
+    return { x: this.container.x, y: this.container.y - this.height - 12 };
   }
 
   face(direction: 'left' | 'right'): void {
+    this.facingDirection = direction;
     const side = direction === 'left' ? -1 : 1;
-    this.facingMarker.setScale(side, 1).setX(side * (SIZE.width / 2 + 8));
+    this.sprite?.setFlipX(direction === 'left');
+    this.facingMarker?.setScale(side, 1).setX(side * (SIZE.width / 2 + 8));
   }
 
   /** Jump straight to a point, cancelling any walk (e.g. arriving in a new room). */
   placeAt(at: Point): void {
     this.walk?.tween.stop();
+    this.stopStepping();
     this.walk = undefined;
     this.container.setPosition(at.x, at.y);
   }
@@ -66,7 +88,8 @@ export class PlayerSprite {
       duration: (distance(this.position, to) / WALK_SPEED) * 1000,
       onComplete: () => this.arrive(),
     });
-    this.walk = { tween, to, onArrive };
+    this.stopStepping();
+    this.walk = { tween, step: this.startStepping(), to, onArrive };
   }
 
   /** Ends the current walk now, at its destination, as if it had finished (used by Skip). */
@@ -80,7 +103,27 @@ export class PlayerSprite {
   private arrive(): void {
     const walk = this.walk;
     if (!walk) return;
+    this.stopStepping();
     this.walk = undefined;
     walk.onArrive(walk.to);
+  }
+
+  /** The sprite hops and leans while walking. Presentation only: the container does the moving. */
+  private startStepping(): Phaser.Tweens.Tween | undefined {
+    if (!this.sprite) return undefined;
+    this.sprite.setAngle(this.facingDirection === 'left' ? -STEP.leanDegrees : STEP.leanDegrees);
+    return this.scene.tweens.add({
+      targets: this.sprite,
+      y: -STEP.hop,
+      duration: STEP.periodMs / 2,
+      ease: 'Sine.easeOut',
+      yoyo: true,
+      repeat: -1,
+    });
+  }
+
+  private stopStepping(): void {
+    this.walk?.step?.remove();
+    this.sprite?.setPosition(0, 0).setAngle(0);
   }
 }

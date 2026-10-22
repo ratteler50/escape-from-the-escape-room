@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { availableItemAction, availableOptions, availableVerbs, handle, isExit, visibleHotspots } from './engine';
-import type { GameState, World } from './types';
+import { availableItemAction, availableOptions, availableVerbs, handle, isExit, visibleHotspots, visibleOverlays } from './engine';
+import type { GameState, Room, RoomOverlay, World } from './types';
 
 const say = (text: string) => ({ type: 'say', text }) as const;
 const polly = (text: string) => ({ type: 'say', text, speaker: 'parrot' }) as const;
@@ -292,6 +292,29 @@ describe('handle: items', () => {
 
   it('throws when combining an item with itself', () => {
     expect(() => handle(world, holding('bulb'), { type: 'combine', itemIds: ['bulb', 'bulb'] })).toThrow(/itself/);
+  });
+});
+
+describe('room overlays', () => {
+  const room = (overlays?: RoomOverlay[]): Room => ({
+    ...world.rooms[start.roomId]!,
+    art: { background: 'assets/rooms/test.webp', ...(overlays && { overlays }) },
+  });
+
+  it('lists the overlays whose conditions hold, in content order', () => {
+    const painted = room([
+      { image: 'assets/overlays/summoned.webp', at: { x: 10, y: 20 }, when: [{ flag: 'summoned' }] },
+      { image: 'assets/overlays/quiet.webp', at: { x: 30, y: 40 }, when: [{ notFlag: 'summoned' }] },
+      { image: 'assets/overlays/always.webp', at: { x: 50, y: 60 } },
+    ]);
+    expect(visibleOverlays(painted, start).map((o) => o.image)).toEqual(['assets/overlays/quiet.webp', 'assets/overlays/always.webp']);
+    const summoned = { ...start, flags: { summoned: true } };
+    expect(visibleOverlays(painted, summoned).map((o) => o.image)).toEqual(['assets/overlays/summoned.webp', 'assets/overlays/always.webp']);
+  });
+
+  it('has none for a room without art or without overlays', () => {
+    expect(visibleOverlays(world.rooms[start.roomId]!, start)).toEqual([]);
+    expect(visibleOverlays(room(), start)).toEqual([]);
   });
 });
 

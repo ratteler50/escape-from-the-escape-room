@@ -1,5 +1,5 @@
 import * as Phaser from 'phaser';
-import { availableItemAction, availableOptions, availableVerbs, currentRoom, handle, visibleHotspots } from '../core/engine';
+import { availableItemAction, availableOptions, availableVerbs, currentRoom, handle, visibleHotspots, visibleOverlays } from '../core/engine';
 import type { Point } from '../core/geometry';
 import { loadSaveFile, toSaveFile, type SlotId } from '../core/save';
 import { PLAYER, WON, type CharacterId, type Command, type Effect, type GameState, type Hotspot, type ItemId, type Verb, type World } from '../core/types';
@@ -8,7 +8,7 @@ import { showEndCard } from './EndCard';
 import { InventoryBar } from './InventoryBar';
 import { showGameMenu, showSlotList } from './menus';
 import { PlayerSprite, WALK_SPEED } from './PlayerSprite';
-import { roomArtKey, RoomView } from './RoomView';
+import { artKey, roomArtKey, RoomView } from './RoomView';
 import { Speech } from './Speech';
 import type { GameData } from './TitleScene';
 import { button } from './ui';
@@ -69,10 +69,18 @@ export class RoomScene extends Phaser.Scene {
     this.busy = false;
   }
 
-  /** Loads every room's painting up front, so changing rooms never waits. Rooms without art skip. */
+  /** Loads all the art up front (paintings, overlays, sprites), so changing rooms never waits. */
   preload(): void {
+    const load = (key: string, path: string) => {
+      if (!this.textures.exists(key)) this.load.image(key, path);
+    };
     for (const room of Object.values(this.world.rooms)) {
-      if (room.art && !this.textures.exists(roomArtKey(room))) this.load.image(roomArtKey(room), room.art.background);
+      if (!room.art) continue;
+      load(roomArtKey(room), room.art.background);
+      for (const overlay of room.art.overlays ?? []) load(artKey(overlay.image), overlay.image);
+    }
+    for (const character of Object.values(this.world.characters)) {
+      for (const path of Object.values(character.sprites ?? {})) load(artKey(path), path);
     }
   }
 
@@ -88,7 +96,7 @@ export class RoomScene extends Phaser.Scene {
     }, this.world.characters);
     this.roomView.showRoom(currentRoom(this.world, this.state));
     this.refreshHotspots();
-    this.player = new PlayerSprite(this, this.state.player);
+    this.player = new PlayerSprite(this, this.state.player, this.world.characters[PLAYER]?.sprites?.standing);
     this.speech = new Speech(this);
     this.coin = new VerbCoin(this);
     this.dialogue = new DialoguePanel(this);
@@ -119,6 +127,7 @@ export class RoomScene extends Phaser.Scene {
   }
 
   private refreshHotspots(): void {
+    this.roomView.showOverlays(visibleOverlays(currentRoom(this.world, this.state), this.state));
     this.roomView.showHotspots(visibleHotspots(this.world, this.state));
     this.hover(undefined);
   }
