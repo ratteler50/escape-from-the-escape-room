@@ -57,8 +57,10 @@ animation, the phylactery in the bargain bin.
 
 - **Keypad:** eight letter keys like an old phone, plus ENTER; labelled NUMBER PAD anyway. Wrong
   guesses are now "L-I-C-H, ENTER. Bzzt."
-- **Scroll:** "THE ANSWER IS: {CODE}". The optional gag went in, short: Dana starts typing the open
-  brace, finds there's no brace key, then reads it literally: C-O-D-E, ENTER.
+- **Scroll:** "THE ANSWER IS: {CODE}". A brace-key gag was tried and dropped at the developer's
+  play-test: the look line said the braces counted, then Dana dropped them, which read as two
+  versions of the joke. Now the braces are explained once (they mark the template's blank) and the
+  answer is the word in the blank: C-O-D-E, ENTER. The optional "type the whole template" gag is out.
 - **Script:** its look line gains the last page ("FINALE: The guest escapes THROUGH THE GIFT SHOP and
   purchases a souvenir. CURTAIN.", "souvenir" underlined twice by head office).
 - **Sweep:** no other content mentioned runes or the old scroll; the design doc's M1 section updated.

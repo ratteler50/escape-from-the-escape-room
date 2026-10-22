@@ -39,7 +39,7 @@ export const riddleScroll: Item = {
   name: 'Ancient Riddle Scroll',
   icon: 'assets/icons/riddle-scroll.webp',
   // DRAFT:
-  look: 'It reads: "THE ANSWER IS: {CODE}". Head office used a template and never filled it in. Of COURSE. Then again, the curse made the whole script real, exactly as printed. Braces and all.',
+  look: 'It reads: "THE ANSWER IS: {CODE}". Head office used a template and never filled in the blank. Of COURSE. Then again, the curse made the whole script real, exactly as printed. Does that include the blanks?',
 };
 
 export const lairItems = [garyArm, gum, stickyArm, caseKey, script, riddleScroll];
@@ -326,11 +326,9 @@ export const lair: Room = {
             when: [{ notFlag: 'doorUnlocked' }],
             effects: [
               // DRAFT:
-              say('"THE ANSWER IS: {CODE}." Exactly as printed, then. Open brace...'),
+              say('"THE ANSWER IS: {CODE}." The curly brackets just mark the blank that nobody filled in. What\'s printed in the blank is the word CODE.'),
               // DRAFT:
-              say('...there is no brace key. Head office designed the keypad too.'),
-              // DRAFT:
-              say("The curse bound the script as printed, and what's printed is a blank with CODE written in it. So the answer is just... C. O. D. E. ENTER."),
+              say('The curse bound the script exactly as printed. So the answer isn\'t a code. It\'s the word CODE. C. O. D. E. ENTER.'),
               sound('keypad'),
               setFlag('doorUnlocked'),
               sound('unlock'),
