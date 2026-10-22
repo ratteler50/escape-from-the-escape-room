@@ -58,9 +58,11 @@ export async function playThrough(page: Page, w: World, start: GameState, comman
   let state = start;
   for (const [i, command] of commands.entries()) {
     const step = `step ${i + 1} (${describeCommand(w, state, command)})`;
-    const expected = handle(w, state, command).state;
+    const { state: expected, effects } = handle(w, state, command);
     await perform(page, w, state, command);
-    await settle(page, `${step} to finish`, (s) => !!s.state && stateKey(s.state) === stateKey(expected));
+    // A step can be a whole cutscene (the finale plays ~35 effects), so its budget grows with the
+    // effects it plays. An ordinary step still fails in about 30s if the game is stuck.
+    await settle(page, `${step} to finish`, (s) => !!s.state && stateKey(s.state) === stateKey(expected), 30_000 + effects.length * 3_000);
     state = expected;
   }
   return state;

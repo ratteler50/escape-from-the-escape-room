@@ -100,5 +100,7 @@ Finale).
 - After the win, the queued `endDialogue` effect never plays (the end card takes over). Harmless.
 - **CI: the full play-through hit Playwright's 120s per-test limit.** It takes about 45s locally but
   runs several times slower on CI runners (the autosave test: 3.7s locally, 28s on CI). It was slow,
-  not stuck: each step's own 30s wait never fired. That one test now has a 10-minute budget; the rest
-  keep the default.
+  not stuck: each step's own 30s wait never fired. That one test now has a 15-minute budget; the rest
+  keep the default. The next CI run then failed inside step 29 itself: the sale plays the whole
+  finale (~35 effects), more than a flat 30s per step allows at CI speed. Each step's budget is now
+  30s plus 3s per effect it plays (`e2e/play.ts`), so ordinary steps still fail fast.
