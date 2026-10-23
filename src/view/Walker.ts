@@ -14,6 +14,9 @@ const FORCED_STYLE = ((): WalkStyle | undefined => {
   return style === 'frames' || style === 'parts' || style === 'hop' ? style : undefined;
 })();
 
+/** Slice 27's comparison: `?fps=N` overrides a walk sheet's frame rate. */
+const FORCED_FPS = Number(new URLSearchParams(globalThis.location?.search ?? '').get('fps')) || undefined;
+
 export function walkStyle(walk: CharacterWalk | undefined): WalkStyle {
   if (FORCED_STYLE) return FORCED_STYLE === 'hop' || walk?.[FORCED_STYLE] ? FORCED_STYLE : 'hop';
   return walk?.frames ? 'frames' : walk?.parts ? 'parts' : 'hop';
@@ -138,7 +141,7 @@ export class Walker {
       this.scene.anims.create({
         key: anim,
         frames: this.scene.anims.generateFrameNumbers(key, { start: 1, end: frames.frames }),
-        frameRate: frames.fps,
+        frameRate: FORCED_FPS ?? frames.fps,
         repeat: -1,
       });
     }
@@ -162,7 +165,9 @@ export class Walker {
         .image(0, 0, key, frame)
         .setOrigin((part.pivot.x - part.crop.x) / part.crop.width, (part.pivot.y - part.crop.y) / part.crop.height);
       const turn = this.scene.add.container(part.at.x, part.at.y, [image]);
-      (part.parent ? byId.get(part.parent)! : body).add(turn);
+      // A lower limb tucks in behind the one it hangs from, so the thigh's hem covers the knee.
+      if (part.parent) byId.get(part.parent)!.addAt(turn, 0);
+      else body.add(turn);
       byId.set(part.id, turn);
       this.joints.push({ part, turn });
       if (part.role === 'thigh' && !part.parent) this.hipHeight = Math.max(this.hipHeight, -part.at.y);

@@ -61,9 +61,9 @@ each piece at its joint; the overlaps hide the seams.
 >    to the belt and the top of the hips, with NO arms (the short sleeves are on the arm pieces) and
 >    NO legs. Draw the shoulders and the hips complete and rounded, as if the limbs were attached
 >    behind them.
-> 2. Near arm (the character's left, nearest the viewer): the short polo sleeve, the arm and the
+> 2. Near arm (nearest the viewer): the short polo sleeve, the arm and the
 >    hand, hanging straight down, the top of the sleeve rounded.
-> 3. Far arm (the character's right): the same, slightly darker, as it is further away.
+> 3. Far arm: the same, slightly darker, as it is further away.
 > 4. Near thigh: the khaki trouser leg from the hip to just below the knee, straight, the top
 >    rounded.
 > 5. Near lower leg: the khaki trouser leg from just above the knee down, with the sneaker, standing
@@ -75,6 +75,10 @@ each piece at its joint; the overlaps hide the seams.
 > guides or joint markers.
 
 ---
+
+**Note:** facing right in three-quarter view, the near side is the character's *right* (the
+first version of this prompt said left; the generated pieces came out the same either way, and the
+agent pins the screen-left limbs as the near ones).
 
 **After you approve them**, the agent cuts the frames or pieces out, sizes them to Dana's 200 px
 (stored at 2×), lines up the feet, checks the frames against the model sheet, and wires both into

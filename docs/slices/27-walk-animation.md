@@ -1,6 +1,6 @@
 # Slice 27 — Walk animation
 
-**Status:** in progress: both prototypes built, waiting on Dana's walk art · **Milestone:** M4, the last slice of M4 and of the project
+**Status:** in progress: both prototypes built with Dana's art, waiting on the developer's pick · **Milestone:** M4, the last slice of M4 and of the project
 
 ## Why
 
@@ -124,9 +124,24 @@ session's own PR).
   feet keep pace with the floor. Thighs ±22°, the knee bends up to 40° while its leg swings forward,
   arms ±18° opposite the near leg. Spread legs reach less far down, so the hips drop by
   `hip height × (1 − cos θ)` to keep the feet on the floor, plus a 2 px bounce.
-- **Stand-in parts:** until the parts sheet arrives, Dana's cutout uses legs cut from today's
-  sprite (whole legs from the hips, no knees, arms fixed). It proves the mechanics; it's stiff, and
-  it's replaced by the real parts.
+- **Stand-in parts** (before the art arrived): legs cut from today's sprite, whole from the hips,
+  no knees. They proved the mechanics, then were replaced by the parts sheet.
+- **Dana's art** arrived first try (2026-10-23): `dana-walk-frames.png` and `dana-walk-parts.png`.
+- **Drift check (frames):** same shirt colour in all seven poses, shirt area within ±6%, hair within
+  ±4%, ground line within 9 px of the sheet. No regeneration needed. Cut with the same flood fill as
+  `scripts/cut-sprite.py`, scaled together (the standing pose to 400 px, 2×), each pose placed with
+  its feet on the cell floor and its shirt centred, so the torso holds still: 7 cells of 221×404,
+  152 KB. An onion skin (all poses overlaid) shows the torso steady and the head bobbing a little.
+- **Step length:** the drawn steps are short, about 45 on-screen px (the prompt asked for small
+  steps). At the spec's 10 fps a step takes 0.3 s, but Dana covers 90 px in it, so the feet slide;
+  20 fps matches the floor but is a quick shuffle. The clip shows both; `?fps=N` overrides the rate.
+- **Parts:** seven pieces from one sheet (33 KB), scaled so the assembled Dana is 400 px tall,
+  pinned at hips, knees and shoulders by hand-measured joints. Near limbs are the screen-left ones
+  (in three-quarter view facing right, the near side is Dana's right; the prompt said left, which
+  made no difference to the pieces). Lower legs tuck behind their thighs so the hem covers the
+  knee; the body covers the thighs' tops, the near arm draws in front.
+- **Comparison clip:** `art-inbox/walk-compare.mp4` (not in the repo): hop, frames at 10 and 20 fps,
+  cutout, side by side, following Dana across the Lair at true speed.
 - **Recording:** clips are frame-stepped (the game loop asleep, `game.step` at 30 fps, and the tween
   manager's own wall clock replaced by the same step), so they show the walk at true speed however
   slow the screenshots are.
