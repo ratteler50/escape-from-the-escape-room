@@ -1,6 +1,6 @@
 # Slice 25 — The display case shows its state
 
-**Status:** spec, waiting for approval · **Milestone:** M4 · after slice 24 (story fixes) merges
+**Status:** approved 2026-10-22, building · **Milestone:** M4 · after slice 24 (story fixes), now merged
 
 ## Why
 
@@ -51,10 +51,10 @@ leaving (it never does: Dana won't steal set dressing).
    y 216–376 (160×160, square), enlarged to 1024×1024. The extra room above the case is for the
    raised lid; it takes in the bottom-left corner of the cork board's frame, which the prompts keep.
    Both edits start from this same crop.
-5. **The prompts**, added to `docs/art/prompts-overlays.md` as sections 3a and 3b, same rules as 1
-   and 2: attach the crop, ask for an edit at the same size and framing; if ChatGPT redraws the whole
-   crop, retry with "do not redraw; change only what I describe". Attach the scroll's inventory icon
-   too for 3b, so the two match.
+5. **The prompts**, in `docs/art/prompts-overlays.md` as sections 3a and 3b (the copy there is the
+   one to use; below is the draft), same rules as 1 and 2: attach the crop, ask for an edit at the
+   same size and framing; if ChatGPT redraws the whole crop, retry with "do not redraw; change only
+   what I describe". Attach the scroll's inventory icon too for 3b, so the two match.
 
    **3a. The lid open** → attach `art-inbox/CROP-case.png`, save as `art-inbox/case-open.png`:
 
