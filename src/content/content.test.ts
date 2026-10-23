@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { isExit } from '../core/engine';
 import { pointInPolygon, type Point, type Polygon } from '../core/geometry';
-import { FAIL_SOUND, PLAYER, type Effect, type Pose, type Response } from '../core/types';
+import { FAIL_SOUND, PLAYER, WON, type Effect, type Pose, type Response } from '../core/types';
 import { initialState, world } from './world';
 
 const LOGICAL_WIDTH = 1280;
@@ -96,24 +96,35 @@ function expectValidResponses(responses: readonly Response[], where: string): vo
   }
 }
 
-/** Every flag some effect in the content can set: what a condition may sensibly test. */
-function flagsSetAnywhere(): Set<string> {
-  const effects: Effect[] = [
-    ...Object.values(world.rooms).flatMap((room) =>
-      room.hotspots.flatMap((h) => [
-        ...Object.values(h.verbs).flatMap((spec) => spec?.responses ?? []),
-        ...Object.values(h.itemUses ?? {}).flatMap((responses) => responses ?? []),
-      ]),
-    ),
-    ...world.combinations.flatMap((c) => c.responses),
-    ...Object.values(world.items).flatMap((item) => item.action?.responses ?? []),
-    ...Object.values(world.dialogues).flatMap((d) => [
-      ...(d.greeting ?? []),
-      ...Object.values(d.nodes).flatMap((node) => node.options.map((o) => ({ effects: o.effects ?? [] }))),
-    ]),
-  ].flatMap((r) => r.effects);
-  return new Set(effects.flatMap((e) => (e.type === 'setFlag' ? [e.flag] : [])));
+/** Where each flag is tested by a condition, and where each is set, found by walking the whole world. */
+function flagUses(): { read: Map<string, string>; set: Map<string, string> } {
+  const read = new Map<string, string>();
+  const set = new Map<string, string>();
+  const seen = new Set<object>();
+  const visit = (node: unknown, path: string): void => {
+    if (!node || typeof node !== 'object' || seen.has(node)) return;
+    seen.add(node);
+    const o = node as Record<string, unknown>;
+    // Conditions are the only objects with a `flag`/`notFlag` and no `type` (setFlag effects have one).
+    if (o.type === 'setFlag' && typeof o.flag === 'string') {
+      if (!set.has(o.flag)) set.set(o.flag, path);
+    } else if (!('type' in o)) {
+      for (const key of ['flag', 'notFlag']) {
+        const flag = o[key];
+        if (typeof flag === 'string' && !read.has(flag)) read.set(flag, path);
+      }
+    }
+    for (const [key, value] of Object.entries(o)) visit(value, Array.isArray(o) ? `${path}[${key}]` : `${path}.${key}`);
+  };
+  visit(world, 'world');
+  return { read, set };
 }
+
+/**
+ * Flags that are set but that no condition reads, on purpose: they only record that something
+ * happened. Anything else set and never read is probably a typo on the setting side.
+ */
+const DELIBERATELY_UNREAD: readonly string[] = [];
 
 function expectOnlyPlaceholders(template: string, allowed: string[], where: string): void {
   const used = [...template.matchAll(/\{(\w+)\}/g)].map((m) => m[1]!);
@@ -254,6 +265,33 @@ describe('content validation', () => {
     });
   });
 
+  describe('flags', () => {
+    const { read, set } = flagUses();
+
+    it('tests only flags that some effect sets', () => {
+      const unknown = [...read].filter(([flag]) => flag !== WON && !set.has(flag));
+      expect(
+        unknown.map(([flag, where]) => `"${flag}" at ${where}`),
+        `These conditions test flags that no effect ever sets, so they can never hold (or always hold, for notFlag). ` +
+          `Fix the typo, or add a setFlag effect. Flags that are set: ${[...set.keys()].sort().join(', ')}`,
+      ).toEqual([]);
+    });
+
+    it('reads every flag it sets, unless the flag is listed as deliberately unread', () => {
+      const unread = [...set].filter(([flag]) => !read.has(flag) && !DELIBERATELY_UNREAD.includes(flag));
+      expect(
+        unread.map(([flag, where]) => `"${flag}" at ${where}`),
+        `These flags are set but no condition reads them: a typo on the setting side? If the flag only records ` +
+          `that something happened, add it to DELIBERATELY_UNREAD in content.test.ts`,
+      ).toEqual([]);
+    });
+
+    it('lists only flags that are set and unread as deliberately unread', () => {
+      const stale = DELIBERATELY_UNREAD.filter((flag) => !set.has(flag) || read.has(flag));
+      expect(stale, `Remove these from DELIBERATELY_UNREAD: each is either never set or is read by a condition`).toEqual([]);
+    });
+  });
+
   for (const [key, room] of rooms) {
     describe(`room "${key}"`, () => {
       it('is keyed by its own id', () => {
@@ -266,15 +304,6 @@ describe('content validation', () => {
             pointInPolygon(point, room.walkable),
             `${room.id}.entries.${entryId} ${fmt(point)} is off the floor, so Dana would arrive somewhere they can't stand; ${describeArea(room.walkable)}`,
           ).toBe(true);
-        });
-      }
-
-      for (const [i, overlay] of (room.art?.overlays ?? []).entries()) {
-        it(`overlay ${i} (${overlay.image}) tests only flags the content sets`, () => {
-          const known = flagsSetAnywhere();
-          const flags = (overlay.when ?? []).flatMap((c) => ('flag' in c ? [c.flag] : 'notFlag' in c ? [c.notFlag] : []));
-          const unknown = flags.filter((f) => !known.has(f));
-          expect(unknown, `${room.id} overlay ${overlay.image} tests flag(s) ${unknown.join(', ')}, which no effect ever sets (typo?)`).toEqual([]);
         });
       }
 
