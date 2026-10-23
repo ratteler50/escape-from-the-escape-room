@@ -1,6 +1,6 @@
 # Slice 26 — Key art, loading, polish
 
-**Status:** built, agent play-tested · awaiting developer play-test · **Milestone:** M4 (slice 27, the walk animation, closes it)
+**Status:** built, agent and developer play-tested · **Milestone:** M4 (slice 27, the walk animation, closes it)
 
 ## Why
 
