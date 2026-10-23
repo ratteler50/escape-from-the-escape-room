@@ -145,3 +145,9 @@ session's own PR).
 - **Recording:** clips are frame-stepped (the game loop asleep, `game.step` at 30 fps, and the tween
   manager's own wall clock replaced by the same step), so they show the walk at true speed however
   slow the screenshots are.
+- **The frames limp:** round 1 (ChatGPT) drew poses 5–7 as copies of 2–4, so the same leg leads
+  every step; the developer spotted it. Round 2 (ChatGPT, asking for alternation and a darker far
+  leg) and round 3 (Gemini, drawn over a colour-coded pose guide, `scripts/walk-pose-guide.py`) did
+  the same. Shading the far leg darker in code (frames 1–3 the back leg, 4–6 the front leg) helps
+  a little. **The developer chose to go past the three-round cap** (2026-10-23): round 4 asks Gemini
+  for only the second step, with the dark-shaded leg forward.

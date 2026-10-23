@@ -111,6 +111,38 @@ If one pose still has the wrong leg in front, ask for an edit rather than a new 
 pose: "In pose 5, the far leg (darker) must be the one stepping forward and the near leg behind;
 change only that pose." Credit rows for Gemini art name Gemini (Google) as the tool.
 
+### A, round 4 in Gemini: draw only the second step → save as `art-inbox/dana-walk-step-2.png`
+
+Round 3 (Gemini, over the pose guide) limped too. Past the spec's three rounds, at the developer's
+call (2026-10-23). This round asks for half as much: `art-inbox/REFERENCE-dana-step-1.png` is round
+1's first step (poses 2–4), which is good, with its **back leg shaded dark** by the agent. Gemini
+only draws the second step, with that dark leg forward: a leg it can see, instead of "near" and
+"far". The agent then joins the two steps into one cycle (and checks they match). New chat, 21:9,
+attach `art-inbox/REFERENCE-dana-step-1.png` and `art-inbox/dana-sheet.png`, in that order.
+
+> Image 1 shows the first step of a walk cycle for a 2D cartoon game: the same character three
+> times (contact, down, passing). Notice that one trouser leg and sneaker is shaded DARK (the leg
+> further from the viewer) and the other is LIGHT (the nearer leg). In image 1 the LIGHT leg steps
+> forward and the DARK leg is behind.
+>
+> Draw the SECOND step of the same walk: three drawings in one row, in the same style, size, angle
+> (three-quarter view facing right), ground line and spacing as image 1, with the legs swapped:
+>
+> 1. Contact: the DARK leg reaches forward, heel touching the ground; the LIGHT leg is behind, on
+>    its toes. The arms swing the opposite way to image 1.
+> 2. Down: weight on the forward DARK leg, knee a little bent; the LIGHT leg behind, lifting.
+> 3. Passing: the DARK leg straight under the body; the LIGHT leg lifts and passes it, drawn in
+>    front of it.
+>
+> Keep the dark shading on the dark leg exactly as in image 1, so it's obvious which leg is which.
+> Same face, hair, purple polo with skull logo, teal lanyard and TRAINEE badge, khaki trousers and
+> purple-and-cream sneakers as image 1 and the model sheet in image 2. Plain flat light-grey
+> background, no shadow, no floor, no text other than the badge, no numbers.
+
+If it limps again, a last idea (round 5): give Dana one **rolled-up trouser cuff**, a costume
+detail that marks one leg in every drawing, and ask for the full cycle with "the rolled-cuff leg
+forward in poses 2–3, the plain leg forward in poses 5–6".
+
 ## B. Paper-doll parts → save as `art-inbox/dana-walk-parts.png`
 
 For the cutout technique: the same Dana, taken apart so code can swing the pieces. The agent pins
