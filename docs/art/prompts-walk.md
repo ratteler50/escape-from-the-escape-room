@@ -139,9 +139,48 @@ attach `art-inbox/REFERENCE-dana-step-1.png` and `art-inbox/dana-sheet.png`, in 
 > purple-and-cream sneakers as image 1 and the model sheet in image 2. Plain flat light-grey
 > background, no shadow, no floor, no text other than the badge, no numbers.
 
-If it limps again, a last idea (round 5): give Dana one **rolled-up trouser cuff**, a costume
-detail that marks one leg in every drawing, and ask for the full cycle with "the rolled-cuff leg
-forward in poses 2–3, the plain leg forward in poses 5–6".
+### A, round 5: a costume marker → save as `art-inbox/dana-walk-frames-5.png`
+
+Round 4 limped too: the generators always put the same leg forward, because Dana's legs look
+identical. Round 5 makes them different: **one trouser leg rolled up, showing a bright lime-green
+sock**. With a mark it can see, the generator can be told which leg leads. The pose guide
+`art-inbox/LAYOUT-dana-walk-marker.png` (`scripts/walk-pose-guide.py OUT marker`) colours that leg
+lime green and the other brown. Either tool: Gemini at 16:9 or ChatGPT landscape, in a **new
+chat**. Attach, in this order: `art-inbox/dana-sheet.png`, `art-inbox/REFERENCE-dana.png`,
+`art-inbox/LAYOUT-dana-walk-marker.png`.
+
+> Create a 2D game sprite sheet of a walk cycle: the same cartoon character drawn seven times,
+> side by side in one horizontal row on a plain flat light-grey background.
+>
+> The character is the one in image 1 (a model sheet) and image 2 (the exact angle to use): Dana, a
+> young trainee with short, tousled dark-brown hair with a purple streak, a purple polo shirt with
+> a small white skull logo, a teal patterned lanyard with a white badge reading TRAINEE, khaki
+> trousers and chunky purple-and-cream sneakers. Flat colour, simple two-tone cel shading, bold
+> clean dark outlines. Every drawing is the three-quarter view facing right of image 2, the same
+> size, on the same invisible ground line.
+>
+> ONE COSTUME CHANGE, in all seven drawings: Dana's RIGHT trouser leg (the one nearer the viewer)
+> is rolled up to mid-calf, showing a bright LIME-GREEN SOCK above the sneaker. The left trouser
+> leg is NOT rolled up and reaches down to the shoe. This marks which leg is which.
+>
+> Image 3 is a pose guide: seven stick figures. Draw Dana over each one, in the same order and
+> place, matching every limb's angle. The GREEN leg in the guide is the rolled-up, green-sock leg;
+> the BROWN leg is the plain trouser leg. The legs must take turns:
+> - Pose 1: standing still.
+> - Poses 2 and 3: the GREEN-SOCK leg is in front (on the right of the drawing); the plain leg is
+>   behind (on the left).
+> - Pose 4: the plain leg lifts and passes behind the planted green-sock leg.
+> - Poses 5 and 6: the PLAIN leg is in front (on the right of the drawing); the green-sock leg is
+>   behind (on the left).
+> - Pose 7: the green-sock leg lifts and passes in front of the planted plain leg.
+>
+> Do not draw the stick figures or any guide lines. No shadows, no floor, no text other than the
+> badge, no numbers or labels.
+
+Check pose 5 before saving: the green sock must be on the **left** (behind). If it isn't, ask for
+an edit of just poses 5 and 6. If this works, Dana keeps the rolled cuff whenever they walk or
+stand (the sheet's first pose becomes the standing sprite, so standing and walking match); other
+art (key art) doesn't have it, a small difference.
 
 ## B. Paper-doll parts → save as `art-inbox/dana-walk-parts.png`
 

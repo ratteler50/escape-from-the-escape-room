@@ -151,3 +151,6 @@ session's own PR).
   the same. Shading the far leg darker in code (frames 1–3 the back leg, 4–6 the front leg) helps
   a little. **The developer chose to go past the three-round cap** (2026-10-23): round 4 asks Gemini
   for only the second step, with the dark-shaded leg forward.
+- **Round 4** (Gemini, only the second step, with the back leg shaded dark as a handle) limped
+  too. **Round 5** gives Dana a costume marker, at the developer's call: the near trouser leg
+  rolled up over a lime-green sock, so the generator can see which leg leads.
