@@ -5,8 +5,8 @@ packs here, from an approved model sheet per character.
 
 | Character | Sheet | Sprites (`public/assets/characters/`) | On screen |
 |-----------|-------|----------------------------------------|-----------|
-| Dana | `prompts-characters.md` §1 | `dana.webp`: cut from the sheet's three-quarter view | 200 px |
-| Reginald | `prompts-characters.md` §2, recoloured in §2b (black and crimson, so he reads against the purple Lair) | `reginald.webp` (standing, `prompts-sprites.md` §1), `reginald-seated.webp` (cut from the sheet), `reginald-human.webp` (finale, `prompts-sprites.md` §2) | 265 px standing, 230 px seated (Gary's height) |
+| Dana | `prompts-characters.md` §1 | `dana.webp`: cut from the sheet's three-quarter view; `dana-walk.webp`: walk sheet (`prompts-walk.md` A), far leg shaded by `scripts/shade-far-leg.py` | 200 px |
+| Reginald | `prompts-characters.md` §2, recoloured in §2b (black and crimson, so he reads against the purple Lair) | `reginald.webp` (standing, `prompts-sprites.md` §1), `reginald-seated.webp` (cut from the sheet), `reginald-human.webp` (finale, `prompts-sprites.md` §2); walk sheets `reginald-walk.webp` and `reginald-human-walk.webp` (`prompts-walk.md` C, D) | 265 px standing, 230 px seated (Gary's height) |
 
 ## Making a sprite
 
@@ -24,3 +24,12 @@ packs here, from an approved model sheet per character.
    survive; a plain colour key ate them.
 3. Point the character's `sprites` at it, add a `CREDITS.md` row, and size the hotspot's bounds to
    the sprite's body: the sprite is drawn with its feet at the bounds' bottom-centre.
+
+## Making a walk sheet (slice 27)
+
+One generated image with seven poses in a row: standing, then a two-step cycle. The agent cuts the
+poses apart (each blob stays with the pose that owns most of it, so a reaching hand isn't sliced
+off), scales them together, puts each pose's feet on its cell's floor and centres its torso, so the
+body holds still while the legs move. The sheet's first pose is also the character's standing
+sprite whenever they could walk, so stopping doesn't pop. Generators draw the same leg leading both
+steps; shade the far leg in code rather than regenerating (it didn't help, five times).

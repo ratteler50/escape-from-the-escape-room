@@ -1,6 +1,6 @@
 # Slice 27 — Walk animation
 
-**Status:** in progress: both prototypes built with Dana's art, waiting on the developer's pick · **Milestone:** M4, the last slice of M4 and of the project
+**Status:** built, agent play-tested; waiting on the developer's play-test · **Milestone:** M4, the last slice of M4 and of the project
 
 ## Why
 
@@ -138,3 +138,13 @@ session's own PR).
 - **Step length:** the drawn steps are short, about 45 on-screen px. At 10 fps a step takes 0.3 s
   while Dana covers 90 px, so the feet slide a little; the developer preferred that to 20 fps (a
   quick shuffle). Walk speed stays 300 px/s.
+- **Reginald:** one sheet per look, ChatGPT, first try (prompts C and D). The lich's needed no
+  fixes. The human's hanging hand came out skeletal; an edit in the same chat fixed it, and its
+  standing pose was drawn about 4% bigger than the walk poses, so it's scaled to their median height.
+  His robe hides his legs, so the same-leg problem barely shows. Both stand in their sheet's first
+  pose whenever drawn standing (on his mark; in the finale), so he doesn't pop when he stops.
+  Mordecai still floats; Kyle never walks.
+- **Agent play-test** (headless, frame-stepped): Dana walking both ways; Reginald getting up off the
+  throne and walking to his mark; human Reginald walking in from the Lair doorway in the finale;
+  no console errors. Playwright plays the whole game through.
+- **Assets:** three walk sheets, 152 + 248 + 242 KB; `public/assets` is about 10.6 MB of 15 MB.

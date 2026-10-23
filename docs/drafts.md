@@ -68,34 +68,34 @@ for an item; "Dana (option)" is a line Dana says when the player picks it in a c
 
 | Where | Who | Line |
 |---|---|---|
-| `reginald.ts:24` | Look | Act One, Scene One. His cue: "Rise, foul creature, and face me!" The margins say PAUSE FOR APPLAUSE eleven times. The last page: "FINALE: The guest escapes THROUGH THE GIFT SHOP and purchases a souvenir. CURTAIN." Head office has underlined "souvenir" twice. |
-| `reginald.ts:31` | Dana | "Rise, foul creature, and face me!" Rise, foul creature... and face me! Got it. Word perfect. |
-| `reginald.ts:33` | Dana | Handbook Section 3: lost property must be returned. I pop the script back in his coffin. |
-| `reginald.ts:50` | Dana | Reginald, standing on his mark in the dark, while his spotlight lovingly illuminates Gary. |
-| `reginald.ts:52` | Dana | Reginald Vantablack-Thorne, the Lich Lord. Actually undead now. He's never looked happier. |
-| `reginald.ts:63` | Reginald | Unhand that limb! Gary has a CONTRACT! |
-| `reginald.ts:65` | Reginald | My script! ...Keep it, darling. Learn it! Nobody learns their lines any more. |
-| `reginald.ts:70` | Reginald | A MISPRINT? In MY lair? Do you know how many nights I have stood here while guests read THAT? |
-| `reginald.ts:72` | Reginald | Nobody ever escaped, and they all blamed my performance. I shall be writing to head office. In blood. Well, red pen. |
-| `reginald.ts:112` | Reginald | Is that... GARY'S ARM? Gary is a member of the cast! ...Well. The show must go on. |
-| `reginald.ts:115` | Reginald | Ah, my audience returns! Come to bask in the afterglow? |
-| `reginald.ts:120` | Reginald | WHO DARES DISTURB THE LICH LORD? ...Oh. The trainee. |
-| `reginald.ts:122` | Dana | I've got his script right here. If only I knew his cue by heart. |
-| `reginald.ts:126` | Reginald | WHO DARES DISTURB THE LICH LORD? ...Oh. The trainee. |
-| `reginald.ts:137` | Reginald | I am Mortevayne, Dread Sovereign of the— fine. Reginald Vantablack-Thorne. Classically trained. |
-| `reginald.ts:139` | Reginald | I once understudied a Hamlet. He never got sick. Not once. Forty-two performances. |
-| `reginald.ts:149` | Reginald | The curse, darling! That phylactery made everything real. I am a genuine lich now. |
-| `reginald.ts:151` | Reginald | Head office's incident form has two boxes: "slip" and "trip". I ticked "other". I call it a promotion. |
-| `reginald.ts:161` | Reginald | Break character? Mid-performance? Actors' union rules, section nine: the show does not stop until the final cue. |
-| `reginald.ts:171` | Reginald | Section nine, darling. |
-| `reginald.ts:179` | Reginald | I do not take notes from management. I take notes from the muse. |
-| `reginald.ts:188` | Reginald | ...! |
-| `reginald.ts:191` | Reginald | ARISE! ARIIIISE! Yes! Find your light, Reginald! |
-| `reginald.ts:196` | Reginald | Behold, mortal, as the light finds me and— ...Gary? |
-| `reginald.ts:198` | Reginald | I am ON my mark! The light is meant to fall HERE. Instead it is lovingly illuminating a man with no lines, over THERE! |
-| `reginald.ts:200` | Reginald | Fine. FINE. A true professional holds his mark in the dark. Whoever rigged that is getting a strongly worded note. |
-| `reginald.ts:202` | Dana | He's sulking on his mark, in the dark. Which means the Spooky Seat is unguarded. |
-| `reginald.ts:210` | Reginald | Farewell, mortal! Mind the fourth wall on your way out. |
+| `reginald.ts:25` | Look | Act One, Scene One. His cue: "Rise, foul creature, and face me!" The margins say PAUSE FOR APPLAUSE eleven times. The last page: "FINALE: The guest escapes THROUGH THE GIFT SHOP and purchases a souvenir. CURTAIN." Head office has underlined "souvenir" twice. |
+| `reginald.ts:32` | Dana | "Rise, foul creature, and face me!" Rise, foul creature... and face me! Got it. Word perfect. |
+| `reginald.ts:34` | Dana | Handbook Section 3: lost property must be returned. I pop the script back in his coffin. |
+| `reginald.ts:51` | Dana | Reginald, standing on his mark in the dark, while his spotlight lovingly illuminates Gary. |
+| `reginald.ts:53` | Dana | Reginald Vantablack-Thorne, the Lich Lord. Actually undead now. He's never looked happier. |
+| `reginald.ts:64` | Reginald | Unhand that limb! Gary has a CONTRACT! |
+| `reginald.ts:66` | Reginald | My script! ...Keep it, darling. Learn it! Nobody learns their lines any more. |
+| `reginald.ts:71` | Reginald | A MISPRINT? In MY lair? Do you know how many nights I have stood here while guests read THAT? |
+| `reginald.ts:73` | Reginald | Nobody ever escaped, and they all blamed my performance. I shall be writing to head office. In blood. Well, red pen. |
+| `reginald.ts:113` | Reginald | Is that... GARY'S ARM? Gary is a member of the cast! ...Well. The show must go on. |
+| `reginald.ts:116` | Reginald | Ah, my audience returns! Come to bask in the afterglow? |
+| `reginald.ts:121` | Reginald | WHO DARES DISTURB THE LICH LORD? ...Oh. The trainee. |
+| `reginald.ts:123` | Dana | I've got his script right here. If only I knew his cue by heart. |
+| `reginald.ts:127` | Reginald | WHO DARES DISTURB THE LICH LORD? ...Oh. The trainee. |
+| `reginald.ts:138` | Reginald | I am Mortevayne, Dread Sovereign of the— fine. Reginald Vantablack-Thorne. Classically trained. |
+| `reginald.ts:140` | Reginald | I once understudied a Hamlet. He never got sick. Not once. Forty-two performances. |
+| `reginald.ts:150` | Reginald | The curse, darling! That phylactery made everything real. I am a genuine lich now. |
+| `reginald.ts:152` | Reginald | Head office's incident form has two boxes: "slip" and "trip". I ticked "other". I call it a promotion. |
+| `reginald.ts:162` | Reginald | Break character? Mid-performance? Actors' union rules, section nine: the show does not stop until the final cue. |
+| `reginald.ts:172` | Reginald | Section nine, darling. |
+| `reginald.ts:180` | Reginald | I do not take notes from management. I take notes from the muse. |
+| `reginald.ts:189` | Reginald | ...! |
+| `reginald.ts:192` | Reginald | ARISE! ARIIIISE! Yes! Find your light, Reginald! |
+| `reginald.ts:197` | Reginald | Behold, mortal, as the light finds me and— ...Gary? |
+| `reginald.ts:199` | Reginald | I am ON my mark! The light is meant to fall HERE. Instead it is lovingly illuminating a man with no lines, over THERE! |
+| `reginald.ts:201` | Reginald | Fine. FINE. A true professional holds his mark in the dark. Whoever rigged that is getting a strongly worded note. |
+| `reginald.ts:203` | Dana | He's sulking on his mark, in the dark. Which means the Spooky Seat is unguarded. |
+| `reginald.ts:211` | Reginald | Farewell, mortal! Mind the fourth wall on your way out. |
 
 ## The Gift Shop (30)
 
