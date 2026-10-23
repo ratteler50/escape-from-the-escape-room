@@ -1,5 +1,6 @@
 import type { GameState, World } from '../core/types';
 import { audio } from './audio';
+import { loadingLines } from './loading';
 import { breakRoom, breakRoomCombinations, breakRoomItems, intercomDialogue, lanyard } from './breakRoom';
 import { giftShop, giftShopItems } from './giftShop';
 import { kyle, kyleDialogue } from './kyle';
@@ -28,6 +29,7 @@ export const world: World = {
     [intercomDialogue.id]: intercomDialogue,
   },
   audio,
+  loadingLines,
   fallbacks: {
     // DRAFT: no "the" before {item} or {target}: names like "Gary's Arm" and "Gary" don't take one.
     useItemOn: [

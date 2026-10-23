@@ -199,6 +199,8 @@ export interface World {
   };
   /** Sound effects and music (M4). Presentation only. */
   audio?: WorldAudio;
+  /** Shown one at a time while the game loads (Dana quoting the Handbook). Presentation only. */
+  loadingLines?: readonly string[];
 }
 
 /** Audio files are paths under `public/` (MP3s). */

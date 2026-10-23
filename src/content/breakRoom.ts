@@ -183,6 +183,8 @@ export const breakRoom: Room = {
       { image: 'assets/overlays/break-room-fridge-open.webp', at: { x: 451, y: 224 }, when: [{ flag: 'fridgeOpen' }] },
       { image: 'assets/overlays/break-room-fridge-yogurt.webp', at: { x: 585, y: 351 }, when: [{ flag: 'tookTimeCard' }] },
       { image: 'assets/overlays/break-room-locker-open.webp', at: { x: 875, y: 146 }, when: [{ flag: 'lockerOpen' }] },
+      // The cent is painted in the coin return; once Dana has it, the slot is empty.
+      { image: 'assets/overlays/break-room-cent-taken.webp', at: { x: 829, y: 310 }, when: [{ flag: 'gotCent' }] },
     ],
   },
   entries: {
@@ -338,10 +340,11 @@ export const breakRoom: Room = {
             { when: [{ flag: 'gotCent' }], effects: [say('Empty. I check it twice more anyway. Handbook Section 8: be thorough.')] },
             {
               effects: [
+                // Before the line, so the coin leaves the slot (an overlay) as Dana takes it.
+                setFlag('gotCent'),
+                { type: 'addItem', itemId: oneCent.id },
                 // DRAFT:
                 say('Clink! One cent. Handbook Section 8: "Found money under five cents belongs to the finder." Finally, a section that helps.'),
-                { type: 'addItem', itemId: oneCent.id },
-                setFlag('gotCent'),
               ],
             },
           ],

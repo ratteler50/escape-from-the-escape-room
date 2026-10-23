@@ -1,5 +1,7 @@
 import * as Phaser from 'phaser';
 import { initialState, world } from './content/world';
+import { LoadingScene } from './view/LoadingScene';
+import { MusicLoaderScene } from './view/MusicLoaderScene';
 import { RoomScene } from './view/RoomScene';
 import { LocalStorageSaveStore } from './view/storage';
 import { TitleScene, type GameData } from './view/TitleScene';
@@ -18,7 +20,10 @@ const game = new Phaser.Game({
 
 const data: GameData = { world, newGame: initialState, store: new LocalStorageSaveStore() };
 game.scene.add('RoomScene', RoomScene, false);
-game.scene.add('TitleScene', TitleScene, true, data);
+game.scene.add('TitleScene', TitleScene, false);
+game.scene.add('MusicLoaderScene', MusicLoaderScene, false);
+// The loading screen starts the title screen (and the background music loader) once it's done.
+game.scene.add('LoadingScene', LoadingScene, true, data);
 
 // Hook so automated play-tests can inspect the running game: on in dev builds, and in production
 // builds when the URL has an `?e2e` flag (the Playwright tests use it; see docs/slices/11-e2e.md).

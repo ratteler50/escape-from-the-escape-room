@@ -111,7 +111,7 @@ the previous one is playable.
 | **M1 — vertical slice** ✅ playable (slices 1–6) | The Lair, fully playable start to finish: walking, hotspots, look text, inventory, one combination, one dialogue tree, a win state ("To be continued"). Ugly but complete. |
 | **M2 — systems complete** ✅ (slices 7–12) | Room transitions (with a stub Gift Shop), deploy to GitHub Pages, save/load, cutscenes, browser end-to-end tests, polish. Plan below. |
 | **M3 — content** ✅ complete (slices 13–17) | Gift Shop and Break Room, full puzzle chain, ending. Plan below. |
-| **M4 — art and audio** (slices 18–26) | Painted backgrounds, character sprites, prop overlays, item icons, music and sound effects. No voice. Plan below. |
+| **M4 — art and audio** (slices 18–27) | Painted backgrounds, character sprites, prop overlays, item icons, music and sound effects, a walk animation. No voice. Plan below. |
 
 Art is placeholder shapes until M4, and the code keeps art swappable.
 
@@ -168,7 +168,8 @@ are plain files in the repo with a **15 MB** budget, enforced by a test.
 | 23 | Break Room: background (icon sheet attached), overlays, music (the finale sting moved to 22: the finale is in the Gift Shop) | **parallel** with 22 |
 | 24 | Story fixes: the phone-letter keypad, the {CODE} scroll, the script's last page plants the ending's rule (text only) | after 22 + 23 |
 | 25 | The Lair's display case shows its state: lid open, the scroll's end under the bone (two overlays) | after 24 |
-| 26 | Title and end-card key art; loading and size pass; M4 done | last |
+| 26 | Title and end-card key art, a painted logo, background music loading, interface to match the tray, a Credits panel | after 25 |
+| 27 | Walk animation: prototype a Dana walk cycle two ways (ChatGPT frames, parts animated in code) first; then Reginald and Kyle, or stop and record why; M4 done | last |
 
 ### Notes for later (from play-tests, 2026-10-22)
 
@@ -182,8 +183,7 @@ Not scheduled yet; slice 26's spec (key art and polish) decides which go in it a
   open" (`kyle.ts`) no longer fits a front door that stands open: the point is that Dana *can't
   leave* (the curse sends them back). Reword it, and check other lines for the same assumption.
 - **A walk animation** for Dana (and Reginald and Kyle when they walk), instead of the code-driven
-  hop and lean. Needs a few frames per character from the model sheets: a bigger art job, so
-  probably its own slice.
+  hop and lean: scheduled as slice 27, prototype first (image generators drift between frames).
 - **The phylactery in the bargain bin** for the finale's last shot (from slice 22's spec).
 
 ## M3 plan

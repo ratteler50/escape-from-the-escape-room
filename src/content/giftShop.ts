@@ -112,6 +112,9 @@ export const giftShop: Room = {
           },
           {
             effects: [
+              // Before the line, so the sticker (an overlay) appears as Dana says it: the view
+              // redraws when it reaches a flag, and each line waits for a click.
+              setFlag('teapotRepriced'),
               // DRAFT:
               say('Ka-chunk. One new sticker: PRICELESS.'),
               // DRAFT:
@@ -122,7 +125,6 @@ export const giftShop: Room = {
               M('GOOD. And a deal is a deal, child. Watch this.'),
               // Through the STAFF ONLY door: his feet at the bottom of the doorway.
               walk(mordecai.id, 954, 420),
-              setFlag('teapotRepriced'),
               setFlag('staffDoorOpen'),
               // DRAFT:
               say('A clunk from the other side. The STAFF ONLY door swings open.'),

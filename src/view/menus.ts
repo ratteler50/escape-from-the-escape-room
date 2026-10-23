@@ -1,9 +1,10 @@
 import * as Phaser from 'phaser';
 import { SLOTS, loadSaveFile, type SaveStore, type SlotId } from '../core/save';
 import type { World } from '../core/types';
+import { credits } from '../content/credits';
 import { gameAudio } from './GameAudio';
 import { TEXT_SPEEDS, settings, stepVolume, type TextSpeed } from './storage';
-import { button, modal } from './ui';
+import { button, modal, UI } from './ui';
 
 const DEPTH = 2500; // above the room, panels, and coin; below the end card
 
@@ -77,7 +78,7 @@ export function showSettings(scene: Phaser.Scene, onClose: () => void): void {
     showSettings(scene, onClose);
   };
   const heading = (y: number, text: string) =>
-    box.add(scene.add.text(width / 2 - 250, y, text, { fontSize: '24px', color: '#c9b6ff' }).setOrigin(0, 0.5));
+    box.add(scene.add.text(width / 2 - 250, y, text, { fontSize: '24px', color: UI.muted }).setOrigin(0, 0.5));
 
   // Picking a speed reopens the panel so the ● moves to the new choice.
   heading(height / 2 - 150, 'Text speed');
@@ -111,6 +112,31 @@ export function showSettings(scene: Phaser.Scene, onClose: () => void): void {
   }));
 
   box.add(button(scene, width / 2, height / 2 + 195, 'Back', () => {
+    box.destroy();
+    onClose();
+  }));
+}
+
+/** The title screen's Credits: who made what (a summary of CREDITS.md). */
+export function showCredits(scene: Phaser.Scene, onClose: () => void): void {
+  const box = modal(scene, DEPTH, 900, 560, 'Credits');
+  const { width, height } = scene.scale;
+  const lines = [
+    credits.art,
+    '',
+    credits.music.by,
+    credits.music.tracks.map((t) => `"${t}"`).join(', ') + '.',
+    '',
+    credits.sounds,
+    '',
+    credits.made,
+  ];
+  box.add(
+    scene.add
+      .text(width / 2, height / 2 - 200, lines.join('\n'), { fontSize: '20px', color: UI.text, align: 'center', wordWrap: { width: 820 }, lineSpacing: 6 })
+      .setOrigin(0.5, 0),
+  );
+  box.add(button(scene, width / 2, height / 2 + 225, 'Back', () => {
     box.destroy();
     onClose();
   }));

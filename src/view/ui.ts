@@ -1,16 +1,42 @@
 import * as Phaser from 'phaser';
 import { gameAudio } from './GameAudio';
+import { ART_ENABLED } from './RoomView';
 
 // Small building blocks for menus: a modal overlay and a text button. Sized for a fingertip, like
 // the verb coin, so menus work on a trackpad or a phone.
 
-export const UI = {
-  panel: 0x15111f,
-  border: 0xc9b6ff,
-  text: '#ffffff',
-  accent: '#ffe28a',
-  disabled: '#6b6380',
-};
+/**
+ * Interface colours. With art on, the Escape-O-Rama tray's purple plastic (sampled from the tray,
+ * slice 26): a surface, a lighter rim, a darker inset for buttons, a near-black edge. With `?art=off`,
+ * the original dark placeholder look.
+ */
+export const UI = ART_ENABLED
+  ? {
+      panel: 0x602b78,
+      border: 0x7a30a0,
+      edge: 0x150a1c,
+      inset: 0x411959,
+      insetHover: 0x5b2a74,
+      button: '#411959',
+      caption: 'rgba(65, 25, 89, 0.88)',
+      text: '#ffffff',
+      muted: '#e7d2f7',
+      accent: '#ffe28a',
+      disabled: '#9a7fb0',
+    }
+  : {
+      panel: 0x15111f,
+      border: 0xc9b6ff,
+      edge: 0x000000,
+      inset: 0x1e1a2b,
+      insetHover: 0x3a3355,
+      button: '#2c2540',
+      caption: undefined,
+      text: '#ffffff',
+      muted: '#c9b6ff',
+      accent: '#ffe28a',
+      disabled: '#6b6380',
+    };
 
 type PointerHandler = (p: Phaser.Input.Pointer, x: number, y: number, e: Phaser.Types.Input.EventData) => void;
 const swallow: PointerHandler = (_p, _x, _y, e) => e.stopPropagation();
@@ -24,13 +50,16 @@ export function modal(scene: Phaser.Scene, depth: number, width: number, height:
   const container = scene.add.container(0, 0).setDepth(depth);
   const dim = scene.add.rectangle(0, 0, w, h, 0x000000, 0.6).setOrigin(0, 0).setInteractive();
   dim.on('pointerdown', swallow);
+  // A dark edge around a rim around the surface: the tray's moulded-plastic look (a plain outline
+  // without art).
+  const edge = scene.add.rectangle(w / 2, h / 2, width + 6, height + 6, UI.edge);
   const panel = scene.add
     .rectangle(w / 2, h / 2, width, height, UI.panel)
-    .setStrokeStyle(3, UI.border)
+    .setStrokeStyle(ART_ENABLED ? 6 : 3, UI.border)
     .setInteractive();
   panel.on('pointerdown', swallow);
   const heading = scene.add.text(w / 2, h / 2 - height / 2 + 36, title, { fontSize: '30px', color: UI.accent }).setOrigin(0.5);
-  container.add([dim, panel, heading]);
+  container.add([dim, edge, panel, heading]);
   return container;
 }
 
@@ -47,7 +76,7 @@ export function button(
     .text(x, y, label, {
       fontSize: '24px',
       color: enabled ? UI.text : UI.disabled,
-      backgroundColor: '#2c2540',
+      backgroundColor: UI.button,
       padding: { x: 18, y: 12 },
       align: 'center',
     })

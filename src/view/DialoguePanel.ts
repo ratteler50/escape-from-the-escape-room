@@ -1,12 +1,13 @@
 import * as Phaser from 'phaser';
 import { gameAudio } from './GameAudio';
+import { UI } from './ui';
 import type { DialogueOption, OptionId } from '../core/types';
 
 const LINE_HEIGHT = 40; // tall enough to hit comfortably on a trackpad or a phone
 const PADDING = 14;
 const MIN_HEIGHT = 90; // at least as tall as the inventory bar it covers
 const DEPTH = 1600;
-const COLORS = { background: 0x15111f, text: '#c9b6ff', hover: '#ffe28a' };
+const COLORS = { background: UI.panel, text: UI.muted, hover: UI.accent };
 
 /**
  * Dana's dialogue options, listed along the bottom of the screen during a conversation. Covers the
