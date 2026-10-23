@@ -10,6 +10,11 @@ export const reginald: Character = {
     seated: 'assets/characters/reginald-seated.webp',
     human: 'assets/characters/reginald-human.webp',
   },
+  // Slice 27: ChatGPT walk sheets (docs/art/prompts-walk.md), cut and aligned like Dana's.
+  walks: {
+    standing: { sheet: 'assets/characters/reginald-walk.webp', frameWidth: 323, frameHeight: 534, frames: 6, fps: 10 },
+    human: { sheet: 'assets/characters/reginald-human-walk.webp', frameWidth: 310, frameHeight: 543, frames: 6, fps: 10 },
+  },
 };
 
 export const script: Item = {

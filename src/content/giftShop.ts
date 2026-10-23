@@ -25,6 +25,8 @@ export const giftShop: Room = {
     overlays: [
       { image: 'assets/overlays/gift-shop-staff-door-open.webp', at: { x: 860, y: 180 }, when: [{ flag: 'staffDoorOpen' }] },
       { image: 'assets/overlays/gift-shop-teapot-priceless.webp', at: { x: 562, y: 305 }, when: [{ flag: 'teapotRepriced' }] },
+      // Slice 27: the Lair door stands open once the curse lifts, so human Reginald walks out of it.
+      { image: 'assets/overlays/gift-shop-lair-door-open.webp', at: { x: 27, y: 175 }, when: [{ flag: 'curseLifted' }] },
     ],
   },
   entries: {

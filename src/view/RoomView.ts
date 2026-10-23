@@ -2,6 +2,8 @@ import * as Phaser from 'phaser';
 import type { Point } from '../core/geometry';
 import { isExit } from '../core/engine';
 import type { CharacterId, Hotspot, Pose, Room, RoomOverlay, World } from '../core/types';
+import { artKey, SPRITE_SCALE, walkSheetKey } from './textureKeys';
+import { Walker } from './Walker';
 
 const COLORS = {
   wall: 0x2b2238,
@@ -19,11 +21,8 @@ export const ART_ENABLED = new URLSearchParams(globalThis.location?.search ?? ''
 /** The texture key a room's background painting is loaded under (RoomScene preloads them). */
 export const roomArtKey = (room: Room) => `room-art:${room.id}`;
 
-/** The texture key any other art file (a sprite, an overlay) is loaded under, by its path. */
-export const artKey = (path: string) => `art:${path}`;
-
-/** Sprites are stored at twice their on-screen size (see `CharacterSprites`). */
-export const SPRITE_SCALE = 0.5;
+// Shared with the other views (they import them from here, as before).
+export { artKey, SPRITE_SCALE };
 
 /** How far below a hotspot's top edge its label's top sits. */
 const LABEL_OFFSET = 3;
@@ -135,7 +134,13 @@ export class RoomView {
       drawn.objects = this.draw(drawn);
       if (spriteKey) {
         const { x, y, width, height } = hotspot.bounds;
-        drawn.sprite = this.scene.add.image(x + width / 2, y + height, spriteKey).setOrigin(0.5, 1).setScale(SPRITE_SCALE).setDepth(DEPTH.sprite);
+        // A pose with a walk sheet stands in the sheet's first frame, so walking and standing match.
+        const walk = this.walkSheet(hotspot);
+        drawn.sprite = this.scene.add
+          .image(x + width / 2, y + height, walk ?? spriteKey, walk ? 0 : undefined)
+          .setOrigin(0.5, 1)
+          .setScale(SPRITE_SCALE)
+          .setDepth(DEPTH.sprite);
         drawn.objects.push(drawn.sprite);
       }
       const floats = hotspot.character !== undefined && this.characters[hotspot.character]?.floats;
@@ -152,6 +157,13 @@ export class RoomView {
     if (!ART_ENABLED || hotspot.character === undefined) return undefined;
     const path = this.characters[hotspot.character]?.sprites?.[pose];
     return path !== undefined && this.scene.textures.exists(artKey(path)) ? artKey(path) : undefined;
+  }
+
+  /** The loaded walk sheet for a character hotspot's pose, if it has one. */
+  private walkSheet(hotspot: Hotspot): string | undefined {
+    if (hotspot.character === undefined) return undefined;
+    const walk = this.characters[hotspot.character]?.walks?.[hotspot.pose ?? 'standing'];
+    return walk && this.scene.textures.exists(walkSheetKey(walk.sheet)) ? walkSheetKey(walk.sheet) : undefined;
   }
 
   /** Where a character's lines go: above the hotspot that is that character, if one is drawn. */
@@ -223,12 +235,14 @@ export class RoomView {
       if (standing) entry.sprite.setTexture(standing);
       if (Math.abs(dx) > 1) entry.sprite.setFlipX(dx < 0);
     }
+    const walker = this.startWalker(entry, character, dx);
     const starts = targets.map((o) => ({ x: o.x, y: o.y }));
     let done = false;
     const finish = () => {
       if (done) return;
       done = true;
       tween.stop();
+      walker?.stop();
       targets.forEach((o, i) => ((o.x = starts[i]!.x + dx), (o.y = starts[i]!.y + dy)));
       const floats = this.characters[character]?.floats;
       if (floats && !entry.sprite && this.drawn.includes(entry)) entry.bob = this.bob(entry.objects);
@@ -245,6 +259,27 @@ export class RoomView {
       onComplete: finish,
     });
     return finish;
+  }
+
+  /**
+   * A walking character's sprite gives way to a Walker for the pose they walk in (Reginald gets up
+   * off the throne to walk as the standing lich), which plays their walk sheet, or hops without
+   * one. It joins the drawn objects, so it moves with them and goes at the next redraw, standing.
+   * Floating characters glide instead.
+   */
+  private startWalker(entry: Drawn, character: CharacterId, dx: number): Walker | undefined {
+    const info = this.characters[character];
+    if (!entry.sprite || info?.floats) return undefined;
+    const pose: Pose = entry.hotspot.pose === 'human' ? 'human' : 'standing';
+    const path = info?.sprites?.[pose];
+    if (path === undefined || !this.scene.textures.exists(artKey(path))) return undefined;
+    const walker = new Walker(this.scene, path, info?.walks?.[pose]);
+    walker.root.setPosition(entry.sprite.x, entry.sprite.y).setDepth(DEPTH.sprite);
+    walker.face(dx < 0 ? 'left' : 'right');
+    entry.sprite.setVisible(false);
+    entry.objects.push(walker.root);
+    walker.start();
+    return walker;
   }
 
   /** Floats a character's drawn objects gently up and down, forever. Presentation only. */

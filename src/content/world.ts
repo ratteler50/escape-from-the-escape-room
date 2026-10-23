@@ -1,6 +1,7 @@
 import type { GameState, World } from '../core/types';
 import { audio } from './audio';
 import { loadingLines } from './loading';
+import { dana } from './dana';
 import { breakRoom, breakRoomCombinations, breakRoomItems, intercomDialogue, lanyard } from './breakRoom';
 import { giftShop, giftShopItems } from './giftShop';
 import { kyle, kyleDialogue } from './kyle';
@@ -17,7 +18,7 @@ export const world: World = {
   items: Object.fromEntries([...lairItems, ...giftShopItems, ...breakRoomItems].map((item) => [item.id, item])),
   combinations: [...lairCombinations, ...breakRoomCombinations],
   characters: {
-    dana: { id: 'dana', name: 'Dana', color: '#ffe28a', sprites: { standing: 'assets/characters/dana.webp' } },
+    [dana.id]: dana,
     [reginald.id]: reginald,
     [kyle.id]: kyle,
     [mordecai.id]: mordecai,

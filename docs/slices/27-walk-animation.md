@@ -1,6 +1,6 @@
 # Slice 27 — Walk animation
 
-**Status:** spec approved by the developer (2026-10-23), not built · **Milestone:** M4, the last slice of M4 and of the project
+**Status:** built, agent and developer play-tested · **Milestone:** M4, the last slice of M4 and of the project
 
 ## Why
 
@@ -80,6 +80,9 @@ Decisions from the slice 27 grilling (2026-10-23).
     sprites; every committed image in `CREDITS.md`; the 15 MB budget holds (a sheet is about
     50–150 KB, with about 5 MB headroom).
 
+Added at the developer's request (2026-10-23): **the Lair door stands open in the finale**, so human
+Reginald walks out of an open door, and on the end card to match.
+
 Out of scope: a Kyle walk, toward- and away-from-camera walks, idle and talking animations,
 Mordecai, any change to walk speed or paths, the design doc's project-complete note (the main
 session's own PR).
@@ -110,3 +113,47 @@ session's own PR).
 
 - Workflow: the agent writes the prompts; the developer generates in ChatGPT and approves each image;
   the agent cuts, aligns and wires them in (`scripts/cut-sprite.py`, sprites stored at 2×).
+
+## Build notes
+
+- **The pick (2026-10-23): frames.** Both techniques were built behind `?walk=` and compared in
+  frame-stepped clips (the game loop asleep, `game.step` at 30 fps, the tween manager's own clock
+  replaced by the same step, so clips run at true speed). The developer found the cutout weird even
+  after fixes (flat feet, shorter stride, darker far limbs) and picked the frames. The cutout code,
+  its parts sheet and the `?walk=`/`?fps=` switches were removed.
+- **One walk piece:** `src/view/Walker.ts` draws a character's sprite in a container whose origin
+  is their feet: with a walk sheet, it plays the cycle while walking and shows the sheet's standing
+  pose otherwise; without one, the standing sprite hops (slice 19's hop and lean). Facing mirrors the
+  container. `PlayerSprite` uses it for Dana; `RoomView.walkCharacter` swaps a walking character's
+  sprite for one (Reginald, getting up off the throne to walk as the lich, or human in the finale).
+  Mordecai floats and glides, as before.
+- **Content:** `walks` on a character, keyed by the pose that walks (`standing`, `human`), so
+  Reginald can have one per look. Dana moved to `src/content/dana.ts`.
+- **Drift check (Dana's frames):** same shirt colour in all seven poses, shirt area within ±6%, hair
+  within ±4%, ground line within 9 px. Cut with the same flood fill as `scripts/cut-sprite.py`,
+  scaled together (the standing pose to 400 px, 2×), each pose placed with its feet on the cell floor
+  and its shirt centred, so the torso holds still: 7 cells of 221×404.
+- **The frames limp:** the sheet drew poses 5–7 as copies of 2–4, so the same leg leads every
+  step (the developer spotted it). Later attempts in ChatGPT and Gemini, with a pose guide and a
+  costume marker, all led with the same leg, and none was used. The shipped sheet is the first one
+  with **the far leg shaded** darker by `scripts/shade-far-leg.py` (the back leg in the first step,
+  the front leg in the second), so the legs read as taking turns.
+- **Step length:** the drawn steps are short, about 45 on-screen px. At 10 fps a step takes 0.3 s
+  while Dana covers 90 px, so the feet slide a little; the developer preferred that to 20 fps (a
+  quick shuffle). Walk speed stays 300 px/s.
+- **Reginald:** one sheet per look, ChatGPT, first try (prompts C and D). The lich's needed no
+  fixes. The human's hanging hand came out skeletal; an edit in the same chat fixed it, and its
+  standing pose was drawn about 4% bigger than the walk poses, so it's scaled to their median height.
+  His robe hides his legs, so the same-leg problem barely shows. Both stand in their sheet's first
+  pose whenever drawn standing (on his mark; in the finale), so he doesn't pop when he stops.
+  Mordecai still floats; Kyle never walks.
+- **Agent play-test** (headless, frame-stepped): Dana walking both ways; Reginald getting up off the
+  throne and walking to his mark; human Reginald walking in from the Lair doorway in the finale;
+  no console errors. Playwright plays the whole game through.
+- **Assets:** three walk sheets, 152 + 248 + 242 KB; `public/assets` is about 10.6 MB of 15 MB.
+- **The Lair door, open** (the developer's request): a ChatGPT edit of an enlarged crop of the Gift
+  Shop's door with the Lair painting attached for the glimpse through it (`prompts-gift-shop.md`
+  §3d), made into an overlay by `scripts/make-overlay.py`, shown from `curseLifted`. The glimpse
+  included the phylactery on its plinth, which Reginald has just carried out, so the agent painted it
+  out; the patch also starts below the door's sign, which the edit had redrawn. The same patch,
+  fitted to the end card's door (scale 1.005, 6 px left, 1 px up), is baked into `end.webp`.

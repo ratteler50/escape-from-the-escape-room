@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { isExit } from '../core/engine';
 import { pointInPolygon, type Point, type Polygon } from '../core/geometry';
-import { FAIL_SOUND, PLAYER, type Effect, type Response } from '../core/types';
+import { FAIL_SOUND, PLAYER, type Effect, type Pose, type Response } from '../core/types';
 import { initialState, world } from './world';
 
 const LOGICAL_WIDTH = 1280;
@@ -228,6 +228,16 @@ describe('content validation', () => {
         }
       }
     });
+  }
+
+  for (const character of Object.values(world.characters)) {
+    for (const [pose, walk] of Object.entries(character.walks ?? {})) {
+      it(`gives ${character.id}'s ${pose} walk a size, a count and a frame rate, and a sprite to walk from`, () => {
+        const bad = (['frameWidth', 'frameHeight', 'frames', 'fps'] as const).filter((k) => !(walk[k] > 0));
+        expect(bad, `${character.id}.walks.${pose} needs positive ${bad.join(', ')}`).toEqual([]);
+        expect(character.sprites?.[pose as Pose], `${character.id} walks as "${pose}" but has no "${pose}" sprite`).toBeDefined();
+      });
+    }
   }
 
   it('marks exactly the doors between rooms as exits (for the cursor)', () => {

@@ -112,6 +112,28 @@ export interface Character {
   floats?: boolean;
   /** Painted sprites by pose (M4). Presentation only: the core never reads them. */
   sprites?: CharacterSprites;
+  /**
+   * Walk cycles by the pose that walks (slice 27): Reginald walks as the lich (`standing`) and, in
+   * the finale, as a human. A pose without one walks with a code-driven hop. Presentation only.
+   */
+  walks?: Partial<Record<Pose, WalkFrames>>;
+}
+
+/**
+ * A walk cycle, frame by frame: a sprite sheet played in a loop. Facing right; mirrored in code to
+ * face left. Stored at twice the on-screen size, like the sprites.
+ */
+export interface WalkFrames {
+  /**
+   * One row of equal cells, each with the feet at its bottom-centre: the standing pose first (shown
+   * whenever the character stands, so stopping doesn't pop), then the walk cycle.
+   */
+  sheet: string;
+  frameWidth: number;
+  frameHeight: number;
+  /** How many walk frames follow the standing one. */
+  frames: number;
+  fps: number;
 }
 
 export type Pose = 'standing' | 'seated' | 'human';
