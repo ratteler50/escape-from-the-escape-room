@@ -1,19 +1,9 @@
-import type { Character, Dialogue, Hotspot } from '../core/types';
-import { line, say, says, setFlag, startDialogue } from './dsl';
-import { kyle } from './kyle';
+import type { Dialogue, Hotspot } from '../core/types';
+import { say, says, setFlag, startDialogue } from './dsl';
+import { K, M, mordecai } from './cast';
+import type { ContentPack } from './pack';
 
-export const mordecai: Character = {
-  id: 'mordecai',
-  name: 'Mordecai',
-  color: '#a8e0f7',
-  floats: true,
-  // Rising out of his teapot's spout like a genie, pointing down at it (drawn see-through by the
-  // view). His hotspots' bounds put the tip of his tail on the painted spout.
-  sprites: { standing: 'assets/characters/mordecai.webp' },
-};
 
-const M = (text: string) => line(mordecai.id, text);
-const K = (text: string) => line(kyle.id, text);
 
 // He hovers over the Bargain Bin until he floats off through STAFF ONLY (giftShop.ts).
 export const mordecaiHotspot: Hotspot = {
@@ -161,3 +151,5 @@ export const mordecaiDialogue: Dialogue = {
     },
   },
 };
+
+export const mordecaiPack: ContentPack = { dialogues: [mordecaiDialogue] };

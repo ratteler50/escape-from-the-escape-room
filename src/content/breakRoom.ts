@@ -1,6 +1,7 @@
 import type { Combination, Dialogue, Item, Room } from '../core/types';
-import { addItem, goTo, line, removeItem, say, says, setFlag, startDialogue, walk } from './dsl';
-import { reginald } from './reginald';
+import { addItem, goTo, removeItem, say, says, setFlag, startDialogue, walk } from './dsl';
+import { R } from './cast';
+import type { ContentPack } from './pack';
 
 // The Break Room (slice 15): three parallel puzzles from the M3 plan (docs/design.md). Clock out
 // with the time card from the fridge; open the locker with the number on the lanyard; add the
@@ -76,9 +77,7 @@ export const exactChange: Item = {
   look: '$12.99. Exactly. Not a cent over, not a cent under. The till has never seen anything so beautiful.',
 };
 
-export const breakRoomItems = [lanyard, offDutyLanyard, timeCard, payPacket, oneCent, exactChange];
-
-export const breakRoomCombinations: Combination[] = [
+const combinations: Combination[] = [
   {
     items: [payPacket.id, oneCent.id],
     responses: [
@@ -95,7 +94,6 @@ export const breakRoomCombinations: Combination[] = [
   },
 ];
 
-const R = (text: string) => line(reginald.id, text);
 
 /** Reginald, "directing" over the intercom from the Lair. */
 export const intercomDialogue: Dialogue = {
@@ -419,4 +417,11 @@ export const breakRoom: Room = {
       },
     },
   ],
+};
+
+export const breakRoomPack: ContentPack = {
+  rooms: [breakRoom],
+  items: [lanyard, offDutyLanyard, timeCard, payPacket, oneCent, exactChange],
+  combinations,
+  dialogues: [intercomDialogue],
 };

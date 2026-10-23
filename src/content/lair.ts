@@ -1,6 +1,7 @@
 import type { Combination, Item, Room } from '../core/types';
 import { addItem, goTo, removeItem, say, says, setFlag, sound, walk } from './dsl';
 import { reginaldOnMark, reginaldOnThrone, script } from './reginald';
+import type { ContentPack } from './pack';
 
 export const garyArm: Item = {
   id: 'garyArm',
@@ -42,9 +43,7 @@ export const riddleScroll: Item = {
   look: 'It reads: "THE ANSWER IS: {CODE}". Head office used a template and never filled in the blank. Of COURSE. Then again, the curse made the whole script real, exactly as printed. Does that include the blanks?',
 };
 
-export const lairItems = [garyArm, gum, stickyArm, caseKey, script, riddleScroll];
-
-export const lairCombinations: Combination[] = [
+const combinations: Combination[] = [
   {
     items: [garyArm.id, gum.id],
     responses: [
@@ -389,4 +388,10 @@ export const lair: Room = {
       itemFallback: "That won't fit through the grate. Most things won't. That's rather the point of a grate.",
     },
   ],
+};
+
+export const lairPack: ContentPack = {
+  rooms: [lair],
+  items: [garyArm, gum, stickyArm, caseKey, riddleScroll],
+  combinations,
 };

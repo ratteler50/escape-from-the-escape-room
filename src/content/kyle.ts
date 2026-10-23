@@ -1,16 +1,10 @@
-import type { Character, Dialogue, Hotspot, Item } from '../core/types';
-import { addItem, line, say, says, setFlag, startDialogue } from './dsl';
+import type { Dialogue, Hotspot, Item } from '../core/types';
+import { K, kyle } from './cast';
+import { addItem, say, says, setFlag, startDialogue } from './dsl';
 import { mugSaleOptions } from './finale';
+import type { ContentPack } from './pack';
 
-export const kyle: Character = {
-  id: 'kyle',
-  name: 'Kyle',
-  color: '#f7a8d8',
-  // Waist-up: drawn with the sprite's bottom edge on the painted counter top, so Kyle stands behind it.
-  sprites: { standing: 'assets/characters/kyle.webp' },
-};
 
-const K = (text: string) => line(kyle.id, text);
 
 export const priceGun: Item = {
   id: 'priceGun',
@@ -138,3 +132,5 @@ export const kyleDialogue: Dialogue = {
     },
   },
 };
+
+export const kylePack: ContentPack = { items: [priceGun], dialogues: [kyleDialogue] };

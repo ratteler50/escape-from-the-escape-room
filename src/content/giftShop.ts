@@ -1,13 +1,11 @@
-import type { Item, Room } from '../core/types';
-import { goTo, line, removeItem, say, says, setFlag, walk } from './dsl';
-import { kyle, kyleHotspot, priceGun } from './kyle';
-import { mordecai, mordecaiBackHotspot, mordecaiHotspot } from './mordecai';
-import { mug, reginaldFinaleHotspot } from './finale';
+import type { Room } from '../core/types';
+import { goTo, removeItem, say, says, setFlag, walk } from './dsl';
+import { K, M, mordecai } from './cast';
+import { kyleHotspot, priceGun } from './kyle';
+import { mordecaiBackHotspot, mordecaiHotspot } from './mordecai';
+import { reginaldFinaleHotspot } from './finale';
+import type { ContentPack } from './pack';
 
-export const giftShopItems: Item[] = [priceGun, mug];
-
-const K = (text: string) => line(kyle.id, text);
-const M = (text: string) => line(mordecai.id, text);
 
 // The painting (docs/art/prompts-gift-shop.md) sets the layout: hotspot bounds and the walkable floor
 // are fitted to what's painted. Left to right along the back wall: the Lair door, the mug rack, Kyle
@@ -136,7 +134,7 @@ export const giftShop: Room = {
               say('I hand the price gun back to Kyle. Re-pricing is their department.'),
               // DRAFT:
               K("It's got my name on it."),
-              removeItem('priceGun'),
+              removeItem(priceGun.id),
             ],
           },
         ],
@@ -241,3 +239,5 @@ export const giftShop: Room = {
     reginaldFinaleHotspot,
   ],
 };
+
+export const giftShopPack: ContentPack = { rooms: [giftShop] };

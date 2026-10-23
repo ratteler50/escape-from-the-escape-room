@@ -1,34 +1,21 @@
 import type { GameState, World } from '../core/types';
 import { audio } from './audio';
+import { breakRoomPack, lanyard } from './breakRoom';
+import { castPack } from './cast';
+import { finalePack } from './finale';
+import { giftShopPack } from './giftShop';
+import { kylePack } from './kyle';
+import { lair, lairPack } from './lair';
 import { loadingLines } from './loading';
-import { dana } from './dana';
-import { breakRoom, breakRoomCombinations, breakRoomItems, intercomDialogue, lanyard } from './breakRoom';
-import { giftShop, giftShopItems } from './giftShop';
-import { kyle, kyleDialogue } from './kyle';
-import { lair, lairCombinations, lairItems } from './lair';
-import { mordecai, mordecaiDialogue } from './mordecai';
-import { reginald, reginaldDialogue } from './reginald';
+import { mordecaiPack } from './mordecai';
+import { mergePacks } from './pack';
+import { reginaldPack } from './reginald';
+
+// Every content file's pack. A new room or character adds its pack here (docs/adding-content.md).
+const packs = [castPack, lairPack, reginaldPack, giftShopPack, kylePack, mordecaiPack, finalePack, breakRoomPack];
 
 export const world: World = {
-  rooms: {
-    [lair.id]: lair,
-    [giftShop.id]: giftShop,
-    [breakRoom.id]: breakRoom,
-  },
-  items: Object.fromEntries([...lairItems, ...giftShopItems, ...breakRoomItems].map((item) => [item.id, item])),
-  combinations: [...lairCombinations, ...breakRoomCombinations],
-  characters: {
-    [dana.id]: dana,
-    [reginald.id]: reginald,
-    [kyle.id]: kyle,
-    [mordecai.id]: mordecai,
-  },
-  dialogues: {
-    [reginaldDialogue.id]: reginaldDialogue,
-    [kyleDialogue.id]: kyleDialogue,
-    [mordecaiDialogue.id]: mordecaiDialogue,
-    [intercomDialogue.id]: intercomDialogue,
-  },
+  ...mergePacks(packs),
   audio,
   loadingLines,
   fallbacks: {

@@ -1,13 +1,11 @@
 import type { DialogueOption, Hotspot, Item } from '../core/types';
-import { addItem, line, pause, removeItem, say, says, setFlag, sound, walk, win } from './dsl';
-import { reginald } from './reginald';
+import { addItem, pause, removeItem, say, says, setFlag, sound, walk, win } from './dsl';
+import { exactChange } from './breakRoom';
+import { K, M, R, reginald } from './cast';
+import type { ContentPack } from './pack';
 
 // The M3 payoff (docs/slices/16-finale.md): Kyle sells the mug, the script is satisfied, the curse
-// lifts. Kyle and Mordecai are named by id rather than imported: kyle.ts imports this file, and
-// mordecai.ts imports kyle.ts.
-const K = (text: string) => line('kyle', text);
-const M = (text: string) => line('mordecai', text);
-const R = (text: string) => line(reginald.id, text);
+// lifts.
 
 export const mug: Item = {
   id: 'mug',
@@ -40,7 +38,7 @@ export const mugSaleOptions: DialogueOption[] = [
   {
     id: 'mugNoCash',
     text: 'I\'m off duty now. One "I ESCAPED" mug, please?',
-    when: [{ flag: 'offDuty' }, { lacks: 'exactChange' }],
+    when: [{ flag: 'offDuty' }, { lacks: exactChange.id }],
     effects: [
       // DRAFT:
       K("Twelve ninety-nine. Cash only, card machine's down."),
@@ -54,7 +52,7 @@ export const mugSaleOptions: DialogueOption[] = [
   {
     id: 'sale',
     text: 'One "I ESCAPED" mug, please. As a customer. With exact change.',
-    when: [{ flag: 'offDuty' }, { has: 'exactChange' }],
+    when: [{ flag: 'offDuty' }, { has: exactChange.id }],
     effects: [
       // DRAFT:
       K('Lanyard.'),
@@ -64,7 +62,7 @@ export const mugSaleOptions: DialogueOption[] = [
       K('...Fine.'),
       // DRAFT:
       say('Twelve dollars and ninety-nine cents. Exact. I counted it three times.'),
-      removeItem('exactChange'),
+      removeItem(exactChange.id),
       sound('till'),
       // DRAFT:
       K('Receipt?'),
@@ -108,3 +106,5 @@ export const mugSaleOptions: DialogueOption[] = [
     next: 'end',
   },
 ];
+
+export const finalePack: ContentPack = { items: [mug] };
