@@ -32,4 +32,4 @@ poses apart (each blob stays with the pose that owns most of it, so a reaching h
 off), scales them together, puts each pose's feet on its cell's floor and centres its torso, so the
 body holds still while the legs move. The sheet's first pose is also the character's standing
 sprite whenever they could walk, so stopping doesn't pop. Generators draw the same leg leading both
-steps; shade the far leg in code rather than regenerating (it didn't help, five times).
+steps; shade the far leg in code rather than regenerating (four more tries made the same mistake).
