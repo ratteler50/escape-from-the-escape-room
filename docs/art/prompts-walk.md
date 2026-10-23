@@ -221,3 +221,62 @@ agent pins the screen-left limbs as the near ones).
 **After you approve them**, the agent cuts the frames or pieces out, sizes them to Dana's 200 px
 (stored at 2×), lines up the feet, checks the frames against the model sheet, and wires both into
 the game behind `?walk=frames` and `?walk=parts` for you to compare with `?walk=hop`.
+
+---
+
+# Reginald's walks (after the pick: frames, 2026-10-23)
+
+Two sheets, one per look that walks: the **lich** (to his spotlight mark, in the Lair) and the
+**human** (into the Gift Shop, in the finale). Same recipe as Dana's round 1, which made the best
+drawing: ChatGPT, **landscape** (1536×1024), a **new chat for each**. His robe hides his legs, so
+only the boots show the steps; if the same boot leads both steps, the agent shades the far boot and
+hem darker, as for Dana. Look along the row for drift before saving (crown, robe trim, gold skull
+clasps, face), regenerating up to 3 times.
+
+## C. Lich Reginald's walk → save as `art-inbox/reginald-walk-frames.png`
+
+Attach `art-inbox/reginald-sheet-2.webp` (the approved black-and-crimson sheet) and
+`art-inbox/REFERENCE-reginald.png` (his standing sprite: the angle to use).
+
+> Using the two attached images as the exact reference for this character (same skeletal face with
+> glowing green eyes and a hammy grin, the golden crown slightly askew, the black robe with crimson
+> lining, gold trim and gold skull clasps, the too-long tattered cape, skeletal hands, the boots;
+> same proportions; same line work: flat colour, simple two-tone cel shading, bold clean dark
+> outlines), draw an animation sprite sheet: SEVEN full-body drawings of the same character in ONE
+> horizontal row, evenly spaced, all exactly the same size and scale, every pose standing on the
+> same invisible ground line, all in the three-quarter view facing right of the second image.
+>
+> 1. Standing still, exactly like the second attached image.
+> 2–7. A grand, theatrical stage walk, two full steps: chin high, chest out, one skeletal hand
+>    pressed to his chest, the other arm swinging wide; long strides under the robe, so only the
+>    boot tips show at the hem, the robe and cape swaying behind him. Pose 2: the right boot
+>    steps forward. Pose 3: weight on it, lowest. Pose 4: passing, highest, the robe swinging.
+>    Poses 5–7: the same three with the LEFT boot stepping forward instead.
+>
+> Same face and expression in all seven. Nothing overlapping between drawings; generous space
+> between them. Plain flat light-grey background, no shadow, no floor line, no text, no numbers.
+
+## D. Human Reginald's walk (the finale) → save as `art-inbox/reginald-human-walk-frames.png`
+
+Attach `art-inbox/reginald-sheet-2.webp` and `art-inbox/REFERENCE-reginald-human.png` (his finale
+sprite: the angle and the look to use).
+
+> Using the two attached images as the exact reference for this character's costume (the golden
+> crown, the black robe with crimson lining, gold trim and gold skull clasps, the too-long tattered
+> cape, the boots) and the second image for his face and hands (a gaunt, middle-aged HUMAN man
+> with a big theatrical nose and expressive eyebrows, in smeared white-and-black skull face paint;
+> human hands), same line work: flat colour, simple two-tone cel shading, bold clean dark outlines.
+> Draw an animation sprite sheet: SEVEN full-body drawings of him in ONE horizontal row, evenly
+> spaced, all exactly the same size and scale, every pose on the same invisible ground line, all in
+> the three-quarter view facing right of the second image.
+>
+> 1. Standing still, exactly like the second attached image (one hand raised to his forehead in a
+>    tragic swoon).
+> 2–7. A devastated, melodramatic walk, two full steps: the back of one hand pressed to his
+>    forehead throughout, the other arm hanging limp and swinging; heavy, dragging steps under the
+>    robe, so only the boot tips show at the hem. Pose 2: the right boot steps forward. Pose 3:
+>    weight on it, slumped lowest. Pose 4: passing. Poses 5–7: the same three with the LEFT boot
+>    stepping forward instead.
+>
+> Same face and expression in all seven. Nothing overlapping between drawings; generous space
+> between them. Plain flat light-grey background, no shadow, no floor line, no text, no numbers.
