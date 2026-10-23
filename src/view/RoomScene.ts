@@ -4,15 +4,16 @@ import type { Point } from '../core/geometry';
 import { loadSaveFile, toSaveFile, type SlotId } from '../core/save';
 import { PLAYER, WON, type CharacterId, type Command, type Effect, type GameState, type Hotspot, type ItemId, type Verb, type World } from '../core/types';
 import { DialoguePanel } from './DialoguePanel';
-import { gameAudio, preloadAudio } from './GameAudio';
+import { queueArt } from './assets';
+import { gameAudio, queueAudio } from './GameAudio';
 import { showEndCard } from './EndCard';
-import { INVENTORY_ART, InventoryBar, iconKey } from './InventoryBar';
+import { InventoryBar, iconKey } from './InventoryBar';
 import { showGameMenu, showSlotList } from './menus';
 import { PlayerSprite, WALK_SPEED } from './PlayerSprite';
-import { artKey, roomArtKey, RoomView } from './RoomView';
+import { RoomView } from './RoomView';
 import { Speech } from './Speech';
 import type { GameData } from './TitleScene';
-import { button } from './ui';
+import { button, UI } from './ui';
 import { VerbCoin } from './VerbCoin';
 
 const INVENTORY_TOP = 630;
@@ -75,26 +76,20 @@ export class RoomScene extends Phaser.Scene {
 
   /** Loads all the art up front (paintings, overlays, sprites), so changing rooms never waits. */
   preload(): void {
-    const load = (key: string, path: string) => {
-      if (!this.textures.exists(key)) this.load.image(key, path);
-    };
-    for (const room of Object.values(this.world.rooms)) {
-      if (!room.art) continue;
-      load(roomArtKey(room), room.art.background);
-      for (const overlay of room.art.overlays ?? []) load(artKey(overlay.image), overlay.image);
-    }
-    for (const character of Object.values(this.world.characters)) {
-      for (const path of Object.values(character.sprites ?? {})) load(artKey(path), path);
-    }
-    for (const item of Object.values(this.world.items)) if (item.icon) load(artKey(item.icon), item.icon);
-    for (const path of Object.values(INVENTORY_ART)) load(artKey(path), path);
-    // Usually already loaded by the title screen.
-    preloadAudio(this, this.world.audio);
+    // Normally already loaded by the loading screen; this only matters if the scene starts without it.
+    // Room music isn't queued here: it loads in the background and fades in when it arrives.
+    queueArt(this, this.world);
+    queueAudio(this, this.world.audio);
   }
 
   create(): void {
     this.input.mouse?.disableContextMenu();
-    this.caption = this.add.text(0, 0, '', { fontSize: '22px', color: '#ffffff', stroke: '#000000', strokeThickness: 4 }).setDepth(1500).setVisible(false);
+    // On a tray-purple label with art on; outlined text over the room without.
+    const captionStyle = UI.caption ? { backgroundColor: UI.caption, padding: { x: 10, y: 5 } } : {};
+    this.caption = this.add
+      .text(0, 0, '', { fontSize: '22px', color: '#ffffff', stroke: '#000000', strokeThickness: 4, ...captionStyle })
+      .setDepth(1500)
+      .setVisible(false);
     this.roomView = new RoomView(this, {
       onHover: (hotspot, pointer) => {
         this.moveCaption(pointer);

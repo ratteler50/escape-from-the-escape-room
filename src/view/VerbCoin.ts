@@ -1,5 +1,6 @@
 import * as Phaser from 'phaser';
 import { gameAudio } from './GameAudio';
+import { UI } from './ui';
 import type { Point } from '../core/geometry';
 
 /** One button on the coin. `id` is what `onPick` receives. */
@@ -67,18 +68,18 @@ export class VerbCoin {
       const y = center.y + Math.sin(angle) * RING_RADIUS;
 
       const disc = this.scene.add
-        .circle(x, y, BUTTON_RADIUS, 0x1e1a2b)
-        .setStrokeStyle(3, 0xc9b6ff)
+        .circle(x, y, BUTTON_RADIUS, UI.inset)
+        .setStrokeStyle(3, UI.border)
         .setDepth(DEPTH + 1)
         .setInteractive({ useHandCursor: true });
       const icon = this.scene.add.text(x, y, option.icon, { fontSize: '34px' }).setOrigin(0.5).setDepth(DEPTH + 2);
 
       disc.on('pointerover', () => {
-        disc.setFillStyle(0x3a3355);
+        disc.setFillStyle(UI.insetHover);
         caption.setText(option.label);
       });
       disc.on('pointerout', () => {
-        disc.setFillStyle(0x1e1a2b);
+        disc.setFillStyle(UI.inset);
         caption.setText(title);
       });
       disc.on('pointerdown', (_p: Phaser.Input.Pointer, _x: number, _y: number, event: Phaser.Types.Input.EventData) => {

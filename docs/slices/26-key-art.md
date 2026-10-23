@@ -66,3 +66,24 @@ separate session once M4 has been played).
 ## Notes
 
 - Branch `slice-26-key-art`, from `main` (slices 22–25 merged).
+
+## Build notes (code half)
+
+- **Music stays at 96 kbps:** in a blind A/B of the title track's first minute, the developer
+  preferred A (96 kbps) over B (64 kbps). The background loading makes the size matter far less.
+- **Loading:** `LoadingScene` (first) loads all the art, the effects and the title track behind a
+  tray-purple bar with Dana's Handbook lines (`src/content/loading.ts`; a test checks they only
+  quote sections in the master list). `MusicLoaderScene` then loads the room tracks one at a time
+  in room order (Lair first) while the game is played. Until a room's track arrives, the music
+  already playing carries on (the title track, typically), then crossfades.
+- **Play-test with slowed assets** (each image 150 ms, each effect 300 ms, each track 8–12 s): the
+  title appeared after ~10 s; in the Lair the title music played for ~8 s, then the Lair's arrived
+  and took over. A first version left the Lair silent until its track arrived, and loaded all three
+  tracks at once (so the Lair's, needed first, finished last); both fixed.
+- **Interface:** one theme in `ui.ts` (colours sampled from the tray) used by menus, buttons, the
+  verb coin, the dialogue panel, the hover caption (now on a purple label) and the loading bar.
+  `?art=off` keeps the old dark look.
+- **Credits panel** on the title (Settings and Credits side by side): from `src/content/credits.ts`;
+  a test checks it names every Kevin MacLeod track in `CREDITS.md`.
+- **Key art** is being reviewed and fixed in its own session (Kyle and Dana came out swapped; the
+  end card's Mordecai had two tails); the logo is approved.

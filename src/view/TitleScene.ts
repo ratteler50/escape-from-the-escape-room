@@ -1,8 +1,8 @@
 import * as Phaser from 'phaser';
 import { loadSaveFile, mostRecentSlot, type SaveStore, type SlotId } from '../core/save';
 import type { GameState, World } from '../core/types';
-import { gameAudio, preloadAudio } from './GameAudio';
-import { showSettings, showSlotList } from './menus';
+import { gameAudio } from './GameAudio';
+import { showCredits, showSettings, showSlotList } from './menus';
 import { button } from './ui';
 
 /** What every scene is started with. `newGame` is the state "New game" and "Play again" start from. */
@@ -24,10 +24,6 @@ export class TitleScene extends Phaser.Scene {
     this.data_ = data;
   }
 
-  preload(): void {
-    preloadAudio(this, this.data_.world.audio);
-  }
-
   create(): void {
     const { width, height } = this.scale;
     const { world, newGame, store } = this.data_;
@@ -42,7 +38,8 @@ export class TitleScene extends Phaser.Scene {
     button(this, width / 2, height / 2 + 160, 'Load', () =>
       showSlotList(this, 'load', world, store, (slot) => this.play(slot), () => {}),
     );
-    button(this, width / 2, height / 2 + 240, 'Settings', () => showSettings(this, () => {}));
+    button(this, width / 2 - 100, height / 2 + 240, 'Settings', () => showSettings(this, () => {}));
+    button(this, width / 2 + 100, height / 2 + 240, 'Credits', () => showCredits(this, () => {}));
 
     // Starts on the player's first click: browsers keep sound off until then.
     if (world.audio) gameAudio(this).playMusic(world.audio.title);

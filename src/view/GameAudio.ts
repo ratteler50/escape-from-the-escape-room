@@ -31,14 +31,26 @@ interface Fade {
   onDone?: () => void;
 }
 
-/** Queues every sound and track for loading. Call from a scene's `preload`. */
-export function preloadAudio(scene: Phaser.Scene, audio: WorldAudio | undefined): void {
+/**
+ * Queues audio on a scene's loader: every sound effect, and the given tracks. The loading screen
+ * loads the effects and the title track; the room tracks (most of the download) load in the
+ * background afterwards (`MusicLoaderScene`), so nothing waits for them.
+ */
+export function queueAudio(scene: Phaser.Scene, audio: WorldAudio | undefined, tracks: readonly TrackId[] = []): void {
   if (!audio) return;
   const load = (key: string, path: string) => {
     if (!scene.cache.audio.exists(key)) scene.load.audio(key, path);
   };
   for (const [id, path] of Object.entries(audio.sounds)) load(soundKey(id), path);
-  for (const [id, path] of Object.entries(audio.music)) load(musicKey(id), path);
+  for (const track of tracks) {
+    const path = audio.music[track];
+    if (path) load(musicKey(track), path);
+  }
+}
+
+/** The tracks that load in the background: all of them except the title's. */
+export function backgroundTracks(audio: WorldAudio | undefined): TrackId[] {
+  return audio ? Object.keys(audio.music).filter((track) => track !== audio.title) : [];
 }
 
 /** The game's audio player, kept in the game's registry (where the e2e tests read it too). */
@@ -50,8 +62,10 @@ export function gameAudio(scene: Phaser.Scene): GameAudio {
 
 export class GameAudio {
   private music: { track: TrackId; sound: Playing } | undefined;
-  /** The track that should be playing: it may be waiting for the browser to unlock audio. */
+  /** The track that should be playing: it may be waiting for the browser to unlock audio, or to load. */
   private wanted: TrackId | undefined;
+  /** The last wanted track that was loaded: it stands in while the wanted one is still downloading. */
+  private standIn: TrackId | undefined;
   private fades: Fade[] = [];
   /** How many stings are playing: while any are, the music sits at DUCK_LEVEL. */
   private ducks = 0;
@@ -91,6 +105,11 @@ export class GameAudio {
     this.startWanted();
   }
 
+  /** A track finished loading in the background: if it's the one wanted, it can start now. */
+  trackLoaded(): void {
+    this.startWanted();
+  }
+
   /** The track playing now, if any. */
   get track(): TrackId | undefined {
     return this.music?.track;
@@ -111,9 +130,15 @@ export class GameAudio {
   }
 
   private startWanted(): void {
-    const track = this.wanted;
+    const wanted = this.wanted;
+    if (wanted === undefined) return;
+    const loaded = (t: TrackId) => this.game.cache.audio.exists(musicKey(t));
+    if (loaded(wanted)) this.standIn = wanted;
+    if (this.game.sound.locked) return;
+    // Still downloading (room music loads in the background): keep playing what's playing, or the
+    // last track that was loaded, rather than silence.
+    const track = loaded(wanted) ? wanted : this.music ? undefined : this.standIn;
     if (track === undefined || this.music?.track === track) return;
-    if (this.game.sound.locked || !this.game.cache.audio.exists(musicKey(track))) return;
     const old = this.music;
     const next = this.game.sound.add(musicKey(track), { loop: true }) as Playing;
     next.play();
