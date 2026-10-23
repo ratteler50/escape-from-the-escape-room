@@ -1,7 +1,7 @@
 # Slice 28 — Text and structure
 
-**Status:** spec approved by the developer (2026-10-23); 28a built and agent play-tested, 28b not
-built · **Milestone:** M4, the last slice of M4 and of the project
+**Status:** spec approved by the developer (2026-10-23); 28a merged (PR #34); 28b built and agent
+play-tested · **Milestone:** M4, the last slice of M4 and of the project
 
 ## Why
 
@@ -170,7 +170,9 @@ after 28a merges. They edit the same content files, so they never run in paralle
 
 ## Notes for later
 
-(Filled in while building.)
+- The Kyle and Mordecai options about what's going on are offered before Dana has tried the front
+  door, so they no longer mention it. Gating them on a "tried the front door" flag would let Dana
+  bring it up, but needs a new flag (out of scope for 28b).
 
 ## Build notes
 
@@ -199,3 +201,28 @@ after 28a merges. They edit the same content files, so they never run in paralle
 - **Play-test:** `npm test` (433), typecheck, and `npm run test:e2e` (the shortest solution with
   real clicks, no console errors on load, the save round-trip) all green. In the dev build a
   format-1 autosave leaves Continue disabled, with no error.
+
+### 28b
+
+- **Story text into content:** `src/content/screens.ts` (the title tagline, the loading caption, the
+  end-card blurb); the end card's credit is `credits.musicShort`. `scripts/drafts.ts` lists
+  `screens.ts`.
+- **Facts the text now agrees on:**
+  - Dana is on their **third weekend shift**; Kyle is on their third summer.
+  - The shop **closes at nine**; Dana clocked in at 4:00 PM and clocks out at **8:47 PM**, so it's
+    business hours (Handbook §9, the open front door).
+  - Dana learns **007** in the Break Room; the loading screen only knows where it's printed.
+  - Handbook §3 is "returned and logged" everywhere.
+  - The jar **goes quiet** when the curse lifts, then whispers from the bargain bin (and on the end
+    card).
+  - Nobody refers to something Dana hasn't seen or been told yet: Kyle's look line, and the
+    "what's going on?" options to Kyle and Mordecai.
+- **Jokes:** 23 lines changed, listed old → new in the PR. Most finished and DRAFT lines already
+  worked and were kept as they are; every `// DRAFT:` marker is gone (`docs/drafts.md` lists 0).
+  `CLAUDE.md`'s content rule now says the agent writes finished lines and marks a draft only to ask.
+- **Checked, no change needed:** prices, Handbook sections against the design doc's table, names,
+  and Dana's and Kyle's they/them in every game line. Interface labels in the view.
+- **Docs pronouns:** the glossary (Entry point, Character) and slice docs 06, 07, 09, 10, 12 and 27.
+- **Play-test:** `npm test` (433), typecheck and `npm run test:e2e` green. In the dev build: the
+  longest line (the keypad) still fits its bubble; the finale plays to the end card, which shows
+  the blurb and music credit from content; no console errors.

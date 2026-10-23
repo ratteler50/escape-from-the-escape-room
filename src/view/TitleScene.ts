@@ -1,6 +1,7 @@
 import * as Phaser from 'phaser';
 import { loadSaveFile, mostRecentSlot, type SaveStore, type SlotId } from '../core/save';
 import type { GameState, World } from '../core/types';
+import { screens } from '../content/screens';
 import { keyArt } from './assets';
 import { gameAudio } from './GameAudio';
 import { showCredits, showSettings, showSlotList } from './menus';
@@ -38,9 +39,8 @@ export class TitleScene extends Phaser.Scene {
     // A little left of the buttons, to clear Reginald's raised hand.
     if (logo) this.add.image(x - 20, 128, logo).setScale(0.48);
     else this.add.text(x, height / 2 - 170, 'Escape From the Escape Room', { fontSize: '52px', color: '#ffe28a' }).setOrigin(0.5);
-    // DRAFT:
     this.add
-      .text(x, logo ? 268 : height / 2 - 105, 'A trainee. A lich. A misprint.', { fontSize: '24px', color: '#e7d2f7', stroke: '#000000', strokeThickness: 4 })
+      .text(x, logo ? 268 : height / 2 - 105, screens.tagline, { fontSize: '24px', color: '#e7d2f7', stroke: '#000000', strokeThickness: 4 })
       .setOrigin(0.5);
 
     const top = painting ? 335 : height / 2;

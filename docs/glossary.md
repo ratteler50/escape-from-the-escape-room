@@ -5,7 +5,7 @@ Shared vocabulary for the game and the codebase. Use these terms in code, docs, 
 | Term | Meaning |
 |------|---------|
 | **Room** | One screen of the game (Lich's Lair, Gift Shop, Break Room). Has a background, hotspots, and a walkable area. |
-| **Entry point** | A named spot on a room's floor where Dana appears when she arrives that way (`room.entries.fromLair`). |
+| **Entry point** | A named spot on a room's floor where Dana appears when they arrive that way (`room.entries.fromLair`). |
 | **Exit** | A hotspot whose ⚙ "Go through" verb runs `goToRoom { roomId, entry }`. |
 | **Hotspot** | A clickable region in a room: an object, a character, an exit. Has an id, a name (shown on hover), a look line, and an interaction point. |
 | **Interaction point** | Where the player character walks to before interacting with a hotspot. |
@@ -27,7 +27,7 @@ Shared vocabulary for the game and the codebase. Use these terms in code, docs, 
 | **Command** | An input to the core, e.g. `look(hotspot)`, `interact(hotspot)`, `useOn(item, hotspot)`, `combine(a, b)`. |
 | **Effect** | An output from the core in response to a command: say a line, add/remove an item, set a flag, start dialogue, change room. The view plays effects; the core never draws. |
 | **Rule** | Content that maps a command (plus conditions on state) to effects. |
-| **Character** | Someone who speaks: an id, a name, and a speech colour (`world.characters`). Dana is the player character; lines with no speaker are hers. |
+| **Character** | Someone who speaks: an id, a name, and a speech colour (`world.characters`). Dana is the player character; lines with no speaker are theirs. |
 | **Conversation** | A dialogue in progress: `state.conversation` holds which dialogue and which node. Room commands are refused until it ends. |
 | **Dialogue tree** | A graph of dialogue nodes for one character (`world.dialogues`), with a start node and an optional greeting. |
 | **Node** | One point in a dialogue tree: the list of options Dana can pick there. |

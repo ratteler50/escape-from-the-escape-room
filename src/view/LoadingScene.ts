@@ -1,4 +1,5 @@
 import * as Phaser from 'phaser';
+import { screens } from '../content/screens';
 import { queueArt } from './assets';
 import { backgroundTracks, queueAudio } from './GameAudio';
 import type { GameData } from './TitleScene';
@@ -29,7 +30,7 @@ export class LoadingScene extends Phaser.Scene {
     const { world } = this.data_;
     this.add.rectangle(0, 0, width, height, 0x0d0a14).setOrigin(0, 0);
     this.add.text(width / 2, height / 2 - 90, 'ESCAPE-O-RAMA', { fontSize: '44px', color: UI.accent, fontStyle: 'bold' }).setOrigin(0.5);
-    this.add.text(width / 2, height / 2 - 45, 'Staff training. Please wait.', { fontSize: '20px', color: UI.muted }).setOrigin(0.5);
+    this.add.text(width / 2, height / 2 - 45, screens.loadingCaption, { fontSize: '20px', color: UI.muted }).setOrigin(0.5);
 
     // A tray-purple bar in a darker inset, like the inventory tray's slots.
     const left = width / 2 - BAR.width / 2;

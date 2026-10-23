@@ -14,7 +14,7 @@ speed setting visible (developer feedback on slice 9). After it, M2 is complete.
    the next click moves on.** The auto-advance timer starts once the line is fully typed. Skip ⏭
    still ends the whole scene at once.
 2. **Speaker name tags.** Lines from anyone but Dana get a small name above them in their colour
-   ("REGINALD"). Dana's lines don't: she's the player, as in the LucasArts games.
+   ("REGINALD"). Dana's lines don't: they're the player, as in the LucasArts games.
 3. **Hotspot highlight on hover.** The hovered hotspot gets a bright outline, so you can see what's
    clickable and where its edges are. Off when the pointer leaves, the coin opens, or a scene plays.
 4. **Hover-label fixes.**

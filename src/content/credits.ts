@@ -7,6 +7,8 @@ export const credits = {
     by: 'Music by Kevin MacLeod (incompetech.com), licensed under Creative Commons: By Attribution 4.0 (creativecommons.org/licenses/by/4.0):',
     tracks: ['Netherworld Shanty', 'Graveyard Shift', 'Local Forecast - Elevator', 'Sneaky Snitch', 'Der Kleber Sting', 'Toccata and Fugue in D Minor'],
   },
+  /** The short form on the end card. */
+  musicShort: 'Music: Kevin MacLeod (incompetech.com), licensed under CC BY 4.0',
   sounds: 'Sound effects: Kenney (kenney.nl), CC0.',
   made: 'Made with Phaser and Claude Code.',
 };

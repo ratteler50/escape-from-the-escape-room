@@ -19,7 +19,7 @@ export const world: World = {
   audio,
   loadingLines,
   fallbacks: {
-    // DRAFT: no "the" before {item} or {target}: names like "Gary's Arm" and "Gary" don't take one.
+    // No "the" before {item} or {target}: names like "Gary's Arm" and "Gary" don't take one.
     useItemOn: [
       '{item} on {target}? Bold. Wrong, but bold.',
       'I try {item} on {target}. {target} is unimpressed.',

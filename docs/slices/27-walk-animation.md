@@ -68,8 +68,8 @@ Decisions from the slice 27 grilling (2026-10-23).
    per look. Under B his long robe hides most of his legs: robe-hem sway, legs barely showing, the
    cape swinging. Each look stands or falls on its own; a look that fails keeps today's glide with
    the hop added, and the slice notes say why. The seated → standing swap stays instant.
-9. **Kyle is out:** he never walks (he stays behind the till), so he gets no walk. The design doc's
-   "then Reginald and Kyle" assumed he did.
+9. **Kyle is out:** they never walk (they stay behind the till), so they get no walk. The design doc's
+   "then Reginald and Kyle" assumed they did.
 10. **If neither technique works for Dana:** stop. The hop stays, nothing is made for Reginald, and
     `docs/decisions/0006-walk-animation.md` records what was tried and why it failed, so nobody tries
     again blind. The spec, the prompts and the record are merged; no art is.

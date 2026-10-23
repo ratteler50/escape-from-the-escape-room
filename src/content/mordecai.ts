@@ -14,7 +14,6 @@ export const mordecaiHotspot: Hotspot = {
   bounds: { x: 581, y: 116, width: 119, height: 201 },
   interactionPoint: { x: 620, y: 480 },
   verbs: {
-    // DRAFT:
     look: says("A see-through old man in a dressing gown, hovering over the bargain bin and glaring at it. The Handbook's index goes straight from 'Gherkins' to 'Gift vouchers'."),
     talk: {
       label: 'Address the apparition',
@@ -25,11 +24,8 @@ export const mordecaiHotspot: Hotspot = {
     priceGun: [
       {
         effects: [
-          // DRAFT:
           M('You would PRICE me? I am Mordecai the Moderately Powerful!'),
-          // DRAFT:
           M('...Out of interest. What would you have put?'),
-          // DRAFT:
           say("I'd rather not say."),
         ],
       },
@@ -47,18 +43,14 @@ export const mordecaiBackHotspot: Hotspot = {
   bounds: { x: 581, y: 116, width: 119, height: 201 },
   interactionPoint: { x: 620, y: 480 },
   verbs: {
-    // DRAFT:
     look: says('Mordecai, back over the bargain bin, gazing at his PRICELESS teapot like it might propose.'),
     talk: {
       label: 'Address the apparition',
       responses: [
         {
           effects: [
-            // DRAFT:
             M('Priceless. Say it with me, child. PRICELESS.'),
-            // DRAFT:
             say('Priceless.'),
-            // DRAFT:
             M('Now go and finish whatever wretched errand keeps you here. I have admiring to do.'),
           ],
         },
@@ -66,7 +58,6 @@ export const mordecaiBackHotspot: Hotspot = {
     },
   },
   itemUses: {
-    // DRAFT:
     priceGun: [{ effects: [M('Not. One. More. Sticker.')] }],
   },
 };
@@ -77,11 +68,8 @@ export const mordecaiDialogue: Dialogue = {
   greeting: [
     {
       effects: [
-        // DRAFT:
         M('BEHOLD! Mordecai the Moderately Powerful!'),
-        // DRAFT:
         K('Store closes at nine.'),
-        // DRAFT:
         M('I was BEHOLDING.'),
       ],
     },
@@ -93,22 +81,17 @@ export const mordecaiDialogue: Dialogue = {
           id: 'who',
           text: 'Hello! Sorry. Who are you, sir?',
           effects: [
-            // DRAFT:
             M('A wizard, child. Retired. Then deceased. Moderately powerful in both.'),
-            // DRAFT:
             M('Your head office bought my entire estate. Lot by lot. Including, it seems, me.'),
           ],
           next: 'hub',
         },
         {
           id: 'whatsGoingOn',
-          text: "Do you know why I can't leave? The front door's wide open, and it keeps sending me back in.",
+          text: "Do you know what's going on tonight? The lich next door is real, and so, I think, are you.",
           effects: [
-            // DRAFT:
             M('My phylactery. The vessel of my very soul. Your head office bought it as a "spooky jar". Three dollars fifty.'),
-            // DRAFT:
             M('Tonight it woke, and it was cross, and so was I. It has bound this whole shabby place to the escape room\'s script.'),
-            // DRAFT:
             say('Handbook Section 1: nobody has ever beaten the escape room. It says that like it\'s a selling point.'),
           ],
           next: 'hub',
@@ -118,16 +101,11 @@ export const mordecaiDialogue: Dialogue = {
           text: 'You seem upset. Is there anything I can do?',
           once: true,
           effects: [
-            // DRAFT:
             M('Upset? My GOOD TEAPOT is in your bargain bin. Two dollars. Next to an eraser shaped like a smaller eraser.'),
-            // DRAFT:
             K('Bargain bin is final sale.'),
-            // DRAFT:
             M('I cannot lift so much as a sticker. I can only float through walls, which is less useful than it sounds.'),
-            // DRAFT:
             M('Re-price it. PROPERLY. Do that, and I shall open any door in this building for you.'),
             setFlag('heardTeapotComplaint'),
-            // DRAFT:
             say("Re-pricing is done with a price gun. Kyle has the price gun. I'll need a Handbook section."),
           ],
           next: 'hub',
@@ -136,14 +114,12 @@ export const mordecaiDialogue: Dialogue = {
           id: 'teapotAgain',
           text: 'About your teapot...',
           when: [{ flag: 'heardTeapotComplaint' }],
-          // DRAFT:
           effects: [M('TWO. DOLLARS.')],
           next: 'hub',
         },
         {
           id: 'bye',
           text: "I'll leave you to your... haunting.",
-          // DRAFT:
           effects: [M('Mind the merchandise on your way out. Most of it is mine.')],
           next: 'end',
         },

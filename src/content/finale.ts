@@ -11,7 +11,6 @@ export const mug: Item = {
   id: 'mug',
   name: '"I ESCAPED" Mug',
   icon: 'assets/icons/mug.webp',
-  // DRAFT:
   look: `"I ESCAPED THE LICH'S LAIR." The first one ever sold. It's still warm from the shelf lights.`,
 };
 
@@ -28,7 +27,6 @@ export const reginaldFinaleHotspot: Hotspot = {
   bounds: { x: 68, y: 175, width: 70, height: 265 },
   interactionPoint: { x: 110, y: 475 },
   verbs: {
-    // DRAFT:
     look: says('Reginald, human again, still in full lich make-up. It has never looked less convincing.'),
   },
 };
@@ -40,11 +38,8 @@ export const mugSaleOptions: DialogueOption[] = [
     text: 'I\'m off duty now. One "I ESCAPED" mug, please?',
     when: [{ flag: 'danaOffDuty' }, { lacks: exactChange.id }],
     effects: [
-      // DRAFT:
       K("Twelve ninety-nine. Cash only, card machine's down."),
-      // DRAFT:
       K('Exact change. Head office empties the till every hour.'),
-      // DRAFT:
       say('Exact change. Every last cent. Of course.'),
     ],
     next: 'hub',
@@ -54,52 +49,34 @@ export const mugSaleOptions: DialogueOption[] = [
     text: 'One "I ESCAPED" mug, please. As a customer. With exact change.',
     when: [{ flag: 'danaOffDuty' }, { has: exactChange.id }],
     effects: [
-      // DRAFT:
       K('Lanyard.'),
-      // DRAFT:
-      say('Off duty. Clocked out. See? Pocket.'),
-      // DRAFT:
+      say('Off duty. Clocked out. Badge flipped. See?'),
       K('...Fine.'),
-      // DRAFT:
       say('Twelve dollars and ninety-nine cents. Exact. I counted it three times.'),
       removeItem(exactChange.id),
       sound('till'),
-      // DRAFT:
       K('Receipt?'),
-      // DRAFT:
       say('Yes please. I want proof.'),
       addItem(mug.id),
-      // DRAFT:
       say(`I ESCAPED THE LICH'S LAIR. Technically I haven't. But the mug says I have, and the curse is very literal.`),
       // Reginald appears in the Lair doorway (reginaldFinaleHotspot).
       setFlag('curseLifted'),
       sound('rumble'),
       pause(600),
-      // DRAFT:
-      say('A rumble. The lights flicker. Somewhere, a jar stops whispering.'),
+      say('A rumble. The lights flicker. Somewhere, a jar goes very quiet.'),
       // Dun dun DUUUN (ducks the music while it plays).
       sound('finale'),
-      // DRAFT:
       R('Nooooo!'),
       walk(reginald.id, 878, 470),
-      // DRAFT:
       R("It's gone, darling. All of it. I'm human. I have a PULSE. Do you know what a pulse does to a performance?"),
-      // DRAFT:
       R("Actors' union, section twelve: wrongful loss of the role of a lifetime. I am filing a grievance."),
-      // DRAFT:
       say("Gary stays one-armed, I'm afraid. His arm is gummed to a floor grate in the Lair."),
-      // DRAFT:
       R('And the anti-theft cable snapped when the curse broke. Somebody take this. It keeps looking at me.'),
-      // DRAFT:
       say('He drops the phylactery into a cardboard box.'),
-      // DRAFT:
       K('Spooky jar. A dollar. Bargain bin.'),
-      // DRAFT:
       M('ONE DOLLAR?! That jar contains my SOUL!'),
-      // DRAFT:
       K('Final sale.'),
       pause(800),
-      // DRAFT:
       say(`From the bargain bin, very faintly, something whispers: "...one dollar... we'll see about that..."`),
       win(),
     ],
