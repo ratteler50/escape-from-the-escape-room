@@ -145,6 +145,21 @@ Portrait (1024×1536). Shown once Mordecai has opened it (`staffDoorOpen`).
 > with scuffed beige walls and a worn grey floor, lit by one flickering strip light, a little
 > darker than the shop. Nothing in the corridor except a cheap plastic chair near the far end.
 
+### 3d. The Lair door, open (slice 27) → attach `art-inbox/CROP-lair-door.png`, save as `art-inbox/lair-door-open.png`
+
+Portrait (1024×1536). The crop is the painting's region x 0–210, y 135–450, enlarged. Shown from the
+moment the curse lifts (`curseLifted`), so the door is open when human Reginald walks out of the
+Lair in the finale.
+
+> Edit this exact image. Keep everything identical: framing, size, painting style, colours, the
+> lighting, the purple wall, the purple stone arch, the sign at the top, the shelf at the right
+> edge, and the floor. Change only one thing: the wooden door now stands wide open, swung inward
+> away from us on its left-hand hinges, so we see it edge-on at an angle against the left side of
+> the arch, with its black iron straps and ring handle still on it. Through the open doorway: a
+> short, dim stone passage into a spooky theatre set, lit in deep purple with a faint green glow
+> from somewhere inside and the warm flicker of a candle, darker than the shop. Nothing else in
+> the passage.
+
 ### 3b. The teapot's PRICELESS sticker → attach `art-inbox/CROP-teapot.png`, save as `art-inbox/teapot-priceless.png`
 
 Landscape (1536×1024). Shown once Dana re-prices it (`teapotRepriced`). The teapot is only about 70 px
