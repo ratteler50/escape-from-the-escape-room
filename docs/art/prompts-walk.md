@@ -44,6 +44,20 @@ pose is off: small differences (size, a colour, where the feet are) the agent fi
 > between them. Plain flat light-grey background, no shadow, no floor line, no text other than the
 > badge, no numbers.
 
+### A, round 2: the other leg forward → save as `art-inbox/dana-walk-frames-2.png`
+
+Round 1 drew poses 5–7 as copies of 2–4: the same leg leads every step, so Dana limps. In the
+**same chat** as round 1 (so it keeps the same Dana), ask for a corrected sheet:
+
+> Almost perfect, but poses 5, 6 and 7 have the same leg forward as poses 2, 3 and 4, so the walk
+> limps. Redraw the whole sheet, keeping everything else exactly the same, with the legs clearly
+> alternating. In every pose, the leg and arm FURTHER from the viewer (the character's left) are a
+> shade darker and drawn behind the near ones where they overlap, the way cartoon walk cycles do.
+> Poses 2–4: the NEAR leg (the character's right, lighter) steps forward; the far arm swings
+> forward. Poses 5–7: the FAR leg (darker) steps forward and the near leg is behind; the near arm
+> swings forward. Same seven poses in one row, same size, same ground line, same plain light-grey
+> background, no numbers.
+
 ## B. Paper-doll parts → save as `art-inbox/dana-walk-parts.png`
 
 For the cutout technique: the same Dana, taken apart so code can swing the pieces. The agent pins
