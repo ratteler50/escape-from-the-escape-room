@@ -10,6 +10,22 @@ beat an escape room that head office designed to be unbeatable.
 It's also a learning project: built slice by slice with an AI coding agent, to practise agentic
 design and implementation.
 
+![The title screen](docs/screenshots/title.webp)
+
+![The Lich's Lair, with Reginald on his throne](docs/screenshots/lair.webp)
+
+## What's in it
+
+- Three painted rooms (the Lich's Lair, the Gift Shop, the Break Room), a full puzzle chain and a
+  finale.
+- A cast drawn over the paintings: Dana, Reginald (on his throne, on his mark, and human again),
+  Kyle at the till and Mordecai floating over the bargain bin.
+- A verb coin, an inventory in an Escape-O-Rama tray with an icon for every item, and dialogue trees.
+- Music by Kevin MacLeod for the title and each room, sound effects for the story's moments, and
+  volume and mute settings.
+- Autosave and three save slots, and a game that can always be won (a test explores every reachable
+  state to prove it).
+
 ## Running it
 
 Play the latest version at https://ratteler50.github.io/escape-from-the-escape-room/
@@ -31,6 +47,9 @@ Click the floor to walk. Click something to open the verb coin (👁 Look, ✋ T
 Click an item in the inventory bar and choose "Use with…" to use it on something or combine it with
 another item. During conversations, pick Dana's lines from the list; click to skip a line.
 
+Hold **H** (or use the ☰ menu) to see everything you can click; **M** mutes. `?art=off` in the URL
+shows the game's placeholder shapes instead of the paintings.
+
 The goal: escape. The curse is very literal about how.
 
 Stuck? Spoiler-light hints, one room at a time:
@@ -49,6 +68,8 @@ Stuck? Spoiler-light hints, one room at a time:
 - `docs/decisions/`: why things are built the way they are
 - `docs/slices/`: one spec per slice of work, with notes from building it
 - `docs/glossary.md`: shared vocabulary
+- `docs/art/`, `docs/audio/`: how the art was generated (layouts, prompts) and the music picked
+- `CREDITS.md`: every asset, its source and its license
 - `CLAUDE.md`: conventions for the agent
 - `src/core/`: headless game logic (no Phaser), `src/content/`: the game's data,
   `src/view/`: the Phaser layer

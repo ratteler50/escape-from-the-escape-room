@@ -1,6 +1,6 @@
 # Slice 26 — Key art, loading, polish
 
-**Status:** awaiting approval · **Milestone:** M4 (slice 27, the walk animation, closes it)
+**Status:** built, agent play-tested · awaiting developer play-test · **Milestone:** M4 (slice 27, the walk animation, closes it)
 
 ## Why
 
@@ -87,3 +87,21 @@ separate session once M4 has been played).
   a test checks it names every Kevin MacLeod track in `CREDITS.md`.
 - **Key art** is being reviewed and fixed in its own session (Kyle and Dana came out swapped; the
   end card's Mordecai had two tails); the logo is approved.
+
+## Build notes (key art and wrap-up)
+
+- **Key art** reviewed and fixed in its own session (`docs/art/prompts-key-art.md`, "Outcome"):
+  the logo first time; the title by an edit (Kyle and Dana had come out swapped); the end card by a
+  revised prompt (Mordecai had two tails), finished by the agent: a PRICELESS starburst painted on
+  the teapot, and the ESCAPE-O-RAMA banner's lettering painted out so the code writes THE END? on it
+  (the developer chose that over removing the banner, after three mock-ups). Merged from
+  `slice-26-key-art-files`.
+- **Title:** the painting, the logo (drawn at half its stored size) in the dark wall, nudged left of
+  the buttons so it clears Reginald's raised hand; the buttons over the throne, clear of Dana.
+- **End card:** THE END? on the banner; the closing line, Play again and the music credit along the
+  floor, outlined to read over the tiles.
+- **README:** title and Lair screenshots (`docs/screenshots/`), a feature list, the H and M keys.
+- **Assets:** 9.96 MB of the 15 MB budget; the first load is about 3.4 MB of it.
+- Tests: 435 unit tests; Playwright (play-through to the painted end card, console errors, autosave)
+  green.
+- **Not done:** recording the first load on the deployed site, which can only happen after merge.
