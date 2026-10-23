@@ -105,14 +105,14 @@ final cue; section twelve, wrongful loss of a role.
 
 Three screens: **Lich's Lair**, **Gift Shop**, **Break Room**. A milestone is not started until
 the previous one is playable. **M4 is the last milestone:** the project is complete when it ends
-(decided 2026-10-23).
+(decided 2026-10-23), after slice 28, a text pass and code cleanup (added 2026-10-23).
 
 | Milestone | Content |
 |-----------|---------|
 | **M1 — vertical slice** ✅ playable (slices 1–6) | The Lair, fully playable start to finish: walking, hotspots, look text, inventory, one combination, one dialogue tree, a win state ("To be continued"). Ugly but complete. |
 | **M2 — systems complete** ✅ (slices 7–12) | Room transitions (with a stub Gift Shop), deploy to GitHub Pages, save/load, cutscenes, browser end-to-end tests, polish. Plan below. |
 | **M3 — content** ✅ complete (slices 13–17) | Gift Shop and Break Room, full puzzle chain, ending. Plan below. |
-| **M4 — art and audio** (slices 18–27) | Painted backgrounds, character sprites, prop overlays, item icons, music and sound effects, a walk animation. No voice. Plan below. |
+| **M4 — art and audio** (slices 18–28) | Painted backgrounds, character sprites, prop overlays, item icons, music and sound effects, a walk animation; then a text consistency pass and a content-code cleanup. No voice. Plan below. |
 
 Art is placeholder shapes until M4, and the code keeps art swappable.
 
@@ -170,11 +170,12 @@ are plain files in the repo with a **15 MB** budget, enforced by a test.
 | 24 | Story fixes: the phone-letter keypad, the {CODE} scroll, the script's last page plants the ending's rule (text only) | after 22 + 23 |
 | 25 | The Lair's display case shows its state: lid open, the scroll's end under the bone (two overlays) | after 24 |
 | 26 | Title and end-card key art, a painted logo, background music loading, interface to match the tray, a Credits panel | after 25 |
-| 27 | Walk animation: prototype a Dana walk cycle two ways (ChatGPT frames, parts animated in code) first; then Reginald and Kyle, or stop and record why; M4 done | last |
+| 27 | Walk animation: prototype a Dana walk cycle two ways (ChatGPT frames, parts animated in code) first; then Reginald and Kyle, or stop and record why | after 26 |
+| 28 | Text and structure: content-code cleanup so new rooms, dialogue and puzzles are easier to add (28a); every player-facing line checked for consistency and the jokes finished, no DRAFTs left (28b); M4 done | last |
 
 ### Notes for later (from play-tests, 2026-10-22)
 
-A record of ideas, not a plan: the project ends with M4 (slice 27, the walk animation, is its last
+A record of ideas, not a plan: the project ends with M4 (slice 28, text and structure, is its last
 slice), so nothing here is scheduled.
 
 - **The front door's "CLOSED FOR REFURBISHMENT" sign doesn't hold up** (fixed in PR #22: a hanging OPEN/CLOSED sign). It faces into the shop,
