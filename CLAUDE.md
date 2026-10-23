@@ -67,5 +67,5 @@ set the viewport to 1280×720 so screen coordinates map to logical coordinates b
 - PG, absurdist, never mean-spirited. No deaths, no dead ends.
 - Every hotspot and item has a look line. Dana is earnest and quotes the Employee Handbook.
 - An item may be taken away (e.g. by a room change) only with a line explaining why.
-- Agent drafts dialogue; the developer punches it up. Mark drafted jokes you're unsure of with
-  `// DRAFT:` so they're easy to find.
+- The agent writes finished lines, jokes included; the developer reviews them in play-tests. Mark a
+  line `// DRAFT:` only to ask the developer's opinion on it (`npm run drafts` lists them).

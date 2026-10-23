@@ -12,8 +12,8 @@ so this comes first in M2. A stub Gift Shop proves the system without writing M3
 ### Player-facing
 
 1. Once the Lair door is unlocked, its ⚙ becomes **"Go through"** (still labelled "Escape!" the first
-   time, for the moment). Using it: Dana's line, a short fade, and she's in the **Gift Shop**,
-   standing by the door she came through.
+   time, for the moment). Using it: Dana's line, a short fade, and they're in the **Gift Shop**,
+   standing by the door they came through.
 2. **Stub Gift Shop** (placeholder art like the Lair):
    - a door back to the Lair (⚙ "Go through" → back in the Lair, by its door);
    - a few look-only hotspots with jokes (the mug rack, the till, a cardboard Reginald standee);

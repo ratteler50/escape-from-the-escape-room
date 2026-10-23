@@ -15,7 +15,7 @@ a chore on a replay.
 1. **Reginald walks to his spotlight mark** after "ARISE!" instead of appearing there.
 2. **Dana walks into the doorway** before each room change (Lair door, Gift Shop door), then the
    fade.
-3. **Dana faces the way she walks.** The placeholder gets a small marker showing which way she's
+3. **Dana faces the way they walk.** The placeholder gets a small marker showing which way they're
    facing, so `face` is visible before real art.
 4. **Skip the whole scene:** while a sequence is playing, a **"Skip ⏭"** button appears
    (bottom-right, fingertip-sized), and **Escape** does the same. Skipping finishes every remaining

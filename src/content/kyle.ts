@@ -10,7 +10,6 @@ export const priceGun: Item = {
   id: 'priceGun',
   name: 'Price Gun',
   icon: 'assets/icons/price-gun.webp',
-  // DRAFT:
   look: `Kyle's price gun. Someone has written "KYLE'S DEPARTMENT" down the handle in glitter pen. The labels say whatever I make them say.`,
 };
 
@@ -21,15 +20,13 @@ export const kyleHotspot: Hotspot = {
   bounds: { x: 348, y: 219, width: 105, height: 115 },
   interactionPoint: { x: 440, y: 480 },
   verbs: {
-    // DRAFT:
-    look: says("Kyle, behind the till. Earbuds in, phone out. Third summer here. They haven't looked up since the lich started screaming."),
+    look: says("Kyle, according to the name tag. Behind the till, earbuds in, phone out. They haven't looked up since the lich started screaming."),
     talk: {
       label: 'Wave politely',
       responses: [{ effects: [startDialogue('kyle')] }],
     },
   },
   itemUses: {
-    // DRAFT:
     priceGun: [{ effects: [K("Don't.")] }],
   },
 };
@@ -37,7 +34,6 @@ export const kyleHotspot: Hotspot = {
 export const kyleDialogue: Dialogue = {
   id: 'kyle',
   start: 'hub',
-  // DRAFT:
   greeting: [{ effects: [K('Mm.')] }],
   nodes: {
     hub: {
@@ -46,20 +42,16 @@ export const kyleDialogue: Dialogue = {
           id: 'who',
           text: "Hi! I'm Dana, the new trainee. I don't think we've met?",
           effects: [
-            // DRAFT:
             K('Kyle. Gift shop.'),
-            // DRAFT:
             K("Third summer. Don't learn my name, nobody does."),
           ],
           next: 'hub',
         },
         {
           id: 'whatsGoingOn',
-          text: "Kyle, the lich is real, and every time I walk out of the front door I walk straight back in. What's going on?",
+          text: "Kyle, the lich in there is real. Something is very wrong tonight. What's going on?",
           effects: [
-            // DRAFT:
             K('New show feature, probably. Head office never tells us anything.'),
-            // DRAFT:
             K('They changed the bag charge last month. We found out from a customer.'),
           ],
           next: 'hub',
@@ -70,12 +62,9 @@ export const kyleDialogue: Dialogue = {
           when: [{ notFlag: 'danaOffDuty' }],
           once: true,
           effects: [
-            // DRAFT:
             K('Lanyard.'),
             say('...Sorry?'),
-            // DRAFT:
             K("You're wearing a lanyard. Staff can't buy merch. It's on the till."),
-            // DRAFT:
             say("I've never wanted to be a customer so badly in my life."),
             // Slice 16 needs this: Dana has to stop being staff before Kyle will sell.
             setFlag('kyleRefusedStaffSale'),
@@ -86,7 +75,6 @@ export const kyleDialogue: Dialogue = {
           id: 'mugAgain',
           text: 'About that mug...',
           when: [{ flag: 'kyleRefusedStaffSale' }, { notFlag: 'danaOffDuty' }],
-          // DRAFT:
           effects: [K('Lanyard.')],
           next: 'hub',
         },
@@ -95,10 +83,8 @@ export const kyleDialogue: Dialogue = {
           id: 'ghost',
           text: 'Kyle. There is a ghost by the bargain bin.',
           effects: [
-            // DRAFT:
             K('Sick projection. Is that new?'),
             say("I think he's real."),
-            // DRAFT:
             K('Huh. Good resolution.'),
           ],
           next: 'hub',
@@ -109,14 +95,10 @@ export const kyleDialogue: Dialogue = {
           when: [{ flag: 'heardTeapotComplaint' }],
           once: true,
           effects: [
-            // DRAFT:
             K('...'),
-            // DRAFT:
             K("Re-pricing is my department. Technically."),
-            // DRAFT:
             K("Bring it back. It's got my name on it."),
             addItem(priceGun.id),
-            // DRAFT:
             say("I've been issued equipment. I'd like to thank the Handbook."),
           ],
           next: 'hub',
@@ -124,7 +106,6 @@ export const kyleDialogue: Dialogue = {
         {
           id: 'bye',
           text: "I'll let you get back to... that.",
-          // DRAFT:
           effects: [K('Mm.')],
           next: 'end',
         },

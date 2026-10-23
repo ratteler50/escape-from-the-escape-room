@@ -3,7 +3,7 @@ import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { draftsIn, generateDrafts } from '../../scripts/drafts';
 
-// docs/drafts.md lists every `// DRAFT:` line for the developer to punch up (docs/slices/17-polish.md).
+// docs/drafts.md lists every `// DRAFT:` line for the developer's opinion (docs/slices/17-polish.md, 28).
 describe('the draft script', () => {
   it('is up to date with the content', () => {
     const onDisk = readFileSync(join(import.meta.dirname, '..', '..', 'docs', 'drafts.md'), 'utf8');

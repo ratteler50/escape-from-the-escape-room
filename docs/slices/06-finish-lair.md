@@ -18,7 +18,7 @@ Developer play-review: the script stayed in the inventory after the cue, with no
 - Reginald's Script gets ⚙ **"Memorise"**: Dana learns the cue (`knowsCue`) and returns the script
   to the coffin (it leaves the inventory).
 - The cue dialogue option requires `knowsCue` instead of holding the script.
-- Nudge: talking to Reginald while holding the unread script, Dana muses that she'd need his cue by
+- Nudge: talking to Reginald while holding the unread script, Dana muses that they'd need his cue by
   heart; using the script on him gets "Learn it, darling!".
 - The always-winnable test tries item actions too.
 

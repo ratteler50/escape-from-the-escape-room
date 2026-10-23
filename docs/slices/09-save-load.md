@@ -95,7 +95,7 @@ Out of scope: deleting saves, save thumbnails, cloud saves, more than 3 manual s
   36-character line = (1500 + 36×50) × 0.6) and still applied after a reload; winning doesn't
   autosave.
 - Walking on the floor alone doesn't autosave (only commands do), so Continue may put Dana a few
-  steps from where she stood. Fine for now.
+  steps from where they stood. Fine for now.
 - Later: slice 11's Playwright test covers the save round trip in CI.
 - Developer feedback: text speed is hard to notice, because lines appear all at once and clicking
   skips the timer. Slice 12 adds a typewriter effect driven by the same setting.
