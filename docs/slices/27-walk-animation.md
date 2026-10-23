@@ -1,6 +1,6 @@
 # Slice 27 — Walk animation
 
-**Status:** built, agent play-tested; waiting on the developer's play-test · **Milestone:** M4, the last slice of M4 and of the project
+**Status:** built, agent and developer play-tested · **Milestone:** M4, the last slice of M4 and of the project
 
 ## Why
 
