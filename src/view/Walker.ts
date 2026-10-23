@@ -27,9 +27,13 @@ const HOP = { height: 5, periodMs: 150, leanDegrees: 3 };
 
 /**
  * Cutout walk, in degrees and sheet pixels. One step covers STRIDE on-screen pixels, so the feet keep
- * pace with the floor at any walk speed.
+ * pace with the floor at any walk speed. A foot keeps only `footRoll` of its leg's tilt, so it stays
+ * nearly flat instead of digging its toe into the floor.
  */
-const CUTOUT = { stride: 90, thigh: 22, knee: 40, arm: 18, bob: 2 };
+const CUTOUT = { stride: 72, thigh: 18, knee: 35, arm: 16, bob: 2, footRoll: 0.3 };
+
+/** The cutout's far limbs are drawn this much darker (a multiply tint). */
+const FAR_TINT = 0xb4b4b4;
 
 /** Texture keys of a walk's sprite sheet and its animation. */
 export const walkSheetKey = (sheet: string) => `walk:${sheet}`;
@@ -164,6 +168,8 @@ export class Walker {
       const image = this.scene.add
         .image(0, 0, key, frame)
         .setOrigin((part.pivot.x - part.crop.x) / part.crop.width, (part.pivot.y - part.crop.y) / part.crop.height);
+      // Far limbs are a shade darker, so the legs read as taking turns.
+      if (part.side === 'far') image.setTint(FAR_TINT);
       const turn = this.scene.add.container(part.at.x, part.at.y, [image]);
       // A lower limb tucks in behind the one it hangs from, so the thigh's hem covers the knee.
       if (part.parent) byId.get(part.parent)!.addAt(turn, 0);
@@ -180,19 +186,26 @@ export class Walker {
    */
   private pose(phase: number | undefined): void {
     let spread = 0;
+    // Each leg's tilt so far (thigh, then knee), which its foot mostly undoes.
+    const tilt = { near: 0, far: 0 };
     for (const { part, turn } of this.joints) {
       if (phase === undefined) {
         turn.setAngle(0);
         continue;
       }
+      const side = part.side ?? 'near';
       const s = (part.side === 'far' ? -1 : 1) * Math.sin(phase);
       const c = (part.side === 'far' ? -1 : 1) * Math.cos(phase);
       if (part.role === 'thigh') {
         turn.setAngle(-CUTOUT.thigh * s);
+        tilt[side] = turn.angle;
         spread = Math.max(spread, Math.abs(CUTOUT.thigh * s));
       } else if (part.role === 'shin') {
         // The knee bends while the leg swings forward through the air (passing), straight on the ground.
         turn.setAngle(CUTOUT.knee * Math.max(0, c));
+        tilt[side] += turn.angle;
+      } else if (part.role === 'foot') {
+        turn.setAngle(-(1 - CUTOUT.footRoll) * tilt[side]);
       } else if (part.role === 'arm') {
         turn.setAngle(CUTOUT.arm * s);
       }

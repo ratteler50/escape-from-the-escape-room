@@ -149,8 +149,11 @@ export interface WalkParts {
 
 export interface WalkPart {
   id: string;
-  /** What it does in the walk: the body bobs; arms and thighs swing from their joints; a shin bends at the knee. */
-  role: 'body' | 'arm' | 'thigh' | 'shin';
+  /**
+   * What it does in the walk: the body bobs; arms and thighs swing from their joints; a shin bends
+   * at the knee; a foot hangs from its shin but stays nearly flat on the floor.
+   */
+  role: 'body' | 'arm' | 'thigh' | 'shin' | 'foot';
   /** Near limbs (towards the viewer) and far limbs swing in opposite phase. */
   side?: 'near' | 'far';
   /** Where the piece is in the sheet. */

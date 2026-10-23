@@ -247,6 +247,7 @@ describe('content validation', () => {
           if (part.parent !== undefined && !seen.has(part.parent)) problems.push(`"${part.id}" hangs from "${part.parent}", which isn't listed before it`);
           if (part.role !== 'body' && part.side === undefined) problems.push(`"${part.id}" is a limb with no side (near or far)`);
           if (part.role === 'shin' && part.parent === undefined) problems.push(`"${part.id}" is a shin with no thigh to hang from`);
+          if (part.role === 'foot' && part.parent === undefined) problems.push(`"${part.id}" is a foot with no shin to hang from`);
           if (!(part.crop.width > 0 && part.crop.height > 0)) problems.push(`"${part.id}" has an empty crop`);
           seen.add(part.id);
         }

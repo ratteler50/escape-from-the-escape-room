@@ -154,3 +154,10 @@ session's own PR).
 - **Round 4** (Gemini, only the second step, with the back leg shaded dark as a handle) limped
   too. **Round 5** gives Dana a costume marker, at the developer's call: the near trouser leg
   rolled up over a lime-green sock, so the generator can see which leg leads.
+- **Round 5** (marker) cropped both trouser legs and still led with the wrong leg in pose 5. Generation
+  stopped there. The frames sheet is now round 1 with **the far leg shaded** by
+  `scripts/shade-far-leg.py` (the back leg in the first step, the front leg in the second, 58% tone).
+- **Cutout fixes** (the developer found it weird): each shoe is its own piece under the trouser hem,
+  hung from the shin at the ankle and kept nearly flat (it keeps 30% of the leg's tilt), so toes no
+  longer dig into the floor; a shorter stride (72 px, thighs ±18°); far limbs tinted darker.
+  Clip: `art-inbox/walk-compare-3.mp4` (hop, shaded frames, cutout).
