@@ -105,3 +105,16 @@ separate session once M4 has been played).
 - Tests: 435 unit tests; Playwright (play-through to the painted end card, console errors, autosave)
   green.
 - **Not done:** recording the first load on the deployed site, which can only happen after merge.
+
+## After the developer's play-test
+
+- **The cent stayed in the vending machine** after Dana took it: it's part of the painting. An
+  overlay of the empty coin return now shows once `gotCent` is set (the agent painted the coin out
+  of a 15×15 px patch; neither painting had a clean empty slot to copy).
+- **The PRICELESS sticker appeared with the door opening,** not when Dana says "Ka-chunk". The root
+  cause was in the view: the core's state is final as soon as a command runs, and every `setFlag`
+  redrew the room from that final state, so a response's first flag showed all of its flags at once.
+  `RoomScene` now keeps the flags the screen has shown (`shownFlags`), adds each flag as the queue
+  reaches it, and catches up when the queue ends. Content then puts each flag just before the line it
+  belongs to: `teapotRepriced` before "Ka-chunk" (the door still opens with the "clunk" line, after
+  Mordecai's float), `gotCent` before "Clink!". Checked step by step in the browser.

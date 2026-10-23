@@ -111,26 +111,26 @@ for an item; "Dana (option)" is a line Dana says when the player picks it in a c
 | `giftShop.ts:100` | Dana | The bargain bin: three lich snow globes, an eraser shaped like a smaller eraser, and a rather nice teapot. $2. |
 | `giftShop.ts:104` | Dana | Bargain bin stock is final sale, and I am staff. Two rules, one teapot. |
 | `giftShop.ts:111` | Dana | It's already priceless. You can't go higher than priceless. I asked the Handbook. |
-| `giftShop.ts:116` | Dana | Ka-chunk. One new sticker: PRICELESS. |
-| `giftShop.ts:118` | Mordecai | Priceless. PRICELESS! At last, someone in this establishment with taste. |
-| `giftShop.ts:120` | Kyle | We can't sell that now. |
-| `giftShop.ts:122` | Mordecai | GOOD. And a deal is a deal, child. Watch this. |
-| `giftShop.ts:128` | Dana | A clunk from the other side. The STAFF ONLY door swings open. |
-| `giftShop.ts:130` | Kyle | Huh. Is that new? |
-| `giftShop.ts:132` | Dana | I hand the price gun back to Kyle. Re-pricing is their department. |
-| `giftShop.ts:134` | Kyle | It's got my name on it. |
-| `giftShop.ts:150` | Dana | A life-size cardboard Reginald. Somehow less wooden than the real one. |
-| `giftShop.ts:154` | Dana | Cardboard Reginald, $1. No. He'd find out. He'd be devastated. |
-| `giftShop.ts:166` | Dana | STAFF ONLY. A badge reader with a little red light, and a sign: TRAINEES, PLEASE ASK A SUPERVISOR. There is no supervisor. |
-| `giftShop.ts:170` | Dana | I hold up my trainee badge. The reader blinks red. It knows. |
-| `giftShop.ts:175` | Dana | I label the door $4.99. Still locked, but now it's affordable. |
-| `giftShop.ts:178` | Dana | The badge reader blinks red. It only wants a proper staff badge, and that wasn't one. |
-| `giftShop.ts:189` | Dana | STAFF ONLY, wide open. Mordecai can't touch anything, so I assume he glared at the lock until it gave up. Beyond it: a corridor that smells of burnt coffee. |
-| `giftShop.ts:214` | Dana | Wide open, with a little sign hanging on the glass that says CLOSED. That's the staff side; out in the car park it says OPEN. Handbook Section 9: never locked during business hours. It isn't. It just won't let me through. |
-| `giftShop.ts:222` | Dana | EXIT THROUGH THE GIFT SHOP. I haven't bought anything. Not even a mug. |
-| `giftShop.ts:224` | Dana | I step into the doorway. The doorway steps me straight back into the shop. |
-| `giftShop.ts:226` | Dana | The door is open. I'm just not allowed through it. Reginald's script ends with the guest escaping through the gift shop, with a souvenir. The curse is very literal. |
-| `giftShop.ts:234` | Dana | I label the front door FREE. The sign still says CLOSED. To me, specifically. |
+| `giftShop.ts:119` | Dana | Ka-chunk. One new sticker: PRICELESS. |
+| `giftShop.ts:121` | Mordecai | Priceless. PRICELESS! At last, someone in this establishment with taste. |
+| `giftShop.ts:123` | Kyle | We can't sell that now. |
+| `giftShop.ts:125` | Mordecai | GOOD. And a deal is a deal, child. Watch this. |
+| `giftShop.ts:130` | Dana | A clunk from the other side. The STAFF ONLY door swings open. |
+| `giftShop.ts:132` | Kyle | Huh. Is that new? |
+| `giftShop.ts:134` | Dana | I hand the price gun back to Kyle. Re-pricing is their department. |
+| `giftShop.ts:136` | Kyle | It's got my name on it. |
+| `giftShop.ts:152` | Dana | A life-size cardboard Reginald. Somehow less wooden than the real one. |
+| `giftShop.ts:156` | Dana | Cardboard Reginald, $1. No. He'd find out. He'd be devastated. |
+| `giftShop.ts:168` | Dana | STAFF ONLY. A badge reader with a little red light, and a sign: TRAINEES, PLEASE ASK A SUPERVISOR. There is no supervisor. |
+| `giftShop.ts:172` | Dana | I hold up my trainee badge. The reader blinks red. It knows. |
+| `giftShop.ts:177` | Dana | I label the door $4.99. Still locked, but now it's affordable. |
+| `giftShop.ts:180` | Dana | The badge reader blinks red. It only wants a proper staff badge, and that wasn't one. |
+| `giftShop.ts:191` | Dana | STAFF ONLY, wide open. Mordecai can't touch anything, so I assume he glared at the lock until it gave up. Beyond it: a corridor that smells of burnt coffee. |
+| `giftShop.ts:216` | Dana | Wide open, with a little sign hanging on the glass that says CLOSED. That's the staff side; out in the car park it says OPEN. Handbook Section 9: never locked during business hours. It isn't. It just won't let me through. |
+| `giftShop.ts:224` | Dana | EXIT THROUGH THE GIFT SHOP. I haven't bought anything. Not even a mug. |
+| `giftShop.ts:226` | Dana | I step into the doorway. The doorway steps me straight back into the shop. |
+| `giftShop.ts:228` | Dana | The door is open. I'm just not allowed through it. Reginald's script ends with the guest escaping through the gift shop, with a souvenir. The curse is very literal. |
+| `giftShop.ts:236` | Dana | I label the front door FREE. The sign still says CLOSED. To me, specifically. |
 
 ## Kyle (19)
 
@@ -207,43 +207,43 @@ for an item; "Dana (option)" is a line Dana says when the player picks it in a c
 | `breakRoom.ts:142` | Reginald | A GUEST? Then I must stay in character. ...Welcome, mortal, to your DOOM. Do visit the gift shop. |
 | `breakRoom.ts:153` | Reginald | Exact change. In twenty years of touring I have never seen it. Not once. Not even in Hull. |
 | `breakRoom.ts:161` | Reginald | Never say "out" in a theatre, darling. Say "exeunt". *click* |
-| `breakRoom.ts:206` | Dana | The door back to the Gift Shop. This side says STAFF ONLY. The other side also says STAFF ONLY. Very consistent. Very unwelcoming. |
-| `breakRoom.ts:220` | Dana | "EMPLOYEE OF THE MONTH: GARY." Again. Below it: "WHO KEEPS TAKING THE STAPLER? —Management." And: "It is in the Lair. It is the Stapler of Doom now. —R." |
-| `breakRoom.ts:222` | Dana | "STAFF SOCIAL: Bring a dish!" Signed up: Gary (bringing "nothing"), Reginald (bringing "gravitas"). I add "Dana: crisps". Handbook Section 15: always contribute. |
-| `breakRoom.ts:234` | Dana | My card says OUT. I'm officially a guest. I feel lighter. And slightly lost. |
-| `breakRoom.ts:236` | Dana | A punch clock. The sign over it: "STAFF MUST CLOCK OUT BEFORE SHOPPING. NO EXCEPTIONS. NOT EVEN YOU, GARY." |
-| `breakRoom.ts:243` | Dana | I've already clocked out. Clocking out twice would probably mean I owe them a shift. |
-| `breakRoom.ts:245` | Dana | Handbook Section 5: "No card, no clock." I need my time card. Last seen... going somewhere cold? |
-| `breakRoom.ts:255` | Dana | KA-CHUNK. "OUT: 9:47 PM." I am off duty. Legally, I am a guest. |
-| `breakRoom.ts:257` | Dana | Handbook Section 5.3: off-duty staff are customers like anyone else. I flip my badge round to the side that says OFF DUTY. Off duty means off duty. |
-| `breakRoom.ts:262` | Dana | I file my time card back in the rack, under P. Not under the yogurt. |
-| `breakRoom.ts:267` | Dana | Already stamped OUT. If I punch it again I'll be clocked back IN, and I'm not doing that to myself. |
-| `breakRoom.ts:270` | Dana | It wants a time card, not a lanyard. The clock has standards. |
-| `breakRoom.ts:273` | Dana | The time clock only accepts time cards. It has rejected better things than this. |
-| `breakRoom.ts:285` | Dana | The yogurt, back on duty as a paperweight. Holding down nothing. It looks proud anyway. |
-| `breakRoom.ts:287` | Dana | One strawberry yogurt, pinning down a piece of card. The card says PICKWICK. That is MY time card. |
-| `breakRoom.ts:289` | Dana | A fridge covered in notes. The big one: "WHOEVER KEEPS USING MY YOGURT AS A PAPERWEIGHT: STOP." Underlined so hard the pen went through. |
-| `breakRoom.ts:296` | Dana | It's open. It hums at me disapprovingly. Another note inside says "CLOSE THE DOOR." |
-| `breakRoom.ts:300` | Dana | Inside: one strawberry yogurt, sitting on a piece of card like a paperweight. The card says PICKWICK. |
-| `breakRoom.ts:302` | Dana | Somebody's been using their yogurt as a paperweight. On my time card. In the fridge. I have so many questions. |
-| `breakRoom.ts:315` | Dana | I lift the yogurt, take my time card, and put the yogurt back exactly where it was. Handbook Section 6: respect your colleagues' dairy. |
-| `breakRoom.ts:324` | Dana | I'm not putting that in the fridge. Somebody would leave a note about it. |
-| `breakRoom.ts:333` | Dana | "SNAX-O-RAMA." Fully stocked with one bag of Spooky Crisps, which has been stuck on its spiral since before I was hired. Nobody has the heart to free it. The coin return flap is half-open, and something small and copper is sulking in there. |
-| `breakRoom.ts:338` | Dana | Empty. I check it twice more anyway. Handbook Section 8: be thorough. |
-| `breakRoom.ts:342` | Dana | Clink! One cent. Handbook Section 8: "Found money under five cents belongs to the finder." Finally, a section that helps. |
-| `breakRoom.ts:350` | Dana | The crisps are $1.50, and every cent I've got is spoken for. Hang in there, crisps. |
-| `breakRoom.ts:354` | Dana | I'm not feeding it back. That cent and I have plans. |
-| `breakRoom.ts:356` | Dana | Spend my wages on crisps? The mug is the only thing I need. The crisps can wait. They have been waiting for years. |
-| `breakRoom.ts:358` | Dana | Break exact change? For crisps? Never. |
-| `breakRoom.ts:371` | Dana | My locker's open. Inside: one spare hairnet. We don't serve food. Head office issued it anyway. |
-| `breakRoom.ts:373` | Dana | A row of staff lockers. Mine says TRAINEE. Reginald's has a gold star. Gary's is just a peg. Mine has a combination lock. |
-| `breakRoom.ts:380` | Dana | It's already open. The hairnet and I have nothing more to say to each other. |
-| `breakRoom.ts:385` | Dana | The combination is my employee number. 0... 0... 7. Click! |
-| `breakRoom.ts:387` | Dana | Inside: a spare hairnet and my pay packet. Payday! Twelve dollars and ninety-eight cents. The mug is twelve ninety-nine. Head office, you absolute artists. |
-| `breakRoom.ts:393` | Dana | The combination is my employee number. Which I was told on day one, along with forty other things. Maybe it's written on me somewhere. |
-| `breakRoom.ts:399` | Dana | The lock wants a number, not a lanyard. Though the number IS on the lanyard. I should probably read it. |
-| `breakRoom.ts:401` | Dana | The lock wants a number, not a lanyard. Though the number IS on the lanyard. I should probably read it. |
-| `breakRoom.ts:411` | Dana | The staff intercom to the Lair. A label: "FOR EMERGENCIES ONLY." Someone has added: "AND REGINALD'S NOTES." |
+| `breakRoom.ts:208` | Dana | The door back to the Gift Shop. This side says STAFF ONLY. The other side also says STAFF ONLY. Very consistent. Very unwelcoming. |
+| `breakRoom.ts:222` | Dana | "EMPLOYEE OF THE MONTH: GARY." Again. Below it: "WHO KEEPS TAKING THE STAPLER? —Management." And: "It is in the Lair. It is the Stapler of Doom now. —R." |
+| `breakRoom.ts:224` | Dana | "STAFF SOCIAL: Bring a dish!" Signed up: Gary (bringing "nothing"), Reginald (bringing "gravitas"). I add "Dana: crisps". Handbook Section 15: always contribute. |
+| `breakRoom.ts:236` | Dana | My card says OUT. I'm officially a guest. I feel lighter. And slightly lost. |
+| `breakRoom.ts:238` | Dana | A punch clock. The sign over it: "STAFF MUST CLOCK OUT BEFORE SHOPPING. NO EXCEPTIONS. NOT EVEN YOU, GARY." |
+| `breakRoom.ts:245` | Dana | I've already clocked out. Clocking out twice would probably mean I owe them a shift. |
+| `breakRoom.ts:247` | Dana | Handbook Section 5: "No card, no clock." I need my time card. Last seen... going somewhere cold? |
+| `breakRoom.ts:257` | Dana | KA-CHUNK. "OUT: 9:47 PM." I am off duty. Legally, I am a guest. |
+| `breakRoom.ts:259` | Dana | Handbook Section 5.3: off-duty staff are customers like anyone else. I flip my badge round to the side that says OFF DUTY. Off duty means off duty. |
+| `breakRoom.ts:264` | Dana | I file my time card back in the rack, under P. Not under the yogurt. |
+| `breakRoom.ts:269` | Dana | Already stamped OUT. If I punch it again I'll be clocked back IN, and I'm not doing that to myself. |
+| `breakRoom.ts:272` | Dana | It wants a time card, not a lanyard. The clock has standards. |
+| `breakRoom.ts:275` | Dana | The time clock only accepts time cards. It has rejected better things than this. |
+| `breakRoom.ts:287` | Dana | The yogurt, back on duty as a paperweight. Holding down nothing. It looks proud anyway. |
+| `breakRoom.ts:289` | Dana | One strawberry yogurt, pinning down a piece of card. The card says PICKWICK. That is MY time card. |
+| `breakRoom.ts:291` | Dana | A fridge covered in notes. The big one: "WHOEVER KEEPS USING MY YOGURT AS A PAPERWEIGHT: STOP." Underlined so hard the pen went through. |
+| `breakRoom.ts:298` | Dana | It's open. It hums at me disapprovingly. Another note inside says "CLOSE THE DOOR." |
+| `breakRoom.ts:302` | Dana | Inside: one strawberry yogurt, sitting on a piece of card like a paperweight. The card says PICKWICK. |
+| `breakRoom.ts:304` | Dana | Somebody's been using their yogurt as a paperweight. On my time card. In the fridge. I have so many questions. |
+| `breakRoom.ts:317` | Dana | I lift the yogurt, take my time card, and put the yogurt back exactly where it was. Handbook Section 6: respect your colleagues' dairy. |
+| `breakRoom.ts:326` | Dana | I'm not putting that in the fridge. Somebody would leave a note about it. |
+| `breakRoom.ts:335` | Dana | "SNAX-O-RAMA." Fully stocked with one bag of Spooky Crisps, which has been stuck on its spiral since before I was hired. Nobody has the heart to free it. The coin return flap is half-open, and something small and copper is sulking in there. |
+| `breakRoom.ts:340` | Dana | Empty. I check it twice more anyway. Handbook Section 8: be thorough. |
+| `breakRoom.ts:347` | Dana | Clink! One cent. Handbook Section 8: "Found money under five cents belongs to the finder." Finally, a section that helps. |
+| `breakRoom.ts:353` | Dana | The crisps are $1.50, and every cent I've got is spoken for. Hang in there, crisps. |
+| `breakRoom.ts:357` | Dana | I'm not feeding it back. That cent and I have plans. |
+| `breakRoom.ts:359` | Dana | Spend my wages on crisps? The mug is the only thing I need. The crisps can wait. They have been waiting for years. |
+| `breakRoom.ts:361` | Dana | Break exact change? For crisps? Never. |
+| `breakRoom.ts:374` | Dana | My locker's open. Inside: one spare hairnet. We don't serve food. Head office issued it anyway. |
+| `breakRoom.ts:376` | Dana | A row of staff lockers. Mine says TRAINEE. Reginald's has a gold star. Gary's is just a peg. Mine has a combination lock. |
+| `breakRoom.ts:383` | Dana | It's already open. The hairnet and I have nothing more to say to each other. |
+| `breakRoom.ts:388` | Dana | The combination is my employee number. 0... 0... 7. Click! |
+| `breakRoom.ts:390` | Dana | Inside: a spare hairnet and my pay packet. Payday! Twelve dollars and ninety-eight cents. The mug is twelve ninety-nine. Head office, you absolute artists. |
+| `breakRoom.ts:396` | Dana | The combination is my employee number. Which I was told on day one, along with forty other things. Maybe it's written on me somewhere. |
+| `breakRoom.ts:402` | Dana | The lock wants a number, not a lanyard. Though the number IS on the lanyard. I should probably read it. |
+| `breakRoom.ts:404` | Dana | The lock wants a number, not a lanyard. Though the number IS on the lanyard. I should probably read it. |
+| `breakRoom.ts:414` | Dana | The staff intercom to the Lair. A label: "FOR EMERGENCIES ONLY." Someone has added: "AND REGINALD'S NOTES." |
 
 ## The finale (23)
 

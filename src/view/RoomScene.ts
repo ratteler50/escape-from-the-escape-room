@@ -25,8 +25,9 @@ const VERB_ICONS: Record<Verb, string> = { look: '👁', take: '✋', talk: '�
  * lives in the components (RoomView, PlayerSprite, Speech, InventoryBar, VerbCoin, DialoguePanel);
  * puzzle logic lives in the core.
  *
- * View-only state: the held item (picked "Use with…", not used yet) and the effect queue (effects
- * the core returned that are still being played, one line at a time).
+ * View-only state: the held item (picked "Use with…", not used yet), the effect queue (effects
+ * the core returned that are still being played, one line at a time), and the flags the screen has
+ * shown so far (it catches up with the core's flags step by step as the queue plays them).
  */
 export class RoomScene extends Phaser.Scene {
   private world!: World;
@@ -49,6 +50,12 @@ export class RoomScene extends Phaser.Scene {
   private hovered: string | undefined;
   /** Effects still to play. While playing, clicks only skip lines. */
   private queue: Effect[] = [];
+  /**
+   * The flags the screen shows: the core's flags as of the last effect played. The core's state is
+   * final as soon as a command runs, but a response's flags should change the room (an overlay, a
+   * door opening) when the queue reaches them, not all at the first one.
+   */
+  private shownFlags!: GameState['flags'];
   private busy = false;
   private menuOpen = false;
   /** Skip ⏭ pressed: play the rest of the queue instantly, keeping every effect that matters. */
@@ -65,6 +72,7 @@ export class RoomScene extends Phaser.Scene {
     this.data_ = data;
     this.world = data.world;
     this.state = data.state;
+    this.shownFlags = data.state.flags;
     this.menuOpen = false;
     this.skipping = false;
     this.finishStep = undefined;
@@ -135,8 +143,9 @@ export class RoomScene extends Phaser.Scene {
   }
 
   private refreshHotspots(): void {
-    this.roomView.showOverlays(visibleOverlays(currentRoom(this.world, this.state), this.state));
-    this.roomView.showHotspots(visibleHotspots(this.world, this.state));
+    const shown = { ...this.state, flags: this.shownFlags };
+    this.roomView.showOverlays(visibleOverlays(currentRoom(this.world, shown), shown));
+    this.roomView.showHotspots(visibleHotspots(this.world, shown));
     this.hover(undefined);
   }
 
@@ -301,6 +310,7 @@ export class RoomScene extends Phaser.Scene {
         this.refreshInventory();
         break;
       case 'setFlag':
+        this.shownFlags = { ...this.shownFlags, [effect.flag]: true };
         this.refreshHotspots();
         break;
       case 'startDialogue':
@@ -363,6 +373,10 @@ export class RoomScene extends Phaser.Scene {
 
   /** The queue is empty: hand control back to the player, in the room or in the conversation. */
   private idle(): void {
+    // Catch up with the core (normally the queue already has, flag by flag).
+    const behind = Object.keys(this.state.flags).some((f) => this.state.flags[f] !== this.shownFlags[f]);
+    this.shownFlags = this.state.flags;
+    if (behind) this.refreshHotspots();
     this.busy = false;
     this.skipping = false;
     this.skipButton.setVisible(false);
