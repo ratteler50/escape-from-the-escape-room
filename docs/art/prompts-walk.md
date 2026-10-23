@@ -147,3 +147,11 @@ sprite: the angle and the look to use).
 >
 > Same face and expression in all seven. Nothing overlapping between drawings; generous space
 > between them. Plain flat light-grey background, no shadow, no floor line, no text, no numbers.
+
+If the hanging hand comes out **skeletal** (it did the first time: poses 2–6), ask for an edit in
+the same chat rather than a new sheet:
+
+> Almost perfect. In every pose, his hanging hand is drawn as a skeleton's hand, but the curse has
+> lifted: he is human now. Redraw ONLY that hand in poses 2 to 7 as a normal human hand, the same
+> skin colour as the hand on his forehead (pale, with white stage make-up that stops at the wrist).
+> Change nothing else: same poses, sizes, positions, costume, face and background.

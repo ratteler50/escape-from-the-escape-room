@@ -2,7 +2,7 @@ import * as Phaser from 'phaser';
 import type { Point } from '../core/geometry';
 import { isExit } from '../core/engine';
 import type { CharacterId, Hotspot, Pose, Room, RoomOverlay, World } from '../core/types';
-import { Walker } from './Walker';
+import { Walker, walkSheetKey } from './Walker';
 
 const COLORS = {
   wall: 0x2b2238,
@@ -136,7 +136,13 @@ export class RoomView {
       drawn.objects = this.draw(drawn);
       if (spriteKey) {
         const { x, y, width, height } = hotspot.bounds;
-        drawn.sprite = this.scene.add.image(x + width / 2, y + height, spriteKey).setOrigin(0.5, 1).setScale(SPRITE_SCALE).setDepth(DEPTH.sprite);
+        // A pose with a walk sheet stands in the sheet's first frame, so walking and standing match.
+        const walk = this.walkSheet(hotspot);
+        drawn.sprite = this.scene.add
+          .image(x + width / 2, y + height, walk ?? spriteKey, walk ? 0 : undefined)
+          .setOrigin(0.5, 1)
+          .setScale(SPRITE_SCALE)
+          .setDepth(DEPTH.sprite);
         drawn.objects.push(drawn.sprite);
       }
       const floats = hotspot.character !== undefined && this.characters[hotspot.character]?.floats;
@@ -153,6 +159,13 @@ export class RoomView {
     if (!ART_ENABLED || hotspot.character === undefined) return undefined;
     const path = this.characters[hotspot.character]?.sprites?.[pose];
     return path !== undefined && this.scene.textures.exists(artKey(path)) ? artKey(path) : undefined;
+  }
+
+  /** The loaded walk sheet for a character hotspot's pose, if it has one. */
+  private walkSheet(hotspot: Hotspot): string | undefined {
+    if (hotspot.character === undefined) return undefined;
+    const walk = this.characters[hotspot.character]?.walks?.[hotspot.pose ?? 'standing'];
+    return walk && this.scene.textures.exists(walkSheetKey(walk.sheet)) ? walkSheetKey(walk.sheet) : undefined;
   }
 
   /** Where a character's lines go: above the hotspot that is that character, if one is drawn. */
