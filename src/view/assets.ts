@@ -2,7 +2,7 @@ import * as Phaser from 'phaser';
 import type { World } from '../core/types';
 import { INVENTORY_ART } from './InventoryBar';
 import { ART_ENABLED, artKey, roomArtKey } from './RoomView';
-import { walkSheetKey } from './Walker';
+import { walkSheetKey } from './textureKeys';
 
 /** The title and end card's art (slice 26): paintings at 1280×720, the logo cut out at 2× size. */
 export const KEY_ART = { title: 'assets/key-art/title.webp', logo: 'assets/key-art/logo.webp', end: 'assets/key-art/end.webp' } as const;

@@ -1,12 +1,11 @@
 import * as Phaser from 'phaser';
 import type { WalkFrames } from '../core/types';
-import { artKey, SPRITE_SCALE } from './RoomView';
+import { artKey, SPRITE_SCALE, walkSheetKey } from './textureKeys';
 
 /** Without a walk sheet: a small hop per step and a lean into the walk, on the standing sprite (slice 19). */
 const HOP = { height: 5, periodMs: 150, leanDegrees: 3 };
 
-/** Texture keys of a walk's sprite sheet and its animation. */
-export const walkSheetKey = (sheet: string) => `walk:${sheet}`;
+/** The key of a walk's animation. */
 const walkAnimKey = (sheet: string) => `walk-anim:${sheet}`;
 
 /**

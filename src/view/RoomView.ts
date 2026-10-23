@@ -2,7 +2,8 @@ import * as Phaser from 'phaser';
 import type { Point } from '../core/geometry';
 import { isExit } from '../core/engine';
 import type { CharacterId, Hotspot, Pose, Room, RoomOverlay, World } from '../core/types';
-import { Walker, walkSheetKey } from './Walker';
+import { artKey, SPRITE_SCALE, walkSheetKey } from './textureKeys';
+import { Walker } from './Walker';
 
 const COLORS = {
   wall: 0x2b2238,
@@ -20,11 +21,8 @@ export const ART_ENABLED = new URLSearchParams(globalThis.location?.search ?? ''
 /** The texture key a room's background painting is loaded under (RoomScene preloads them). */
 export const roomArtKey = (room: Room) => `room-art:${room.id}`;
 
-/** The texture key any other art file (a sprite, an overlay) is loaded under, by its path. */
-export const artKey = (path: string) => `art:${path}`;
-
-/** Sprites are stored at twice their on-screen size (see `CharacterSprites`). */
-export const SPRITE_SCALE = 0.5;
+// Shared with the other views (they import them from here, as before).
+export { artKey, SPRITE_SCALE };
 
 /** How far below a hotspot's top edge its label's top sits. */
 const LABEL_OFFSET = 3;
