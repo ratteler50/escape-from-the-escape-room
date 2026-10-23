@@ -111,7 +111,7 @@ the previous one is playable.
 | **M1 — vertical slice** ✅ playable (slices 1–6) | The Lair, fully playable start to finish: walking, hotspots, look text, inventory, one combination, one dialogue tree, a win state ("To be continued"). Ugly but complete. |
 | **M2 — systems complete** ✅ (slices 7–12) | Room transitions (with a stub Gift Shop), deploy to GitHub Pages, save/load, cutscenes, browser end-to-end tests, polish. Plan below. |
 | **M3 — content** ✅ complete (slices 13–17) | Gift Shop and Break Room, full puzzle chain, ending. Plan below. |
-| **M4 — art and audio** (slices 18–24) | Painted backgrounds, character sprites, prop overlays, item icons, music and sound effects. No voice. Plan below. |
+| **M4 — art and audio** (slices 18–26) | Painted backgrounds, character sprites, prop overlays, item icons, music and sound effects. No voice. Plan below. |
 
 Art is placeholder shapes until M4, and the code keeps art swappable.
 
@@ -167,11 +167,12 @@ are plain files in the repo with a **15 MB** budget, enforced by a test.
 | 22 | Gift Shop: background (icon sheet attached, so painted props match), Kyle and Mordecai sprites, overlays, music, finale sting | **parallel** with 23 |
 | 23 | Break Room: background (icon sheet attached), overlays, music (the finale sting moved to 22: the finale is in the Gift Shop) | **parallel** with 22 |
 | 24 | Story fixes: the phone-letter keypad, the {CODE} scroll, the script's last page plants the ending's rule (text only) | after 22 + 23 |
-| 25 | Title and end-card key art; loading and size pass; M4 done | last |
+| 25 | The Lair's display case shows its state: lid open, the scroll's end under the bone (two overlays) | after 24 |
+| 26 | Title and end-card key art; loading and size pass; M4 done | last |
 
 ### Notes for later (from play-tests, 2026-10-22)
 
-Not scheduled yet; slice 25's spec decides which go in it and which wait for a later milestone.
+Not scheduled yet; slice 26's spec (key art and polish) decides which go in it and which wait for a later milestone.
 
 - **The front door's "CLOSED FOR REFURBISHMENT" sign doesn't hold up** (fixed in PR #22: a hanging OPEN/CLOSED sign). It faces into the shop,
   not out, and a closed shop wouldn't have a cashier on duty. Possible fix: a hanging OPEN/CLOSED
