@@ -101,7 +101,7 @@ for an item; "Dana (option)" is a line Dana says when the player picks it in a c
 
 | Where | Who | Line |
 |---|---|---|
-| `giftShop.ts:49` | Dana | The door back to the Lair. The sign over it says EXIT THROUGH THE GIFT SHOP. I did it backwards. |
+| `giftShop.ts:49` | Dana | The way back into the Lich's Lair. The sign over it says ENTER IF YOU DARE. I've dared. It's mostly cobwebs and Reginald. |
 | `giftShop.ts:63` | Dana | Mugs: "I ESCAPED THE LICH'S LAIR", $12.99. Nobody has ever escaped, so nobody has ever bought one. Kyle dusts them anyway. |
 | `giftShop.ts:67` | Dana | I could mark a mug down to a cent. Handbook Section 14.1: no re-pricing for personal gain. I hate that I know that. |
 | `giftShop.ts:78` | Dana | Kyle's till. The receipt roll is printed to look like a scroll. Head office really committed to the theme. |

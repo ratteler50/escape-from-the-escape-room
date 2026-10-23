@@ -104,3 +104,7 @@ Shared, append-only: `CREDITS.md` rows, one line each in `src/content/audio.ts`,
   showing the staff side, CLOSED: a ChatGPT edit of an enlarged crop, patched into the background
   (prompt §3c). The door's look and price-gun lines follow it (Handbook Section 9). Kyle's and
   Mordecai's "why won't the doors open?" options now say the open door keeps sending Dana back in.
+- **After merging:** the sign over the Lair door said EXIT THROUGH THE GIFT SHOP, which is a sign
+  for inside an attraction; from the shop, that door is the attraction's entrance. It's now THE
+  LICH'S LAIR / ENTER IF YOU DARE (prompt §3d, patched into the background), and the Lair door's
+  look line follows it. The phrase lives on in the front door's lines; the Lair stays in-world.

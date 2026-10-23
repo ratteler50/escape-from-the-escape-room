@@ -173,6 +173,20 @@ the result into the background itself.
 > else. It's a bit smaller than the notice was, so the glass and the night show more around it.
 > Same painted style as the rest of the image.
 
+### 3d. The sign over the Lair door (a fix to the background) → attach `art-inbox/CROP-lair-sign.png`, save as `art-inbox/lair-sign.png`
+
+Landscape (1536×1024). Not an overlay: a play-test note. EXIT THROUGH THE GIFT SHOP is a sign
+inside an attraction, pointing visitors to the way out; from the shop, the door back is the
+attraction's entrance, so its sign names the attraction. The agent patches the result into the
+background itself.
+
+> Edit this exact image. Keep everything identical: framing, size, painting style, the purple
+> wall, the stone arch below and the ceiling edge at the top. Change only one thing: replace the
+> green sign with a tacky theme-park attraction sign in the same place and about the same size: a
+> black board with a crooked, cheap-looking purple frame, the words THE LICH'S LAIR in big, bold,
+> drippy lime-green horror-movie lettering, and ENTER IF YOU DARE in small white capitals under
+> them, a little cartoon skull at each end. Same painted style as the rest of the image.
+
 ---
 
 **After you approve them:** the agent crops and scales the background to 1280×720 and fits the

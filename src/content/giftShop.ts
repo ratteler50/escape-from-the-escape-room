@@ -46,7 +46,7 @@ export const giftShop: Room = {
       interactionPoint: { x: 110, y: 475 },
       verbs: {
         // DRAFT:
-        look: says('The door back to the Lair. The sign over it says EXIT THROUGH THE GIFT SHOP. I did it backwards.'),
+        look: says("The way back into the Lich's Lair. The sign over it says ENTER IF YOU DARE. I've dared. It's mostly cobwebs and Reginald."),
         use: {
           label: 'Go through',
           responses: [{ effects: [walk('dana', 103, 458), { type: 'goToRoom', roomId: 'lair', entry: 'fromGiftShop' }] }],
