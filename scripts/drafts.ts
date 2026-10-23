@@ -19,6 +19,7 @@ const FILES: [string, string][] = [
   ['finale.ts', 'The finale'],
   ['world.ts', 'Fallback lines'],
   ['loading.ts', 'The loading screen'],
+  ['screens.ts', 'Title, loading and end screens'],
 ];
 
 /** The call or key that starts a spoken line, and who speaks it (content's dsl helpers and shorthands). */
