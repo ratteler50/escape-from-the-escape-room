@@ -52,3 +52,10 @@ Stuck? Spoiler-light hints, one room at a time:
 - `CLAUDE.md`: conventions for the agent
 - `src/core/`: headless game logic (no Phaser), `src/content/`: the game's data,
   `src/view/`: the Phaser layer
+
+## License
+
+The code and docs are MIT licensed ([LICENSE](LICENSE)). The art, music and sound effects are not:
+each keeps its own source and license, listed in [CREDITS.md](CREDITS.md) (Kevin MacLeod's music is
+CC BY 4.0, Kenney's effects CC0, the art generated for this game). The skills in `.claude/skills/`
+are Matt Pocock's, MIT ([.claude/skills/LICENSE](.claude/skills/LICENSE)).
