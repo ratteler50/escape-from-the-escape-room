@@ -104,7 +104,11 @@ separate session once M4 has been played).
 - **Assets:** 9.96 MB of the 15 MB budget; the first load is about 3.4 MB of it.
 - Tests: 435 unit tests; Playwright (play-through to the painted end card, console errors, autosave)
   green.
-- **Not done:** recording the first load on the deployed site, which can only happen after merge.
+- **First load on the deployed site** (2026-10-23, after merge; headless Chromium, empty cache, a
+  fast connection, two runs): the title appeared after **0.7–1.2 s** with **5.4 MB** fetched (the
+  JavaScript bundle, all the art, the effects and the title track). The three room tracks (6 MB)
+  followed in the background, 11.4 MB in all. On a 4 Mbps connection that's roughly 11 s to the
+  title, then the room music over the next ~12 s while playing.
 
 ## After the developer's play-test
 

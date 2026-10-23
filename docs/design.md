@@ -104,7 +104,8 @@ final cue; section twelve, wrongful loss of a role.
 ## Scope and milestones
 
 Three screens: **Lich's Lair**, **Gift Shop**, **Break Room**. A milestone is not started until
-the previous one is playable.
+the previous one is playable. **M4 is the last milestone:** the project is complete when it ends
+(decided 2026-10-23).
 
 | Milestone | Content |
 |-----------|---------|
@@ -173,7 +174,8 @@ are plain files in the repo with a **15 MB** budget, enforced by a test.
 
 ### Notes for later (from play-tests, 2026-10-22)
 
-Not scheduled yet; slice 26's spec (key art and polish) decides which go in it and which wait for a later milestone.
+A record of ideas, not a plan: the project ends with M4 (slice 27, the walk animation, is its last
+slice), so nothing here is scheduled.
 
 - **The front door's "CLOSED FOR REFURBISHMENT" sign doesn't hold up** (fixed in PR #22: a hanging OPEN/CLOSED sign). It faces into the shop,
   not out, and a closed shop wouldn't have a cashier on duty. Possible fix: a hanging OPEN/CLOSED
