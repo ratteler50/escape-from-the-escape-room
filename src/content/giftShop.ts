@@ -198,7 +198,7 @@ export const giftShop: Room = {
                 goTo('breakRoom', 'fromGiftShop'),
                 // Set after leaving, so Mordecai doesn't pop back to the bin mid-cutscene
                 // (setFlag redraws hotspots from the final state).
-                setFlag('mordecaiBack'),
+                setFlag('mordecaiByBin'),
               ],
             },
           ],

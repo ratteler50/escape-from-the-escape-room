@@ -22,7 +22,7 @@ Shared vocabulary for the game and the codebase. Use these terms in code, docs, 
 | **Item use** | What happens when a specific item is used on a specific hotspot (`hotspot.itemUses`). |
 | **Combination** | An unordered pair of items plus responses (`world.combinations`); usually removes both and adds a result. |
 | **Fallback line** | Said when nothing specific is written: a hotspot's `itemFallback`, or a generic line from `world.fallbacks`. |
-| **Flag** | A named boolean (or small value) in game state recording that something happened, e.g. `readScript`, `reginaldLeftThrone`. |
+| **Flag** | A named boolean in game state recording that something happened or is so. Named by one convention (slice 28): something that happened is a past-tense phrase (`tookGaryArm`, `learnedCue`, `reginaldLeftThrone`); a lasting state is a subject and an adjective (`caseOpen`, `lairDoorUnlocked`, `danaOffDuty`). Content validation checks that every flag a condition tests is set somewhere, and every flag set is read. |
 | **Game state** | Everything that changes during play: current room, player position, inventory, flags. Serializable. Lives in the core. |
 | **Command** | An input to the core, e.g. `look(hotspot)`, `interact(hotspot)`, `useOn(item, hotspot)`, `combine(a, b)`. |
 | **Effect** | An output from the core in response to a command: say a line, add/remove an item, set a flag, start dialogue, change room. The view plays effects; the core never draws. |

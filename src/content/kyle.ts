@@ -67,7 +67,7 @@ export const kyleDialogue: Dialogue = {
         {
           id: 'buyMug',
           text: 'Can I buy an "I ESCAPED" mug?',
-          when: [{ notFlag: 'offDuty' }],
+          when: [{ notFlag: 'danaOffDuty' }],
           once: true,
           effects: [
             // DRAFT:
@@ -78,14 +78,14 @@ export const kyleDialogue: Dialogue = {
             // DRAFT:
             say("I've never wanted to be a customer so badly in my life."),
             // Slice 16 needs this: Dana has to stop being staff before Kyle will sell.
-            setFlag('kyleWontSellToStaff'),
+            setFlag('kyleRefusedStaffSale'),
           ],
           next: 'hub',
         },
         {
           id: 'mugAgain',
           text: 'About that mug...',
-          when: [{ flag: 'kyleWontSellToStaff' }, { notFlag: 'offDuty' }],
+          when: [{ flag: 'kyleRefusedStaffSale' }, { notFlag: 'danaOffDuty' }],
           // DRAFT:
           effects: [K('Lanyard.')],
           next: 'hub',
@@ -106,7 +106,7 @@ export const kyleDialogue: Dialogue = {
         {
           id: 'priceGun',
           text: 'Employee Handbook, Section 14: "Staff may borrow equipment for re-pricing."',
-          when: [{ flag: 'heardTeapot' }],
+          when: [{ flag: 'heardTeapotComplaint' }],
           once: true,
           effects: [
             // DRAFT:

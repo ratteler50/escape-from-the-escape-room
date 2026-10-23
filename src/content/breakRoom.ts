@@ -13,14 +13,14 @@ const checkTheNumber: Item['action'] = {
   label: 'Check the number',
   responses: [
     // DRAFT:
-    { when: [{ flag: 'knowsEmployeeNumber' }], effects: [say('Employee number 007. Still 007. Still licensed to clock in.')] },
+    { when: [{ flag: 'learnedEmployeeNumber' }], effects: [say('Employee number 007. Still 007. Still licensed to clock in.')] },
     {
       effects: [
         // DRAFT:
         say('I squint at the small print. Employee number... 007. Licensed to clock in.'),
         // DRAFT:
         say("0-0-7. Handbook Section 2: know your number. Now I do. I'll never forget it."),
-        setFlag('knowsEmployeeNumber'),
+        setFlag('learnedEmployeeNumber'),
       ],
     },
   ],
@@ -133,7 +133,7 @@ export const intercomDialogue: Dialogue = {
         {
           id: 'offDuty',
           text: "I've clocked out. I'm a guest now.",
-          when: [{ flag: 'offDuty' }],
+          when: [{ flag: 'danaOffDuty' }],
           once: true,
           effects: [
             // DRAFT:
@@ -231,7 +231,7 @@ export const breakRoom: Room = {
         look: {
           responses: [
             // DRAFT:
-            { when: [{ flag: 'offDuty' }], effects: [say("My card says OUT. I'm officially a guest. I feel lighter. And slightly lost.")] },
+            { when: [{ flag: 'danaOffDuty' }], effects: [say("My card says OUT. I'm officially a guest. I feel lighter. And slightly lost.")] },
             // DRAFT:
             { effects: [say('A punch clock. The sign over it: "STAFF MUST CLOCK OUT BEFORE SHOPPING. NO EXCEPTIONS. NOT EVEN YOU, GARY."')] },
           ],
@@ -240,7 +240,7 @@ export const breakRoom: Room = {
           label: 'Clock out',
           responses: [
             // DRAFT:
-            { when: [{ flag: 'offDuty' }], effects: [say("I've already clocked out. Clocking out twice would probably mean I owe them a shift.")] },
+            { when: [{ flag: 'danaOffDuty' }], effects: [say("I've already clocked out. Clocking out twice would probably mean I owe them a shift.")] },
             // DRAFT:
             { effects: [say('Handbook Section 5: "No card, no clock." I need my time card. Last seen... going somewhere cold?')] },
           ],
@@ -249,7 +249,7 @@ export const breakRoom: Room = {
       itemUses: {
         [timeCard.id]: [
           {
-            when: [{ notFlag: 'offDuty' }],
+            when: [{ notFlag: 'danaOffDuty' }],
             effects: [
               // DRAFT:
               say('KA-CHUNK. "OUT: 9:47 PM." I am off duty. Legally, I am a guest.'),
@@ -257,7 +257,7 @@ export const breakRoom: Room = {
               say('Handbook Section 5.3: off-duty staff are customers like anyone else. I flip my badge round to the side that says OFF DUTY. Off duty means off duty.'),
               removeItem(lanyard.id),
               addItem(offDutyLanyard.id),
-              setFlag('offDuty'),
+              setFlag('danaOffDuty'),
               // DRAFT:
               say('I file my time card back in the rack, under P. Not under the yogurt.'),
               removeItem(timeCard.id),
@@ -380,7 +380,7 @@ export const breakRoom: Room = {
             // DRAFT:
             { when: [{ flag: 'lockerOpen' }], effects: [say("It's already open. The hairnet and I have nothing more to say to each other.")] },
             {
-              when: [{ flag: 'knowsEmployeeNumber' }],
+              when: [{ flag: 'learnedEmployeeNumber' }],
               effects: [
                 // DRAFT:
                 say('The combination is my employee number. 0... 0... 7. Click!'),

@@ -38,9 +38,9 @@ function withGoal(goal: Condition[]): World {
 const numbered = (steps: string[]) => steps.map((s, i) => `  ${i + 1}. ${s}`).join('\n');
 
 const goals: Record<string, Condition[]> = {
-  'off duty': [{ flag: 'offDuty' }],
+  'off duty': [{ flag: 'danaOffDuty' }],
   'holding Exact Change': [{ has: 'exactChange' }],
-  'off duty and holding Exact Change': [{ flag: 'offDuty' }, { has: 'exactChange' }],
+  'off duty and holding Exact Change': [{ flag: 'danaOffDuty' }, { has: 'exactChange' }],
 };
 
 describe('the Break Room', () => {
@@ -77,7 +77,7 @@ describe('the Break Room', () => {
     const result = explore(withGoal(goals['off duty and holding Exact Change']!), start);
     const wrong = [...result.explored.entries()].find(([, { state }]) => {
       const has = (id: string) => state.inventory.includes(id);
-      return state.flags.offDuty ? has('lanyard') || !has('offDutyLanyard') : has('offDutyLanyard') || !has('lanyard');
+      return state.flags.danaOffDuty ? has('lanyard') || !has('offDutyLanyard') : has('offDutyLanyard') || !has('lanyard');
     });
     expect(wrong && `Wrong lanyard after:\n${numbered(result.pathTo(wrong[0]))}`).toBeUndefined();
   });

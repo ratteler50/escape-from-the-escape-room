@@ -43,7 +43,7 @@ export const mordecaiBackHotspot: Hotspot = {
   id: 'mordecaiBack',
   name: 'Mordecai',
   character: mordecai.id,
-  when: [{ flag: 'mordecaiBack' }],
+  when: [{ flag: 'mordecaiByBin' }],
   bounds: { x: 581, y: 116, width: 119, height: 201 },
   interactionPoint: { x: 620, y: 480 },
   verbs: {
@@ -126,7 +126,7 @@ export const mordecaiDialogue: Dialogue = {
             M('I cannot lift so much as a sticker. I can only float through walls, which is less useful than it sounds.'),
             // DRAFT:
             M('Re-price it. PROPERLY. Do that, and I shall open any door in this building for you.'),
-            setFlag('heardTeapot'),
+            setFlag('heardTeapotComplaint'),
             // DRAFT:
             say("Re-pricing is done with a price gun. Kyle has the price gun. I'll need a Handbook section."),
           ],
@@ -135,7 +135,7 @@ export const mordecaiDialogue: Dialogue = {
         {
           id: 'teapotAgain',
           text: 'About your teapot...',
-          when: [{ flag: 'heardTeapot' }],
+          when: [{ flag: 'heardTeapotComplaint' }],
           // DRAFT:
           effects: [M('TWO. DOLLARS.')],
           next: 'hub',

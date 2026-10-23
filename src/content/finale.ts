@@ -38,7 +38,7 @@ export const mugSaleOptions: DialogueOption[] = [
   {
     id: 'mugNoCash',
     text: 'I\'m off duty now. One "I ESCAPED" mug, please?',
-    when: [{ flag: 'offDuty' }, { lacks: exactChange.id }],
+    when: [{ flag: 'danaOffDuty' }, { lacks: exactChange.id }],
     effects: [
       // DRAFT:
       K("Twelve ninety-nine. Cash only, card machine's down."),
@@ -52,7 +52,7 @@ export const mugSaleOptions: DialogueOption[] = [
   {
     id: 'sale',
     text: 'One "I ESCAPED" mug, please. As a customer. With exact change.',
-    when: [{ flag: 'offDuty' }, { has: exactChange.id }],
+    when: [{ flag: 'danaOffDuty' }, { has: exactChange.id }],
     effects: [
       // DRAFT:
       K('Lanyard.'),

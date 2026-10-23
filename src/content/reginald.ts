@@ -20,7 +20,7 @@ export const script: Item = {
           // DRAFT:
           say('Handbook Section 3: lost property must be returned. I pop the script back in his coffin.'),
           removeItem('script'),
-          setFlag('knowsCue'),
+          setFlag('learnedCue'),
         ],
       },
     ],
@@ -169,7 +169,7 @@ export const reginaldDialogue: Dialogue = {
         {
           id: 'cue',
           text: 'Rise, foul creature, and face me!',
-          when: [{ flag: 'knowsCue' }, { notFlag: 'reginaldLeftThrone' }],
+          when: [{ flag: 'learnedCue' }, { notFlag: 'reginaldLeftThrone' }],
           effects: [
             // DRAFT:
             R('...!'),

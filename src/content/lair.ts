@@ -78,7 +78,7 @@ export const lair: Room = {
       // One scroll patch, listed twice: while the case is closed, and once Dana puts it back.
       // After the lid so it draws on top.
       { image: 'assets/overlays/lair-case-scroll.webp', at: { x: 797, y: 318 }, when: [{ notFlag: 'caseOpen' }] },
-      { image: 'assets/overlays/lair-case-scroll.webp', at: { x: 797, y: 318 }, when: [{ flag: 'doorUnlocked' }] },
+      { image: 'assets/overlays/lair-case-scroll.webp', at: { x: 797, y: 318 }, when: [{ flag: 'lairDoorUnlocked' }] },
     ],
   },
   entries: {
@@ -101,7 +101,7 @@ export const lair: Room = {
         look: {
           responses: [
             // DRAFT:
-            { when: [{ flag: 'doorUnlocked' }], effects: [say('Unlocked! Beyond it: the Gift Shop. I can already hear the mugs.')] },
+            { when: [{ flag: 'lairDoorUnlocked' }], effects: [say('Unlocked! Beyond it: the Gift Shop. I can already hear the mugs.')] },
             // DRAFT:
             { effects: [say('A heavy oak door. Well, heavy oak-effect laminate. Section 9 of the Handbook says it should never be locked during business hours. It is locked.')] },
           ],
@@ -110,7 +110,7 @@ export const lair: Room = {
         talk: says("Hello? Door? I'd like to speak to your manager. ... Its manager is also a door.", 'Negotiate'),
         use: {
           label: 'Go through',
-          when: [{ flag: 'doorUnlocked' }],
+          when: [{ flag: 'lairDoorUnlocked' }],
           responses: [
             {
               when: [{ notFlag: 'visitedGiftShop' }],
@@ -202,7 +202,7 @@ export const lair: Room = {
               ],
             },
             // DRAFT:
-            { when: [{ flag: 'knowsCue' }], effects: [say("His script's back where it belongs. I know the cue by heart now: \"Rise, foul creature, and face me!\"")] },
+            { when: [{ flag: 'learnedCue' }], effects: [say("His script's back where it belongs. I know the cue by heart now: \"Rise, foul creature, and face me!\"")] },
             // DRAFT:
             { effects: [say('Just the mirror and the hairspray. And a signed photo of Reginald, signed by Reginald.')] },
           ],
@@ -271,7 +271,7 @@ export const lair: Room = {
         look: {
           responses: [
             // DRAFT:
-            { when: [{ flag: 'doorUnlocked' }], effects: [say("The scroll's tucked back under the bone. Its little card says 'ANCIENT RIDDLE (REPRODUCTION)'. It has never been more wrong. I've left the lid up. The Handbook covers opening things, not closing them.")] },
+            { when: [{ flag: 'lairDoorUnlocked' }], effects: [say("The scroll's tucked back under the bone. Its little card says 'ANCIENT RIDDLE (REPRODUCTION)'. It has never been more wrong. I've left the lid up. The Handbook covers opening things, not closing them.")] },
             // DRAFT:
             { when: [{ flag: 'caseOpen' }], effects: [say("The lid's propped open, key still in the lock. Just the bone now. Its card says 'BONE (DECORATIVE)'. The scroll's card says 'ANCIENT RIDDLE (REPRODUCTION)', and points at nothing.")] },
             // DRAFT:
@@ -318,7 +318,7 @@ export const lair: Room = {
           label: 'Enter a code',
           responses: [
             // DRAFT:
-            { when: [{ flag: 'doorUnlocked' }], effects: [say("Already done. C-O-D-E, ENTER. I'll never forget it. I'll try.")] },
+            { when: [{ flag: 'lairDoorUnlocked' }], effects: [say("Already done. C-O-D-E, ENTER. I'll never forget it. I'll try.")] },
             // DRAFT:
             { effects: [say("L-I-C-H, ENTER. Bzzt. D-O-O-M, ENTER. Bzzt. G-A-R-Y, ENTER. Bzzt, and Gary looks hurt. I need the actual code.")] },
           ],
@@ -327,14 +327,14 @@ export const lair: Room = {
       itemUses: {
         [riddleScroll.id]: [
           {
-            when: [{ notFlag: 'doorUnlocked' }],
+            when: [{ notFlag: 'lairDoorUnlocked' }],
             effects: [
               // DRAFT:
               say('"THE ANSWER IS: {CODE}." The curly brackets just mark the blank that nobody filled in. What\'s printed in the blank is the word CODE.'),
               // DRAFT:
               say('The curse bound the script exactly as printed. So the answer isn\'t a code. It\'s the word CODE. C. O. D. E. ENTER.'),
               sound('keypad'),
-              setFlag('doorUnlocked'),
+              setFlag('lairDoorUnlocked'),
               sound('unlock'),
               // DRAFT:
               say("CLUNK. The door unlocks. I've beaten head office at their own game. By reading."),
