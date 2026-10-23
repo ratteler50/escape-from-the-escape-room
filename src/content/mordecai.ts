@@ -1,5 +1,5 @@
 import type { Character, Dialogue, Hotspot } from '../core/types';
-import { line, say, says, setFlag } from './dsl';
+import { line, say, says, setFlag, startDialogue } from './dsl';
 import { kyle } from './kyle';
 
 export const mordecai: Character = {
@@ -28,7 +28,7 @@ export const mordecaiHotspot: Hotspot = {
     look: says("A see-through old man in a dressing gown, hovering over the bargain bin and glaring at it. The Handbook's index goes straight from 'Gherkins' to 'Gift vouchers'."),
     talk: {
       label: 'Address the apparition',
-      responses: [{ effects: [{ type: 'startDialogue', dialogueId: 'mordecai' }] }],
+      responses: [{ effects: [startDialogue('mordecai')] }],
     },
   },
   itemUses: {

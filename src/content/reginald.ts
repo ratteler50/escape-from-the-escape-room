@@ -1,5 +1,5 @@
 import type { Character, Dialogue, Hotspot, HotspotVerbs, Item, Response } from '../core/types';
-import { line, say, setFlag, sound, walk } from './dsl';
+import { line, removeItem, say, setFlag, sound, startDialogue, walk } from './dsl';
 
 export const reginald: Character = {
   id: 'reginald',
@@ -32,7 +32,7 @@ export const script: Item = {
           say('"Rise, foul creature, and face me!" Rise, foul creature... and face me! Got it. Word perfect.'),
           // DRAFT:
           say('Handbook Section 3: lost property must be returned. I pop the script back in his coffin.'),
-          { type: 'removeItem', itemId: 'script' },
+          removeItem('script'),
           setFlag('knowsCue'),
         ],
       },
@@ -55,7 +55,7 @@ const verbs: HotspotVerbs = {
   },
   talk: {
     label: 'Address His Undeadness',
-    responses: [{ effects: [{ type: 'startDialogue', dialogueId: 'reginald' }] }],
+    responses: [{ effects: [startDialogue('reginald')] }],
   },
 };
 

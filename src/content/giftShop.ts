@@ -1,5 +1,5 @@
 import type { Item, Room } from '../core/types';
-import { line, say, says, setFlag, walk } from './dsl';
+import { goTo, line, removeItem, say, says, setFlag, walk } from './dsl';
 import { kyle, kyleHotspot, priceGun } from './kyle';
 import { mordecai, mordecaiBackHotspot, mordecaiHotspot } from './mordecai';
 import { mug, reginaldFinaleHotspot } from './finale';
@@ -51,7 +51,7 @@ export const giftShop: Room = {
         look: says("The way back into the Lich's Lair. The sign over it says ENTER IF YOU DARE. I've dared. It's mostly cobwebs and Reginald."),
         use: {
           label: 'Go through',
-          responses: [{ effects: [walk('dana', 103, 458), { type: 'goToRoom', roomId: 'lair', entry: 'fromGiftShop' }] }],
+          responses: [{ effects: [walk('dana', 103, 458), goTo('lair', 'fromGiftShop')] }],
         },
       },
     },
@@ -136,7 +136,7 @@ export const giftShop: Room = {
               say('I hand the price gun back to Kyle. Re-pricing is their department.'),
               // DRAFT:
               K("It's got my name on it."),
-              { type: 'removeItem', itemId: 'priceGun' },
+              removeItem('priceGun'),
             ],
           },
         ],
@@ -197,7 +197,7 @@ export const giftShop: Room = {
             {
               effects: [
                 walk('dana', 954, 458),
-                { type: 'goToRoom', roomId: 'breakRoom', entry: 'fromGiftShop' },
+                goTo('breakRoom', 'fromGiftShop'),
                 // Set after leaving, so Mordecai doesn't pop back to the bin mid-cutscene
                 // (setFlag redraws hotspots from the final state).
                 setFlag('mordecaiBack'),

@@ -1,5 +1,5 @@
 import type { Character, Dialogue, Hotspot, Item } from '../core/types';
-import { line, say, says, setFlag } from './dsl';
+import { addItem, line, say, says, setFlag, startDialogue } from './dsl';
 import { mugSaleOptions } from './finale';
 
 export const kyle: Character = {
@@ -31,7 +31,7 @@ export const kyleHotspot: Hotspot = {
     look: says("Kyle, behind the till. Earbuds in, phone out. Third summer here. They haven't looked up since the lich started screaming."),
     talk: {
       label: 'Wave politely',
-      responses: [{ effects: [{ type: 'startDialogue', dialogueId: 'kyle' }] }],
+      responses: [{ effects: [startDialogue('kyle')] }],
     },
   },
   itemUses: {
@@ -121,7 +121,7 @@ export const kyleDialogue: Dialogue = {
             K("Re-pricing is my department. Technically."),
             // DRAFT:
             K("Bring it back. It's got my name on it."),
-            { type: 'addItem', itemId: priceGun.id },
+            addItem(priceGun.id),
             // DRAFT:
             say("I've been issued equipment. I'd like to thank the Handbook."),
           ],

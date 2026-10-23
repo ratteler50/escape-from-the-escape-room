@@ -1,5 +1,5 @@
 import type { Combination, Item, Room } from '../core/types';
-import { say, says, setFlag, sound, walk } from './dsl';
+import { addItem, goTo, removeItem, say, says, setFlag, sound, walk } from './dsl';
 import { reginaldOnMark, reginaldOnThrone, script } from './reginald';
 
 export const garyArm: Item = {
@@ -53,9 +53,9 @@ export const lairCombinations: Combination[] = [
           sound('squelch'),
           // DRAFT:
           say("I press the gum onto Gary's fingertip. It's disgusting. It's perfect."),
-          { type: 'removeItem', itemId: garyArm.id },
-          { type: 'removeItem', itemId: gum.id },
-          { type: 'addItem', itemId: stickyArm.id },
+          removeItem(garyArm.id),
+          removeItem(gum.id),
+          addItem(stickyArm.id),
         ],
       },
     ],
@@ -120,10 +120,10 @@ export const lair: Room = {
                 say('Freedom! Or at least... retail.'),
                 walk('dana', 1110, 425),
                 setFlag('visitedGiftShop'),
-                { type: 'goToRoom', roomId: 'giftShop', entry: 'fromLair' },
+                goTo('giftShop', 'fromLair'),
               ],
             },
-            { effects: [walk('dana', 1110, 425), { type: 'goToRoom', roomId: 'giftShop', entry: 'fromLair' }] },
+            { effects: [walk('dana', 1110, 425), goTo('giftShop', 'fromLair')] },
           ],
         },
       },
@@ -156,8 +156,8 @@ export const lair: Room = {
               effects: [
                 // DRAFT:
                 say('Under the armrest: one wad of pre-owned gum, stuck there like under a school desk. Handbook Section 3: "Lost property must be logged." Consider it logged.'),
-                { type: 'addItem', itemId: gum.id },
-                { type: 'setFlag', flag: 'tookGum' },
+                addItem(gum.id),
+                setFlag('tookGum'),
               ],
             },
           ],
@@ -198,7 +198,7 @@ export const lair: Room = {
               effects: [
                 // DRAFT:
                 say('Inside: a mirror, hairspray labelled UNDEAD HOLD, and a dog-eared script. His cue is underlined three times: "Rise, foul creature, and face me!"'),
-                { type: 'addItem', itemId: script.id },
+                addItem(script.id),
                 setFlag('tookScript'),
               ],
             },
@@ -235,8 +235,8 @@ export const lair: Room = {
                 sound('bones'),
                 // DRAFT:
                 say("Sorry, Gary. I'll bring it back. Probably. Handbook Section 4.2 says nothing about skeletons."),
-                { type: 'addItem', itemId: garyArm.id },
-                { type: 'setFlag', flag: 'tookGaryArm' },
+                addItem(garyArm.id),
+                setFlag('tookGaryArm'),
               ],
             },
           ],
@@ -297,8 +297,8 @@ export const lair: Room = {
               sound('latch'),
               // DRAFT:
               say("Click. The case opens. I slide the Ancient Riddle Scroll out from under the bone and leave the key in the lock, like a responsible trainee."),
-              { type: 'removeItem', itemId: caseKey.id },
-              { type: 'addItem', itemId: riddleScroll.id },
+              removeItem(caseKey.id),
+              addItem(riddleScroll.id),
               setFlag('caseOpen'),
             ],
           },
@@ -341,7 +341,7 @@ export const lair: Room = {
               say("CLUNK. The door unlocks. I've beaten head office at their own game. By reading."),
               // DRAFT:
               say('Handbook Section 3: lost property must be returned. I tuck the scroll back under its bone.'),
-              { type: 'removeItem', itemId: riddleScroll.id },
+              removeItem(riddleScroll.id),
             ],
           },
           // DRAFT:
@@ -372,11 +372,11 @@ export const lair: Room = {
               sound('keys'),
               // DRAFT:
               say('I lower the Sticky Arm through the bars... gently... got it! A key. Gary would be proud. Gary is never proud.'),
-              { type: 'addItem', itemId: caseKey.id },
+              addItem(caseKey.id),
               // DRAFT:
               say("The gum lets go of the key and grabs the grate instead. Gary's arm is staying there. I'm told that's what gum does."),
-              { type: 'removeItem', itemId: stickyArm.id },
-              { type: 'setFlag', flag: 'gotCaseKey' },
+              removeItem(stickyArm.id),
+              setFlag('gotCaseKey'),
             ],
           },
           // DRAFT:

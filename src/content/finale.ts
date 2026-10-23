@@ -1,5 +1,5 @@
 import type { DialogueOption, Hotspot, Item } from '../core/types';
-import { line, say, says, setFlag, sound, walk } from './dsl';
+import { addItem, line, pause, removeItem, say, says, setFlag, sound, walk, win } from './dsl';
 import { reginald } from './reginald';
 
 // The M3 payoff (docs/slices/16-finale.md): Kyle sells the mug, the script is satisfied, the curse
@@ -64,19 +64,19 @@ export const mugSaleOptions: DialogueOption[] = [
       K('...Fine.'),
       // DRAFT:
       say('Twelve dollars and ninety-nine cents. Exact. I counted it three times.'),
-      { type: 'removeItem', itemId: 'exactChange' },
+      removeItem('exactChange'),
       sound('till'),
       // DRAFT:
       K('Receipt?'),
       // DRAFT:
       say('Yes please. I want proof.'),
-      { type: 'addItem', itemId: mug.id },
+      addItem(mug.id),
       // DRAFT:
       say(`I ESCAPED THE LICH'S LAIR. Technically I haven't. But the mug says I have, and the curse is very literal.`),
       // Reginald appears in the Lair doorway (reginaldFinaleHotspot).
       setFlag('curseLifted'),
       sound('rumble'),
-      { type: 'pause', ms: 600 },
+      pause(600),
       // DRAFT:
       say('A rumble. The lights flicker. Somewhere, a jar stops whispering.'),
       // Dun dun DUUUN (ducks the music while it plays).
@@ -100,10 +100,10 @@ export const mugSaleOptions: DialogueOption[] = [
       M('ONE DOLLAR?! That jar contains my SOUL!'),
       // DRAFT:
       K('Final sale.'),
-      { type: 'pause', ms: 800 },
+      pause(800),
       // DRAFT:
       say(`From the bargain bin, very faintly, something whispers: "...one dollar... we'll see about that..."`),
-      { type: 'win' },
+      win(),
     ],
     next: 'end',
   },

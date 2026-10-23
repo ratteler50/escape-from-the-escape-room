@@ -1,5 +1,5 @@
 import type { Combination, Dialogue, Item, Room } from '../core/types';
-import { line, say, says, setFlag, walk } from './dsl';
+import { addItem, goTo, line, removeItem, say, says, setFlag, startDialogue, walk } from './dsl';
 import { reginald } from './reginald';
 
 // The Break Room (slice 15): three parallel puzzles from the M3 plan (docs/design.md). Clock out
@@ -86,9 +86,9 @@ export const breakRoomCombinations: Combination[] = [
         effects: [
           // DRAFT:
           say('I drop the cent into the pay packet. $12.99. Exact change. Handbook Section 10: "Always offer exact change." Nobody ever has. Until now.'),
-          { type: 'removeItem', itemId: payPacket.id },
-          { type: 'removeItem', itemId: oneCent.id },
-          { type: 'addItem', itemId: exactChange.id },
+          removeItem(payPacket.id),
+          removeItem(oneCent.id),
+          addItem(exactChange.id),
         ],
       },
     ],
@@ -208,7 +208,7 @@ export const breakRoom: Room = {
         look: says('The door back to the Gift Shop. This side says STAFF ONLY. The other side also says STAFF ONLY. Very consistent. Very unwelcoming.'),
         use: {
           label: 'Go through',
-          responses: [{ effects: [walk('dana', 150, 470), { type: 'goToRoom', roomId: 'giftShop', entry: 'fromBreakRoom' }] }],
+          responses: [{ effects: [walk('dana', 150, 470), goTo('giftShop', 'fromBreakRoom')] }],
         },
       },
     },
@@ -257,12 +257,12 @@ export const breakRoom: Room = {
               say('KA-CHUNK. "OUT: 9:47 PM." I am off duty. Legally, I am a guest.'),
               // DRAFT:
               say('Handbook Section 5.3: off-duty staff are customers like anyone else. I flip my badge round to the side that says OFF DUTY. Off duty means off duty.'),
-              { type: 'removeItem', itemId: lanyard.id },
-              { type: 'addItem', itemId: offDutyLanyard.id },
+              removeItem(lanyard.id),
+              addItem(offDutyLanyard.id),
               setFlag('offDuty'),
               // DRAFT:
               say('I file my time card back in the rack, under P. Not under the yogurt.'),
-              { type: 'removeItem', itemId: timeCard.id },
+              removeItem(timeCard.id),
             ],
           },
           // DRAFT:
@@ -315,7 +315,7 @@ export const breakRoom: Room = {
               effects: [
                 // DRAFT:
                 say('I lift the yogurt, take my time card, and put the yogurt back exactly where it was. Handbook Section 6: respect your colleagues\' dairy.'),
-                { type: 'addItem', itemId: timeCard.id },
+                addItem(timeCard.id),
                 setFlag('tookTimeCard'),
               ],
             },
@@ -342,7 +342,7 @@ export const breakRoom: Room = {
               effects: [
                 // Before the line, so the coin leaves the slot (an overlay) as Dana takes it.
                 setFlag('gotCent'),
-                { type: 'addItem', itemId: oneCent.id },
+                addItem(oneCent.id),
                 // DRAFT:
                 say('Clink! One cent. Handbook Section 8: "Found money under five cents belongs to the finder." Finally, a section that helps.'),
               ],
@@ -388,7 +388,7 @@ export const breakRoom: Room = {
                 say('The combination is my employee number. 0... 0... 7. Click!'),
                 // DRAFT:
                 say('Inside: a spare hairnet and my pay packet. Payday! Twelve dollars and ninety-eight cents. The mug is twelve ninety-nine. Head office, you absolute artists.'),
-                { type: 'addItem', itemId: payPacket.id },
+                addItem(payPacket.id),
                 setFlag('lockerOpen'),
               ],
             },
@@ -414,7 +414,7 @@ export const breakRoom: Room = {
         look: says('The staff intercom to the Lair. A label: "FOR EMERGENCIES ONLY." Someone has added: "AND REGINALD\'S NOTES."'),
         talk: {
           label: 'Press TALK',
-          responses: [{ effects: [{ type: 'startDialogue', dialogueId: intercomDialogue.id }] }],
+          responses: [{ effects: [startDialogue(intercomDialogue.id)] }],
         },
       },
     },
