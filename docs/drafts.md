@@ -10,274 +10,274 @@ for an item; "Dana (option)" is a line Dana says when the player picks it in a c
 
 | Where | Who | Line |
 |---|---|---|
-| `lair.ts:10` | Look | Gary's left arm. Surprisingly light. He's been skipping arm day for decades. |
-| `lair.ts:18` | Look | A wad of gum from under the Spooky Seat. Still tacky. In both senses. |
-| `lair.ts:26` | Look | Gary's arm, now with a gum fingertip. I've invented a tool. Or a crime. |
-| `lair.ts:34` | Look | A tiny key on a skull keyring. The keyring says DISPLAY CASE. Head office labels everything except the puzzles. |
-| `lair.ts:42` | Look | It reads: "THE ANSWER IS: {CODE}". Head office used a template and never filled in the blank. Of COURSE. Then again, the curse made the whole script real, exactly as printed. Does that include the blanks? |
-| `lair.ts:55` | Dana | I press the gum onto Gary's fingertip. It's disgusting. It's perfect. |
-| `lair.ts:105` | Dana | Unlocked! Beyond it: the Gift Shop. I can already hear the mugs. |
-| `lair.ts:107` | Dana | A heavy oak door. Well, heavy oak-effect laminate. Section 9 of the Handbook says it should never be locked during business hours. It is locked. |
-| `lair.ts:111` | Dana | Hello? Door? I'd like to speak to your manager. ... Its manager is also a door. |
-| `lair.ts:120` | Dana | Freedom! Or at least... retail. |
-| `lair.ts:132` | Dana | Wrong key. It's for the display case. It literally says so on it. |
-| `lair.ts:135` | Dana | The door remains locked. It is unmoved by my offerings. |
-| `lair.ts:146` | Dana | Reginald is sitting on it. Sitting is a strong word. He's lounging, dramatically. |
-| `lair.ts:148` | Dana | A towering throne of bone. The estate-sale sticker on the armrest says "LOT 12: SPOOKY SEAT (BONE-EFFECT), $49.99". |
-| `lair.ts:158` | Dana | Under the armrest: one wad of pre-owned gum, stuck there like under a school desk. Handbook Section 3: "Lost property must be logged." Consider it logged. |
-| `lair.ts:166` | Dana | Handbook Section 7.1: "The Spooky Seat is for liches only." I am not a lich. I'm barely a trainee. |
-| `lair.ts:178` | Dana | A glowing skull-shaped jar on a plinth. The estate-sale sticker says "LOT 47: SPOOKY JAR (ASSORTED), $3.50". It's whispering. Props don't whisper. I'd remember that from training. |
-| `lair.ts:180` | Dana | Cable-locked to the plinth. Head office's anti-theft cable: they trust the lich with it, but not the staff. |
-| `lair.ts:182` | Dana | "...my teapot... my good teapot... two dollars..." I don't know what that means. I don't like that I don't know what that means. |
-| `lair.ts:192` | Dana | A coffin with a gold star on the lid. "R. VANTABLACK-THORNE: DRESSING ROOM. KNOCK." |
-| `lair.ts:200` | Dana | Inside: a mirror, hairspray labelled UNDEAD HOLD, and a dog-eared script. His cue is underlined three times: "Rise, foul creature, and face me!" |
-| `lair.ts:206` | Dana | His script's back where it belongs. I know the cue by heart now: "Rise, foul creature, and face me!" |
-| `lair.ts:208` | Dana | Just the mirror and the hairspray. And a signed photo of Reginald, signed by Reginald. |
-| `lair.ts:224` | Dana | Gary, now with 50% fewer arms. He's taking it very well. |
-| `lair.ts:226` | Dana | Gary the skeleton. His name tag says he's been Employee of the Month eleven times. I've never even been Employee of the Shift. |
-| `lair.ts:237` | Dana | Sorry, Gary. I'll bring it back. Probably. Handbook Section 4.2 says nothing about skeletons. |
-| `lair.ts:245` | Dana | Hi, Gary. ... Gary says nothing. Gary has always been a wonderful listener. |
-| `lair.ts:249` | Dana | I offer Gary his arm back. He doesn't want it. He's moved on. |
-| `lair.ts:251` | Dana | I am NOT giving it back to him like this. |
-| `lair.ts:261` | Dana | "One star. Could not escape." "One star. Still here." "Five stars! Very immersive!" That last one's from Reginald's mum. |
-| `lair.ts:263` | Dana | "Two stars. Staff were polite but the lich was hammy." Handbook Section 11: employees may not review their own workplace. I'll sign it "Gary". |
-| `lair.ts:275` | Dana | The scroll's tucked back under the bone. Its little card says 'ANCIENT RIDDLE (REPRODUCTION)'. It has never been more wrong. I've left the lid up. The Handbook covers opening things, not closing them. |
-| `lair.ts:277` | Dana | The lid's propped open, key still in the lock. Just the bone now. Its card says 'BONE (DECORATIVE)'. The scroll's card says 'ANCIENT RIDDLE (REPRODUCTION)', and points at nothing. |
-| `lair.ts:279` | Dana | An ornate display case. Inside, on velvet: a bone, labelled 'BONE (DECORATIVE)'. Tucked underneath it: an Ancient Riddle Scroll. The lock is tiny and skull-shaped. |
-| `lair.ts:286` | Dana | It's open. All that's left is the decorative bone, and I'm not stealing set dressing on my first day. |
-| `lair.ts:288` | Dana | Locked. The keyhole is shaped like a tiny skull. Head office loves a theme. |
-| `lair.ts:299` | Dana | Click. The case opens. I slide the Ancient Riddle Scroll out from under the bone and leave the key in the lock, like a responsible trainee. |
-| `lair.ts:306` | Dana | It's already open. |
-| `lair.ts:317` | Dana | Eight brass buttons with letters on them, like an old phone (ABC, DEF, all the way to WXYZ), and one that says ENTER. No numbers at all. Someone has labelled it NUMBER PAD. A brass plate: "ENTER CODE TO ESCAPE". Below it, smaller: "NO REFUNDS". |
-| `lair.ts:322` | Dana | Already done. C-O-D-E, ENTER. I'll never forget it. I'll try. |
-| `lair.ts:324` | Dana | L-I-C-H, ENTER. Bzzt. D-O-O-M, ENTER. Bzzt. G-A-R-Y, ENTER. Bzzt, and Gary looks hurt. I need the actual code. |
-| `lair.ts:334` | Dana | "THE ANSWER IS: {CODE}." The curly brackets just mark the blank that nobody filled in. What's printed in the blank is the word CODE. |
-| `lair.ts:336` | Dana | The curse bound the script exactly as printed. So the answer isn't a code. It's the word CODE. C. O. D. E. ENTER. |
-| `lair.ts:341` | Dana | CLUNK. The door unlocks. I've beaten head office at their own game. By reading. |
-| `lair.ts:343` | Dana | Handbook Section 3: lost property must be returned. I tuck the scroll back under its bone. |
-| `lair.ts:348` | Dana | The door's already unlocked. I'm not typing CODE again. It felt silly enough the first time. |
-| `lair.ts:361` | Dana | Gary's arm, gummed to the grate, waving at nobody. A pamphlet down there: "Emergency Procedures for Staff". Fire, flood, fainting guest. Nothing about liches. I checked twice. |
-| `lair.ts:363` | Dana | A floor grate. Something small and shiny glints down there, just out of reach. I'd need a longer arm. Or a spare one. |
-| `lair.ts:374` | Dana | I lower the Sticky Arm through the bars... gently... got it! A key. Gary would be proud. Gary is never proud. |
-| `lair.ts:377` | Dana | The gum lets go of the key and grabs the grate instead. Gary's arm is staying there. I'm told that's what gum does. |
-| `lair.ts:383` | Dana | There's nothing else down there worth getting gum on. |
-| `lair.ts:386` | Dana | Gary's fingers brush the key, but it won't stay put. If only they were... stickier. |
-| `lair.ts:389` | Dana | That won't fit through the grate. Most things won't. That's rather the point of a grate. |
+| `lair.ts:11` | Look | Gary's left arm. Surprisingly light. He's been skipping arm day for decades. |
+| `lair.ts:19` | Look | A wad of gum from under the Spooky Seat. Still tacky. In both senses. |
+| `lair.ts:27` | Look | Gary's arm, now with a gum fingertip. I've invented a tool. Or a crime. |
+| `lair.ts:35` | Look | A tiny key on a skull keyring. The keyring says DISPLAY CASE. Head office labels everything except the puzzles. |
+| `lair.ts:43` | Look | It reads: "THE ANSWER IS: {CODE}". Head office used a template and never filled in the blank. Of COURSE. Then again, the curse made the whole script real, exactly as printed. Does that include the blanks? |
+| `lair.ts:54` | Dana | I press the gum onto Gary's fingertip. It's disgusting. It's perfect. |
+| `lair.ts:104` | Dana | Unlocked! Beyond it: the Gift Shop. I can already hear the mugs. |
+| `lair.ts:106` | Dana | A heavy oak door. Well, heavy oak-effect laminate. Section 9 of the Handbook says it should never be locked during business hours. It is locked. |
+| `lair.ts:110` | Dana | Hello? Door? I'd like to speak to your manager. ... Its manager is also a door. |
+| `lair.ts:119` | Dana | Freedom! Or at least... retail. |
+| `lair.ts:131` | Dana | Wrong key. It's for the display case. It literally says so on it. |
+| `lair.ts:134` | Dana | The door remains locked. It is unmoved by my offerings. |
+| `lair.ts:145` | Dana | Reginald is sitting on it. Sitting is a strong word. He's lounging, dramatically. |
+| `lair.ts:147` | Dana | A towering throne of bone. The estate-sale sticker on the armrest says "LOT 12: SPOOKY SEAT (BONE-EFFECT), $49.99". |
+| `lair.ts:157` | Dana | Under the armrest: one wad of pre-owned gum, stuck there like under a school desk. Handbook Section 3: "Lost property must be logged." Consider it logged. |
+| `lair.ts:165` | Dana | Handbook Section 7.1: "The Spooky Seat is for liches only." I am not a lich. I'm barely a trainee. |
+| `lair.ts:177` | Dana | A glowing skull-shaped jar on a plinth. The estate-sale sticker says "LOT 47: SPOOKY JAR (ASSORTED), $3.50". It's whispering. Props don't whisper. I'd remember that from training. |
+| `lair.ts:179` | Dana | Cable-locked to the plinth. Head office's anti-theft cable: they trust the lich with it, but not the staff. |
+| `lair.ts:181` | Dana | "...my teapot... my good teapot... two dollars..." I don't know what that means. I don't like that I don't know what that means. |
+| `lair.ts:191` | Dana | A coffin with a gold star on the lid. "R. VANTABLACK-THORNE: DRESSING ROOM. KNOCK." |
+| `lair.ts:199` | Dana | Inside: a mirror, hairspray labelled UNDEAD HOLD, and a dog-eared script. His cue is underlined three times: "Rise, foul creature, and face me!" |
+| `lair.ts:205` | Dana | His script's back where it belongs. I know the cue by heart now: "Rise, foul creature, and face me!" |
+| `lair.ts:207` | Dana | Just the mirror and the hairspray. And a signed photo of Reginald, signed by Reginald. |
+| `lair.ts:223` | Dana | Gary, now with 50% fewer arms. He's taking it very well. |
+| `lair.ts:225` | Dana | Gary the skeleton. His name tag says he's been Employee of the Month eleven times. I've never even been Employee of the Shift. |
+| `lair.ts:236` | Dana | Sorry, Gary. I'll bring it back. Probably. Handbook Section 4.2 says nothing about skeletons. |
+| `lair.ts:244` | Dana | Hi, Gary. ... Gary says nothing. Gary has always been a wonderful listener. |
+| `lair.ts:248` | Dana | I offer Gary his arm back. He doesn't want it. He's moved on. |
+| `lair.ts:250` | Dana | I am NOT giving it back to him like this. |
+| `lair.ts:260` | Dana | "One star. Could not escape." "One star. Still here." "Five stars! Very immersive!" That last one's from Reginald's mum. |
+| `lair.ts:262` | Dana | "Two stars. Staff were polite but the lich was hammy." Handbook Section 11: employees may not review their own workplace. I'll sign it "Gary". |
+| `lair.ts:274` | Dana | The scroll's tucked back under the bone. Its little card says 'ANCIENT RIDDLE (REPRODUCTION)'. It has never been more wrong. I've left the lid up. The Handbook covers opening things, not closing them. |
+| `lair.ts:276` | Dana | The lid's propped open, key still in the lock. Just the bone now. Its card says 'BONE (DECORATIVE)'. The scroll's card says 'ANCIENT RIDDLE (REPRODUCTION)', and points at nothing. |
+| `lair.ts:278` | Dana | An ornate display case. Inside, on velvet: a bone, labelled 'BONE (DECORATIVE)'. Tucked underneath it: an Ancient Riddle Scroll. The lock is tiny and skull-shaped. |
+| `lair.ts:285` | Dana | It's open. All that's left is the decorative bone, and I'm not stealing set dressing on my first day. |
+| `lair.ts:287` | Dana | Locked. The keyhole is shaped like a tiny skull. Head office loves a theme. |
+| `lair.ts:298` | Dana | Click. The case opens. I slide the Ancient Riddle Scroll out from under the bone and leave the key in the lock, like a responsible trainee. |
+| `lair.ts:305` | Dana | It's already open. |
+| `lair.ts:316` | Dana | Eight brass buttons with letters on them, like an old phone (ABC, DEF, all the way to WXYZ), and one that says ENTER. No numbers at all. Someone has labelled it NUMBER PAD. A brass plate: "ENTER CODE TO ESCAPE". Below it, smaller: "NO REFUNDS". |
+| `lair.ts:321` | Dana | Already done. C-O-D-E, ENTER. I'll never forget it. I'll try. |
+| `lair.ts:323` | Dana | L-I-C-H, ENTER. Bzzt. D-O-O-M, ENTER. Bzzt. G-A-R-Y, ENTER. Bzzt, and Gary looks hurt. I need the actual code. |
+| `lair.ts:333` | Dana | "THE ANSWER IS: {CODE}." The curly brackets just mark the blank that nobody filled in. What's printed in the blank is the word CODE. |
+| `lair.ts:335` | Dana | The curse bound the script exactly as printed. So the answer isn't a code. It's the word CODE. C. O. D. E. ENTER. |
+| `lair.ts:340` | Dana | CLUNK. The door unlocks. I've beaten head office at their own game. By reading. |
+| `lair.ts:342` | Dana | Handbook Section 3: lost property must be returned. I tuck the scroll back under its bone. |
+| `lair.ts:347` | Dana | The door's already unlocked. I'm not typing CODE again. It felt silly enough the first time. |
+| `lair.ts:360` | Dana | Gary's arm, gummed to the grate, waving at nobody. A pamphlet down there: "Emergency Procedures for Staff". Fire, flood, fainting guest. Nothing about liches. I checked twice. |
+| `lair.ts:362` | Dana | A floor grate. Something small and shiny glints down there, just out of reach. I'd need a longer arm. Or a spare one. |
+| `lair.ts:373` | Dana | I lower the Sticky Arm through the bars... gently... got it! A key. Gary would be proud. Gary is never proud. |
+| `lair.ts:376` | Dana | The gum lets go of the key and grabs the grate instead. Gary's arm is staying there. I'm told that's what gum does. |
+| `lair.ts:382` | Dana | There's nothing else down there worth getting gum on. |
+| `lair.ts:385` | Dana | Gary's fingers brush the key, but it won't stay put. If only they were... stickier. |
+| `lair.ts:388` | Dana | That won't fit through the grate. Most things won't. That's rather the point of a grate. |
 
 ## Reginald (28)
 
 | Where | Who | Line |
 |---|---|---|
-| `reginald.ts:25` | Look | Act One, Scene One. His cue: "Rise, foul creature, and face me!" The margins say PAUSE FOR APPLAUSE eleven times. The last page: "FINALE: The guest escapes THROUGH THE GIFT SHOP and purchases a souvenir. CURTAIN." Head office has underlined "souvenir" twice. |
-| `reginald.ts:32` | Dana | "Rise, foul creature, and face me!" Rise, foul creature... and face me! Got it. Word perfect. |
-| `reginald.ts:34` | Dana | Handbook Section 3: lost property must be returned. I pop the script back in his coffin. |
-| `reginald.ts:51` | Dana | Reginald, standing on his mark in the dark, while his spotlight lovingly illuminates Gary. |
-| `reginald.ts:53` | Dana | Reginald Vantablack-Thorne, the Lich Lord. Actually undead now. He's never looked happier. |
-| `reginald.ts:64` | Reginald | Unhand that limb! Gary has a CONTRACT! |
-| `reginald.ts:66` | Reginald | My script! ...Keep it, darling. Learn it! Nobody learns their lines any more. |
-| `reginald.ts:71` | Reginald | A MISPRINT? In MY lair? Do you know how many nights I have stood here while guests read THAT? |
-| `reginald.ts:73` | Reginald | Nobody ever escaped, and they all blamed my performance. I shall be writing to head office. In blood. Well, red pen. |
-| `reginald.ts:113` | Reginald | Is that... GARY'S ARM? Gary is a member of the cast! ...Well. The show must go on. |
-| `reginald.ts:116` | Reginald | Ah, my audience returns! Come to bask in the afterglow? |
-| `reginald.ts:121` | Reginald | WHO DARES DISTURB THE LICH LORD? ...Oh. The trainee. |
-| `reginald.ts:123` | Dana | I've got his script right here. If only I knew his cue by heart. |
-| `reginald.ts:127` | Reginald | WHO DARES DISTURB THE LICH LORD? ...Oh. The trainee. |
-| `reginald.ts:138` | Reginald | I am Mortevayne, Dread Sovereign of the— fine. Reginald Vantablack-Thorne. Classically trained. |
-| `reginald.ts:140` | Reginald | I once understudied a Hamlet. He never got sick. Not once. Forty-two performances. |
-| `reginald.ts:150` | Reginald | The curse, darling! That phylactery made everything real. I am a genuine lich now. |
-| `reginald.ts:152` | Reginald | Head office's incident form has two boxes: "slip" and "trip". I ticked "other". I call it a promotion. |
-| `reginald.ts:162` | Reginald | Break character? Mid-performance? Actors' union rules, section nine: the show does not stop until the final cue. |
-| `reginald.ts:172` | Reginald | Section nine, darling. |
-| `reginald.ts:180` | Reginald | I do not take notes from management. I take notes from the muse. |
-| `reginald.ts:189` | Reginald | ...! |
-| `reginald.ts:192` | Reginald | ARISE! ARIIIISE! Yes! Find your light, Reginald! |
-| `reginald.ts:197` | Reginald | Behold, mortal, as the light finds me and— ...Gary? |
-| `reginald.ts:199` | Reginald | I am ON my mark! The light is meant to fall HERE. Instead it is lovingly illuminating a man with no lines, over THERE! |
-| `reginald.ts:201` | Reginald | Fine. FINE. A true professional holds his mark in the dark. Whoever rigged that is getting a strongly worded note. |
-| `reginald.ts:203` | Dana | He's sulking on his mark, in the dark. Which means the Spooky Seat is unguarded. |
-| `reginald.ts:211` | Reginald | Farewell, mortal! Mind the fourth wall on your way out. |
+| `reginald.ts:12` | Look | Act One, Scene One. His cue: "Rise, foul creature, and face me!" The margins say PAUSE FOR APPLAUSE eleven times. The last page: "FINALE: The guest escapes THROUGH THE GIFT SHOP and purchases a souvenir. CURTAIN." Head office has underlined "souvenir" twice. |
+| `reginald.ts:19` | Dana | "Rise, foul creature, and face me!" Rise, foul creature... and face me! Got it. Word perfect. |
+| `reginald.ts:21` | Dana | Handbook Section 3: lost property must be returned. I pop the script back in his coffin. |
+| `reginald.ts:37` | Dana | Reginald, standing on his mark in the dark, while his spotlight lovingly illuminates Gary. |
+| `reginald.ts:39` | Dana | Reginald Vantablack-Thorne, the Lich Lord. Actually undead now. He's never looked happier. |
+| `reginald.ts:50` | Reginald | Unhand that limb! Gary has a CONTRACT! |
+| `reginald.ts:52` | Reginald | My script! ...Keep it, darling. Learn it! Nobody learns their lines any more. |
+| `reginald.ts:57` | Reginald | A MISPRINT? In MY lair? Do you know how many nights I have stood here while guests read THAT? |
+| `reginald.ts:59` | Reginald | Nobody ever escaped, and they all blamed my performance. I shall be writing to head office. In blood. Well, red pen. |
+| `reginald.ts:99` | Reginald | Is that... GARY'S ARM? Gary is a member of the cast! ...Well. The show must go on. |
+| `reginald.ts:102` | Reginald | Ah, my audience returns! Come to bask in the afterglow? |
+| `reginald.ts:107` | Reginald | WHO DARES DISTURB THE LICH LORD? ...Oh. The trainee. |
+| `reginald.ts:109` | Dana | I've got his script right here. If only I knew his cue by heart. |
+| `reginald.ts:113` | Reginald | WHO DARES DISTURB THE LICH LORD? ...Oh. The trainee. |
+| `reginald.ts:124` | Reginald | I am Mortevayne, Dread Sovereign of the— fine. Reginald Vantablack-Thorne. Classically trained. |
+| `reginald.ts:126` | Reginald | I once understudied a Hamlet. He never got sick. Not once. Forty-two performances. |
+| `reginald.ts:136` | Reginald | The curse, darling! That phylactery made everything real. I am a genuine lich now. |
+| `reginald.ts:138` | Reginald | Head office's incident form has two boxes: "slip" and "trip". I ticked "other". I call it a promotion. |
+| `reginald.ts:148` | Reginald | Break character? Mid-performance? Actors' union rules, section nine: the show does not stop until the final cue. |
+| `reginald.ts:158` | Reginald | Section nine, darling. |
+| `reginald.ts:166` | Reginald | I do not take notes from management. I take notes from the muse. |
+| `reginald.ts:175` | Reginald | ...! |
+| `reginald.ts:178` | Reginald | ARISE! ARIIIISE! Yes! Find your light, Reginald! |
+| `reginald.ts:183` | Reginald | Behold, mortal, as the light finds me and— ...Gary? |
+| `reginald.ts:185` | Reginald | I am ON my mark! The light is meant to fall HERE. Instead it is lovingly illuminating a man with no lines, over THERE! |
+| `reginald.ts:187` | Reginald | Fine. FINE. A true professional holds his mark in the dark. Whoever rigged that is getting a strongly worded note. |
+| `reginald.ts:189` | Dana | He's sulking on his mark, in the dark. Which means the Spooky Seat is unguarded. |
+| `reginald.ts:197` | Reginald | Farewell, mortal! Mind the fourth wall on your way out. |
 
 ## The Gift Shop (30)
 
 | Where | Who | Line |
 |---|---|---|
-| `giftShop.ts:51` | Dana | The way back into the Lich's Lair. The sign over it says ENTER IF YOU DARE. I've dared. It's mostly cobwebs and Reginald. |
-| `giftShop.ts:65` | Dana | Mugs: "I ESCAPED THE LICH'S LAIR", $12.99. Nobody has ever escaped, so nobody has ever bought one. Kyle dusts them anyway. |
-| `giftShop.ts:69` | Dana | I could mark a mug down to a cent. Handbook Section 14.1: no re-pricing for personal gain. I hate that I know that. |
-| `giftShop.ts:80` | Dana | Kyle's till. The receipt roll is printed to look like a scroll. Head office really committed to the theme. |
-| `giftShop.ts:82` | Kyle | That's my department. |
-| `giftShop.ts:86` | Kyle | Don't. |
-| `giftShop.ts:100` | Dana | The teapot's sticker now says PRICELESS. The rest of the bin looks jealous. |
-| `giftShop.ts:102` | Dana | The bargain bin: three lich snow globes, an eraser shaped like a smaller eraser, and a rather nice teapot. $2. |
-| `giftShop.ts:106` | Dana | Bargain bin stock is final sale, and I am staff. Two rules, one teapot. |
-| `giftShop.ts:113` | Dana | It's already priceless. You can't go higher than priceless. I asked the Handbook. |
-| `giftShop.ts:121` | Dana | Ka-chunk. One new sticker: PRICELESS. |
-| `giftShop.ts:123` | Mordecai | Priceless. PRICELESS! At last, someone in this establishment with taste. |
-| `giftShop.ts:125` | Kyle | We can't sell that now. |
-| `giftShop.ts:127` | Mordecai | GOOD. And a deal is a deal, child. Watch this. |
-| `giftShop.ts:132` | Dana | A clunk from the other side. The STAFF ONLY door swings open. |
-| `giftShop.ts:134` | Kyle | Huh. Is that new? |
-| `giftShop.ts:136` | Dana | I hand the price gun back to Kyle. Re-pricing is their department. |
-| `giftShop.ts:138` | Kyle | It's got my name on it. |
-| `giftShop.ts:154` | Dana | A life-size cardboard Reginald. Somehow less wooden than the real one. |
-| `giftShop.ts:158` | Dana | Cardboard Reginald, $1. No. He'd find out. He'd be devastated. |
-| `giftShop.ts:170` | Dana | STAFF ONLY. A badge reader with a little red light, and a sign: TRAINEES, PLEASE ASK A SUPERVISOR. There is no supervisor. |
-| `giftShop.ts:174` | Dana | I hold up my trainee badge. The reader blinks red. It knows. |
-| `giftShop.ts:179` | Dana | I label the door $4.99. Still locked, but now it's affordable. |
-| `giftShop.ts:182` | Dana | The badge reader blinks red. It only wants a proper staff badge, and that wasn't one. |
-| `giftShop.ts:193` | Dana | STAFF ONLY, wide open. Mordecai can't touch anything, so I assume he glared at the lock until it gave up. Beyond it: a corridor that smells of burnt coffee. |
-| `giftShop.ts:218` | Dana | Wide open, with a little sign hanging on the glass that says CLOSED. That's the staff side; out in the car park it says OPEN. Handbook Section 9: never locked during business hours. It isn't. It just won't let me through. |
-| `giftShop.ts:226` | Dana | EXIT THROUGH THE GIFT SHOP. I haven't bought anything. Not even a mug. |
-| `giftShop.ts:228` | Dana | I step into the doorway. The doorway steps me straight back into the shop. |
-| `giftShop.ts:230` | Dana | The door is open. I'm just not allowed through it. Reginald's script ends with the guest escaping through the gift shop, with a souvenir. The curse is very literal. |
-| `giftShop.ts:238` | Dana | I label the front door FREE. The sign still says CLOSED. To me, specifically. |
+| `giftShop.ts:49` | Dana | The way back into the Lich's Lair. The sign over it says ENTER IF YOU DARE. I've dared. It's mostly cobwebs and Reginald. |
+| `giftShop.ts:63` | Dana | Mugs: "I ESCAPED THE LICH'S LAIR", $12.99. Nobody has ever escaped, so nobody has ever bought one. Kyle dusts them anyway. |
+| `giftShop.ts:67` | Dana | I could mark a mug down to a cent. Handbook Section 14.1: no re-pricing for personal gain. I hate that I know that. |
+| `giftShop.ts:78` | Dana | Kyle's till. The receipt roll is printed to look like a scroll. Head office really committed to the theme. |
+| `giftShop.ts:80` | Kyle | That's my department. |
+| `giftShop.ts:84` | Kyle | Don't. |
+| `giftShop.ts:98` | Dana | The teapot's sticker now says PRICELESS. The rest of the bin looks jealous. |
+| `giftShop.ts:100` | Dana | The bargain bin: three lich snow globes, an eraser shaped like a smaller eraser, and a rather nice teapot. $2. |
+| `giftShop.ts:104` | Dana | Bargain bin stock is final sale, and I am staff. Two rules, one teapot. |
+| `giftShop.ts:111` | Dana | It's already priceless. You can't go higher than priceless. I asked the Handbook. |
+| `giftShop.ts:119` | Dana | Ka-chunk. One new sticker: PRICELESS. |
+| `giftShop.ts:121` | Mordecai | Priceless. PRICELESS! At last, someone in this establishment with taste. |
+| `giftShop.ts:123` | Kyle | We can't sell that now. |
+| `giftShop.ts:125` | Mordecai | GOOD. And a deal is a deal, child. Watch this. |
+| `giftShop.ts:130` | Dana | A clunk from the other side. The STAFF ONLY door swings open. |
+| `giftShop.ts:132` | Kyle | Huh. Is that new? |
+| `giftShop.ts:134` | Dana | I hand the price gun back to Kyle. Re-pricing is their department. |
+| `giftShop.ts:136` | Kyle | It's got my name on it. |
+| `giftShop.ts:152` | Dana | A life-size cardboard Reginald. Somehow less wooden than the real one. |
+| `giftShop.ts:156` | Dana | Cardboard Reginald, $1. No. He'd find out. He'd be devastated. |
+| `giftShop.ts:168` | Dana | STAFF ONLY. A badge reader with a little red light, and a sign: TRAINEES, PLEASE ASK A SUPERVISOR. There is no supervisor. |
+| `giftShop.ts:172` | Dana | I hold up my trainee badge. The reader blinks red. It knows. |
+| `giftShop.ts:177` | Dana | I label the door $4.99. Still locked, but now it's affordable. |
+| `giftShop.ts:180` | Dana | The badge reader blinks red. It only wants a proper staff badge, and that wasn't one. |
+| `giftShop.ts:191` | Dana | STAFF ONLY, wide open. Mordecai can't touch anything, so I assume he glared at the lock until it gave up. Beyond it: a corridor that smells of burnt coffee. |
+| `giftShop.ts:216` | Dana | Wide open, with a little sign hanging on the glass that says CLOSED. That's the staff side; out in the car park it says OPEN. Handbook Section 9: never locked during business hours. It isn't. It just won't let me through. |
+| `giftShop.ts:224` | Dana | EXIT THROUGH THE GIFT SHOP. I haven't bought anything. Not even a mug. |
+| `giftShop.ts:226` | Dana | I step into the doorway. The doorway steps me straight back into the shop. |
+| `giftShop.ts:228` | Dana | The door is open. I'm just not allowed through it. Reginald's script ends with the guest escaping through the gift shop, with a souvenir. The curse is very literal. |
+| `giftShop.ts:236` | Dana | I label the front door FREE. The sign still says CLOSED. To me, specifically. |
 
 ## Kyle (19)
 
 | Where | Who | Line |
 |---|---|---|
-| `kyle.ts:20` | Look | Kyle's price gun. Someone has written "KYLE'S DEPARTMENT" down the handle in glitter pen. The labels say whatever I make them say. |
-| `kyle.ts:31` | Dana | Kyle, behind the till. Earbuds in, phone out. Third summer here. They haven't looked up since the lich started screaming. |
-| `kyle.ts:39` | Kyle | Don't. |
-| `kyle.ts:47` | Kyle | Mm. |
-| `kyle.ts:56` | Kyle | Kyle. Gift shop. |
-| `kyle.ts:58` | Kyle | Third summer. Don't learn my name, nobody does. |
-| `kyle.ts:67` | Kyle | New show feature, probably. Head office never tells us anything. |
-| `kyle.ts:69` | Kyle | They changed the bag charge last month. We found out from a customer. |
-| `kyle.ts:80` | Kyle | Lanyard. |
-| `kyle.ts:83` | Kyle | You're wearing a lanyard. Staff can't buy merch. It's on the till. |
-| `kyle.ts:85` | Dana | I've never wanted to be a customer so badly in my life. |
-| `kyle.ts:96` | Kyle | Lanyard. |
-| `kyle.ts:105` | Kyle | Sick projection. Is that new? |
-| `kyle.ts:108` | Kyle | Huh. Good resolution. |
-| `kyle.ts:119` | Kyle | ... |
-| `kyle.ts:121` | Kyle | Re-pricing is my department. Technically. |
-| `kyle.ts:123` | Kyle | Bring it back. It's got my name on it. |
-| `kyle.ts:126` | Dana | I've been issued equipment. I'd like to thank the Handbook. |
-| `kyle.ts:134` | Kyle | Mm. |
+| `kyle.ts:14` | Look | Kyle's price gun. Someone has written "KYLE'S DEPARTMENT" down the handle in glitter pen. The labels say whatever I make them say. |
+| `kyle.ts:25` | Dana | Kyle, behind the till. Earbuds in, phone out. Third summer here. They haven't looked up since the lich started screaming. |
+| `kyle.ts:33` | Kyle | Don't. |
+| `kyle.ts:41` | Kyle | Mm. |
+| `kyle.ts:50` | Kyle | Kyle. Gift shop. |
+| `kyle.ts:52` | Kyle | Third summer. Don't learn my name, nobody does. |
+| `kyle.ts:61` | Kyle | New show feature, probably. Head office never tells us anything. |
+| `kyle.ts:63` | Kyle | They changed the bag charge last month. We found out from a customer. |
+| `kyle.ts:74` | Kyle | Lanyard. |
+| `kyle.ts:77` | Kyle | You're wearing a lanyard. Staff can't buy merch. It's on the till. |
+| `kyle.ts:79` | Dana | I've never wanted to be a customer so badly in my life. |
+| `kyle.ts:90` | Kyle | Lanyard. |
+| `kyle.ts:99` | Kyle | Sick projection. Is that new? |
+| `kyle.ts:102` | Kyle | Huh. Good resolution. |
+| `kyle.ts:113` | Kyle | ... |
+| `kyle.ts:115` | Kyle | Re-pricing is my department. Technically. |
+| `kyle.ts:117` | Kyle | Bring it back. It's got my name on it. |
+| `kyle.ts:120` | Dana | I've been issued equipment. I'd like to thank the Handbook. |
+| `kyle.ts:128` | Kyle | Mm. |
 
 ## Mordecai (24)
 
 | Where | Who | Line |
 |---|---|---|
-| `mordecai.ts:28` | Dana | A see-through old man in a dressing gown, hovering over the bargain bin and glaring at it. The Handbook's index goes straight from 'Gherkins' to 'Gift vouchers'. |
-| `mordecai.ts:39` | Mordecai | You would PRICE me? I am Mordecai the Moderately Powerful! |
-| `mordecai.ts:41` | Mordecai | ...Out of interest. What would you have put? |
-| `mordecai.ts:43` | Dana | I'd rather not say. |
-| `mordecai.ts:61` | Dana | Mordecai, back over the bargain bin, gazing at his PRICELESS teapot like it might propose. |
-| `mordecai.ts:68` | Mordecai | Priceless. Say it with me, child. PRICELESS. |
-| `mordecai.ts:70` | Dana | Priceless. |
-| `mordecai.ts:72` | Mordecai | Now go and finish whatever wretched errand keeps you here. I have admiring to do. |
-| `mordecai.ts:80` | Mordecai | Not. One. More. Sticker. |
-| `mordecai.ts:91` | Mordecai | BEHOLD! Mordecai the Moderately Powerful! |
-| `mordecai.ts:93` | Kyle | Store closes at nine. |
-| `mordecai.ts:95` | Mordecai | I was BEHOLDING. |
-| `mordecai.ts:107` | Mordecai | A wizard, child. Retired. Then deceased. Moderately powerful in both. |
-| `mordecai.ts:109` | Mordecai | Your head office bought my entire estate. Lot by lot. Including, it seems, me. |
-| `mordecai.ts:118` | Mordecai | My phylactery. The vessel of my very soul. Your head office bought it as a "spooky jar". Three dollars fifty. |
-| `mordecai.ts:120` | Mordecai | Tonight it woke, and it was cross, and so was I. It has bound this whole shabby place to the escape room's script. |
-| `mordecai.ts:122` | Dana | Handbook Section 1: nobody has ever beaten the escape room. It says that like it's a selling point. |
-| `mordecai.ts:132` | Mordecai | Upset? My GOOD TEAPOT is in your bargain bin. Two dollars. Next to an eraser shaped like a smaller eraser. |
-| `mordecai.ts:134` | Kyle | Bargain bin is final sale. |
-| `mordecai.ts:136` | Mordecai | I cannot lift so much as a sticker. I can only float through walls, which is less useful than it sounds. |
-| `mordecai.ts:138` | Mordecai | Re-price it. PROPERLY. Do that, and I shall open any door in this building for you. |
-| `mordecai.ts:141` | Dana | Re-pricing is done with a price gun. Kyle has the price gun. I'll need a Handbook section. |
-| `mordecai.ts:150` | Mordecai | TWO. DOLLARS. |
-| `mordecai.ts:157` | Mordecai | Mind the merchandise on your way out. Most of it is mine. |
+| `mordecai.ts:18` | Dana | A see-through old man in a dressing gown, hovering over the bargain bin and glaring at it. The Handbook's index goes straight from 'Gherkins' to 'Gift vouchers'. |
+| `mordecai.ts:29` | Mordecai | You would PRICE me? I am Mordecai the Moderately Powerful! |
+| `mordecai.ts:31` | Mordecai | ...Out of interest. What would you have put? |
+| `mordecai.ts:33` | Dana | I'd rather not say. |
+| `mordecai.ts:51` | Dana | Mordecai, back over the bargain bin, gazing at his PRICELESS teapot like it might propose. |
+| `mordecai.ts:58` | Mordecai | Priceless. Say it with me, child. PRICELESS. |
+| `mordecai.ts:60` | Dana | Priceless. |
+| `mordecai.ts:62` | Mordecai | Now go and finish whatever wretched errand keeps you here. I have admiring to do. |
+| `mordecai.ts:70` | Mordecai | Not. One. More. Sticker. |
+| `mordecai.ts:81` | Mordecai | BEHOLD! Mordecai the Moderately Powerful! |
+| `mordecai.ts:83` | Kyle | Store closes at nine. |
+| `mordecai.ts:85` | Mordecai | I was BEHOLDING. |
+| `mordecai.ts:97` | Mordecai | A wizard, child. Retired. Then deceased. Moderately powerful in both. |
+| `mordecai.ts:99` | Mordecai | Your head office bought my entire estate. Lot by lot. Including, it seems, me. |
+| `mordecai.ts:108` | Mordecai | My phylactery. The vessel of my very soul. Your head office bought it as a "spooky jar". Three dollars fifty. |
+| `mordecai.ts:110` | Mordecai | Tonight it woke, and it was cross, and so was I. It has bound this whole shabby place to the escape room's script. |
+| `mordecai.ts:112` | Dana | Handbook Section 1: nobody has ever beaten the escape room. It says that like it's a selling point. |
+| `mordecai.ts:122` | Mordecai | Upset? My GOOD TEAPOT is in your bargain bin. Two dollars. Next to an eraser shaped like a smaller eraser. |
+| `mordecai.ts:124` | Kyle | Bargain bin is final sale. |
+| `mordecai.ts:126` | Mordecai | I cannot lift so much as a sticker. I can only float through walls, which is less useful than it sounds. |
+| `mordecai.ts:128` | Mordecai | Re-price it. PROPERLY. Do that, and I shall open any door in this building for you. |
+| `mordecai.ts:131` | Dana | Re-pricing is done with a price gun. Kyle has the price gun. I'll need a Handbook section. |
+| `mordecai.ts:140` | Mordecai | TWO. DOLLARS. |
+| `mordecai.ts:147` | Mordecai | Mind the merchandise on your way out. Most of it is mine. |
 
 ## The Break Room (55)
 
 | Where | Who | Line |
 |---|---|---|
-| `breakRoom.ts:15` | Dana | Employee number 007. Still 007. Still licensed to clock in. |
-| `breakRoom.ts:19` | Dana | I squint at the small print. Employee number... 007. Licensed to clock in. |
-| `breakRoom.ts:21` | Dana | 0-0-7. Handbook Section 2: know your number. Now I do. I'll never forget it. |
-| `breakRoom.ts:33` | Look | My lanyard. TRAINEE in huge letters, my employee number in tiny ones. Head office's priorities, in font sizes. |
-| `breakRoom.ts:43` | Look | My lanyard, badge flipped round. The back says OFF DUTY. It has never been used before. It still smells new. |
-| `breakRoom.ts:52` | Look | "D. PICKWICK, TRAINEE. IN: 4:00 PM." Slightly chilled, and faintly strawberry-scented. |
-| `breakRoom.ts:60` | Look | My pay packet: $12.98. The mug is $12.99. Head office has paid me exactly one cent less than a mug. I'd admire it if it weren't me. |
-| `breakRoom.ts:68` | Look | One cent, from the coin return. Worth almost nothing. Unless you are exactly one cent short of something. |
-| `breakRoom.ts:76` | Look | $12.99. Exactly. Not a cent over, not a cent under. The till has never seen anything so beautiful. |
-| `breakRoom.ts:88` | Dana | I drop the cent into the pay packet. $12.99. Exact change. Handbook Section 10: "Always offer exact change." Nobody ever has. Until now. |
-| `breakRoom.ts:106` | Dana | I press TALK. |
-| `breakRoom.ts:117` | Reginald | Every word, darling. I can hear the whole building from this intercom. The acoustics are wasted on guests. |
-| `breakRoom.ts:127` | Reginald | Motivation! What does your character WANT? |
-| `breakRoom.ts:129` | Dana | To clock out and buy a mug. |
-| `breakRoom.ts:131` | Reginald | ...Then play it BIG. Nobody ever won an award for buying a mug quietly. |
-| `breakRoom.ts:142` | Reginald | A GUEST? Then I must stay in character. ...Welcome, mortal, to your DOOM. Do visit the gift shop. |
-| `breakRoom.ts:153` | Reginald | Exact change. In twenty years of touring I have never seen it. Not once. Not even in Hull. |
-| `breakRoom.ts:161` | Reginald | Never say "out" in a theatre, darling. Say "exeunt". *click* |
-| `breakRoom.ts:208` | Dana | The door back to the Gift Shop. This side says STAFF ONLY. The other side also says STAFF ONLY. Very consistent. Very unwelcoming. |
-| `breakRoom.ts:222` | Dana | "EMPLOYEE OF THE MONTH: GARY." Again. Below it: "WHO KEEPS TAKING THE STAPLER? —Management." And: "It is in the Lair. It is the Stapler of Doom now. —R." |
-| `breakRoom.ts:224` | Dana | "STAFF SOCIAL: Bring a dish!" Signed up: Gary (bringing "nothing"), Reginald (bringing "gravitas"). I add "Dana: crisps". Handbook Section 15: always contribute. |
-| `breakRoom.ts:236` | Dana | My card says OUT. I'm officially a guest. I feel lighter. And slightly lost. |
-| `breakRoom.ts:238` | Dana | A punch clock. The sign over it: "STAFF MUST CLOCK OUT BEFORE SHOPPING. NO EXCEPTIONS. NOT EVEN YOU, GARY." |
-| `breakRoom.ts:245` | Dana | I've already clocked out. Clocking out twice would probably mean I owe them a shift. |
-| `breakRoom.ts:247` | Dana | Handbook Section 5: "No card, no clock." I need my time card. Last seen... going somewhere cold? |
-| `breakRoom.ts:257` | Dana | KA-CHUNK. "OUT: 9:47 PM." I am off duty. Legally, I am a guest. |
-| `breakRoom.ts:259` | Dana | Handbook Section 5.3: off-duty staff are customers like anyone else. I flip my badge round to the side that says OFF DUTY. Off duty means off duty. |
-| `breakRoom.ts:264` | Dana | I file my time card back in the rack, under P. Not under the yogurt. |
-| `breakRoom.ts:269` | Dana | Already stamped OUT. If I punch it again I'll be clocked back IN, and I'm not doing that to myself. |
-| `breakRoom.ts:272` | Dana | It wants a time card, not a lanyard. The clock has standards. |
-| `breakRoom.ts:275` | Dana | The time clock only accepts time cards. It has rejected better things than this. |
-| `breakRoom.ts:287` | Dana | The yogurt, back on duty as a paperweight. Holding down nothing. It looks proud anyway. |
-| `breakRoom.ts:289` | Dana | One strawberry yogurt, pinning down a piece of card. The card says PICKWICK. That is MY time card. |
-| `breakRoom.ts:291` | Dana | A fridge covered in notes. The big one: "WHOEVER KEEPS USING MY YOGURT AS A PAPERWEIGHT: STOP." Underlined so hard the pen went through. |
-| `breakRoom.ts:298` | Dana | It's open. It hums at me disapprovingly. Another note inside says "CLOSE THE DOOR." |
-| `breakRoom.ts:302` | Dana | Inside: one strawberry yogurt, sitting on a piece of card like a paperweight. The card says PICKWICK. |
-| `breakRoom.ts:304` | Dana | Somebody's been using their yogurt as a paperweight. On my time card. In the fridge. I have so many questions. |
-| `breakRoom.ts:317` | Dana | I lift the yogurt, take my time card, and put the yogurt back exactly where it was. Handbook Section 6: respect your colleagues' dairy. |
-| `breakRoom.ts:326` | Dana | I'm not putting that in the fridge. Somebody would leave a note about it. |
-| `breakRoom.ts:335` | Dana | "SNAX-O-RAMA." Fully stocked with one bag of Spooky Crisps, which has been stuck on its spiral since before I was hired. Nobody has the heart to free it. The coin return flap is half-open, and something small and copper is sulking in there. |
-| `breakRoom.ts:340` | Dana | Empty. I check it twice more anyway. Handbook Section 8: be thorough. |
-| `breakRoom.ts:347` | Dana | Clink! One cent. Handbook Section 8: "Found money under five cents belongs to the finder." Finally, a section that helps. |
-| `breakRoom.ts:353` | Dana | The crisps are $1.50, and every cent I've got is spoken for. Hang in there, crisps. |
-| `breakRoom.ts:357` | Dana | I'm not feeding it back. That cent and I have plans. |
-| `breakRoom.ts:359` | Dana | Spend my wages on crisps? The mug is the only thing I need. The crisps can wait. They have been waiting for years. |
-| `breakRoom.ts:361` | Dana | Break exact change? For crisps? Never. |
-| `breakRoom.ts:374` | Dana | My locker's open. Inside: one spare hairnet. We don't serve food. Head office issued it anyway. |
-| `breakRoom.ts:376` | Dana | A row of staff lockers. Mine says TRAINEE. Reginald's has a gold star. Gary's is just a peg. Mine has a combination lock. |
-| `breakRoom.ts:383` | Dana | It's already open. The hairnet and I have nothing more to say to each other. |
-| `breakRoom.ts:388` | Dana | The combination is my employee number. 0... 0... 7. Click! |
-| `breakRoom.ts:390` | Dana | Inside: a spare hairnet and my pay packet. Payday! Twelve dollars and ninety-eight cents. The mug is twelve ninety-nine. Head office, you absolute artists. |
-| `breakRoom.ts:396` | Dana | The combination is my employee number. Which I was told on day one, along with forty other things. Maybe it's written on me somewhere. |
+| `breakRoom.ts:16` | Dana | Employee number 007. Still 007. Still licensed to clock in. |
+| `breakRoom.ts:20` | Dana | I squint at the small print. Employee number... 007. Licensed to clock in. |
+| `breakRoom.ts:22` | Dana | 0-0-7. Handbook Section 2: know your number. Now I do. I'll never forget it. |
+| `breakRoom.ts:34` | Look | My lanyard. TRAINEE in huge letters, my employee number in tiny ones. Head office's priorities, in font sizes. |
+| `breakRoom.ts:44` | Look | My lanyard, badge flipped round. The back says OFF DUTY. It has never been used before. It still smells new. |
+| `breakRoom.ts:53` | Look | "D. PICKWICK, TRAINEE. IN: 4:00 PM." Slightly chilled, and faintly strawberry-scented. |
+| `breakRoom.ts:61` | Look | My pay packet: $12.98. The mug is $12.99. Head office has paid me exactly one cent less than a mug. I'd admire it if it weren't me. |
+| `breakRoom.ts:69` | Look | One cent, from the coin return. Worth almost nothing. Unless you are exactly one cent short of something. |
+| `breakRoom.ts:77` | Look | $12.99. Exactly. Not a cent over, not a cent under. The till has never seen anything so beautiful. |
+| `breakRoom.ts:87` | Dana | I drop the cent into the pay packet. $12.99. Exact change. Handbook Section 10: "Always offer exact change." Nobody ever has. Until now. |
+| `breakRoom.ts:104` | Dana | I press TALK. |
+| `breakRoom.ts:115` | Reginald | Every word, darling. I can hear the whole building from this intercom. The acoustics are wasted on guests. |
+| `breakRoom.ts:125` | Reginald | Motivation! What does your character WANT? |
+| `breakRoom.ts:127` | Dana | To clock out and buy a mug. |
+| `breakRoom.ts:129` | Reginald | ...Then play it BIG. Nobody ever won an award for buying a mug quietly. |
+| `breakRoom.ts:140` | Reginald | A GUEST? Then I must stay in character. ...Welcome, mortal, to your DOOM. Do visit the gift shop. |
+| `breakRoom.ts:151` | Reginald | Exact change. In twenty years of touring I have never seen it. Not once. Not even in Hull. |
+| `breakRoom.ts:159` | Reginald | Never say "out" in a theatre, darling. Say "exeunt". *click* |
+| `breakRoom.ts:206` | Dana | The door back to the Gift Shop. This side says STAFF ONLY. The other side also says STAFF ONLY. Very consistent. Very unwelcoming. |
+| `breakRoom.ts:220` | Dana | "EMPLOYEE OF THE MONTH: GARY." Again. Below it: "WHO KEEPS TAKING THE STAPLER? —Management." And: "It is in the Lair. It is the Stapler of Doom now. —R." |
+| `breakRoom.ts:222` | Dana | "STAFF SOCIAL: Bring a dish!" Signed up: Gary (bringing "nothing"), Reginald (bringing "gravitas"). I add "Dana: crisps". Handbook Section 15: always contribute. |
+| `breakRoom.ts:234` | Dana | My card says OUT. I'm officially a guest. I feel lighter. And slightly lost. |
+| `breakRoom.ts:236` | Dana | A punch clock. The sign over it: "STAFF MUST CLOCK OUT BEFORE SHOPPING. NO EXCEPTIONS. NOT EVEN YOU, GARY." |
+| `breakRoom.ts:243` | Dana | I've already clocked out. Clocking out twice would probably mean I owe them a shift. |
+| `breakRoom.ts:245` | Dana | Handbook Section 5: "No card, no clock." I need my time card. Last seen... going somewhere cold? |
+| `breakRoom.ts:255` | Dana | KA-CHUNK. "OUT: 9:47 PM." I am off duty. Legally, I am a guest. |
+| `breakRoom.ts:257` | Dana | Handbook Section 5.3: off-duty staff are customers like anyone else. I flip my badge round to the side that says OFF DUTY. Off duty means off duty. |
+| `breakRoom.ts:262` | Dana | I file my time card back in the rack, under P. Not under the yogurt. |
+| `breakRoom.ts:267` | Dana | Already stamped OUT. If I punch it again I'll be clocked back IN, and I'm not doing that to myself. |
+| `breakRoom.ts:270` | Dana | It wants a time card, not a lanyard. The clock has standards. |
+| `breakRoom.ts:273` | Dana | The time clock only accepts time cards. It has rejected better things than this. |
+| `breakRoom.ts:285` | Dana | The yogurt, back on duty as a paperweight. Holding down nothing. It looks proud anyway. |
+| `breakRoom.ts:287` | Dana | One strawberry yogurt, pinning down a piece of card. The card says PICKWICK. That is MY time card. |
+| `breakRoom.ts:289` | Dana | A fridge covered in notes. The big one: "WHOEVER KEEPS USING MY YOGURT AS A PAPERWEIGHT: STOP." Underlined so hard the pen went through. |
+| `breakRoom.ts:296` | Dana | It's open. It hums at me disapprovingly. Another note inside says "CLOSE THE DOOR." |
+| `breakRoom.ts:300` | Dana | Inside: one strawberry yogurt, sitting on a piece of card like a paperweight. The card says PICKWICK. |
+| `breakRoom.ts:302` | Dana | Somebody's been using their yogurt as a paperweight. On my time card. In the fridge. I have so many questions. |
+| `breakRoom.ts:315` | Dana | I lift the yogurt, take my time card, and put the yogurt back exactly where it was. Handbook Section 6: respect your colleagues' dairy. |
+| `breakRoom.ts:324` | Dana | I'm not putting that in the fridge. Somebody would leave a note about it. |
+| `breakRoom.ts:333` | Dana | "SNAX-O-RAMA." Fully stocked with one bag of Spooky Crisps, which has been stuck on its spiral since before I was hired. Nobody has the heart to free it. The coin return flap is half-open, and something small and copper is sulking in there. |
+| `breakRoom.ts:338` | Dana | Empty. I check it twice more anyway. Handbook Section 8: be thorough. |
+| `breakRoom.ts:345` | Dana | Clink! One cent. Handbook Section 8: "Found money under five cents belongs to the finder." Finally, a section that helps. |
+| `breakRoom.ts:351` | Dana | The crisps are $1.50, and every cent I've got is spoken for. Hang in there, crisps. |
+| `breakRoom.ts:355` | Dana | I'm not feeding it back. That cent and I have plans. |
+| `breakRoom.ts:357` | Dana | Spend my wages on crisps? The mug is the only thing I need. The crisps can wait. They have been waiting for years. |
+| `breakRoom.ts:359` | Dana | Break exact change? For crisps? Never. |
+| `breakRoom.ts:372` | Dana | My locker's open. Inside: one spare hairnet. We don't serve food. Head office issued it anyway. |
+| `breakRoom.ts:374` | Dana | A row of staff lockers. Mine says TRAINEE. Reginald's has a gold star. Gary's is just a peg. Mine has a combination lock. |
+| `breakRoom.ts:381` | Dana | It's already open. The hairnet and I have nothing more to say to each other. |
+| `breakRoom.ts:386` | Dana | The combination is my employee number. 0... 0... 7. Click! |
+| `breakRoom.ts:388` | Dana | Inside: a spare hairnet and my pay packet. Payday! Twelve dollars and ninety-eight cents. The mug is twelve ninety-nine. Head office, you absolute artists. |
+| `breakRoom.ts:394` | Dana | The combination is my employee number. Which I was told on day one, along with forty other things. Maybe it's written on me somewhere. |
+| `breakRoom.ts:400` | Dana | The lock wants a number, not a lanyard. Though the number IS on the lanyard. I should probably read it. |
 | `breakRoom.ts:402` | Dana | The lock wants a number, not a lanyard. Though the number IS on the lanyard. I should probably read it. |
-| `breakRoom.ts:404` | Dana | The lock wants a number, not a lanyard. Though the number IS on the lanyard. I should probably read it. |
-| `breakRoom.ts:414` | Dana | The staff intercom to the Lair. A label: "FOR EMERGENCIES ONLY." Someone has added: "AND REGINALD'S NOTES." |
+| `breakRoom.ts:412` | Dana | The staff intercom to the Lair. A label: "FOR EMERGENCIES ONLY." Someone has added: "AND REGINALD'S NOTES." |
 
 ## The finale (23)
 
 | Where | Who | Line |
 |---|---|---|
-| `finale.ts:17` | Look | "I ESCAPED THE LICH'S LAIR." The first one ever sold. It's still warm from the shelf lights. |
-| `finale.ts:34` | Dana | Reginald, human again, still in full lich make-up. It has never looked less convincing. |
-| `finale.ts:46` | Kyle | Twelve ninety-nine. Cash only, card machine's down. |
-| `finale.ts:48` | Kyle | Exact change. Head office empties the till every hour. |
-| `finale.ts:50` | Dana | Exact change. Every last cent. Of course. |
-| `finale.ts:60` | Kyle | Lanyard. |
-| `finale.ts:62` | Dana | Off duty. Clocked out. See? Pocket. |
-| `finale.ts:64` | Kyle | ...Fine. |
-| `finale.ts:66` | Dana | Twelve dollars and ninety-nine cents. Exact. I counted it three times. |
-| `finale.ts:70` | Kyle | Receipt? |
-| `finale.ts:72` | Dana | Yes please. I want proof. |
-| `finale.ts:75` | Dana | I ESCAPED THE LICH'S LAIR. Technically I haven't. But the mug says I have, and the curse is very literal. |
-| `finale.ts:81` | Dana | A rumble. The lights flicker. Somewhere, a jar stops whispering. |
-| `finale.ts:85` | Reginald | Nooooo! |
-| `finale.ts:88` | Reginald | It's gone, darling. All of it. I'm human. I have a PULSE. Do you know what a pulse does to a performance? |
-| `finale.ts:90` | Reginald | Actors' union, section twelve: wrongful loss of the role of a lifetime. I am filing a grievance. |
-| `finale.ts:92` | Dana | Gary stays one-armed, I'm afraid. His arm is gummed to a floor grate in the Lair. |
-| `finale.ts:94` | Reginald | And the anti-theft cable snapped when the curse broke. Somebody take this. It keeps looking at me. |
-| `finale.ts:96` | Dana | He drops the phylactery into a cardboard box. |
-| `finale.ts:98` | Kyle | Spooky jar. A dollar. Bargain bin. |
-| `finale.ts:100` | Mordecai | ONE DOLLAR?! That jar contains my SOUL! |
-| `finale.ts:102` | Kyle | Final sale. |
-| `finale.ts:105` | Dana | From the bargain bin, very faintly, something whispers: "...one dollar... we'll see about that..." |
+| `finale.ts:15` | Look | "I ESCAPED THE LICH'S LAIR." The first one ever sold. It's still warm from the shelf lights. |
+| `finale.ts:32` | Dana | Reginald, human again, still in full lich make-up. It has never looked less convincing. |
+| `finale.ts:44` | Kyle | Twelve ninety-nine. Cash only, card machine's down. |
+| `finale.ts:46` | Kyle | Exact change. Head office empties the till every hour. |
+| `finale.ts:48` | Dana | Exact change. Every last cent. Of course. |
+| `finale.ts:58` | Kyle | Lanyard. |
+| `finale.ts:60` | Dana | Off duty. Clocked out. See? Pocket. |
+| `finale.ts:62` | Kyle | ...Fine. |
+| `finale.ts:64` | Dana | Twelve dollars and ninety-nine cents. Exact. I counted it three times. |
+| `finale.ts:68` | Kyle | Receipt? |
+| `finale.ts:70` | Dana | Yes please. I want proof. |
+| `finale.ts:73` | Dana | I ESCAPED THE LICH'S LAIR. Technically I haven't. But the mug says I have, and the curse is very literal. |
+| `finale.ts:79` | Dana | A rumble. The lights flicker. Somewhere, a jar stops whispering. |
+| `finale.ts:83` | Reginald | Nooooo! |
+| `finale.ts:86` | Reginald | It's gone, darling. All of it. I'm human. I have a PULSE. Do you know what a pulse does to a performance? |
+| `finale.ts:88` | Reginald | Actors' union, section twelve: wrongful loss of the role of a lifetime. I am filing a grievance. |
+| `finale.ts:90` | Dana | Gary stays one-armed, I'm afraid. His arm is gummed to a floor grate in the Lair. |
+| `finale.ts:92` | Reginald | And the anti-theft cable snapped when the curse broke. Somebody take this. It keeps looking at me. |
+| `finale.ts:94` | Dana | He drops the phylactery into a cardboard box. |
+| `finale.ts:96` | Kyle | Spooky jar. A dollar. Bargain bin. |
+| `finale.ts:98` | Mordecai | ONE DOLLAR?! That jar contains my SOUL! |
+| `finale.ts:100` | Kyle | Final sale. |
+| `finale.ts:103` | Dana | From the bargain bin, very faintly, something whispers: "...one dollar... we'll see about that..." |
 
 ## Fallback lines (1)
 
 | Where | Who | Line |
 |---|---|---|
-| `world.ts:37` | Dana | {item} on {target}? Bold. Wrong, but bold. |
+| `world.ts:24` | Dana | {item} on {target}? Bold. Wrong, but bold. |
 
 ## The loading screen (5)
 

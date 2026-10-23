@@ -1,7 +1,7 @@
 # Slice 28 — Text and structure
 
-**Status:** spec approved by the developer (2026-10-23), not built · **Milestone:** M4, the last slice
-of M4 and of the project · after PR #32 (slice 27) merges
+**Status:** spec approved by the developer (2026-10-23); 28a built and agent play-tested, 28b not
+built · **Milestone:** M4, the last slice of M4 and of the project
 
 ## Why
 
@@ -174,4 +174,28 @@ after 28a merges. They edit the same content files, so they never run in paralle
 
 ## Build notes
 
-(Filled in while building.)
+### 28a
+
+- **DSL:** `addItem`, `removeItem`, `goTo`, `startDialogue`, `endDialogue`, `win`, `pause` and
+  `face` added; no raw effect objects remain in content.
+- **Flag checks:** one walk over the whole world collects every condition and every `setFlag`, with
+  its path (e.g. `world.dialogues.kyle.nodes.hub.options[7].when[0]`), replacing the overlay-only
+  test. Every flag set today is also read, so `DELIBERATELY_UNREAD` (`content.test.ts`) starts
+  empty. Checked by planting a typo on each side: both tests failed and named the spot.
+- **Packs:** `ContentPack` and `mergePacks` in `src/content/pack.ts` (tested in `pack.test.ts`).
+  Each file's pack lists what that file defines, so Reginald's Script now belongs to
+  `reginaldPack`, the Price Gun to `kylePack` and the mug to `finalePack`, rather than to the
+  room's item list.
+- **Cast:** `src/content/cast.ts` holds all four characters and the `R`/`K`/`M` helpers; `dana.ts`
+  is gone. Content imports now form no cycles. The finale names Exact Change by import. Room ids in
+  `goTo`, dialogue ids in the files that define them, and the Script's own id inside its
+  `Memorise` action stay string literals (the content tests check them).
+- **Flags renamed:** `offDuty` → `danaOffDuty`, `doorUnlocked` → `lairDoorUnlocked`,
+  `knowsCue` → `learnedCue`, `knowsEmployeeNumber` → `learnedEmployeeNumber`, `heardTeapot` →
+  `heardTeapotComplaint`, `mordecaiBack` → `mordecaiByBin`, `kyleWontSellToStaff` →
+  `kyleRefusedStaffSale`. Hotspot and option ids are unchanged. Older slice docs keep the old names
+  as history. `SAVE_FORMAT` is 2.
+- **Icons:** `src/view/icons.ts` (no Phaser), imported by `RoomScene` and `e2e/play.ts`.
+- **Play-test:** `npm test` (433), typecheck, and `npm run test:e2e` (the shortest solution with
+  real clicks, no console errors on load, the save round-trip) all green. In the dev build a
+  format-1 autosave leaves Continue disabled, with no error.

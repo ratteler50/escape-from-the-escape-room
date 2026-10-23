@@ -14,7 +14,8 @@ Read before working: `docs/design.md` (game + milestones), `docs/glossary.md` (u
 - `src/view/` is Phaser: renders state, plays effects, turns input into commands. **No puzzle logic
   in the view.**
 - `src/content/` holds rooms, items, rules, dialogue as typed TS data. Content changes must keep the
-  content-validation and always-winnable tests green.
+  content-validation and always-winnable tests green. `docs/adding-content.md` is the checklist for a
+  new room, character, dialogue tree or puzzle.
 - Logical resolution 1280×720. Placeholder art (shapes + labels) until M4; keep art swappable.
 
 ## Workflow

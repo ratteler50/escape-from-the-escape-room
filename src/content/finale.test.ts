@@ -22,7 +22,7 @@ const choose = (optionId: string): Command => ({ type: 'chooseOption', optionId 
 const optionIds = (state: GameState) => availableOptions(world, state).map((o) => o.id);
 const hotspotIds = (state: GameState) => visibleHotspots(world, state).map((h) => h.id);
 
-const offDuty: GameState = { ...inGiftShop, flags: { offDuty: true } };
+const offDuty: GameState = { ...inGiftShop, flags: { danaOffDuty: true } };
 
 describe("Kyle's mug sale", () => {
   it('refuses staff: on duty, Dana only gets "Lanyard."', () => {

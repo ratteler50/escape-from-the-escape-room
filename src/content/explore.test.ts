@@ -48,7 +48,7 @@ describe('flavour bits', () => {
   });
 
   it('never treats a flag that a condition reads as flavour', () => {
-    for (const flag of ['heardTeapot', 'offDuty', 'staffDoorOpen', 'won']) expect(flavour.flags).not.toContain(flag);
+    for (const flag of ['heardTeapotComplaint', 'danaOffDuty', 'staffDoorOpen', 'won']) expect(flavour.flags).not.toContain(flag);
   });
 
   it('ends every winning game holding only the lanyard (flipped to OFF DUTY) and the mug: used-up items leave', () => {

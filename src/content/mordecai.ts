@@ -1,19 +1,9 @@
-import type { Character, Dialogue, Hotspot } from '../core/types';
-import { line, say, says, setFlag } from './dsl';
-import { kyle } from './kyle';
+import type { Dialogue, Hotspot } from '../core/types';
+import { say, says, setFlag, startDialogue } from './dsl';
+import { K, M, mordecai } from './cast';
+import type { ContentPack } from './pack';
 
-export const mordecai: Character = {
-  id: 'mordecai',
-  name: 'Mordecai',
-  color: '#a8e0f7',
-  floats: true,
-  // Rising out of his teapot's spout like a genie, pointing down at it (drawn see-through by the
-  // view). His hotspots' bounds put the tip of his tail on the painted spout.
-  sprites: { standing: 'assets/characters/mordecai.webp' },
-};
 
-const M = (text: string) => line(mordecai.id, text);
-const K = (text: string) => line(kyle.id, text);
 
 // He hovers over the Bargain Bin until he floats off through STAFF ONLY (giftShop.ts).
 export const mordecaiHotspot: Hotspot = {
@@ -28,7 +18,7 @@ export const mordecaiHotspot: Hotspot = {
     look: says("A see-through old man in a dressing gown, hovering over the bargain bin and glaring at it. The Handbook's index goes straight from 'Gherkins' to 'Gift vouchers'."),
     talk: {
       label: 'Address the apparition',
-      responses: [{ effects: [{ type: 'startDialogue', dialogueId: 'mordecai' }] }],
+      responses: [{ effects: [startDialogue('mordecai')] }],
     },
   },
   itemUses: {
@@ -53,7 +43,7 @@ export const mordecaiBackHotspot: Hotspot = {
   id: 'mordecaiBack',
   name: 'Mordecai',
   character: mordecai.id,
-  when: [{ flag: 'mordecaiBack' }],
+  when: [{ flag: 'mordecaiByBin' }],
   bounds: { x: 581, y: 116, width: 119, height: 201 },
   interactionPoint: { x: 620, y: 480 },
   verbs: {
@@ -136,7 +126,7 @@ export const mordecaiDialogue: Dialogue = {
             M('I cannot lift so much as a sticker. I can only float through walls, which is less useful than it sounds.'),
             // DRAFT:
             M('Re-price it. PROPERLY. Do that, and I shall open any door in this building for you.'),
-            setFlag('heardTeapot'),
+            setFlag('heardTeapotComplaint'),
             // DRAFT:
             say("Re-pricing is done with a price gun. Kyle has the price gun. I'll need a Handbook section."),
           ],
@@ -145,7 +135,7 @@ export const mordecaiDialogue: Dialogue = {
         {
           id: 'teapotAgain',
           text: 'About your teapot...',
-          when: [{ flag: 'heardTeapot' }],
+          when: [{ flag: 'heardTeapotComplaint' }],
           // DRAFT:
           effects: [M('TWO. DOLLARS.')],
           next: 'hub',
@@ -161,3 +151,5 @@ export const mordecaiDialogue: Dialogue = {
     },
   },
 };
+
+export const mordecaiPack: ContentPack = { dialogues: [mordecaiDialogue] };

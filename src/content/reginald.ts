@@ -1,21 +1,8 @@
-import type { Character, Dialogue, Hotspot, HotspotVerbs, Item, Response } from '../core/types';
-import { line, say, setFlag, sound, walk } from './dsl';
+import type { Dialogue, Hotspot, HotspotVerbs, Item, Response } from '../core/types';
+import { reginald, R } from './cast';
+import { removeItem, say, setFlag, sound, startDialogue, walk } from './dsl';
+import type { ContentPack } from './pack';
 
-export const reginald: Character = {
-  id: 'reginald',
-  name: 'Reginald',
-  color: '#b9f5a0',
-  sprites: {
-    standing: 'assets/characters/reginald.webp',
-    seated: 'assets/characters/reginald-seated.webp',
-    human: 'assets/characters/reginald-human.webp',
-  },
-  // Slice 27: ChatGPT walk sheets (docs/art/prompts-walk.md), cut and aligned like Dana's.
-  walks: {
-    standing: { sheet: 'assets/characters/reginald-walk.webp', frameWidth: 323, frameHeight: 534, frames: 6, fps: 10 },
-    human: { sheet: 'assets/characters/reginald-human-walk.webp', frameWidth: 310, frameHeight: 543, frames: 6, fps: 10 },
-  },
-};
 
 export const script: Item = {
   id: 'script',
@@ -32,15 +19,14 @@ export const script: Item = {
           say('"Rise, foul creature, and face me!" Rise, foul creature... and face me! Got it. Word perfect.'),
           // DRAFT:
           say('Handbook Section 3: lost property must be returned. I pop the script back in his coffin.'),
-          { type: 'removeItem', itemId: 'script' },
-          setFlag('knowsCue'),
+          removeItem('script'),
+          setFlag('learnedCue'),
         ],
       },
     ],
   },
 };
 
-const R = (text: string) => line(reginald.id, text);
 
 // Reginald is two hotspots, on the throne and on his spotlight mark, with opposite conditions.
 // They share their verbs and item uses so he behaves the same wherever he is.
@@ -55,7 +41,7 @@ const verbs: HotspotVerbs = {
   },
   talk: {
     label: 'Address His Undeadness',
-    responses: [{ effects: [{ type: 'startDialogue', dialogueId: 'reginald' }] }],
+    responses: [{ effects: [startDialogue('reginald')] }],
   },
 };
 
@@ -183,7 +169,7 @@ export const reginaldDialogue: Dialogue = {
         {
           id: 'cue',
           text: 'Rise, foul creature, and face me!',
-          when: [{ flag: 'knowsCue' }, { notFlag: 'reginaldLeftThrone' }],
+          when: [{ flag: 'learnedCue' }, { notFlag: 'reginaldLeftThrone' }],
           effects: [
             // DRAFT:
             R('...!'),
@@ -215,3 +201,5 @@ export const reginaldDialogue: Dialogue = {
     },
   },
 };
+
+export const reginaldPack: ContentPack = { items: [script], dialogues: [reginaldDialogue] };

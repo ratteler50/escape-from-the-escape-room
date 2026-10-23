@@ -1,6 +1,7 @@
 import type { Combination, Item, Room } from '../core/types';
-import { say, says, setFlag, sound, walk } from './dsl';
+import { addItem, goTo, removeItem, say, says, setFlag, sound, walk } from './dsl';
 import { reginaldOnMark, reginaldOnThrone, script } from './reginald';
+import type { ContentPack } from './pack';
 
 export const garyArm: Item = {
   id: 'garyArm',
@@ -42,9 +43,7 @@ export const riddleScroll: Item = {
   look: 'It reads: "THE ANSWER IS: {CODE}". Head office used a template and never filled in the blank. Of COURSE. Then again, the curse made the whole script real, exactly as printed. Does that include the blanks?',
 };
 
-export const lairItems = [garyArm, gum, stickyArm, caseKey, script, riddleScroll];
-
-export const lairCombinations: Combination[] = [
+const combinations: Combination[] = [
   {
     items: [garyArm.id, gum.id],
     responses: [
@@ -53,9 +52,9 @@ export const lairCombinations: Combination[] = [
           sound('squelch'),
           // DRAFT:
           say("I press the gum onto Gary's fingertip. It's disgusting. It's perfect."),
-          { type: 'removeItem', itemId: garyArm.id },
-          { type: 'removeItem', itemId: gum.id },
-          { type: 'addItem', itemId: stickyArm.id },
+          removeItem(garyArm.id),
+          removeItem(gum.id),
+          addItem(stickyArm.id),
         ],
       },
     ],
@@ -79,7 +78,7 @@ export const lair: Room = {
       // One scroll patch, listed twice: while the case is closed, and once Dana puts it back.
       // After the lid so it draws on top.
       { image: 'assets/overlays/lair-case-scroll.webp', at: { x: 797, y: 318 }, when: [{ notFlag: 'caseOpen' }] },
-      { image: 'assets/overlays/lair-case-scroll.webp', at: { x: 797, y: 318 }, when: [{ flag: 'doorUnlocked' }] },
+      { image: 'assets/overlays/lair-case-scroll.webp', at: { x: 797, y: 318 }, when: [{ flag: 'lairDoorUnlocked' }] },
     ],
   },
   entries: {
@@ -102,7 +101,7 @@ export const lair: Room = {
         look: {
           responses: [
             // DRAFT:
-            { when: [{ flag: 'doorUnlocked' }], effects: [say('Unlocked! Beyond it: the Gift Shop. I can already hear the mugs.')] },
+            { when: [{ flag: 'lairDoorUnlocked' }], effects: [say('Unlocked! Beyond it: the Gift Shop. I can already hear the mugs.')] },
             // DRAFT:
             { effects: [say('A heavy oak door. Well, heavy oak-effect laminate. Section 9 of the Handbook says it should never be locked during business hours. It is locked.')] },
           ],
@@ -111,7 +110,7 @@ export const lair: Room = {
         talk: says("Hello? Door? I'd like to speak to your manager. ... Its manager is also a door.", 'Negotiate'),
         use: {
           label: 'Go through',
-          when: [{ flag: 'doorUnlocked' }],
+          when: [{ flag: 'lairDoorUnlocked' }],
           responses: [
             {
               when: [{ notFlag: 'visitedGiftShop' }],
@@ -120,10 +119,10 @@ export const lair: Room = {
                 say('Freedom! Or at least... retail.'),
                 walk('dana', 1110, 425),
                 setFlag('visitedGiftShop'),
-                { type: 'goToRoom', roomId: 'giftShop', entry: 'fromLair' },
+                goTo('giftShop', 'fromLair'),
               ],
             },
-            { effects: [walk('dana', 1110, 425), { type: 'goToRoom', roomId: 'giftShop', entry: 'fromLair' }] },
+            { effects: [walk('dana', 1110, 425), goTo('giftShop', 'fromLair')] },
           ],
         },
       },
@@ -156,8 +155,8 @@ export const lair: Room = {
               effects: [
                 // DRAFT:
                 say('Under the armrest: one wad of pre-owned gum, stuck there like under a school desk. Handbook Section 3: "Lost property must be logged." Consider it logged.'),
-                { type: 'addItem', itemId: gum.id },
-                { type: 'setFlag', flag: 'tookGum' },
+                addItem(gum.id),
+                setFlag('tookGum'),
               ],
             },
           ],
@@ -198,12 +197,12 @@ export const lair: Room = {
               effects: [
                 // DRAFT:
                 say('Inside: a mirror, hairspray labelled UNDEAD HOLD, and a dog-eared script. His cue is underlined three times: "Rise, foul creature, and face me!"'),
-                { type: 'addItem', itemId: script.id },
+                addItem(script.id),
                 setFlag('tookScript'),
               ],
             },
             // DRAFT:
-            { when: [{ flag: 'knowsCue' }], effects: [say("His script's back where it belongs. I know the cue by heart now: \"Rise, foul creature, and face me!\"")] },
+            { when: [{ flag: 'learnedCue' }], effects: [say("His script's back where it belongs. I know the cue by heart now: \"Rise, foul creature, and face me!\"")] },
             // DRAFT:
             { effects: [say('Just the mirror and the hairspray. And a signed photo of Reginald, signed by Reginald.')] },
           ],
@@ -235,8 +234,8 @@ export const lair: Room = {
                 sound('bones'),
                 // DRAFT:
                 say("Sorry, Gary. I'll bring it back. Probably. Handbook Section 4.2 says nothing about skeletons."),
-                { type: 'addItem', itemId: garyArm.id },
-                { type: 'setFlag', flag: 'tookGaryArm' },
+                addItem(garyArm.id),
+                setFlag('tookGaryArm'),
               ],
             },
           ],
@@ -272,7 +271,7 @@ export const lair: Room = {
         look: {
           responses: [
             // DRAFT:
-            { when: [{ flag: 'doorUnlocked' }], effects: [say("The scroll's tucked back under the bone. Its little card says 'ANCIENT RIDDLE (REPRODUCTION)'. It has never been more wrong. I've left the lid up. The Handbook covers opening things, not closing them.")] },
+            { when: [{ flag: 'lairDoorUnlocked' }], effects: [say("The scroll's tucked back under the bone. Its little card says 'ANCIENT RIDDLE (REPRODUCTION)'. It has never been more wrong. I've left the lid up. The Handbook covers opening things, not closing them.")] },
             // DRAFT:
             { when: [{ flag: 'caseOpen' }], effects: [say("The lid's propped open, key still in the lock. Just the bone now. Its card says 'BONE (DECORATIVE)'. The scroll's card says 'ANCIENT RIDDLE (REPRODUCTION)', and points at nothing.")] },
             // DRAFT:
@@ -297,8 +296,8 @@ export const lair: Room = {
               sound('latch'),
               // DRAFT:
               say("Click. The case opens. I slide the Ancient Riddle Scroll out from under the bone and leave the key in the lock, like a responsible trainee."),
-              { type: 'removeItem', itemId: caseKey.id },
-              { type: 'addItem', itemId: riddleScroll.id },
+              removeItem(caseKey.id),
+              addItem(riddleScroll.id),
               setFlag('caseOpen'),
             ],
           },
@@ -319,7 +318,7 @@ export const lair: Room = {
           label: 'Enter a code',
           responses: [
             // DRAFT:
-            { when: [{ flag: 'doorUnlocked' }], effects: [say("Already done. C-O-D-E, ENTER. I'll never forget it. I'll try.")] },
+            { when: [{ flag: 'lairDoorUnlocked' }], effects: [say("Already done. C-O-D-E, ENTER. I'll never forget it. I'll try.")] },
             // DRAFT:
             { effects: [say("L-I-C-H, ENTER. Bzzt. D-O-O-M, ENTER. Bzzt. G-A-R-Y, ENTER. Bzzt, and Gary looks hurt. I need the actual code.")] },
           ],
@@ -328,20 +327,20 @@ export const lair: Room = {
       itemUses: {
         [riddleScroll.id]: [
           {
-            when: [{ notFlag: 'doorUnlocked' }],
+            when: [{ notFlag: 'lairDoorUnlocked' }],
             effects: [
               // DRAFT:
               say('"THE ANSWER IS: {CODE}." The curly brackets just mark the blank that nobody filled in. What\'s printed in the blank is the word CODE.'),
               // DRAFT:
               say('The curse bound the script exactly as printed. So the answer isn\'t a code. It\'s the word CODE. C. O. D. E. ENTER.'),
               sound('keypad'),
-              setFlag('doorUnlocked'),
+              setFlag('lairDoorUnlocked'),
               sound('unlock'),
               // DRAFT:
               say("CLUNK. The door unlocks. I've beaten head office at their own game. By reading."),
               // DRAFT:
               say('Handbook Section 3: lost property must be returned. I tuck the scroll back under its bone.'),
-              { type: 'removeItem', itemId: riddleScroll.id },
+              removeItem(riddleScroll.id),
             ],
           },
           // DRAFT:
@@ -372,11 +371,11 @@ export const lair: Room = {
               sound('keys'),
               // DRAFT:
               say('I lower the Sticky Arm through the bars... gently... got it! A key. Gary would be proud. Gary is never proud.'),
-              { type: 'addItem', itemId: caseKey.id },
+              addItem(caseKey.id),
               // DRAFT:
               say("The gum lets go of the key and grabs the grate instead. Gary's arm is staying there. I'm told that's what gum does."),
-              { type: 'removeItem', itemId: stickyArm.id },
-              { type: 'setFlag', flag: 'gotCaseKey' },
+              removeItem(stickyArm.id),
+              setFlag('gotCaseKey'),
             ],
           },
           // DRAFT:
@@ -389,4 +388,10 @@ export const lair: Room = {
       itemFallback: "That won't fit through the grate. Most things won't. That's rather the point of a grate.",
     },
   ],
+};
+
+export const lairPack: ContentPack = {
+  rooms: [lair],
+  items: [garyArm, gum, stickyArm, caseKey, riddleScroll],
+  combinations,
 };

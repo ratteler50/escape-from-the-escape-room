@@ -1,6 +1,7 @@
 import type { Combination, Dialogue, Item, Room } from '../core/types';
-import { line, say, says, setFlag, walk } from './dsl';
-import { reginald } from './reginald';
+import { addItem, goTo, removeItem, say, says, setFlag, startDialogue, walk } from './dsl';
+import { R } from './cast';
+import type { ContentPack } from './pack';
 
 // The Break Room (slice 15): three parallel puzzles from the M3 plan (docs/design.md). Clock out
 // with the time card from the fridge; open the locker with the number on the lanyard; add the
@@ -12,14 +13,14 @@ const checkTheNumber: Item['action'] = {
   label: 'Check the number',
   responses: [
     // DRAFT:
-    { when: [{ flag: 'knowsEmployeeNumber' }], effects: [say('Employee number 007. Still 007. Still licensed to clock in.')] },
+    { when: [{ flag: 'learnedEmployeeNumber' }], effects: [say('Employee number 007. Still 007. Still licensed to clock in.')] },
     {
       effects: [
         // DRAFT:
         say('I squint at the small print. Employee number... 007. Licensed to clock in.'),
         // DRAFT:
         say("0-0-7. Handbook Section 2: know your number. Now I do. I'll never forget it."),
-        setFlag('knowsEmployeeNumber'),
+        setFlag('learnedEmployeeNumber'),
       ],
     },
   ],
@@ -76,9 +77,7 @@ export const exactChange: Item = {
   look: '$12.99. Exactly. Not a cent over, not a cent under. The till has never seen anything so beautiful.',
 };
 
-export const breakRoomItems = [lanyard, offDutyLanyard, timeCard, payPacket, oneCent, exactChange];
-
-export const breakRoomCombinations: Combination[] = [
+const combinations: Combination[] = [
   {
     items: [payPacket.id, oneCent.id],
     responses: [
@@ -86,16 +85,15 @@ export const breakRoomCombinations: Combination[] = [
         effects: [
           // DRAFT:
           say('I drop the cent into the pay packet. $12.99. Exact change. Handbook Section 10: "Always offer exact change." Nobody ever has. Until now.'),
-          { type: 'removeItem', itemId: payPacket.id },
-          { type: 'removeItem', itemId: oneCent.id },
-          { type: 'addItem', itemId: exactChange.id },
+          removeItem(payPacket.id),
+          removeItem(oneCent.id),
+          addItem(exactChange.id),
         ],
       },
     ],
   },
 ];
 
-const R = (text: string) => line(reginald.id, text);
 
 /** Reginald, "directing" over the intercom from the Lair. */
 export const intercomDialogue: Dialogue = {
@@ -135,7 +133,7 @@ export const intercomDialogue: Dialogue = {
         {
           id: 'offDuty',
           text: "I've clocked out. I'm a guest now.",
-          when: [{ flag: 'offDuty' }],
+          when: [{ flag: 'danaOffDuty' }],
           once: true,
           effects: [
             // DRAFT:
@@ -208,7 +206,7 @@ export const breakRoom: Room = {
         look: says('The door back to the Gift Shop. This side says STAFF ONLY. The other side also says STAFF ONLY. Very consistent. Very unwelcoming.'),
         use: {
           label: 'Go through',
-          responses: [{ effects: [walk('dana', 150, 470), { type: 'goToRoom', roomId: 'giftShop', entry: 'fromBreakRoom' }] }],
+          responses: [{ effects: [walk('dana', 150, 470), goTo('giftShop', 'fromBreakRoom')] }],
         },
       },
     },
@@ -233,7 +231,7 @@ export const breakRoom: Room = {
         look: {
           responses: [
             // DRAFT:
-            { when: [{ flag: 'offDuty' }], effects: [say("My card says OUT. I'm officially a guest. I feel lighter. And slightly lost.")] },
+            { when: [{ flag: 'danaOffDuty' }], effects: [say("My card says OUT. I'm officially a guest. I feel lighter. And slightly lost.")] },
             // DRAFT:
             { effects: [say('A punch clock. The sign over it: "STAFF MUST CLOCK OUT BEFORE SHOPPING. NO EXCEPTIONS. NOT EVEN YOU, GARY."')] },
           ],
@@ -242,7 +240,7 @@ export const breakRoom: Room = {
           label: 'Clock out',
           responses: [
             // DRAFT:
-            { when: [{ flag: 'offDuty' }], effects: [say("I've already clocked out. Clocking out twice would probably mean I owe them a shift.")] },
+            { when: [{ flag: 'danaOffDuty' }], effects: [say("I've already clocked out. Clocking out twice would probably mean I owe them a shift.")] },
             // DRAFT:
             { effects: [say('Handbook Section 5: "No card, no clock." I need my time card. Last seen... going somewhere cold?')] },
           ],
@@ -251,18 +249,18 @@ export const breakRoom: Room = {
       itemUses: {
         [timeCard.id]: [
           {
-            when: [{ notFlag: 'offDuty' }],
+            when: [{ notFlag: 'danaOffDuty' }],
             effects: [
               // DRAFT:
               say('KA-CHUNK. "OUT: 9:47 PM." I am off duty. Legally, I am a guest.'),
               // DRAFT:
               say('Handbook Section 5.3: off-duty staff are customers like anyone else. I flip my badge round to the side that says OFF DUTY. Off duty means off duty.'),
-              { type: 'removeItem', itemId: lanyard.id },
-              { type: 'addItem', itemId: offDutyLanyard.id },
-              setFlag('offDuty'),
+              removeItem(lanyard.id),
+              addItem(offDutyLanyard.id),
+              setFlag('danaOffDuty'),
               // DRAFT:
               say('I file my time card back in the rack, under P. Not under the yogurt.'),
-              { type: 'removeItem', itemId: timeCard.id },
+              removeItem(timeCard.id),
             ],
           },
           // DRAFT:
@@ -315,7 +313,7 @@ export const breakRoom: Room = {
               effects: [
                 // DRAFT:
                 say('I lift the yogurt, take my time card, and put the yogurt back exactly where it was. Handbook Section 6: respect your colleagues\' dairy.'),
-                { type: 'addItem', itemId: timeCard.id },
+                addItem(timeCard.id),
                 setFlag('tookTimeCard'),
               ],
             },
@@ -342,7 +340,7 @@ export const breakRoom: Room = {
               effects: [
                 // Before the line, so the coin leaves the slot (an overlay) as Dana takes it.
                 setFlag('gotCent'),
-                { type: 'addItem', itemId: oneCent.id },
+                addItem(oneCent.id),
                 // DRAFT:
                 say('Clink! One cent. Handbook Section 8: "Found money under five cents belongs to the finder." Finally, a section that helps.'),
               ],
@@ -382,13 +380,13 @@ export const breakRoom: Room = {
             // DRAFT:
             { when: [{ flag: 'lockerOpen' }], effects: [say("It's already open. The hairnet and I have nothing more to say to each other.")] },
             {
-              when: [{ flag: 'knowsEmployeeNumber' }],
+              when: [{ flag: 'learnedEmployeeNumber' }],
               effects: [
                 // DRAFT:
                 say('The combination is my employee number. 0... 0... 7. Click!'),
                 // DRAFT:
                 say('Inside: a spare hairnet and my pay packet. Payday! Twelve dollars and ninety-eight cents. The mug is twelve ninety-nine. Head office, you absolute artists.'),
-                { type: 'addItem', itemId: payPacket.id },
+                addItem(payPacket.id),
                 setFlag('lockerOpen'),
               ],
             },
@@ -414,9 +412,16 @@ export const breakRoom: Room = {
         look: says('The staff intercom to the Lair. A label: "FOR EMERGENCIES ONLY." Someone has added: "AND REGINALD\'S NOTES."'),
         talk: {
           label: 'Press TALK',
-          responses: [{ effects: [{ type: 'startDialogue', dialogueId: intercomDialogue.id }] }],
+          responses: [{ effects: [startDialogue(intercomDialogue.id)] }],
         },
       },
     },
   ],
+};
+
+export const breakRoomPack: ContentPack = {
+  rooms: [breakRoom],
+  items: [lanyard, offDutyLanyard, timeCard, payPacket, oneCent, exactChange],
+  combinations,
+  dialogues: [intercomDialogue],
 };

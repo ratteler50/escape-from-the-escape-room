@@ -1,16 +1,10 @@
-import type { Character, Dialogue, Hotspot, Item } from '../core/types';
-import { line, say, says, setFlag } from './dsl';
+import type { Dialogue, Hotspot, Item } from '../core/types';
+import { K, kyle } from './cast';
+import { addItem, say, says, setFlag, startDialogue } from './dsl';
 import { mugSaleOptions } from './finale';
+import type { ContentPack } from './pack';
 
-export const kyle: Character = {
-  id: 'kyle',
-  name: 'Kyle',
-  color: '#f7a8d8',
-  // Waist-up: drawn with the sprite's bottom edge on the painted counter top, so Kyle stands behind it.
-  sprites: { standing: 'assets/characters/kyle.webp' },
-};
 
-const K = (text: string) => line(kyle.id, text);
 
 export const priceGun: Item = {
   id: 'priceGun',
@@ -31,7 +25,7 @@ export const kyleHotspot: Hotspot = {
     look: says("Kyle, behind the till. Earbuds in, phone out. Third summer here. They haven't looked up since the lich started screaming."),
     talk: {
       label: 'Wave politely',
-      responses: [{ effects: [{ type: 'startDialogue', dialogueId: 'kyle' }] }],
+      responses: [{ effects: [startDialogue('kyle')] }],
     },
   },
   itemUses: {
@@ -73,7 +67,7 @@ export const kyleDialogue: Dialogue = {
         {
           id: 'buyMug',
           text: 'Can I buy an "I ESCAPED" mug?',
-          when: [{ notFlag: 'offDuty' }],
+          when: [{ notFlag: 'danaOffDuty' }],
           once: true,
           effects: [
             // DRAFT:
@@ -84,14 +78,14 @@ export const kyleDialogue: Dialogue = {
             // DRAFT:
             say("I've never wanted to be a customer so badly in my life."),
             // Slice 16 needs this: Dana has to stop being staff before Kyle will sell.
-            setFlag('kyleWontSellToStaff'),
+            setFlag('kyleRefusedStaffSale'),
           ],
           next: 'hub',
         },
         {
           id: 'mugAgain',
           text: 'About that mug...',
-          when: [{ flag: 'kyleWontSellToStaff' }, { notFlag: 'offDuty' }],
+          when: [{ flag: 'kyleRefusedStaffSale' }, { notFlag: 'danaOffDuty' }],
           // DRAFT:
           effects: [K('Lanyard.')],
           next: 'hub',
@@ -112,7 +106,7 @@ export const kyleDialogue: Dialogue = {
         {
           id: 'priceGun',
           text: 'Employee Handbook, Section 14: "Staff may borrow equipment for re-pricing."',
-          when: [{ flag: 'heardTeapot' }],
+          when: [{ flag: 'heardTeapotComplaint' }],
           once: true,
           effects: [
             // DRAFT:
@@ -121,7 +115,7 @@ export const kyleDialogue: Dialogue = {
             K("Re-pricing is my department. Technically."),
             // DRAFT:
             K("Bring it back. It's got my name on it."),
-            { type: 'addItem', itemId: priceGun.id },
+            addItem(priceGun.id),
             // DRAFT:
             say("I've been issued equipment. I'd like to thank the Handbook."),
           ],
@@ -138,3 +132,5 @@ export const kyleDialogue: Dialogue = {
     },
   },
 };
+
+export const kylePack: ContentPack = { items: [priceGun], dialogues: [kyleDialogue] };

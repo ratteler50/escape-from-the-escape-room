@@ -1,13 +1,11 @@
-import type { Item, Room } from '../core/types';
-import { line, say, says, setFlag, walk } from './dsl';
-import { kyle, kyleHotspot, priceGun } from './kyle';
-import { mordecai, mordecaiBackHotspot, mordecaiHotspot } from './mordecai';
-import { mug, reginaldFinaleHotspot } from './finale';
+import type { Room } from '../core/types';
+import { goTo, removeItem, say, says, setFlag, walk } from './dsl';
+import { K, M, mordecai } from './cast';
+import { kyleHotspot, priceGun } from './kyle';
+import { mordecaiBackHotspot, mordecaiHotspot } from './mordecai';
+import { reginaldFinaleHotspot } from './finale';
+import type { ContentPack } from './pack';
 
-export const giftShopItems: Item[] = [priceGun, mug];
-
-const K = (text: string) => line(kyle.id, text);
-const M = (text: string) => line(mordecai.id, text);
 
 // The painting (docs/art/prompts-gift-shop.md) sets the layout: hotspot bounds and the walkable floor
 // are fitted to what's painted. Left to right along the back wall: the Lair door, the mug rack, Kyle
@@ -51,7 +49,7 @@ export const giftShop: Room = {
         look: says("The way back into the Lich's Lair. The sign over it says ENTER IF YOU DARE. I've dared. It's mostly cobwebs and Reginald."),
         use: {
           label: 'Go through',
-          responses: [{ effects: [walk('dana', 103, 458), { type: 'goToRoom', roomId: 'lair', entry: 'fromGiftShop' }] }],
+          responses: [{ effects: [walk('dana', 103, 458), goTo('lair', 'fromGiftShop')] }],
         },
       },
     },
@@ -136,7 +134,7 @@ export const giftShop: Room = {
               say('I hand the price gun back to Kyle. Re-pricing is their department.'),
               // DRAFT:
               K("It's got my name on it."),
-              { type: 'removeItem', itemId: 'priceGun' },
+              removeItem(priceGun.id),
             ],
           },
         ],
@@ -197,10 +195,10 @@ export const giftShop: Room = {
             {
               effects: [
                 walk('dana', 954, 458),
-                { type: 'goToRoom', roomId: 'breakRoom', entry: 'fromGiftShop' },
+                goTo('breakRoom', 'fromGiftShop'),
                 // Set after leaving, so Mordecai doesn't pop back to the bin mid-cutscene
                 // (setFlag redraws hotspots from the final state).
-                setFlag('mordecaiBack'),
+                setFlag('mordecaiByBin'),
               ],
             },
           ],
@@ -241,3 +239,5 @@ export const giftShop: Room = {
     reginaldFinaleHotspot,
   ],
 };
+
+export const giftShopPack: ContentPack = { rooms: [giftShop] };
