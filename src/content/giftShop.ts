@@ -194,9 +194,9 @@ export const giftShop: Room = {
           responses: [
             {
               effects: [
-                say("EXIT THROUGH THE GIFT SHOP, says the sign. I've been through the gift shop. I just haven't bought anything."),
+                say("Reginald's script says the guest escapes through the gift shop. I'm in the gift shop. Here goes."),
                 say('I step into the doorway. The doorway steps me straight back into the shop.'),
-                say("The door is open. I'm just not allowed through it. Reginald's script ends with the guest escaping through the gift shop, with a souvenir. The curse is very literal."),
+                say("The door is open. I'm just not allowed through it. The script's guest buys a souvenir on the way out, and I haven't bought anything. The curse is very literal."),
               ],
             },
           ],

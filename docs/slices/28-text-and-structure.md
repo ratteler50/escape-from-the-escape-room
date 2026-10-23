@@ -217,7 +217,7 @@ after 28a merges. They edit the same content files, so they never run in paralle
     card).
   - Nobody refers to something Dana hasn't seen or been told yet: Kyle's look line, and the
     "what's going on?" options to Kyle and Mordecai.
-- **Jokes:** 22 lines changed, listed old → new in the PR. Most finished and DRAFT lines already
+- **Jokes:** 23 lines changed, listed old → new in the PR. Most finished and DRAFT lines already
   worked and were kept as they are; every `// DRAFT:` marker is gone (`docs/drafts.md` lists 0).
   `CLAUDE.md`'s content rule now says the agent writes finished lines and marks a draft only to ask.
 - **Checked, no change needed:** prices, Handbook sections against the design doc's table, names,
