@@ -75,6 +75,11 @@ export const lair: Room = {
     overlays: [
       { image: 'assets/overlays/lair-gary-armless.webp', at: { x: 235, y: 211 }, when: [{ flag: 'tookGaryArm' }] },
       { image: 'assets/overlays/lair-grate-arm.webp', at: { x: 318, y: 507 }, when: [{ flag: 'gotCaseKey' }] },
+      { image: 'assets/overlays/lair-case-open.webp', at: { x: 750, y: 243 }, when: [{ flag: 'caseOpen' }] },
+      // One scroll patch, listed twice: while the case is closed, and once Dana puts it back.
+      // After the lid so it draws on top.
+      { image: 'assets/overlays/lair-case-scroll.webp', at: { x: 797, y: 318 }, when: [{ notFlag: 'caseOpen' }] },
+      { image: 'assets/overlays/lair-case-scroll.webp', at: { x: 797, y: 318 }, when: [{ flag: 'doorUnlocked' }] },
     ],
   },
   entries: {
@@ -267,9 +272,9 @@ export const lair: Room = {
         look: {
           responses: [
             // DRAFT:
-            { when: [{ flag: 'doorUnlocked' }], effects: [say("The scroll's tucked back under the bone. Its little card says 'ANCIENT RIDDLE (REPRODUCTION)'. It has never been more wrong.")] },
+            { when: [{ flag: 'doorUnlocked' }], effects: [say("The scroll's tucked back under the bone. Its little card says 'ANCIENT RIDDLE (REPRODUCTION)'. It has never been more wrong. I've left the lid up. The Handbook covers opening things, not closing them.")] },
             // DRAFT:
-            { when: [{ flag: 'caseOpen' }], effects: [say("Just the bone now. Its card says 'BONE (DECORATIVE)'. The scroll's card says 'ANCIENT RIDDLE (REPRODUCTION)', and points at nothing.")] },
+            { when: [{ flag: 'caseOpen' }], effects: [say("The lid's propped open, key still in the lock. Just the bone now. Its card says 'BONE (DECORATIVE)'. The scroll's card says 'ANCIENT RIDDLE (REPRODUCTION)', and points at nothing.")] },
             // DRAFT:
             { effects: [say("An ornate display case. Inside, on velvet: a bone, labelled 'BONE (DECORATIVE)'. Tucked underneath it: an Ancient Riddle Scroll. The lock is tiny and skull-shaped.")] },
           ],

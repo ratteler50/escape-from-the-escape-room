@@ -16,53 +16,53 @@ for an item; "Dana (option)" is a line Dana says when the player picks it in a c
 | `lair.ts:34` | Look | A tiny key on a skull keyring. The keyring says DISPLAY CASE. Head office labels everything except the puzzles. |
 | `lair.ts:42` | Look | It reads: "THE ANSWER IS: {CODE}". Head office used a template and never filled in the blank. Of COURSE. Then again, the curse made the whole script real, exactly as printed. Does that include the blanks? |
 | `lair.ts:55` | Dana | I press the gum onto Gary's fingertip. It's disgusting. It's perfect. |
-| `lair.ts:100` | Dana | Unlocked! Beyond it: the Gift Shop. I can already hear the mugs. |
-| `lair.ts:102` | Dana | A heavy oak door. Well, heavy oak-effect laminate. Section 9 of the Handbook says it should never be locked during business hours. It is locked. |
-| `lair.ts:106` | Dana | Hello? Door? I'd like to speak to your manager. ... Its manager is also a door. |
-| `lair.ts:115` | Dana | Freedom! Or at least... retail. |
-| `lair.ts:127` | Dana | Wrong key. It's for the display case. It literally says so on it. |
-| `lair.ts:130` | Dana | The door remains locked. It is unmoved by my offerings. |
-| `lair.ts:141` | Dana | Reginald is sitting on it. Sitting is a strong word. He's lounging, dramatically. |
-| `lair.ts:143` | Dana | A towering throne of bone. The estate-sale sticker on the armrest says "LOT 12: SPOOKY SEAT (BONE-EFFECT), $49.99". |
-| `lair.ts:153` | Dana | Under the armrest: one wad of pre-owned gum, stuck there like under a school desk. Handbook Section 3: "Lost property must be logged." Consider it logged. |
-| `lair.ts:161` | Dana | Handbook Section 7.1: "The Spooky Seat is for liches only." I am not a lich. I'm barely a trainee. |
-| `lair.ts:173` | Dana | A glowing skull-shaped jar on a plinth. The estate-sale sticker says "LOT 47: SPOOKY JAR (ASSORTED), $3.50". It's whispering. Props don't whisper. I'd remember that from training. |
-| `lair.ts:175` | Dana | Cable-locked to the plinth. Head office's anti-theft cable: they trust the lich with it, but not the staff. |
-| `lair.ts:177` | Dana | "...my teapot... my good teapot... two dollars..." I don't know what that means. I don't like that I don't know what that means. |
-| `lair.ts:187` | Dana | A coffin with a gold star on the lid. "R. VANTABLACK-THORNE: DRESSING ROOM. KNOCK." |
-| `lair.ts:195` | Dana | Inside: a mirror, hairspray labelled UNDEAD HOLD, and a dog-eared script. His cue is underlined three times: "Rise, foul creature, and face me!" |
-| `lair.ts:201` | Dana | His script's back where it belongs. I know the cue by heart now: "Rise, foul creature, and face me!" |
-| `lair.ts:203` | Dana | Just the mirror and the hairspray. And a signed photo of Reginald, signed by Reginald. |
-| `lair.ts:219` | Dana | Gary, now with 50% fewer arms. He's taking it very well. |
-| `lair.ts:221` | Dana | Gary the skeleton. His name tag says he's been Employee of the Month eleven times. I've never even been Employee of the Shift. |
-| `lair.ts:232` | Dana | Sorry, Gary. I'll bring it back. Probably. Handbook Section 4.2 says nothing about skeletons. |
-| `lair.ts:240` | Dana | Hi, Gary. ... Gary says nothing. Gary has always been a wonderful listener. |
-| `lair.ts:244` | Dana | I offer Gary his arm back. He doesn't want it. He's moved on. |
-| `lair.ts:246` | Dana | I am NOT giving it back to him like this. |
-| `lair.ts:256` | Dana | "One star. Could not escape." "One star. Still here." "Five stars! Very immersive!" That last one's from Reginald's mum. |
-| `lair.ts:258` | Dana | "Two stars. Staff were polite but the lich was hammy." Handbook Section 11: employees may not review their own workplace. I'll sign it "Gary". |
-| `lair.ts:270` | Dana | The scroll's tucked back under the bone. Its little card says 'ANCIENT RIDDLE (REPRODUCTION)'. It has never been more wrong. |
-| `lair.ts:272` | Dana | Just the bone now. Its card says 'BONE (DECORATIVE)'. The scroll's card says 'ANCIENT RIDDLE (REPRODUCTION)', and points at nothing. |
-| `lair.ts:274` | Dana | An ornate display case. Inside, on velvet: a bone, labelled 'BONE (DECORATIVE)'. Tucked underneath it: an Ancient Riddle Scroll. The lock is tiny and skull-shaped. |
-| `lair.ts:281` | Dana | It's open. All that's left is the decorative bone, and I'm not stealing set dressing on my first day. |
-| `lair.ts:283` | Dana | Locked. The keyhole is shaped like a tiny skull. Head office loves a theme. |
-| `lair.ts:294` | Dana | Click. The case opens. I slide the Ancient Riddle Scroll out from under the bone and leave the key in the lock, like a responsible trainee. |
-| `lair.ts:301` | Dana | It's already open. |
-| `lair.ts:312` | Dana | Eight brass buttons with letters on them, like an old phone (ABC, DEF, all the way to WXYZ), and one that says ENTER. No numbers at all. Someone has labelled it NUMBER PAD. A brass plate: "ENTER CODE TO ESCAPE". Below it, smaller: "NO REFUNDS". |
-| `lair.ts:317` | Dana | Already done. C-O-D-E, ENTER. I'll never forget it. I'll try. |
-| `lair.ts:319` | Dana | L-I-C-H, ENTER. Bzzt. D-O-O-M, ENTER. Bzzt. G-A-R-Y, ENTER. Bzzt, and Gary looks hurt. I need the actual code. |
-| `lair.ts:329` | Dana | "THE ANSWER IS: {CODE}." The curly brackets just mark the blank that nobody filled in. What's printed in the blank is the word CODE. |
-| `lair.ts:331` | Dana | The curse bound the script exactly as printed. So the answer isn't a code. It's the word CODE. C. O. D. E. ENTER. |
-| `lair.ts:336` | Dana | CLUNK. The door unlocks. I've beaten head office at their own game. By reading. |
-| `lair.ts:338` | Dana | Handbook Section 3: lost property must be returned. I tuck the scroll back under its bone. |
-| `lair.ts:343` | Dana | The door's already unlocked. I'm not typing CODE again. It felt silly enough the first time. |
-| `lair.ts:356` | Dana | Gary's arm, gummed to the grate, waving at nobody. A pamphlet down there: "Emergency Procedures for Staff". Fire, flood, fainting guest. Nothing about liches. I checked twice. |
-| `lair.ts:358` | Dana | A floor grate. Something small and shiny glints down there, just out of reach. I'd need a longer arm. Or a spare one. |
-| `lair.ts:369` | Dana | I lower the Sticky Arm through the bars... gently... got it! A key. Gary would be proud. Gary is never proud. |
-| `lair.ts:372` | Dana | The gum lets go of the key and grabs the grate instead. Gary's arm is staying there. I'm told that's what gum does. |
-| `lair.ts:378` | Dana | There's nothing else down there worth getting gum on. |
-| `lair.ts:381` | Dana | Gary's fingers brush the key, but it won't stay put. If only they were... stickier. |
-| `lair.ts:384` | Dana | That won't fit through the grate. Most things won't. That's rather the point of a grate. |
+| `lair.ts:105` | Dana | Unlocked! Beyond it: the Gift Shop. I can already hear the mugs. |
+| `lair.ts:107` | Dana | A heavy oak door. Well, heavy oak-effect laminate. Section 9 of the Handbook says it should never be locked during business hours. It is locked. |
+| `lair.ts:111` | Dana | Hello? Door? I'd like to speak to your manager. ... Its manager is also a door. |
+| `lair.ts:120` | Dana | Freedom! Or at least... retail. |
+| `lair.ts:132` | Dana | Wrong key. It's for the display case. It literally says so on it. |
+| `lair.ts:135` | Dana | The door remains locked. It is unmoved by my offerings. |
+| `lair.ts:146` | Dana | Reginald is sitting on it. Sitting is a strong word. He's lounging, dramatically. |
+| `lair.ts:148` | Dana | A towering throne of bone. The estate-sale sticker on the armrest says "LOT 12: SPOOKY SEAT (BONE-EFFECT), $49.99". |
+| `lair.ts:158` | Dana | Under the armrest: one wad of pre-owned gum, stuck there like under a school desk. Handbook Section 3: "Lost property must be logged." Consider it logged. |
+| `lair.ts:166` | Dana | Handbook Section 7.1: "The Spooky Seat is for liches only." I am not a lich. I'm barely a trainee. |
+| `lair.ts:178` | Dana | A glowing skull-shaped jar on a plinth. The estate-sale sticker says "LOT 47: SPOOKY JAR (ASSORTED), $3.50". It's whispering. Props don't whisper. I'd remember that from training. |
+| `lair.ts:180` | Dana | Cable-locked to the plinth. Head office's anti-theft cable: they trust the lich with it, but not the staff. |
+| `lair.ts:182` | Dana | "...my teapot... my good teapot... two dollars..." I don't know what that means. I don't like that I don't know what that means. |
+| `lair.ts:192` | Dana | A coffin with a gold star on the lid. "R. VANTABLACK-THORNE: DRESSING ROOM. KNOCK." |
+| `lair.ts:200` | Dana | Inside: a mirror, hairspray labelled UNDEAD HOLD, and a dog-eared script. His cue is underlined three times: "Rise, foul creature, and face me!" |
+| `lair.ts:206` | Dana | His script's back where it belongs. I know the cue by heart now: "Rise, foul creature, and face me!" |
+| `lair.ts:208` | Dana | Just the mirror and the hairspray. And a signed photo of Reginald, signed by Reginald. |
+| `lair.ts:224` | Dana | Gary, now with 50% fewer arms. He's taking it very well. |
+| `lair.ts:226` | Dana | Gary the skeleton. His name tag says he's been Employee of the Month eleven times. I've never even been Employee of the Shift. |
+| `lair.ts:237` | Dana | Sorry, Gary. I'll bring it back. Probably. Handbook Section 4.2 says nothing about skeletons. |
+| `lair.ts:245` | Dana | Hi, Gary. ... Gary says nothing. Gary has always been a wonderful listener. |
+| `lair.ts:249` | Dana | I offer Gary his arm back. He doesn't want it. He's moved on. |
+| `lair.ts:251` | Dana | I am NOT giving it back to him like this. |
+| `lair.ts:261` | Dana | "One star. Could not escape." "One star. Still here." "Five stars! Very immersive!" That last one's from Reginald's mum. |
+| `lair.ts:263` | Dana | "Two stars. Staff were polite but the lich was hammy." Handbook Section 11: employees may not review their own workplace. I'll sign it "Gary". |
+| `lair.ts:275` | Dana | The scroll's tucked back under the bone. Its little card says 'ANCIENT RIDDLE (REPRODUCTION)'. It has never been more wrong. I've left the lid up. The Handbook covers opening things, not closing them. |
+| `lair.ts:277` | Dana | The lid's propped open, key still in the lock. Just the bone now. Its card says 'BONE (DECORATIVE)'. The scroll's card says 'ANCIENT RIDDLE (REPRODUCTION)', and points at nothing. |
+| `lair.ts:279` | Dana | An ornate display case. Inside, on velvet: a bone, labelled 'BONE (DECORATIVE)'. Tucked underneath it: an Ancient Riddle Scroll. The lock is tiny and skull-shaped. |
+| `lair.ts:286` | Dana | It's open. All that's left is the decorative bone, and I'm not stealing set dressing on my first day. |
+| `lair.ts:288` | Dana | Locked. The keyhole is shaped like a tiny skull. Head office loves a theme. |
+| `lair.ts:299` | Dana | Click. The case opens. I slide the Ancient Riddle Scroll out from under the bone and leave the key in the lock, like a responsible trainee. |
+| `lair.ts:306` | Dana | It's already open. |
+| `lair.ts:317` | Dana | Eight brass buttons with letters on them, like an old phone (ABC, DEF, all the way to WXYZ), and one that says ENTER. No numbers at all. Someone has labelled it NUMBER PAD. A brass plate: "ENTER CODE TO ESCAPE". Below it, smaller: "NO REFUNDS". |
+| `lair.ts:322` | Dana | Already done. C-O-D-E, ENTER. I'll never forget it. I'll try. |
+| `lair.ts:324` | Dana | L-I-C-H, ENTER. Bzzt. D-O-O-M, ENTER. Bzzt. G-A-R-Y, ENTER. Bzzt, and Gary looks hurt. I need the actual code. |
+| `lair.ts:334` | Dana | "THE ANSWER IS: {CODE}." The curly brackets just mark the blank that nobody filled in. What's printed in the blank is the word CODE. |
+| `lair.ts:336` | Dana | The curse bound the script exactly as printed. So the answer isn't a code. It's the word CODE. C. O. D. E. ENTER. |
+| `lair.ts:341` | Dana | CLUNK. The door unlocks. I've beaten head office at their own game. By reading. |
+| `lair.ts:343` | Dana | Handbook Section 3: lost property must be returned. I tuck the scroll back under its bone. |
+| `lair.ts:348` | Dana | The door's already unlocked. I'm not typing CODE again. It felt silly enough the first time. |
+| `lair.ts:361` | Dana | Gary's arm, gummed to the grate, waving at nobody. A pamphlet down there: "Emergency Procedures for Staff". Fire, flood, fainting guest. Nothing about liches. I checked twice. |
+| `lair.ts:363` | Dana | A floor grate. Something small and shiny glints down there, just out of reach. I'd need a longer arm. Or a spare one. |
+| `lair.ts:374` | Dana | I lower the Sticky Arm through the bars... gently... got it! A key. Gary would be proud. Gary is never proud. |
+| `lair.ts:377` | Dana | The gum lets go of the key and grabs the grate instead. Gary's arm is staying there. I'm told that's what gum does. |
+| `lair.ts:383` | Dana | There's nothing else down there worth getting gum on. |
+| `lair.ts:386` | Dana | Gary's fingers brush the key, but it won't stay put. If only they were... stickier. |
+| `lair.ts:389` | Dana | That won't fit through the grate. Most things won't. That's rather the point of a grate. |
 
 ## Reginald (28)
 

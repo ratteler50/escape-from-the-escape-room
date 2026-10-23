@@ -1,6 +1,6 @@
 # Slice 25 — The display case shows its state
 
-**Status:** approved 2026-10-22, building · **Milestone:** M4 · after slice 24 (story fixes), now merged
+**Status:** built, agent play-tested; overlays approved in place · **Milestone:** M4 · after slice 24 (story fixes), now merged
 
 ## Why
 
@@ -130,3 +130,21 @@ other Lair art.
 - Build after slice 24 merges: both edit `src/content/lair.ts` (different lines) and `docs/drafts.md`.
 - Considered and kept from the first draft: the scroll was optional, at an estimated two extra edits.
   One patch serving both states brought it down to one, so it's in (developer, 2026-10-22).
+
+## Build notes
+
+- **Lid** (`lair-case-open.webp`, 115×77 px at 750, 243): the first edit was approved; the tilted
+  glass lid reads at room scale, so the front-panel fallback wasn't needed. ChatGPT returned
+  1254×1254; `scripts/make-overlay.py` scales it back to the 160×160 crop.
+- **Scroll** (`lair-case-scroll.webp`, 37×28 px at 797, 318): ChatGPT redrew the whole of 3b
+  (sharper, the bone slightly reshaped), so the patch is cut from a tight box around the scroll
+  (x 797–834, y 318–346) rather than the whole crop. The lid patch leaves the cushion alone, so the
+  one scroll patch sits right over both the closed and the open case, as planned.
+- **Look lines:** the open case mentions the propped lid and the key in the lock; after the door,
+  Dana has left the lid up ("The Handbook covers opening things, not closing them").
+- **Tests:** 428 unit tests; Playwright (play-through, console errors, autosave) green.
+- **Agent play-test** (headless screenshots at 1280×720): the closed case with the scroll's end, the
+  lid open with no scroll, the lid open with the scroll back, and `?art=off` (box, no overlays); no
+  console errors. The states were set by flag for the screenshots; the Playwright play-through uses
+  the key on the case for real. A reload with the case open wasn't checked by hand: overlays come
+  from the saved flags.
