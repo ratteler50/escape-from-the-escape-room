@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { isExit } from '../core/engine';
 import { pointInPolygon, type Point, type Polygon } from '../core/geometry';
-import { FAIL_SOUND, PLAYER, type Effect, type Response } from '../core/types';
+import { FAIL_SOUND, PLAYER, type Effect, type Pose, type Response } from '../core/types';
 import { initialState, world } from './world';
 
 const LOGICAL_WIDTH = 1280;
@@ -231,29 +231,11 @@ describe('content validation', () => {
   }
 
   for (const character of Object.values(world.characters)) {
-    const { frames, parts } = character.walk ?? {};
-    if (frames) {
-      it(`gives ${character.id}'s walk frames a size, a count and a frame rate`, () => {
-        const bad = (['frameWidth', 'frameHeight', 'frames', 'fps'] as const).filter((k) => !(frames[k] > 0));
-        expect(bad, `${character.id}.walk.frames needs positive ${bad.join(', ')}`).toEqual([]);
-      });
-    }
-    if (parts) {
-      it(`builds ${character.id}'s cutout walk from one body and well-formed limbs`, () => {
-        const problems: string[] = [];
-        const seen = new Set<string>();
-        for (const part of parts.parts) {
-          if (seen.has(part.id)) problems.push(`"${part.id}" is listed twice`);
-          if (part.parent !== undefined && !seen.has(part.parent)) problems.push(`"${part.id}" hangs from "${part.parent}", which isn't listed before it`);
-          if (part.role !== 'body' && part.side === undefined) problems.push(`"${part.id}" is a limb with no side (near or far)`);
-          if (part.role === 'shin' && part.parent === undefined) problems.push(`"${part.id}" is a shin with no thigh to hang from`);
-          if (part.role === 'foot' && part.parent === undefined) problems.push(`"${part.id}" is a foot with no shin to hang from`);
-          if (!(part.crop.width > 0 && part.crop.height > 0)) problems.push(`"${part.id}" has an empty crop`);
-          seen.add(part.id);
-        }
-        const bodies = parts.parts.filter((p) => p.role === 'body').length;
-        if (bodies !== 1) problems.push(`it has ${bodies} bodies; it needs exactly one`);
-        expect(problems, `${character.id}.walk.parts: ${problems.join('; ')}`).toEqual([]);
+    for (const [pose, walk] of Object.entries(character.walks ?? {})) {
+      it(`gives ${character.id}'s ${pose} walk a size, a count and a frame rate, and a sprite to walk from`, () => {
+        const bad = (['frameWidth', 'frameHeight', 'frames', 'fps'] as const).filter((k) => !(walk[k] > 0));
+        expect(bad, `${character.id}.walks.${pose} needs positive ${bad.join(', ')}`).toEqual([]);
+        expect(character.sprites?.[pose as Pose], `${character.id} walks as "${pose}" but has no "${pose}" sprite`).toBeDefined();
       });
     }
   }

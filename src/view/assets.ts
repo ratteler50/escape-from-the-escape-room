@@ -29,11 +29,11 @@ export function queueArt(scene: Phaser.Scene, world: World): void {
   }
   for (const character of Object.values(world.characters)) {
     for (const path of Object.values(character.sprites ?? {})) load(artKey(path), path);
-    const { frames, parts } = character.walk ?? {};
-    if (frames && !scene.textures.exists(walkSheetKey(frames.sheet))) {
-      scene.load.spritesheet(walkSheetKey(frames.sheet), frames.sheet, { frameWidth: frames.frameWidth, frameHeight: frames.frameHeight });
+    for (const walk of Object.values(character.walks ?? {})) {
+      if (!scene.textures.exists(walkSheetKey(walk.sheet))) {
+        scene.load.spritesheet(walkSheetKey(walk.sheet), walk.sheet, { frameWidth: walk.frameWidth, frameHeight: walk.frameHeight });
+      }
     }
-    if (parts) load(artKey(parts.sheet), parts.sheet);
   }
   for (const item of Object.values(world.items)) if (item.icon) load(artKey(item.icon), item.icon);
   for (const path of Object.values(INVENTORY_ART)) load(artKey(path), path);

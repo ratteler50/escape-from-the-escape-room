@@ -1,6 +1,6 @@
 import * as Phaser from 'phaser';
 import { clampToPolygon, distance, type Point, type Polygon } from '../core/geometry';
-import type { CharacterWalk } from '../core/types';
+import type { WalkFrames } from '../core/types';
 import { ART_ENABLED, artKey } from './RoomView';
 import { Walker } from './Walker';
 
@@ -26,7 +26,7 @@ export class PlayerSprite {
     private readonly scene: Phaser.Scene,
     at: Point,
     spritePath?: string,
-    walk?: CharacterWalk,
+    walk?: WalkFrames,
   ) {
     // The container's origin is Dana's feet, so its position is their spot on the floor.
     if (ART_ENABLED && spritePath !== undefined && scene.textures.exists(artKey(spritePath))) {
@@ -89,7 +89,7 @@ export class PlayerSprite {
       duration: (distance(this.position, to) / WALK_SPEED) * 1000,
       onComplete: () => this.arrive(),
     });
-    this.walker?.start(WALK_SPEED);
+    this.walker?.start();
     this.walk = { tween, to, onArrive };
   }
 

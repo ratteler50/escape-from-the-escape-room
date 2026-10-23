@@ -109,7 +109,7 @@ export class RoomScene extends Phaser.Scene {
     this.refreshHotspots();
     gameAudio(this).playMusic(currentRoom(this.world, this.state).music);
     const dana = this.world.characters[PLAYER];
-    this.player = new PlayerSprite(this, this.state.player, dana?.sprites?.standing, dana?.walk);
+    this.player = new PlayerSprite(this, this.state.player, dana?.sprites?.standing, dana?.walks?.standing);
     this.speech = new Speech(this);
     this.coin = new VerbCoin(this);
     this.dialogue = new DialoguePanel(this);

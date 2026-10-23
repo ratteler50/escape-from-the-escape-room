@@ -59,7 +59,7 @@ describe('assets', () => {
     const paths = [
       ...Object.values(world.rooms).flatMap((room) => (room.art?.overlays ?? []).map((o) => [`${room.id} overlay`, o.image])),
       ...Object.values(world.characters).flatMap((c) => Object.entries(c.sprites ?? {}).map(([pose, path]) => [`${c.id} ${pose}`, path])),
-      ...Object.values(world.characters).flatMap((c) => Object.entries(c.walk ?? {}).map(([style, walk]) => [`${c.id} ${style} walk`, walk.sheet])),
+      ...Object.values(world.characters).flatMap((c) => Object.entries(c.walks ?? {}).map(([pose, walk]) => [`${c.id} ${pose} walk`, walk.sheet])),
       ...Object.values(world.items).flatMap((item) => (item.icon ? [[`${item.id} icon`, item.icon]] : [])),
       ...Object.entries(world.audio?.sounds ?? {}).map(([id, path]) => [`sound ${id}`, path]),
       ...Object.entries(world.audio?.music ?? {}).map(([id, path]) => [`music ${id}`, path]),
