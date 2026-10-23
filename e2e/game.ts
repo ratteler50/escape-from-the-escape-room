@@ -32,6 +32,9 @@ export interface Status {
 
 const GAME = { width: 1280, height: 720 };
 
+/** Frames to wait, after moving the mouse, for the game to say the pointer is over the target. */
+const HOVER_FRAMES = 10;
+
 /** Page-side helpers. Self-contained: Playwright serialises this function into the page. */
 function installHelpers(): void {
   const game = () => (window as any).__game;
@@ -81,6 +84,23 @@ function installHelpers(): void {
     return !!object && input?._over[input.manager.activePointer.id]?.[0] === object;
   }
 
+  /**
+   * Resolves true as soon as the pointer is over the target, or false once `frames` frames have
+   * drawn without it. Counts frames, not milliseconds: on a slow CI runner one round trip to the
+   * page can take longer than any sensible wall-clock wait, but Phaser still needs only a frame or
+   * two to catch up with a pointer move.
+   */
+  function hovered(target: any, frames: number): Promise<boolean> {
+    return new Promise((done) => {
+      const check = (left: number) => {
+        if (isOver(target)) done(true);
+        else if (left <= 0) done(false);
+        else requestAnimationFrame(() => check(left - 1));
+      };
+      check(frames);
+    });
+  }
+
   /** A place to click to skip a line: on screen, but on no hotspot, so a late click can only walk. */
   function skipPoint(): { x: number; y: number } {
     const hotspots = room().roomView.drawn.map((d: any) => d.hotspot.bounds);
@@ -105,7 +125,7 @@ function installHelpers(): void {
     };
   }
 
-  (window as any).__e2e = { points, isOver, skipPoint, status };
+  (window as any).__e2e = { points, isOver, hovered, skipPoint, status };
 }
 
 /** Opens the game with the hook on, waiting until Phaser is running. */
@@ -163,11 +183,9 @@ export async function click(page: Page, target: Target, what = JSON.stringify(ta
   for (const at of candidates!) {
     const p = await toPage(page, at);
     await page.mouse.move(p.x, p.y);
-    const over = await expect
-      .poll(() => page.evaluate((t) => (window as any).__e2e.isOver(t), target), { timeout: 500, intervals: [16] })
-      .toBe(true)
-      .then(() => true, () => false);
-    if (over) {
+    // Give the game a few frames to see the move. (A 500ms poll here once timed out on CI before
+    // its first answer came back from a busy page, with the option already highlighted.)
+    if (await page.evaluate(([t, frames]) => (window as any).__e2e.hovered(t, frames), [target, HOVER_FRAMES] as const)) {
       await page.mouse.down();
       await page.mouse.up();
       return;
