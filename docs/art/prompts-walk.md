@@ -78,6 +78,39 @@ and attach all three: `dana-sheet.png`, `REFERENCE-dana.png`, `LAYOUT-dana-walk-
 > NOT draw the stick figures, their colours or any lines from the guide. Plain flat light-grey
 > background, no shadow, no floor, no text other than the badge, no numbers.
 
+### A, round 3 in Gemini (Nano Banana) → save as `art-inbox/dana-walk-frames-3.png`
+
+The developer's choice for round 3 (2026-10-23): Gemini's image model, which takes several
+reference images and follows a pose guide well. New chat, aspect ratio **21:9** (or 16:9), and
+attach in this order: `art-inbox/dana-sheet.png`, `art-inbox/REFERENCE-dana.png`,
+`art-inbox/LAYOUT-dana-walk-poses.png`.
+
+> Create a 2D game sprite sheet of a walk cycle: the same cartoon character drawn seven times,
+> side by side in one horizontal row on a plain flat light-grey background.
+>
+> The character is the one in image 1 (a model sheet) and image 2 (the exact angle to use): Dana, a
+> young trainee with short, tousled dark-brown hair with a purple streak, a purple polo shirt with
+> a small white skull logo on the chest, a teal patterned lanyard with a white badge reading
+> TRAINEE, khaki trousers and chunky purple-and-cream sneakers. Copy the face, hair, outfit,
+> proportions and art style exactly: flat colour, simple two-tone cel shading, bold clean dark
+> outlines, like a 1990s LucasArts adventure game. Every drawing is the three-quarter view facing
+> right shown in image 2, the same size, standing on the same invisible ground line.
+>
+> Image 3 is a pose guide: seven stick figures. Draw the character once over each stick figure, in
+> the same order and position, matching every limb's angle. In the guide, the ORANGE leg and arm
+> are nearer the viewer, so draw them in front; the BLUE leg and arm are further away, so draw them
+> behind and a shade darker. The legs take turns, which is the whole point of the sheet: in poses
+> 2 and 3 the near (orange) leg steps forward; in poses 5 and 6 the far (blue) leg steps forward
+> and the near leg is behind. Pose 1 is standing still, pose 4 and pose 7 are the passing poses
+> where one foot lifts past the other.
+>
+> Do not draw the stick figures, their colours, or any guide lines. No shadows, no floor, no text
+> other than the badge, no numbers or labels.
+
+If one pose still has the wrong leg in front, ask for an edit rather than a new sheet, naming the
+pose: "In pose 5, the far leg (darker) must be the one stepping forward and the near leg behind;
+change only that pose." Credit rows for Gemini art name Gemini (Google) as the tool.
+
 ## B. Paper-doll parts → save as `art-inbox/dana-walk-parts.png`
 
 For the cutout technique: the same Dana, taken apart so code can swing the pieces. The agent pins
