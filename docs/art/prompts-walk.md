@@ -81,7 +81,7 @@ and attach all three: `dana-sheet.png`, `REFERENCE-dana.png`, `LAYOUT-dana-walk-
 ### A, round 3 in Gemini (Nano Banana) → save as `art-inbox/dana-walk-frames-3.png`
 
 The developer's choice for round 3 (2026-10-23): Gemini's image model, which takes several
-reference images and follows a pose guide well. New chat, aspect ratio **21:9** (or 16:9), and
+reference images and follows a pose guide well. New chat, aspect ratio **16:9** (Gemini has no 21:9), and
 attach in this order: `art-inbox/dana-sheet.png`, `art-inbox/REFERENCE-dana.png`,
 `art-inbox/LAYOUT-dana-walk-poses.png`.
 
@@ -117,7 +117,7 @@ Round 3 (Gemini, over the pose guide) limped too. Past the spec's three rounds, 
 call (2026-10-23). This round asks for half as much: `art-inbox/REFERENCE-dana-step-1.png` is round
 1's first step (poses 2–4), which is good, with its **back leg shaded dark** by the agent. Gemini
 only draws the second step, with that dark leg forward: a leg it can see, instead of "near" and
-"far". The agent then joins the two steps into one cycle (and checks they match). New chat, 21:9,
+"far". The agent then joins the two steps into one cycle (and checks they match). New chat, 16:9,
 attach `art-inbox/REFERENCE-dana-step-1.png` and `art-inbox/dana-sheet.png`, in that order.
 
 > Image 1 shows the first step of a walk cycle for a 2D cartoon game: the same character three
