@@ -277,7 +277,7 @@ for an item; "Dana (option)" is a line Dana says when the player picks it in a c
 
 | Where | Who | Line |
 |---|---|---|
-| `world.ts:36` | Dana | {item} on {target}? Bold. Wrong, but bold. |
+| `world.ts:37` | Dana | {item} on {target}? Bold. Wrong, but bold. |
 
 ## The loading screen (5)
 

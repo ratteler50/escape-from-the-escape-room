@@ -112,6 +112,54 @@ export interface Character {
   floats?: boolean;
   /** Painted sprites by pose (M4). Presentation only: the core never reads them. */
   sprites?: CharacterSprites;
+  /** How the character's walk is animated (slice 27). Without one, walking is a code-driven hop. Presentation only. */
+  walk?: CharacterWalk;
+}
+
+/**
+ * A walk, drawn one of two ways (slice 27 prototypes both; the view uses frames, then parts, unless
+ * `?walk=` picks one). Coordinates are in the image's own pixels, which are twice the on-screen size,
+ * like the sprites. Facing right; mirrored in code to face left.
+ */
+export interface CharacterWalk {
+  frames?: WalkFrames;
+  parts?: WalkParts;
+}
+
+/** Frame by frame: a sprite sheet played in a loop. */
+export interface WalkFrames {
+  /**
+   * One row of equal cells, each with the feet at its bottom-centre: the standing pose first (it
+   * replaces the standing sprite, so stopping doesn't pop), then the walk cycle.
+   */
+  sheet: string;
+  frameWidth: number;
+  frameHeight: number;
+  /** How many walk frames follow the standing one. */
+  frames: number;
+  fps: number;
+}
+
+/** Cutout: pieces of one image, pinned at their joints and swung in code. */
+export interface WalkParts {
+  sheet: string;
+  /** Drawn back to front; a part with a `parent` moves with it (a lower leg with its thigh). */
+  parts: WalkPart[];
+}
+
+export interface WalkPart {
+  id: string;
+  /** What it does in the walk: the body bobs; arms and thighs swing from their joints; a shin bends at the knee. */
+  role: 'body' | 'arm' | 'thigh' | 'shin';
+  /** Near limbs (towards the viewer) and far limbs swing in opposite phase. */
+  side?: 'near' | 'far';
+  /** Where the piece is in the sheet. */
+  crop: Rect;
+  /** Its joint, in sheet pixels. For the body, any point (it doesn't turn). */
+  pivot: Point;
+  /** Where the joint sits: relative to the parent's joint, or to the feet for a part without one. */
+  at: Point;
+  parent?: string;
 }
 
 export type Pose = 'standing' | 'seated' | 'human';

@@ -55,10 +55,11 @@ describe('assets', () => {
     expect(missing, `These items have no icon (slice 21 made one for every item): ${missing.join(', ')}`).toEqual([]);
   });
 
-  it('has every room overlay, character sprite, item icon, sound and track on disk', () => {
+  it('has every room overlay, character sprite and walk, item icon, sound and track on disk', () => {
     const paths = [
       ...Object.values(world.rooms).flatMap((room) => (room.art?.overlays ?? []).map((o) => [`${room.id} overlay`, o.image])),
       ...Object.values(world.characters).flatMap((c) => Object.entries(c.sprites ?? {}).map(([pose, path]) => [`${c.id} ${pose}`, path])),
+      ...Object.values(world.characters).flatMap((c) => Object.entries(c.walk ?? {}).map(([style, walk]) => [`${c.id} ${style} walk`, walk.sheet])),
       ...Object.values(world.items).flatMap((item) => (item.icon ? [[`${item.id} icon`, item.icon]] : [])),
       ...Object.entries(world.audio?.sounds ?? {}).map(([id, path]) => [`sound ${id}`, path]),
       ...Object.entries(world.audio?.music ?? {}).map(([id, path]) => [`music ${id}`, path]),

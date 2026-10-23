@@ -1,6 +1,6 @@
 # Slice 27 — Walk animation
 
-**Status:** spec approved by the developer (2026-10-23), not built · **Milestone:** M4, the last slice of M4 and of the project
+**Status:** in progress: both prototypes built, waiting on Dana's walk art · **Milestone:** M4, the last slice of M4 and of the project
 
 ## Why
 
@@ -110,3 +110,23 @@ session's own PR).
 
 - Workflow: the agent writes the prompts; the developer generates in ChatGPT and approves each image;
   the agent cuts, aligns and wires them in (`scripts/cut-sprite.py`, sprites stored at 2×).
+
+## Build notes
+
+- **One walk piece:** `src/view/Walker.ts` draws a character's standing sprite and their walk in a
+  container whose origin is their feet: frames (a Phaser sprite sheet animation), parts (cutout
+  pieces cut from one image as named texture frames, nested so a shin hangs from its thigh), or the
+  hop. `PlayerSprite` uses it for Dana; Reginald joins after the pick. Facing mirrors the container.
+- **Content:** the walk sits on the character as `walk: { frames?, parts? }` (not inside `sprites`,
+  which maps poses to image paths). Dana moved to `src/content/dana.ts`. Without `?walk=`, a
+  character walks with frames, then parts, then the hop: the first they have.
+- **Cutout maths:** one step is 90 on-screen px, so the swing period follows the walk speed and the
+  feet keep pace with the floor. Thighs ±22°, the knee bends up to 40° while its leg swings forward,
+  arms ±18° opposite the near leg. Spread legs reach less far down, so the hips drop by
+  `hip height × (1 − cos θ)` to keep the feet on the floor, plus a 2 px bounce.
+- **Stand-in parts:** until the parts sheet arrives, Dana's cutout uses legs cut from today's
+  sprite (whole legs from the hips, no knees, arms fixed). It proves the mechanics; it's stiff, and
+  it's replaced by the real parts.
+- **Recording:** clips are frame-stepped (the game loop asleep, `game.step` at 30 fps, and the tween
+  manager's own wall clock replaced by the same step), so they show the walk at true speed however
+  slow the screenshots are.
