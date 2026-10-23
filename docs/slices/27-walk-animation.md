@@ -113,51 +113,28 @@ session's own PR).
 
 ## Build notes
 
-- **One walk piece:** `src/view/Walker.ts` draws a character's standing sprite and their walk in a
-  container whose origin is their feet: frames (a Phaser sprite sheet animation), parts (cutout
-  pieces cut from one image as named texture frames, nested so a shin hangs from its thigh), or the
-  hop. `PlayerSprite` uses it for Dana; Reginald joins after the pick. Facing mirrors the container.
-- **Content:** the walk sits on the character as `walk: { frames?, parts? }` (not inside `sprites`,
-  which maps poses to image paths). Dana moved to `src/content/dana.ts`. Without `?walk=`, a
-  character walks with frames, then parts, then the hop: the first they have.
-- **Cutout maths:** one step is 90 on-screen px, so the swing period follows the walk speed and the
-  feet keep pace with the floor. Thighs ±22°, the knee bends up to 40° while its leg swings forward,
-  arms ±18° opposite the near leg. Spread legs reach less far down, so the hips drop by
-  `hip height × (1 − cos θ)` to keep the feet on the floor, plus a 2 px bounce.
-- **Stand-in parts** (before the art arrived): legs cut from today's sprite, whole from the hips,
-  no knees. They proved the mechanics, then were replaced by the parts sheet.
-- **Dana's art** arrived first try (2026-10-23): `dana-walk-frames.png` and `dana-walk-parts.png`.
-- **Drift check (frames):** same shirt colour in all seven poses, shirt area within ±6%, hair within
-  ±4%, ground line within 9 px of the sheet. No regeneration needed. Cut with the same flood fill as
-  `scripts/cut-sprite.py`, scaled together (the standing pose to 400 px, 2×), each pose placed with
-  its feet on the cell floor and its shirt centred, so the torso holds still: 7 cells of 221×404,
-  152 KB. An onion skin (all poses overlaid) shows the torso steady and the head bobbing a little.
-- **Step length:** the drawn steps are short, about 45 on-screen px (the prompt asked for small
-  steps). At the spec's 10 fps a step takes 0.3 s, but Dana covers 90 px in it, so the feet slide;
-  20 fps matches the floor but is a quick shuffle. The clip shows both; `?fps=N` overrides the rate.
-- **Parts:** seven pieces from one sheet (33 KB), scaled so the assembled Dana is 400 px tall,
-  pinned at hips, knees and shoulders by hand-measured joints. Near limbs are the screen-left ones
-  (in three-quarter view facing right, the near side is Dana's right; the prompt said left, which
-  made no difference to the pieces). Lower legs tuck behind their thighs so the hem covers the
-  knee; the body covers the thighs' tops, the near arm draws in front.
-- **Comparison clip:** `art-inbox/walk-compare.mp4` (not in the repo): hop, frames at 10 and 20 fps,
-  cutout, side by side, following Dana across the Lair at true speed.
-- **Recording:** clips are frame-stepped (the game loop asleep, `game.step` at 30 fps, and the tween
-  manager's own wall clock replaced by the same step), so they show the walk at true speed however
-  slow the screenshots are.
-- **The frames limp:** round 1 (ChatGPT) drew poses 5–7 as copies of 2–4, so the same leg leads
-  every step; the developer spotted it. Round 2 (ChatGPT, asking for alternation and a darker far
-  leg) and round 3 (Gemini, drawn over a colour-coded pose guide, `scripts/walk-pose-guide.py`) did
-  the same. Shading the far leg darker in code (frames 1–3 the back leg, 4–6 the front leg) helps
-  a little. **The developer chose to go past the three-round cap** (2026-10-23): round 4 asks Gemini
-  for only the second step, with the dark-shaded leg forward.
-- **Round 4** (Gemini, only the second step, with the back leg shaded dark as a handle) limped
-  too. **Round 5** gives Dana a costume marker, at the developer's call: the near trouser leg
-  rolled up over a lime-green sock, so the generator can see which leg leads.
-- **Round 5** (marker) cropped both trouser legs and still led with the wrong leg in pose 5. Generation
-  stopped there. The frames sheet is now round 1 with **the far leg shaded** by
-  `scripts/shade-far-leg.py` (the back leg in the first step, the front leg in the second, 58% tone).
-- **Cutout fixes** (the developer found it weird): each shoe is its own piece under the trouser hem,
-  hung from the shin at the ankle and kept nearly flat (it keeps 30% of the leg's tilt), so toes no
-  longer dig into the floor; a shorter stride (72 px, thighs ±18°); far limbs tinted darker.
-  Clip: `art-inbox/walk-compare-3.mp4` (hop, shaded frames, cutout).
+- **The pick (2026-10-23): frames.** Both techniques were built behind `?walk=` and compared in
+  frame-stepped clips (the game loop asleep, `game.step` at 30 fps, the tween manager's own clock
+  replaced by the same step, so clips run at true speed). The developer found the cutout weird even
+  after fixes (flat feet, shorter stride, darker far limbs) and picked the frames. The cutout code,
+  its parts sheet and the `?walk=`/`?fps=` switches were removed.
+- **One walk piece:** `src/view/Walker.ts` draws a character's sprite in a container whose origin
+  is their feet: with a walk sheet, it plays the cycle while walking and shows the sheet's standing
+  pose otherwise; without one, the standing sprite hops (slice 19's hop and lean). Facing mirrors the
+  container. `PlayerSprite` uses it for Dana; `RoomView.walkCharacter` swaps a walking character's
+  sprite for one (Reginald, getting up off the throne to walk as the lich, or human in the finale).
+  Mordecai floats and glides, as before.
+- **Content:** `walks` on a character, keyed by the pose that walks (`standing`, `human`), so
+  Reginald can have one per look. Dana moved to `src/content/dana.ts`.
+- **Drift check (Dana's frames):** same shirt colour in all seven poses, shirt area within ±6%, hair
+  within ±4%, ground line within 9 px. Cut with the same flood fill as `scripts/cut-sprite.py`,
+  scaled together (the standing pose to 400 px, 2×), each pose placed with its feet on the cell floor
+  and its shirt centred, so the torso holds still: 7 cells of 221×404.
+- **The frames limp:** the sheet drew poses 5–7 as copies of 2–4, so the same leg leads every
+  step (the developer spotted it). Later attempts in ChatGPT and Gemini, with a pose guide and a
+  costume marker, all led with the same leg, and none was used. The shipped sheet is the first one
+  with **the far leg shaded** darker by `scripts/shade-far-leg.py` (the back leg in the first step,
+  the front leg in the second), so the legs read as taking turns.
+- **Step length:** the drawn steps are short, about 45 on-screen px. At 10 fps a step takes 0.3 s
+  while Dana covers 90 px, so the feet slide a little; the developer preferred that to 20 fps (a
+  quick shuffle). Walk speed stays 300 px/s.
