@@ -80,6 +80,9 @@ Decisions from the slice 27 grilling (2026-10-23).
     sprites; every committed image in `CREDITS.md`; the 15 MB budget holds (a sheet is about
     50–150 KB, with about 5 MB headroom).
 
+Added at the developer's request (2026-10-23): **the Lair door stands open in the finale**, so human
+Reginald walks out of an open door, and on the end card to match.
+
 Out of scope: a Kyle walk, toward- and away-from-camera walks, idle and talking animations,
 Mordecai, any change to walk speed or paths, the design doc's project-complete note (the main
 session's own PR).
@@ -148,3 +151,9 @@ session's own PR).
   throne and walking to his mark; human Reginald walking in from the Lair doorway in the finale;
   no console errors. Playwright plays the whole game through.
 - **Assets:** three walk sheets, 152 + 248 + 242 KB; `public/assets` is about 10.6 MB of 15 MB.
+- **The Lair door, open** (the developer's request): a ChatGPT edit of an enlarged crop of the Gift
+  Shop's door with the Lair painting attached for the glimpse through it (`prompts-gift-shop.md`
+  §3d), made into an overlay by `scripts/make-overlay.py`, shown from `curseLifted`. The glimpse
+  included the phylactery on its plinth, which Reginald has just carried out, so the agent painted it
+  out; the patch also starts below the door's sign, which the edit had redrawn. The same patch,
+  fitted to the end card's door (scale 1.005, 6 px left, 1 px up), is baked into `end.webp`.

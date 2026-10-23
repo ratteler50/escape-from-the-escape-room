@@ -101,36 +101,36 @@ for an item; "Dana (option)" is a line Dana says when the player picks it in a c
 
 | Where | Who | Line |
 |---|---|---|
-| `giftShop.ts:49` | Dana | The way back into the Lich's Lair. The sign over it says ENTER IF YOU DARE. I've dared. It's mostly cobwebs and Reginald. |
-| `giftShop.ts:63` | Dana | Mugs: "I ESCAPED THE LICH'S LAIR", $12.99. Nobody has ever escaped, so nobody has ever bought one. Kyle dusts them anyway. |
-| `giftShop.ts:67` | Dana | I could mark a mug down to a cent. Handbook Section 14.1: no re-pricing for personal gain. I hate that I know that. |
-| `giftShop.ts:78` | Dana | Kyle's till. The receipt roll is printed to look like a scroll. Head office really committed to the theme. |
-| `giftShop.ts:80` | Kyle | That's my department. |
-| `giftShop.ts:84` | Kyle | Don't. |
-| `giftShop.ts:98` | Dana | The teapot's sticker now says PRICELESS. The rest of the bin looks jealous. |
-| `giftShop.ts:100` | Dana | The bargain bin: three lich snow globes, an eraser shaped like a smaller eraser, and a rather nice teapot. $2. |
-| `giftShop.ts:104` | Dana | Bargain bin stock is final sale, and I am staff. Two rules, one teapot. |
-| `giftShop.ts:111` | Dana | It's already priceless. You can't go higher than priceless. I asked the Handbook. |
-| `giftShop.ts:119` | Dana | Ka-chunk. One new sticker: PRICELESS. |
-| `giftShop.ts:121` | Mordecai | Priceless. PRICELESS! At last, someone in this establishment with taste. |
-| `giftShop.ts:123` | Kyle | We can't sell that now. |
-| `giftShop.ts:125` | Mordecai | GOOD. And a deal is a deal, child. Watch this. |
-| `giftShop.ts:130` | Dana | A clunk from the other side. The STAFF ONLY door swings open. |
-| `giftShop.ts:132` | Kyle | Huh. Is that new? |
-| `giftShop.ts:134` | Dana | I hand the price gun back to Kyle. Re-pricing is their department. |
-| `giftShop.ts:136` | Kyle | It's got my name on it. |
-| `giftShop.ts:152` | Dana | A life-size cardboard Reginald. Somehow less wooden than the real one. |
-| `giftShop.ts:156` | Dana | Cardboard Reginald, $1. No. He'd find out. He'd be devastated. |
-| `giftShop.ts:168` | Dana | STAFF ONLY. A badge reader with a little red light, and a sign: TRAINEES, PLEASE ASK A SUPERVISOR. There is no supervisor. |
-| `giftShop.ts:172` | Dana | I hold up my trainee badge. The reader blinks red. It knows. |
-| `giftShop.ts:177` | Dana | I label the door $4.99. Still locked, but now it's affordable. |
-| `giftShop.ts:180` | Dana | The badge reader blinks red. It only wants a proper staff badge, and that wasn't one. |
-| `giftShop.ts:191` | Dana | STAFF ONLY, wide open. Mordecai can't touch anything, so I assume he glared at the lock until it gave up. Beyond it: a corridor that smells of burnt coffee. |
-| `giftShop.ts:216` | Dana | Wide open, with a little sign hanging on the glass that says CLOSED. That's the staff side; out in the car park it says OPEN. Handbook Section 9: never locked during business hours. It isn't. It just won't let me through. |
-| `giftShop.ts:224` | Dana | EXIT THROUGH THE GIFT SHOP. I haven't bought anything. Not even a mug. |
-| `giftShop.ts:226` | Dana | I step into the doorway. The doorway steps me straight back into the shop. |
-| `giftShop.ts:228` | Dana | The door is open. I'm just not allowed through it. Reginald's script ends with the guest escaping through the gift shop, with a souvenir. The curse is very literal. |
-| `giftShop.ts:236` | Dana | I label the front door FREE. The sign still says CLOSED. To me, specifically. |
+| `giftShop.ts:51` | Dana | The way back into the Lich's Lair. The sign over it says ENTER IF YOU DARE. I've dared. It's mostly cobwebs and Reginald. |
+| `giftShop.ts:65` | Dana | Mugs: "I ESCAPED THE LICH'S LAIR", $12.99. Nobody has ever escaped, so nobody has ever bought one. Kyle dusts them anyway. |
+| `giftShop.ts:69` | Dana | I could mark a mug down to a cent. Handbook Section 14.1: no re-pricing for personal gain. I hate that I know that. |
+| `giftShop.ts:80` | Dana | Kyle's till. The receipt roll is printed to look like a scroll. Head office really committed to the theme. |
+| `giftShop.ts:82` | Kyle | That's my department. |
+| `giftShop.ts:86` | Kyle | Don't. |
+| `giftShop.ts:100` | Dana | The teapot's sticker now says PRICELESS. The rest of the bin looks jealous. |
+| `giftShop.ts:102` | Dana | The bargain bin: three lich snow globes, an eraser shaped like a smaller eraser, and a rather nice teapot. $2. |
+| `giftShop.ts:106` | Dana | Bargain bin stock is final sale, and I am staff. Two rules, one teapot. |
+| `giftShop.ts:113` | Dana | It's already priceless. You can't go higher than priceless. I asked the Handbook. |
+| `giftShop.ts:121` | Dana | Ka-chunk. One new sticker: PRICELESS. |
+| `giftShop.ts:123` | Mordecai | Priceless. PRICELESS! At last, someone in this establishment with taste. |
+| `giftShop.ts:125` | Kyle | We can't sell that now. |
+| `giftShop.ts:127` | Mordecai | GOOD. And a deal is a deal, child. Watch this. |
+| `giftShop.ts:132` | Dana | A clunk from the other side. The STAFF ONLY door swings open. |
+| `giftShop.ts:134` | Kyle | Huh. Is that new? |
+| `giftShop.ts:136` | Dana | I hand the price gun back to Kyle. Re-pricing is their department. |
+| `giftShop.ts:138` | Kyle | It's got my name on it. |
+| `giftShop.ts:154` | Dana | A life-size cardboard Reginald. Somehow less wooden than the real one. |
+| `giftShop.ts:158` | Dana | Cardboard Reginald, $1. No. He'd find out. He'd be devastated. |
+| `giftShop.ts:170` | Dana | STAFF ONLY. A badge reader with a little red light, and a sign: TRAINEES, PLEASE ASK A SUPERVISOR. There is no supervisor. |
+| `giftShop.ts:174` | Dana | I hold up my trainee badge. The reader blinks red. It knows. |
+| `giftShop.ts:179` | Dana | I label the door $4.99. Still locked, but now it's affordable. |
+| `giftShop.ts:182` | Dana | The badge reader blinks red. It only wants a proper staff badge, and that wasn't one. |
+| `giftShop.ts:193` | Dana | STAFF ONLY, wide open. Mordecai can't touch anything, so I assume he glared at the lock until it gave up. Beyond it: a corridor that smells of burnt coffee. |
+| `giftShop.ts:218` | Dana | Wide open, with a little sign hanging on the glass that says CLOSED. That's the staff side; out in the car park it says OPEN. Handbook Section 9: never locked during business hours. It isn't. It just won't let me through. |
+| `giftShop.ts:226` | Dana | EXIT THROUGH THE GIFT SHOP. I haven't bought anything. Not even a mug. |
+| `giftShop.ts:228` | Dana | I step into the doorway. The doorway steps me straight back into the shop. |
+| `giftShop.ts:230` | Dana | The door is open. I'm just not allowed through it. Reginald's script ends with the guest escaping through the gift shop, with a souvenir. The curse is very literal. |
+| `giftShop.ts:238` | Dana | I label the front door FREE. The sign still says CLOSED. To me, specifically. |
 
 ## Kyle (19)
 
