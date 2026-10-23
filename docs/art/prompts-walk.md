@@ -58,6 +58,26 @@ Round 1 drew poses 5–7 as copies of 2–4: the same leg leads every step, so D
 > swings forward. Same seven poses in one row, same size, same ground line, same plain light-grey
 > background, no numbers.
 
+### A, round 3: drawn over a pose guide → save as `art-inbox/dana-walk-frames-3.png`
+
+Round 2 made the same mistake: words don't get ChatGPT to alternate identical legs. Round 3 gives
+it the poses as a picture: `art-inbox/LAYOUT-dana-walk-poses.png` (made by
+`scripts/walk-pose-guide.py`), seven stick figures with the **near leg and arm orange** and the
+**far ones blue**, taking turns. Use a **new chat** (the old one is stuck on its mistake), landscape,
+and attach all three: `dana-sheet.png`, `REFERENCE-dana.png`, `LAYOUT-dana-walk-poses.png`.
+
+> The third attached image is a POSE GUIDE for an animation sprite sheet: seven stick figures in
+> one row. Draw the character from the first two attached images (same face, hair, purple polo
+> with the small skull logo, teal lanyard with the white TRAINEE badge, khaki trousers,
+> purple-and-cream sneakers; flat colour, simple two-tone cel shading, bold clean dark outlines)
+> SEVEN times, in exactly the seven poses of the guide, in the same order, the same places and the
+> same size, all in the three-quarter view facing right of the second image. Follow every limb's
+> angle exactly: in the guide, the ORANGE leg and arm are the ones nearer the viewer (drawn in
+> front), the BLUE leg and arm are further away (drawn behind, and a shade darker). The legs take
+> turns: in poses 2 and 3 the near leg is in front; in poses 5 and 6 the far leg is in front. Do
+> NOT draw the stick figures, their colours or any lines from the guide. Plain flat light-grey
+> background, no shadow, no floor, no text other than the badge, no numbers.
+
 ## B. Paper-doll parts → save as `art-inbox/dana-walk-parts.png`
 
 For the cutout technique: the same Dana, taken apart so code can swing the pieces. The agent pins
