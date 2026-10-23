@@ -15,10 +15,10 @@ import { Speech } from './Speech';
 import type { GameData } from './TitleScene';
 import { button, UI } from './ui';
 import { VerbCoin } from './VerbCoin';
+import { USE_WITH_ICON, VERB_ICONS } from './icons';
 
 const INVENTORY_TOP = 630;
 const HELD_ICON_SIZE = 40;
-const VERB_ICONS: Record<Verb, string> = { look: '👁', take: '✋', talk: '💬', use: '⚙' };
 
 /**
  * The coordinator: turns clicks into core commands and plays the effects that come back. Drawing
@@ -188,7 +188,7 @@ export class RoomScene extends Phaser.Scene {
     const action = availableItemAction(this.world, this.state, itemId);
     const options = [
       { id: 'look' as const, icon: VERB_ICONS.look, label: 'Look' },
-      { id: 'useWith' as const, icon: '✋', label: 'Use with…' },
+      { id: 'useWith' as const, icon: USE_WITH_ICON, label: 'Use with…' },
       ...(action ? [{ id: 'action' as const, icon: VERB_ICONS.use, label: action.label }] : []),
     ];
     this.coin.open({ x: pointer.worldX, y: pointer.worldY }, name, options, (choice) => {

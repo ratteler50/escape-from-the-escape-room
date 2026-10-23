@@ -1,15 +1,13 @@
 import type { Page } from '@playwright/test';
 import { availableItemAction, availableOptions, availableVerbs, handle } from '../src/core/engine';
-import type { Command, GameState, Verb, World } from '../src/core/types';
+import type { Command, GameState, World } from '../src/core/types';
 import { describeCommand, stateKey } from '../src/content/explore';
+import { USE_WITH_ICON, VERB_ICONS } from '../src/view/icons';
 import { click, settle } from './game';
 
 // Turns core commands into the clicks a player would make for them, and checks the game ends up
 // where the core says it should.
 
-// The icons the verb coin shows (RoomScene's VERB_ICONS). Items' coins use ✋ for "Use with…".
-const VERB_ICONS: Record<Verb, string> = { look: '👁', take: '✋', talk: '💬', use: '⚙' };
-const USE_WITH = '✋';
 
 /** Clicks through one command from state `before`. */
 async function perform(page: Page, w: World, before: GameState, command: Command): Promise<void> {
@@ -23,12 +21,12 @@ async function perform(page: Page, w: World, before: GameState, command: Command
     }
     case 'useItemOn':
       await click(page, item(command.itemId));
-      await click(page, { kind: 'coin', icon: USE_WITH });
+      await click(page, { kind: 'coin', icon: USE_WITH_ICON });
       await click(page, { kind: 'hotspot', id: command.hotspotId });
       return;
     case 'combine':
       await click(page, item(command.itemIds[0]));
-      await click(page, { kind: 'coin', icon: USE_WITH });
+      await click(page, { kind: 'coin', icon: USE_WITH_ICON });
       await click(page, item(command.itemIds[1]));
       return;
     case 'itemAction':
