@@ -153,7 +153,7 @@ export const giftShop: Room = {
       itemUses: {
         priceGun: [{ effects: [say('I label the door $4.99. Still locked, but now it\'s affordable.')] }],
       },
-      itemFallback: "The badge reader blinks red. It only wants a proper staff badge, and that wasn't one.",
+      itemFallback: "The badge reader blinks red. Whatever that was, it wasn't a staff badge.",
     },
     {
       id: 'staffDoorOpen',
