@@ -133,7 +133,7 @@ export const kyleDialogue: Dialogue = {
           text: "Kyle, the front door won't let me out.",
           when: [{ flag: 'triedFrontDoor' }],
           once: true,
-          effects: [K('Huh.'), K('Have you tried buying something?'), say('...Why would that help?'), K('Usually does.')],
+          effects: [K('Huh.'), K('Have you tried buying something?'), say('...Why would that help?'), K('Mm.')],
           next: 'hub',
         },
         {
