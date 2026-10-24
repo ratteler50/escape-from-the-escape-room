@@ -64,7 +64,8 @@ missed. Terms are from `docs/glossary.md`. Content is typed TypeScript in `src/c
 
 ## A new puzzle
 
-1. **Chart it** in `docs/design.md`'s puzzle dependency chart before writing it.
+1. **Chart it** in the puzzle dependency chart in `docs/design.md` (and the room's puzzle list under
+   it) before writing it.
 2. **New items:** an `Item` with `id`, `name`, `look` and an `icon` (`public/assets/icons/`), in the
    defining file's pack. Optional `action` for something Dana does with it alone.
 3. **Hook it up** with responses: a hotspot verb, an `itemUses` entry (an item used on a hotspot), a
@@ -88,4 +89,6 @@ Run `npm test` after each step; failure messages say what to fix.
 | `src/content/handbook.test.ts` | A hotspot with no Handbook line; any "Section N" that isn't in the design doc's Handbook table |
 | `src/content/loading.test.ts` | Loading lines quoting a Handbook section that isn't in the design doc's table |
 | `src/content/drafts.test.ts` | `docs/drafts.md` out of date: run `npm run drafts` |
-| `e2e/game.spec.ts` (`npm run test:e2e`) | The shortest solution doesn't play through with real clicks; console errors on load. Its music checks name the first and last rooms' tracks, so update them if those change |
+| `src/view/touchArea.test.ts` | The list of hotspots that get a bigger touch area on phones (smaller than 88×88): update it when a new small hotspot is added, and check it isn't crowded by its neighbours |
+| `e2e/game.spec.ts` (`npm run test:e2e`) | The shortest solution doesn't play through with real clicks (and, in the phone project, with taps); console errors on load. Its music checks name the first and last rooms' tracks, so update them if those change |
+| `e2e/phone.spec.ts` | The sideways screen, and a tap on the keypad's grown touch area |
