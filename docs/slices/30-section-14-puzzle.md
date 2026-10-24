@@ -1,7 +1,6 @@
 # Slice 30 — Section 14: a Handbook puzzle
 
-**Status:** built, agent and developer play-tested; merged in PR #38, 2026-10-23 · **Milestone:** M4,
-its last slice, and the last of the project (added after slice 29, 2026-10-23)
+**Status:** done, merged in [#38](https://github.com/ratteler50/escape-from-the-escape-room/pull/38), 2026-10-24 · **Milestone:** M4 (last slice)
 
 ## Why
 

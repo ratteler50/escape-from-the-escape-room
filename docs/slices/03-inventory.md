@@ -1,6 +1,6 @@
 # Slice 3 — Inventory: use items on things, combine items
 
-**Status:** done · developer play-tested on trackpad · **Milestone:** M1
+**Status:** done, committed directly to `main` (before pull requests), 2026-10-21 · **Milestone:** M1
 
 ## Why
 

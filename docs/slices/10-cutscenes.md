@@ -1,6 +1,6 @@
 # Slice 10 — Cutscenes
 
-**Status:** built, agent play-tested · awaiting PR and developer play-test · **Milestone:** M2 (Phase C) · **Branch:** `slice-10-cutscenes` · **Runs alongside:** slice 11 (Playwright), in its own session
+**Status:** done, merged in [#8](https://github.com/ratteler50/escape-from-the-escape-room/pull/8), 2026-10-22 · **Milestone:** M2
 
 ## Why
 

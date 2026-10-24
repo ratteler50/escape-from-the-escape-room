@@ -1,6 +1,6 @@
 # Slice 19 — Lair characters and prop overlays
 
-**Status:** built, agent and developer play-tested · **Milestone:** M4
+**Status:** done, merged in [#17](https://github.com/ratteler50/escape-from-the-escape-room/pull/17), 2026-10-22 · **Milestone:** M4
 
 ## Why
 

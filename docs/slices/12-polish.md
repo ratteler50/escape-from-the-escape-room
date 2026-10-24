@@ -1,6 +1,6 @@
 # Slice 12 — Polish (M2 complete)
 
-**Status:** built, agent play-tested · awaiting PR and developer play-test · **Milestone:** M2 (Phase D) · **Branch:** `slice-12-polish`
+**Status:** done, merged in [#10](https://github.com/ratteler50/escape-from-the-escape-room/pull/10), 2026-10-22 · **Milestone:** M2 (last slice)
 
 ## Why
 

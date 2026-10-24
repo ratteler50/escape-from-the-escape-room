@@ -15,7 +15,8 @@
     "verbatimModuleSyntax": true,
     "isolatedModules": true,
     "skipLibCheck": true,
-    "noEmit": true
+    "noEmit": true,
+    "allowImportingTsExtensions": true
   },
   "include": ["src", "e2e", "scripts", "vite.config.ts", "playwright.config.ts"]
 }

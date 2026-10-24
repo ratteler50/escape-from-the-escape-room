@@ -1,6 +1,6 @@
 # Slice 17 — M3 polish: clues, consistency, the draft script
 
-**Status:** built, agent play-tested · awaiting developer play-test · **Milestone:** M3 (last slice)
+**Status:** done, merged in [#15](https://github.com/ratteler50/escape-from-the-escape-room/pull/15), 2026-10-22 · **Milestone:** M3 (last slice)
 
 ## Why
 

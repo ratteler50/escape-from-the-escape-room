@@ -1,6 +1,6 @@
 # Slice 7 — Rooms (and a stub Gift Shop)
 
-**Status:** built, agent play-tested · awaiting PR and developer play-test · **Milestone:** M2 · **Branch:** `slice-7-rooms` · **Runs alongside:** slice 8 (deploy), in its own session
+**Status:** done, merged in [#5](https://github.com/ratteler50/escape-from-the-escape-room/pull/5), 2026-10-21 · **Milestone:** M2
 
 ## Why
 

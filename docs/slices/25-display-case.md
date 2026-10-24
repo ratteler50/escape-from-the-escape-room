@@ -1,6 +1,6 @@
 # Slice 25 — The display case shows its state
 
-**Status:** built, agent play-tested; overlays approved in place · **Milestone:** M4 · after slice 24 (story fixes), now merged
+**Status:** done, merged in [#26](https://github.com/ratteler50/escape-from-the-escape-room/pull/26), 2026-10-23 · **Milestone:** M4
 
 ## Why
 

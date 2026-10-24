@@ -1,10 +1,10 @@
 # Slice 20 — Audio: the system, the Lair's music, the sound effects
 
-**Status:** built, agent and developer play-tested · **Milestone:** M4
+**Status:** done, merged in [#20](https://github.com/ratteler50/escape-from-the-escape-room/pull/20), 2026-10-22 · **Milestone:** M4
 
 ## Why
 
-The game is silent. M4's audio plan (`docs/design.md`, M4 plan) proves audio on the Lair first, like
+The game is silent. M4's audio plan (`docs/milestones.md`, M4 plan) proves audio on the Lair first, like
 the art: the system, the title and Lair music, and the whole sound-effects set, so slices 22–23 only
 add their rooms' music.
 

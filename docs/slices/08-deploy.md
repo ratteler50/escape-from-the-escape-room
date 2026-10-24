@@ -1,6 +1,6 @@
 # Slice 8 — Deploy to GitHub Pages
 
-**Status:** built, agent-verified at the sub-path · awaiting Pages switch-on, PR, and merge · **Milestone:** M2 (tooling) · **Branch:** `slice-8-deploy`
+**Status:** done, merged in [#6](https://github.com/ratteler50/escape-from-the-escape-room/pull/6), 2026-10-21 · **Milestone:** M2 (tooling)
 
 Runs in parallel with slice 7 (rooms), in its own session. To keep the two from colliding, this
 slice touches nothing in `src/`, `docs/design.md`, `CLAUDE.md`, or the other slice docs. Anything

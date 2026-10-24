@@ -1,6 +1,6 @@
 # Slice 26 — Key art, loading, polish
 
-**Status:** built, agent and developer play-tested · **Milestone:** M4 (slice 27, the walk animation, closes it)
+**Status:** done, merged in [#28](https://github.com/ratteler50/escape-from-the-escape-room/pull/28), 2026-10-23 · **Milestone:** M4
 
 ## Why
 

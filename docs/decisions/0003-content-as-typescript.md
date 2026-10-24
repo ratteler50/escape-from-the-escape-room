@@ -26,3 +26,10 @@ catches most broken references. Backed by two tests:
 
 - Types act as guardrails for the agent: a typo in an item id fails the build.
 - Content edits are code edits, reviewed and committed like any other change.
+
+## Update (2026-10-24)
+
+Ids ended up as plain `string` aliases (`ItemId`, `FlagId`, … in `src/core/types.ts`), not types
+the compiler can check, so a typo in an id fails the content-validation test (`npm test`), not the
+build. Where a file can import the thing, content uses its `.id` (`priceGun.id`), which the compiler
+does check. `docs/adding-content.md` describes the practice.

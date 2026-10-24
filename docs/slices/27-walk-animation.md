@@ -1,6 +1,6 @@
 # Slice 27 — Walk animation
 
-**Status:** built, agent and developer play-tested · **Milestone:** M4, the last slice of M4 and of the project
+**Status:** done, spec in [#31](https://github.com/ratteler50/escape-from-the-escape-room/pull/31), build in [#32](https://github.com/ratteler50/escape-from-the-escape-room/pull/32), 2026-10-23 · **Milestone:** M4
 
 ## Why
 
