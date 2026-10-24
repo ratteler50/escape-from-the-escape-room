@@ -35,6 +35,11 @@ developer's five, are below.
    do with the line.
 7. **Paying** (step 27). Only the dialogue option buys the mug; using the money on Kyle, the obvious
    move for many players, doesn't (developer).
+8. **Knocking** (a play-tester, Mel). The coffin's look says KNOCK, and there's no way to knock. The
+   look also describes a gold star and a sign that aren't in the painting, and leaves out the brass
+   knocker and the price sticker that are.
+9. **Closing** (a play-tester, Mel). Once the fridge is open it can't close, and 👆 still offers
+   "Open". The same goes for the locker and the display case.
 
 ## Spec
 
@@ -59,25 +64,59 @@ developer's five, are below.
      saying "Press" contradicts its icon; moving the coin return to 👆 instead would cost the
      vending machine's "Buy a snack". The cent is already sitting in the return, so taking it is
      what the player does (developer, 2026-10-24).
-3. **The cue is the guest's line.** The script and the coffin say it plainly: the **guest** says
-   "Rise, foul creature, and face me!", and the lich answers "ARISE!". Dana adds that if they learned
-   the guest's line, they could give him his cue. After memorising, Dana says the next step out
-   loud: next time they talk to Reginald, they'll give him his cue. Memorising stays the item action.
-4. **Squint at the lanyard** (the developer's idea). Looking at the lanyard says there's small print
+3. **The cue is someone else's line** (settled in a grilling session, 2026-10-24).
+   - The script is set out as a script: `MORTAL: Rise, foul creature, and face me!` / `LICH:
+     ARISE!`, with Reginald's red-pen margin note beside the cue: "THEY NEVER SAY IT." That's why
+     he's stuck on the throne, and it says the line has to be said *to him*.
+   - The speaker is MORTAL (Reginald's word for everyone), not GUEST: "guest" only matters in the
+     finale (Kyle won't sell to staff), so the cue never raises the question of whether Dana counts.
+   - The script's look becomes two lines: page one (the cue, the margin note, and a nudge: if Dana
+     learned that line by heart, they could give him his cue), then the last page (the guest escapes
+     through the gift shop with a souvenir: the finale's rule).
+   - Memorising stays the script's action; afterwards Dana says next time they talk to Reginald,
+     they'll give him his cue. The dialogue option stays word for word.
+4. **The coffin, opened up.**
+   - **Look** matches the painting: stood on end like a door, a brass knocker "someone" screwed on,
+     a gold star (R. VANTABLACK-THORNE, DRESSING ROOM), and the sticker "LOT 9: COFFIN (LIGHTLY
+     USED), $20" (the estate-sale lots, like the throne's and the phylactery's).
+   - **Art:** a gold star sticker on the lid (plain, or with a squiggle for text), drawn by the
+     agent into `lair.webp` in the flat style of the painted "$" tag; a ChatGPT edit of a crop if it
+     looks pasted on. An **open coffin** from ChatGPT (prompt pack, a crop of the coffin as
+     reference): open with the script, then the same image without it; cut into an open overlay and
+     a script patch shown only while the script is inside. The hairspray clearly visible, apart from
+     the script.
+   - 💬 **Knock**: Reginald answers wherever he is ("Who knocks at the dressing room of the Lich
+     Lord? …Oh, the trainee. Go ahead, darling. Anything but the hairspray."). On an open coffin, a
+     knock-knock joke (being workshopped).
+   - 👆 **Open / Close**: opening knocks first if Dana hasn't, then shows the inside and describes
+     it (mirror, UNDEAD HOLD hairspray, a photo of Reginald signed by Reginald, the script).
+   - **The script** is its own hotspot inside the open coffin: Look and ✋ Take the script (no longer
+     taken by Open). Back in the coffin after memorising, taking it again: "I know it by heart. It
+     can stay home."
+   - **The hairspray** is its own hotspot: Look ("UNDEAD HOLD. 'For hair that never dies.'"), ✋ Take
+     refused by Reginald ("The HAIRSPRAY, darling! Anything but!"), 👆 Spritz.
+5. **Things that open also close.** The coffin, fridge, locker and display case: 👆 toggles Open and
+   Close, through a new **clear-flag** effect in the core (test-first). Each one's overlay shows only
+   while open (the fridge's yogurt patch too), with open and closed look lines and a line on closing
+   (the fridge: "The note inside says CLOSE THE DOOR. I'm a team player."). The display case closes
+   only once the scroll is back (its closed art shows the scroll), and its "I've left the lid up"
+   line is rewritten. Doors don't close: STAFF ONLY only opens by Mordecai's favour, so closing it
+   could strand Dana, and the others are only for going through.
+6. **Squint at the lanyard** (the developer's idea). Looking at the lanyard says there's small print
    under TRAINEE that Dana would have to squint at, and **unlocks** the lanyard's action "Squint at the
    small print", which reads the number. The off-duty lanyard works the same. This needs a small
    core change, test-first: an item's look can be a full set of responses (conditions, effects,
    flags), as a hotspot's look already is, instead of one fixed line.
-5. **The cent leaves the description.** The vending machine's look has a version for after the cent
+7. **The cent leaves the description.** The vending machine's look has a version for after the cent
    is taken.
-6. **Paying with the money.** Using the Exact Change on Kyle buys the mug: the same sale as the
+8. **Paying with the money.** Using the Exact Change on Kyle buys the mug: the same sale as the
    dialogue option, the finale included. Too early, it gets the matching answer: still on duty,
    "Lanyard."; the pay packet alone (one cent short), Kyle's exact-change line. The dialogue option
    stays.
-7. **Records.** Build notes, `docs/drafts.md` regenerated if anything is marked, and the M6 row in
+9. **Records.** Build notes, `docs/drafts.md` regenerated if anything is marked, and the M6 row in
    `docs/design.md`.
 
-Out of scope: new puzzles, new art, a hint system.
+Out of scope: new puzzles, new rooms, a hint system.
 
 Considered and left as it is: **reading the Handbook for help** at step 16. After Mordecai's
 request, Read gives a random section rather than Section 14, but the step already has three hints
@@ -87,7 +126,10 @@ Handbook on Kyle without trouble (developer, 2026-10-24).
 ## Approvals you'll be asked for
 
 1. The new verb coin (screenshots at laptop and phone size, with labels).
-2. Developer play-test.
+2. The star on the coffin (a before/after crop).
+3. The open-coffin images (prompt pack first; you generate, the agent cuts).
+4. The knock-knock joke (being workshopped).
+5. Developer play-test.
 
 ## Acceptance checks
 
@@ -96,9 +138,11 @@ Handbook on Kyle without trouble (developer, 2026-10-24).
 - Unit tests: an item's look can set a flag and vary with conditions (core, test-first); the lanyard
   action is offered only after looking; the stand-up option only after seeing the gum; Exact Change on
   Kyle wins the game (the always-winnable search may then find a shorter route: that's fine); the
-  vending machine and throne lines vary as specified.
+  vending machine and throne lines vary as specified; clear-flag (core, test-first); each container
+  opens and closes, the display case only after the scroll is back; nothing can be closed into a dead
+  end (the always-winnable test); the coffin's knock-then-open.
 - Agent play-test: the coin with labels at both sizes; the gum, cue, lanyard, cent and paying
-  lines in place.
+  lines in place; the coffin opening, knocking and closing; every container closing.
 - Developer play-test.
 
 ## Notes
