@@ -140,11 +140,10 @@ export const mordecaiDialogue: Dialogue = {
           next: 'hub',
         },
         {
-          // Slice 33: a nudge towards the script's ending.
+          // Slice 33: a nudge towards the script's ending. A hint, so it repeats (chat is one-off, hints aren't).
           id: 'triedDoor',
           text: "The front door won't let me leave.",
           when: [{ flag: 'triedFrontDoor' }],
-          once: true,
           effects: [M('Nor me, child, and I can walk through WALLS. This curse follows the script to the letter.'), M("Read its ending. I'd wager it wants something from you.")],
           next: 'hub',
         },

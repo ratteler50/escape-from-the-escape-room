@@ -225,7 +225,8 @@ Found in the developer's play-test, and fixed:
   only in such flags (Kyle's "Lanyard." refusal, for one).
 - **One-off chat, consistently.** Kyle's "I don't think we've met?", "What's going on?" and the ghost,
   and Mordecai's "Who are you, sir?" and "What's going on?", are one-off like Reginald's (they
-  repeated forever). None carries a hint that's needed again.
+  repeated forever). None carries a hint that's needed again. The rule: chat is one-off, hints
+  repeat, so Kyle's and Mordecai's front-door lines (both hints) repeat; Reginald's don't.
 - **A save that wouldn't load.** Clicking past the floor walks Dana onto its edge, and the loader
   counted the edge as off the floor ("the room changed"), so the developer's slot 2 (Dana by the
   front door) was refused. The loader now accepts the edge, within a pixel (`onPolygon`); a save
