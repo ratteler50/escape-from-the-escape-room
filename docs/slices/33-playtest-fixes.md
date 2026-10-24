@@ -87,7 +87,8 @@ developer's five, are below.
      the script.
    - 💬 **Knock**: Reginald answers wherever he is ("Who knocks at the dressing room of the Lich
      Lord? …Oh, the trainee. Go ahead, darling. Anything but the hairspray."). On an open coffin, a
-     knock-knock joke (being workshopped).
+     knock-knock flub: "Knock knock." / "Who's there?" / "Dana." / "Dana who?" / "…I didn't plan
+     this far."
    - 👆 **Open / Close**: opening knocks first if Dana hasn't, then shows the inside and describes
      it (mirror, UNDEAD HOLD hairspray, a photo of Reginald signed by Reginald, the script).
    - **The script** is its own hotspot inside the open coffin: Look and ✋ Take the script (no longer
@@ -128,8 +129,7 @@ Handbook on Kyle without trouble (developer, 2026-10-24).
 1. The new verb coin (screenshots at laptop and phone size, with labels).
 2. The star on the coffin (a before/after crop).
 3. The open-coffin images (prompt pack first; you generate, the agent cuts).
-4. The knock-knock joke (being workshopped).
-5. Developer play-test.
+4. Developer play-test.
 
 ## Acceptance checks
 
