@@ -42,7 +42,7 @@ developer's five, are below.
 ## Spec
 
 1. **The gum is a goal from the start** (developer's idea, plus a bridge to the cue).
-   - While Reginald is on the throne, the throne's look says there's a grey wad of gum under the
+   - While Reginald is on the throne, the throne's look says there's a wad of bright pink gum under the
      armrest, right by his elbow, and sets a flag (Dana has seen it).
    - Trying to take it while he's seated: Reginald stops Dana ("Hands off the Spooky Seat, darling!
      Nobody touches the throne mid-performance.").
