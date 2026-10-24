@@ -11,6 +11,13 @@ export const says = (text: string, label?: string): VerbSpec => ({
   responses: [{ effects: [say(text)] }],
 });
 
+/** One of several lines, picked at random each time (never the same twice in a row). Presentation only. */
+export const sayOneOf = (texts: readonly string[], speaker?: CharacterId): Effect => ({
+  type: 'sayOneOf',
+  texts,
+  ...(speaker !== undefined && { speaker }),
+});
+
 /** A line said by someone other than Dana. */
 export const line = (speaker: CharacterId, text: string): Effect => ({ type: 'say', text, speaker });
 

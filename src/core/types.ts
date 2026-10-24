@@ -31,6 +31,8 @@ export type Condition = { flag: FlagId } | { notFlag: FlagId } | { has: ItemId }
 /** Output from the core: what happened, in order. The engine applies state changes; the view plays them. */
 export type Effect =
   | { type: 'say'; text: string; speaker?: CharacterId }
+  /** Says one of these lines, picked at random by the view. Presentation only: the core never picks. */
+  | { type: 'sayOneOf'; texts: readonly string[]; speaker?: CharacterId }
   | { type: 'addItem'; itemId: ItemId }
   | { type: 'removeItem'; itemId: ItemId }
   | { type: 'setFlag'; flag: FlagId }

@@ -38,6 +38,8 @@ const DEPTH = { overlay: 1, hotspot: 10, sprite: 12, label: 13 };
 const BOB = { height: 8, periodMs: 2400 };
 /** Floating characters are ghosts (Mordecai): their sprites are drawn a little see-through. */
 const GHOST_ALPHA = 0.8;
+/** A hovered character's sprite glows along its outline (Phaser's glow filter), in the highlight colour. */
+const GLOW = { strength: 4, distance: 12 };
 
 interface Drawn {
   hotspot: Hotspot;
@@ -48,6 +50,8 @@ interface Drawn {
   bob?: Phaser.Tweens.Tween | undefined;
   /** The character's painted sprite, under the invisible clickable box. */
   sprite?: Phaser.GameObjects.Image | undefined;
+  /** The sprite's hover glow, made the first time it's hovered. */
+  glow?: Phaser.Filters.Glow | undefined;
 }
 
 export interface RoomViewHandlers {
@@ -58,7 +62,7 @@ export interface RoomViewHandlers {
 /**
  * Draws a room and its hotspots, and reports hotspot hovers and clicks. Knows nothing about rules:
  * it draws the hotspots it's given. A room with a painting (`room.art`) shows it, with its hotspots
- * as invisible areas that glow when hovered; other rooms get placeholder shapes.
+ * as invisible areas (a hovered character's sprite glows); other rooms get placeholder shapes.
  */
 export class RoomView {
   private background: Phaser.GameObjects.Graphics | Phaser.GameObjects.Image | undefined;
@@ -194,12 +198,25 @@ export class RoomView {
       else shape.setStrokeStyle();
       return;
     }
-    // Over a painting: nothing at rest; a soft glow on hover; a dashed-looking outline when revealed.
-    shape.setFillStyle(COLORS.highlight, hovered ? 0.12 : 0);
-    if (hovered) shape.setStrokeStyle(3, COLORS.highlight, 0.9);
-    else if (revealed) shape.setStrokeStyle(2, COLORS.highlight, 0.55);
+    // Over a painting, boxes don't fit the art, so they show only when everything clickable is
+    // revealed (brighter under the pointer). Hovering otherwise shows just the name (RoomScene's
+    // caption) and the cursor, and a character's sprite glows along its outline.
+    shape.setFillStyle(COLORS.highlight, 0);
+    if (revealed) shape.setStrokeStyle(hovered ? 3 : 2, COLORS.highlight, hovered ? 0.9 : 0.55);
     else shape.setStrokeStyle();
     label.setVisible(revealed);
+    this.glow(d, hovered);
+  }
+
+  /** Turns a character sprite's hover glow on or off, making the filter the first time it's needed. */
+  private glow(d: Drawn, on: boolean): void {
+    if (!d.sprite || (!on && !d.glow)) return;
+    if (!d.glow) {
+      d.glow = d.sprite.enableFilters().filters!.internal.addGlow(COLORS.highlight, GLOW.strength, 0, 1, false, 10, GLOW.distance);
+      // Grow the filter's canvas by the glow's reach, or the glow is cut off at the sprite's edges.
+      d.glow.setPaddingOverride(null);
+    }
+    d.glow.setActive(on);
   }
 
   get hotspotIds(): string[] {
