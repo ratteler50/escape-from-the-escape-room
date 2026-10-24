@@ -42,6 +42,7 @@ export const kyleHotspot: Hotspot = {
           K('Re-pricing is my department. Technically.'),
           K("Bring it back. It's got my name on it."),
           addItem(priceGun.id),
+          setFlag('learnedRevisedSection14'),
           say("I've been issued equipment. I'd like to thank the Handbook."),
         ],
       },

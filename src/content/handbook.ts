@@ -76,8 +76,20 @@ const sections: readonly HandbookSection[] = [
   { section: '400', rule: 'This Handbook replaces all previous Handbooks.', aside: 'There have been nine. Every one says this.' },
 ];
 
+const reading = (s: HandbookSection) => `Section ${s.section}: "${s.rule}" ${s.aside}`;
+
 /** What Dana reads out, one at a time, picked at random: the rule, then their comment. */
-export const handbookReadings: readonly string[] = sections.map((s) => `Section ${s.section}: "${s.rule}" ${s.aside}`);
+export const handbookReadings: readonly string[] = sections.map(reading);
+
+/** The revised Section 14, stapled over the old one: Dana reads it once they've found it on Kyle (slice 30). */
+const revisedSection14: HandbookSection = {
+  section: '14, revised',
+  rule: 'Staff may borrow equipment for re-pricing.',
+  aside: 'Stapled over the old one. I know it by heart now.',
+};
+
+/** The readings once Dana has found the revised Section 14: it replaces the old one. */
+const readingsAfterInsert: readonly string[] = sections.map((s) => reading(s.section === '14' ? revisedSection14 : s));
 
 /** The loading screen's lines: the rules as printed, no comment. */
 export const handbookQuotes: readonly string[] = sections.map((s) => `Handbook Section ${s.section}: ${s.rule}`);
@@ -89,7 +101,10 @@ export const handbook: Item = {
   look: "The Escape-O-Rama Employee Handbook. Four hundred pages, bound in leather-effect vinyl. I've read it cover to cover. Twice. For fun.",
   action: {
     label: 'Read',
-    responses: [{ effects: [sayOneOf(handbookReadings)] }],
+    responses: [
+      { when: [{ flag: 'learnedRevisedSection14' }], effects: [sayOneOf(readingsAfterInsert)] },
+      { effects: [sayOneOf(handbookReadings)] },
+    ],
   },
 };
 

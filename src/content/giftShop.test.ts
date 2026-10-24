@@ -42,6 +42,7 @@ describe('the Gift Shop chain', () => {
     expect(said(heard, handbookOn('kyle'))).toContain('REVISED');
     const armed = run(heard, handbookOn('kyle'));
     expect(armed.inventory).toContain('priceGun');
+    expect(armed.flags.learnedRevisedSection14, 'the Handbook reads the revised Section 14 from now on').toBe(true);
     expect(said(armed, handbookOn('kyle')), 'no second gun').toContain("You've already got it");
     expect(run(armed, handbookOn('kyle')).inventory.filter((id) => id === 'priceGun')).toHaveLength(1);
   });

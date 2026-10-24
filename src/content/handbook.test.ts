@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { handle } from '../core/engine';
 import { handbook, handbookReadings } from './handbook';
 import { handbookSections } from './handbookSections';
 import { initialState, world } from './world';
@@ -23,6 +24,15 @@ describe('the Employee Handbook', () => {
   it('has a few different sections to read', () => {
     expect(handbookReadings.length).toBeGreaterThanOrEqual(5);
     expect(new Set(handbookReadings).size, 'two readings are the same').toBe(handbookReadings.length);
+  });
+
+  it("reads the old Section 14 until Dana finds the revised insert on Kyle, then the revised one (slice 30)", () => {
+    const readLines = (flags: Record<string, boolean>) => {
+      const [effect] = handle(world, { ...initialState, flags }, { type: 'itemAction', itemId: handbook.id }).effects;
+      return effect?.type === 'sayOneOf' ? effect.texts.filter((t) => /^Section 14[:,]/.test(t)) : [];
+    };
+    expect(readLines({})).toEqual([expect.stringContaining("I don't have time for inserts")]);
+    expect(readLines({ learnedRevisedSection14: true })).toEqual([expect.stringContaining('Staff may borrow equipment for re-pricing')]);
   });
 
   it('has a line for every hotspot', () => {
