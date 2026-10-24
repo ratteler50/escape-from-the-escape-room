@@ -74,3 +74,25 @@ franchise logo, and its logo and sticker sat at the left end, where the item slo
 **After you approve them**, the agent cuts out the 13 icons, the tray (its logo end, and a plain
 section the code stretches across the screen) and the slot, and fits them into the game for a
 screenshot check.
+
+---
+
+## 3. The Employee Handbook icon (slice 29) → save as `art-inbox/handbook-icon.png`
+
+One icon, in a **new ChatGPT chat**, **square** (1024×1024). Attach, in this order:
+`art-inbox/icon-sheet.webp` (the style to match) and `art-inbox/REFERENCE-handbook.png` (the book
+Dana holds on the title screen, cropped from `public/assets/key-art/title.webp`, so the icon is the
+same book).
+
+> Using the first attached image only for its art style (flat colour with simple two-tone cel
+> shading and bold, clean dark outlines, 1990s LucasArts adventure-game cartoon, the same style as
+> those inventory icons), draw one inventory icon for a point-and-click adventure game: the thick
+> brown leather-bound book in the second attached image, closed, shown slightly from above at a
+> three-quarter angle. Worn brown leather cover with raised bands across the spine, a faint
+> embossed emblem in the middle of the cover, cream page edges, and a few bright paper bookmarks
+> sticking out of the top. Big bold silhouette, readable when shrunk to a small icon, centred, at
+> about the same size as one object on the icon sheet, with plenty of empty space around it.
+> Plain flat light-grey background, no border, no label, no shadow, no text.
+
+**After you approve it**, the agent cuts it out with `scripts/cut-icons.py` (as for the sheet) into
+`public/assets/icons/handbook.webp` and credits it in `CREDITS.md`.
