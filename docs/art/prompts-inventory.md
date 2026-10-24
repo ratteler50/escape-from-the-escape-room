@@ -80,7 +80,8 @@ screenshot check.
 ## 3. The Employee Handbook icon (slice 29) → save as `art-inbox/handbook-icon.png`
 
 One icon, in a **new ChatGPT chat**, **square** (1024×1024). Attach, in this order:
-`art-inbox/icon-sheet.webp` (the style to match) and `art-inbox/REFERENCE-handbook.png` (the book
+`art-inbox/icon-sheet-money.png` (the style to match: the sheet the shipped icons came from, the
+same one slices 22 and 23 attached) and `art-inbox/REFERENCE-handbook.png` (the book
 Dana holds on the title screen, cropped from `public/assets/key-art/title.webp`, so the icon is the
 same book).
 
