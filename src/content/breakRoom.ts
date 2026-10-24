@@ -148,7 +148,7 @@ export const intercomDialogue: Dialogue = {
         },
         {
           id: 'triedDoor',
-          text: "I tried the front door. It won't let me out.",
+          text: 'I tried the front door. It stepped me straight back into the shop.',
           when: [{ flag: 'triedFrontDoor' }],
           once: true,
           effects: [R('*crackle* Leaving? Before the finale? I heard that, darling. The whole building heard that.')],
