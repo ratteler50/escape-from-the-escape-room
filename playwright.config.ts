@@ -8,6 +8,10 @@ export default defineConfig({
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: 0,
+  // One test at a time on CI: the runner draws in software, and two play-throughs side by side
+  // (the desktop and phone projects, slice 32) starve each other's frames until a walk outlasts its
+  // step's time budget. Locally, Playwright's default: half the CPU cores.
+  workers: process.env.CI ? 1 : '50%',
   reporter: process.env.CI ? [['list'], ['html', { open: 'never' }]] : 'list',
   timeout: 120_000,
   use: {
