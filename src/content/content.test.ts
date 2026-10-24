@@ -160,7 +160,14 @@ describe('content validation', () => {
     it(`item "${key}" is keyed by its id and has a name and look line`, () => {
       expect(item.id, `world.items["${key}"] holds an item whose id is "${item.id}"; make them match`).toBe(key);
       expect(item.name.trim(), `item ${key} has an empty name; the inventory shows it`).not.toBe('');
-      expect(item.look.trim(), `item ${key} has an empty look line`).not.toBe('');
+      if (typeof item.look === 'string') expect(item.look.trim(), `item ${key} has an empty look line`).not.toBe('');
+      else {
+        // A look with responses (slice 33): the same rules as any verb's, and every one says something.
+        expectValidResponses(item.look, `${key}.look`);
+        for (const [i, r] of item.look.entries()) {
+          expect(r.effects.some((e) => e.type === 'say' || e.type === 'sayOneOf'), `${key}.look response ${i} says nothing`).toBe(true);
+        }
+      }
       if (item.action) {
         expect(item.action.label.trim(), `item ${key}.action has an empty label; it's the coin button's name`).not.toBe('');
         expectValidResponses(item.action.responses, `${key}.action`);

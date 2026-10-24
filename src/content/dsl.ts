@@ -23,6 +23,9 @@ export const line = (speaker: CharacterId, text: string): Effect => ({ type: 'sa
 
 export const setFlag = (flag: FlagId): Effect => ({ type: 'setFlag', flag });
 
+/** Unsets a flag: something that opened closes again (slice 33). */
+export const clearFlag = (flag: FlagId): Effect => ({ type: 'clearFlag', flag });
+
 export const addItem = (itemId: ItemId): Effect => ({ type: 'addItem', itemId });
 
 export const removeItem = (itemId: ItemId): Effect => ({ type: 'removeItem', itemId });

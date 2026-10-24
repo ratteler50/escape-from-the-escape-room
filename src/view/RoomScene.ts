@@ -328,6 +328,12 @@ export class RoomScene extends Phaser.Scene {
         this.shownFlags = { ...this.shownFlags, [effect.flag]: true };
         this.refreshHotspots();
         break;
+      case 'clearFlag': {
+        const { [effect.flag]: _cleared, ...flags } = this.shownFlags;
+        this.shownFlags = flags;
+        this.refreshHotspots();
+        break;
+      }
       case 'startDialogue':
       case 'endDialogue':
         break;

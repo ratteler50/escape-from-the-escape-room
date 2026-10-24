@@ -36,6 +36,8 @@ export type Effect =
   | { type: 'addItem'; itemId: ItemId }
   | { type: 'removeItem'; itemId: ItemId }
   | { type: 'setFlag'; flag: FlagId }
+  /** Unsets a flag (slice 33: things that open can close again). */
+  | { type: 'clearFlag'; flag: FlagId }
   | { type: 'startDialogue'; dialogueId: DialogueId }
   | { type: 'endDialogue' }
   /** The game is won. Sets the `won` flag; the view shows the end card. */
@@ -100,7 +102,11 @@ export interface Item {
   name: string;
   /** The inventory icon, a path under `public/`: square, transparent, at 2× its on-screen size. Presentation only. */
   icon?: string;
-  look: string;
+  /**
+   * What Dana says looking at it: one line, or responses like a hotspot's look (conditions, effects,
+   * flags), so a look can notice something and unlock the item's action (slice 33).
+   */
+  look: string | Response[];
   /** Something Dana can do with the item itself (read, eat, memorise). A third button on its coin. */
   action?: VerbSpec & { label: string };
 }

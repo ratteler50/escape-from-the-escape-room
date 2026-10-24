@@ -103,6 +103,8 @@ function possibleCommands(w: World, s: GameState): Command[] {
     for (const itemId of s.inventory) commands.push({ type: 'useItemOn', itemId, hotspotId: h.id });
   }
   for (const itemId of s.inventory) {
+    // Looking can change state too (slice 33: the lanyard's small print).
+    if (typeof w.items[itemId]?.look !== 'string') commands.push({ type: 'lookItem', itemId });
     if (availableItemAction(w, s, itemId)) commands.push({ type: 'itemAction', itemId });
   }
   // Combining is order-independent (engine test), so one order per pair is enough.
