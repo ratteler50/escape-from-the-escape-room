@@ -6,7 +6,7 @@
 
 Slices 14 and 15 built the Gift Shop and the Break Room separately. This slice joins them and pays
 M3 off: Dana buys the mug as a guest, the escape room's script is satisfied, the curse lifts, and
-the game gets a real ending instead of "To be continued…" (see `docs/design.md`, M3 plan and
+the game gets a real ending instead of "To be continued…" (see `docs/milestones.md`, M3 plan and
 Finale).
 
 ## Spec

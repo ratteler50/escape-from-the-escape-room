@@ -4,7 +4,7 @@ import { R } from './cast';
 import type { ContentPack } from './pack';
 import { handbook } from './handbook';
 
-// The Break Room (slice 15): three parallel puzzles from the M3 plan (docs/design.md). Clock out
+// The Break Room (slice 15): three parallel puzzles (docs/design.md, The Break Room). Clock out
 // with the time card from the fridge; open the locker with the number on the lanyard; add the
 // vending machine's cent to the pay packet for exact change. Reginald is only heard here, over
 // the intercom: he has no hotspot, so his lines show over Dana with his name tag.

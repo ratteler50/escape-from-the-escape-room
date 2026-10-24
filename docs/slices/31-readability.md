@@ -9,7 +9,7 @@ font, Courier, which is thin and breaks up when the game is shrunk; speech is co
 black outline straight over the paintings, which gets muddy; and because the game is drawn at
 1280×720 and scaled to fit, a phone held sideways shows the 22 px speech at about 12 px. This slice
 fixes all three for every screen, desktop included, and prepares the ground for slice 32 (mobile).
-Decisions from the M5 planning session (2026-10-24), in `docs/design.md`, M5 plan.
+Decisions from the M5 planning session (2026-10-24), in `docs/milestones.md`, M5 plan.
 
 ## Spec
 
@@ -36,7 +36,7 @@ Decisions from the M5 planning session (2026-10-24), in `docs/design.md`, M5 pla
    font or size. A pass over all dialogue adds breaks at interruptions ("of the—" / "fine.") and
    before punchlines where a beat helps; each added break is marked so the drafts list shows it,
    for the developer to keep or remove.
-5. **Records.** `CREDITS.md` (the font), the M5 plan in `docs/design.md` (done with this spec), and
+5. **Records.** `CREDITS.md` (the font), the M5 plan in `docs/milestones.md` (done with this spec), and
    build notes with before/after screenshots at laptop and phone size.
 
 Out of scope (slice 32): the portrait "turn your phone sideways" screen, touch areas, fullscreen

@@ -8,7 +8,7 @@ Slice 31 made the text readable on a phone held sideways. What's left is everyth
 upright phone shrinks the game to about 0.30×, which no text size fixes; a few hotspots are smaller
 than a fingertip once shrunk (the Lair keypad is 44×52, about 24 px on a phone); the browser's own
 bars take a third of a sideways phone's height; and nothing tests the game on a touch screen.
-Decisions from the M5 planning session, in `docs/design.md`, M5 plan.
+Decisions from the M5 planning session, in `docs/milestones.md`, M5 plan.
 
 ## Spec
 

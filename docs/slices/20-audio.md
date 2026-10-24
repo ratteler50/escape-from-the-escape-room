@@ -4,7 +4,7 @@
 
 ## Why
 
-The game is silent. M4's audio plan (`docs/design.md`, M4 plan) proves audio on the Lair first, like
+The game is silent. M4's audio plan (`docs/milestones.md`, M4 plan) proves audio on the Lair first, like
 the art: the system, the title and Lair music, and the whole sound-effects set, so slices 22–23 only
 add their rooms' music.
 

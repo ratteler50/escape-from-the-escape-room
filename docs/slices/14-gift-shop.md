@@ -5,7 +5,7 @@
 ## Why
 
 The Gift Shop is a stub from M2. This slice fills it with M3's first puzzle and two of its four
-characters (see `docs/design.md`, M3 plan): Kyle, the oblivious cashier, and Mordecai, the ghost who
+characters (see `docs/milestones.md`, M3 plan): Kyle, the oblivious cashier, and Mordecai, the ghost who
 opens the STAFF ONLY door in exchange for a favour.
 
 ## Spec

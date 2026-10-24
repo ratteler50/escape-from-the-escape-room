@@ -4,7 +4,7 @@
 
 ## Why
 
-M4 swaps placeholder rectangles for real art and adds audio (plan in `docs/design.md`, M4 plan,
+M4 swaps placeholder rectangles for real art and adds audio (plan in `docs/milestones.md`, M4 plan,
 written by this slice). This slice proves the art half on one room: the Lair gets its painted
 background, hotspots become invisible areas over the painting, and the asset rules (credits, size
 budget) are in place before anything else is added.

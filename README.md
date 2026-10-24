@@ -64,11 +64,13 @@ Stuck? Spoiler-light hints, one room at a time:
 
 ## Where things are
 
-- `docs/design.md`: the game, its puzzles, and the milestones
-- `docs/decisions/`: why things are built the way they are
+- `docs/README.md`: an index of the docs, saying which are kept current and which are records
+- `docs/design.md`: the game as it is, its puzzles and the puzzle dependency chart
+- `docs/milestones.md`: how it was planned and built, milestone by milestone
 - `docs/slices/`: one spec per slice of work, with notes from building it
-- `docs/glossary.md`: shared vocabulary
-- `docs/art/`, `docs/audio/`: how the art was generated (layouts, prompts) and the music picked
+- `docs/decisions/`: why things are built the way they are
+- `docs/glossary.md`: shared vocabulary; `docs/adding-content.md`: adding rooms, characters, puzzles
+- `docs/art/`, `docs/audio/`: how the art was generated and the music picked
 - `CREDITS.md`: every asset, its source and its license
 - `CLAUDE.md`: conventions for the agent
 - `src/core/`: headless game logic (no Phaser), `src/content/`: the game's data,
