@@ -203,6 +203,10 @@ Found in the developer's play-test, and fixed:
   right either way.
 - **The gum after the cue.** Dana's line after the cue mentions the gum, but taking it needed the
   throne's look first. The cue now counts as seeing it (a content test checks it).
+- **The keypad** (a play-tester, Mel, expected it to work once they had the scroll). Reading the
+  scroll now sets a flag, and the keypad's own verb then reads **Enter CODE** and plays the same
+  reveal as using the scroll on it (one shared list of effects). Holding the scroll unread, it says
+  to read it first. Using the scroll on the keypad works as before. Two content tests.
 - **The script on the shelf**, after memorising, now reads the page again: who says the line, and the
   finale's last page, which otherwise can't be re-read once the script is back.
 

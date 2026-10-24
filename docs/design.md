@@ -122,7 +122,7 @@ graph TD
   GRATE --> KEY[/Display Case Key/]
   KEY --> CASE[Unlock the display case]
   CASE --> SCROLL[/Ancient Riddle Scroll:<br/>'THE ANSWER IS: CODE'/]
-  SCROLL --> KEYPAD[Use it on the keypad: C-O-D-E]
+  SCROLL --> KEYPAD[Use it on the keypad: C-O-D-E<br/>or read it, then the keypad's 'Enter CODE']
   KEYPAD --> SHOP([The Gift Shop])
   SHOP -.->|hint| KYLE[Ask Kyle for a mug: 'Lanyard.'<br/>Staff can't buy merch]
   SHOP --> MORD{Talk to Mordecai:<br/>his teapot is in the bargain bin at $2}

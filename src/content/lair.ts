@@ -1,4 +1,4 @@
-import type { Combination, Item, Room } from '../core/types';
+import type { Combination, Effect, Item, Room } from '../core/types';
 import { addItem, clearFlag, goTo, removeItem, say, says, setFlag, sound, walk } from './dsl';
 import { R } from './cast';
 import { reginaldOnMark, reginaldOnThrone, script } from './reginald';
@@ -37,8 +37,28 @@ export const riddleScroll: Item = {
   id: 'riddleScroll',
   name: 'Ancient Riddle Scroll',
   icon: 'assets/icons/riddle-scroll.webp',
-  look: 'It reads: "THE ANSWER IS: {CODE}". Head office used a template and never filled in the blank. Of COURSE. But the curse made the script real exactly as printed. Blanks and all?',
+  // Slice 33: reading it is what lets the keypad's own verb enter the code.
+  look: [
+    {
+      effects: [
+        say('It reads: "THE ANSWER IS: {CODE}". Head office used a template and never filled in the blank. Of COURSE. But the curse made the script real exactly as printed. Blanks and all?'),
+        setFlag('readScroll'),
+      ],
+    },
+  ],
 };
+
+/** The scroll's code entered on the keypad: by using the scroll on it, or Enter a code while holding it. */
+const enterTheCode: Effect[] = [
+  say('"THE ANSWER IS: {CODE}." The curly brackets just mark the blank that nobody filled in. What\'s printed in the blank is the word CODE.'),
+  say('The curse bound the script exactly as printed. So the answer isn\'t a code. It\'s the word CODE. C. O. D. E. ENTER.'),
+  sound('keypad'),
+  setFlag('lairDoorUnlocked'),
+  sound('unlock'),
+  say("CLUNK. The door unlocks. I've beaten head office at their own game. By reading."),
+  say('Handbook Section 3: lost property must be returned. I tuck the scroll back under its bone.'),
+  removeItem(riddleScroll.id),
+];
 
 const combinations: Combination[] = [
   {
@@ -408,9 +428,13 @@ export const lair: Room = {
       verbs: {
         look: says('Eight brass buttons with letters on them, like an old phone (ABC, DEF, all the way to WXYZ), and one marked ENTER. No numbers at all. Someone has labelled it NUMBER PAD anyway. A brass plate: "ENTER CODE TO ESCAPE." Below it, smaller: "NO REFUNDS."'),
         use: {
-          label: 'Enter a code',
+          // Slice 33: once Dana has read the scroll, the keypad's own verb enters it.
+          label: [{ when: [{ flag: 'readScroll' }, { notFlag: 'lairDoorUnlocked' }], text: 'Enter CODE' }, { text: 'Enter a code' }],
           responses: [
             { when: [{ flag: 'lairDoorUnlocked' }], effects: [say("Already done. C-O-D-E, ENTER. I'll never forget it. I'll try.")] },
+            // Slice 33: a play-tester expected the keypad itself to work once they had the scroll.
+            { when: [{ flag: 'readScroll' }], effects: enterTheCode },
+            { when: [{ has: riddleScroll.id }], effects: [say("I've got the scroll with the answer on it. I should read what it says first.")] },
             { effects: [say("L-I-C-H, ENTER. Bzzt. D-O-O-M, ENTER. Bzzt. G-A-R-Y, ENTER. Bzzt, and Gary looks hurt. I need the actual code.")] },
           ],
         },
@@ -420,16 +444,7 @@ export const lair: Room = {
         [riddleScroll.id]: [
           {
             when: [{ notFlag: 'lairDoorUnlocked' }],
-            effects: [
-              say('"THE ANSWER IS: {CODE}." The curly brackets just mark the blank that nobody filled in. What\'s printed in the blank is the word CODE.'),
-              say('The curse bound the script exactly as printed. So the answer isn\'t a code. It\'s the word CODE. C. O. D. E. ENTER.'),
-              sound('keypad'),
-              setFlag('lairDoorUnlocked'),
-              sound('unlock'),
-              say("CLUNK. The door unlocks. I've beaten head office at their own game. By reading."),
-              say('Handbook Section 3: lost property must be returned. I tuck the scroll back under its bone.'),
-              removeItem(riddleScroll.id),
-            ],
+            effects: enterTheCode,
           },
           { effects: [say("The door's already unlocked. I'm not typing CODE again. It felt silly enough the first time.")] },
         ],

@@ -437,3 +437,27 @@ describe('the gum (slice 33)', () => {
     expect(availableVerbs(world, state, 'throne').map((v) => v.label)).toContain('Take the gum');
   });
 });
+
+describe('the keypad (slice 33)', () => {
+  // Once Dana has read the scroll, the keypad's own verb reads "Enter CODE" and plays the same reveal
+  // as using the scroll on it (a play-tester expected the keypad to work). Holding it unread, a hint.
+  const holding: GameState = { ...initialState, inventory: [...initialState.inventory, 'riddleScroll'] };
+  const enter = (state: GameState) => handle(world, state, { type: 'verb', verb: 'use', hotspotId: 'keypad' });
+  const keypadLabel = (state: GameState) => availableVerbs(world, state, 'keypad').find((v) => v.verb === 'use')?.label;
+
+  it('after reading the scroll, offers "Enter CODE", which opens the door like the scroll does', () => {
+    const read = handle(world, holding, { type: 'lookItem', itemId: 'riddleScroll' }).state;
+    expect(keypadLabel(holding)).toBe('Enter a code');
+    expect(keypadLabel(read)).toBe('Enter CODE');
+    const byVerb = enter(read);
+    expect(byVerb.state.flags.lairDoorUnlocked).toBe(true);
+    expect(byVerb.state.inventory).not.toContain('riddleScroll');
+    expect(byVerb.effects).toEqual(handle(world, read, { type: 'useItemOn', itemId: 'riddleScroll', hotspotId: 'keypad' }).effects);
+  });
+
+  it('holding the scroll unread, says to read it first', () => {
+    const result = enter(holding);
+    expect(result.state.flags.lairDoorUnlocked).toBeUndefined();
+    expect(result.effects).toEqual([{ type: 'say', text: expect.stringContaining('read what it says') }]);
+  });
+});
