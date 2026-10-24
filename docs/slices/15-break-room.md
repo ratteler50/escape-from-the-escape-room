@@ -1,10 +1,10 @@
 # Slice 15 — The Break Room: clocking out and exact change
 
-**Status:** built, agent play-tested · awaiting PR and developer play-test · **Milestone:** M3 · **Runs:** parallel session, alongside slice 14 · **Branch:** `slice-15-break-room`
+**Status:** done, merged in [#12](https://github.com/ratteler50/escape-from-the-escape-room/pull/12), 2026-10-22 · **Milestone:** M3
 
 ## Why
 
-The Break Room holds three of M3's four puzzles (see `docs/design.md`, M3 plan): Dana must clock out
+The Break Room holds three of M3's four puzzles (see `docs/milestones.md`, M3 plan): Dana must clock out
 to become a guest, and scrape together exactly $12.99 for the mug. No new character: object puzzles,
 office comedy, and Reginald heard over the intercom.
 

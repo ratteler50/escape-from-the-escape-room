@@ -1,7 +1,6 @@
 # Slice 28 — Text and structure
 
-**Status:** built, agent and developer play-tested; 28a merged (PR #34), 28b merged (PR #35),
-2026-10-23 · **Milestone:** M4, the last slice of M4 and of the project
+**Status:** done, spec in [#33](https://github.com/ratteler50/escape-from-the-escape-room/pull/33), 28a in [#34](https://github.com/ratteler50/escape-from-the-escape-room/pull/34), 28b in [#35](https://github.com/ratteler50/escape-from-the-escape-room/pull/35), status in [#36](https://github.com/ratteler50/escape-from-the-escape-room/pull/36), 2026-10-23 · **Milestone:** M4
 
 ## Why
 

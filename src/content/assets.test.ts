@@ -3,7 +3,7 @@ import { join, relative } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { world } from './world';
 
-// The asset rules from the M4 plan (docs/design.md): the game is public, so every asset needs a
+// The asset rules from the M4 plan (docs/milestones.md; now docs/art/README.md): the game is public, so every asset needs a
 // license that allows it and an entry in CREDITS.md; assets stay under a size budget.
 
 const ROOT = join(import.meta.dirname, '..', '..');

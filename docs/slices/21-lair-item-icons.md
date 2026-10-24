@@ -1,12 +1,12 @@
 # Slice 21 — Item icons and the inventory tray
 
-**Status:** built, agent and developer play-tested · **Milestone:** M4
+**Status:** done, merged in [#21](https://github.com/ratteler50/escape-from-the-escape-room/pull/21), 2026-10-22 · **Milestone:** M4
 
 ## Why
 
 The inventory is still grey boxes with item names in them, the last placeholder in the Lair. With
 icons and a styled bar the Lair is polished end to end (art, characters, overlays, audio,
-inventory) before the Gift Shop and Break Room copy the whole pipeline (M4 plan, `docs/design.md`;
+inventory) before the Gift Shop and Break Room copy the whole pipeline (M4 plan, `docs/milestones.md`;
 icons added 2026-10-22). Decisions from the slice 21 grilling (2026-10-22).
 
 ## Spec

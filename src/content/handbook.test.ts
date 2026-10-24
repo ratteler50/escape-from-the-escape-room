@@ -1,4 +1,7 @@
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
+import { generateHandbook } from '../../scripts/handbook';
 import { handle } from '../core/engine';
 import { handbook, handbookReadings } from './handbook';
 import { handbookSections } from './handbookSections';
@@ -42,10 +45,16 @@ describe('the Employee Handbook', () => {
     expect(missing, `Give these hotspots an itemUses entry for the Handbook ([handbook.id]: [...])`).toEqual([]);
   });
 
-  it('is quoted only by sections in the master list (docs/design.md)', () => {
+  it('is quoted only by sections in the one list (handbookSections.ts)', () => {
     const bad = strings(world, 'world').flatMap(([text, where]) =>
       [...text.matchAll(/\bSection ([\d.]*\d)/g)].filter((m) => !handbookSections.has(m[1]!)).map((m) => `Section ${m[1]} at ${where}`),
     );
-    expect(bad, `Add the section to the Handbook table in docs/design.md, or quote one that's there: ${[...handbookSections].join(', ')}`).toEqual([]);
+    expect(bad, `Add the section to src/content/handbookSections.ts (then \`npm run handbook\`), or quote one that's there: ${[...handbookSections].join(', ')}`).toEqual([]);
   });
+});
+
+// docs/handbook.md lists every section with Dana's comment, generated from handbookSections.ts.
+it('docs/handbook.md is up to date with the sections', () => {
+  const onDisk = readFileSync(join(import.meta.dirname, '..', '..', 'docs', 'handbook.md'), 'utf8');
+  expect(onDisk === generateHandbook(), 'docs/handbook.md is out of date: run `npm run handbook` and commit it').toBe(true);
 });

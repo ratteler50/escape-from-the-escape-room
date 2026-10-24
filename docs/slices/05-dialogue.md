@@ -1,6 +1,6 @@
 # Slice 5 — Reginald and dialogue trees
 
-**Status:** done · merged as PR #3 (squash) · **Milestone:** M1
+**Status:** done, merged in [#3](https://github.com/ratteler50/escape-from-the-escape-room/pull/3), 2026-10-21 · **Milestone:** M1
 
 ## Why
 

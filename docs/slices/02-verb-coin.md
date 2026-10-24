@@ -1,6 +1,6 @@
 # Slice 2 — Verb coin and Take
 
-**Status:** done · developer play-tested on trackpad · **Milestone:** M1
+**Status:** done, committed directly to `main` (before pull requests), 2026-10-21 · **Milestone:** M1
 
 Exercise done by the agent at the developer's request; developer exercises are paused from here on. · **Decision:** `docs/decisions/0004-verb-coin.md`
 
