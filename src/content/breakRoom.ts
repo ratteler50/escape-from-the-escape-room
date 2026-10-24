@@ -1,5 +1,5 @@
 import type { Combination, Dialogue, Item, Room } from '../core/types';
-import { addItem, goTo, removeItem, say, says, setFlag, startDialogue, walk } from './dsl';
+import { addItem, clearFlag, goTo, removeItem, say, says, setFlag, startDialogue, walk } from './dsl';
 import { R } from './cast';
 import type { ContentPack } from './pack';
 import { handbook } from './handbook';
@@ -10,8 +10,10 @@ import { handbook } from './handbook';
 // the intercom: he has no hotspot, so his lines show over Dana with his name tag.
 
 // Both lanyards carry the employee number, so either one can be read (a player may clock out first).
+// Slice 33: looking at a lanyard notices the small print, which unlocks squinting at it.
 const checkTheNumber: Item['action'] = {
-  label: 'Check the number',
+  label: 'Squint at the small print',
+  when: [{ flag: 'noticedSmallPrint' }],
   responses: [
     { when: [{ flag: 'learnedEmployeeNumber' }], effects: [say("Employee number 007. Still 007. It isn't going to change. I check anyway.")] },
     {
@@ -28,7 +30,10 @@ export const lanyard: Item = {
   id: 'lanyard',
   name: 'Staff Lanyard',
   icon: 'assets/icons/lanyard.webp',
-  look: 'My lanyard. TRAINEE in huge letters, my employee number in tiny ones. Head office\'s priorities, in font sizes.',
+  look: [
+    { when: [{ flag: 'learnedEmployeeNumber' }], effects: [say("My lanyard. TRAINEE in huge letters, 007 in tiny ones. Head office's priorities, in font sizes.")] },
+    { effects: [say("My lanyard. TRAINEE in huge letters, and under it some small print I'd have to squint at. Head office's priorities, in font sizes."), setFlag('noticedSmallPrint')] },
+  ],
   action: checkTheNumber,
 };
 
@@ -37,7 +42,10 @@ export const offDutyLanyard: Item = {
   id: 'offDutyLanyard',
   name: 'Off-Duty Lanyard',
   icon: 'assets/icons/lanyard-off-duty.webp',
-  look: 'My lanyard, badge flipped round. The back says OFF DUTY. It has never been used before. It still smells new.',
+  look: [
+    { when: [{ flag: 'learnedEmployeeNumber' }], effects: [say('My lanyard, badge flipped round. The back says OFF DUTY. It has never been used before. It still smells new.')] },
+    { effects: [say("My lanyard, badge flipped round. The back says OFF DUTY, still smelling new. The front still has that small print I'd have to squint at."), setFlag('noticedSmallPrint')] },
+  ],
   action: checkTheNumber,
 };
 
@@ -139,6 +147,14 @@ export const intercomDialogue: Dialogue = {
           next: 'hub',
         },
         {
+          id: 'triedDoor',
+          text: 'I tried the front door. It stepped me straight back into the shop.',
+          when: [{ flag: 'triedFrontDoor' }],
+          once: true,
+          effects: [R('*crackle* Leaving? Before the finale? I heard that, darling. The whole building heard that.')],
+          next: 'hub',
+        },
+        {
           id: 'bye',
           text: 'Over and out.',
           effects: [R('Never say "out" in a theatre, darling. Say "exeunt". *click*')],
@@ -164,7 +180,7 @@ export const breakRoom: Room = {
     // order: the yogurt-only patch covers the card in the open fridge.
     overlays: [
       { image: 'assets/overlays/break-room-fridge-open.webp', at: { x: 451, y: 224 }, when: [{ flag: 'fridgeOpen' }] },
-      { image: 'assets/overlays/break-room-fridge-yogurt.webp', at: { x: 585, y: 351 }, when: [{ flag: 'tookTimeCard' }] },
+      { image: 'assets/overlays/break-room-fridge-yogurt.webp', at: { x: 585, y: 351 }, when: [{ flag: 'fridgeOpen' }, { flag: 'tookTimeCard' }] },
       { image: 'assets/overlays/break-room-locker-open.webp', at: { x: 875, y: 146 }, when: [{ flag: 'lockerOpen' }] },
       // The cent is painted in the coin return; once Dana has it, the slot is empty.
       { image: 'assets/overlays/break-room-cent-taken.webp', at: { x: 829, y: 310 }, when: [{ flag: 'gotCent' }] },
@@ -266,15 +282,17 @@ export const breakRoom: Room = {
       verbs: {
         look: {
           responses: [
-            { when: [{ flag: 'tookTimeCard' }], effects: [say('The yogurt, back on duty as a paperweight. Holding down nothing. It looks proud anyway.')] },
+            { when: [{ flag: 'fridgeOpen' }, { flag: 'tookTimeCard' }], effects: [say('The yogurt, back on duty as a paperweight. Holding down nothing. It looks proud anyway.')] },
             { when: [{ flag: 'fridgeOpen' }], effects: [say('One strawberry yogurt, pinning down a piece of card. The card says PICKWICK. That is MY time card.')] },
             { effects: [say('A fridge covered in notes. The big one: "WHOEVER KEEPS USING MY YOGURT AS A PAPERWEIGHT: STOP." Underlined so hard the pen went through.')] },
           ],
         },
         use: {
-          label: 'Open',
+          // Slice 33: it closes again.
+          label: [{ when: [{ flag: 'fridgeOpen' }], text: 'Close' }, { text: 'Open' }],
           responses: [
-            { when: [{ flag: 'fridgeOpen' }], effects: [say("It's open. It hums at me disapprovingly. Another note inside says \"CLOSE THE DOOR.\"")] },
+            { when: [{ flag: 'fridgeOpen' }], effects: [clearFlag('fridgeOpen'), say('The note inside says "CLOSE THE DOOR." I\'m a team player.')] },
+            { when: [{ flag: 'tookTimeCard' }], effects: [setFlag('fridgeOpen'), say('The yogurt, alone, holding down nothing. It hums at me disapprovingly.')] },
             {
               effects: [
                 say('Inside: one strawberry yogurt, sitting on a piece of card like a paperweight. The card says PICKWICK.'),
@@ -285,7 +303,7 @@ export const breakRoom: Room = {
           ],
         },
         take: {
-          label: 'Move the yogurt',
+          label: 'Take my time card',
           when: [{ flag: 'fridgeOpen' }, { notFlag: 'tookTimeCard' }],
           responses: [
             {
@@ -306,11 +324,16 @@ export const breakRoom: Room = {
       bounds: { x: 702, y: 154, width: 158, height: 312 },
       interactionPoint: { x: 780, y: 492 },
       verbs: {
-        look: says('"SNAX-O-RAMA." Fully stocked with one bag of Spooky Crisps, which has been stuck on its spiral since before I was hired. Nobody has the heart to free it. The coin return flap is half-open, and something small and copper is sulking in there.'),
-        take: {
-          label: 'Press coin return',
+        look: {
           responses: [
-            { when: [{ flag: 'gotCent' }], effects: [say('Empty. I check it twice more anyway. Handbook Section 8: be thorough.')] },
+            { when: [{ flag: 'gotCent' }], effects: [say('"SNAX-O-RAMA." Fully stocked with one bag of Spooky Crisps, stuck on its spiral since before I was hired. The coin return is empty now. I checked it twice. Handbook Section 8: be thorough.')] },
+            { effects: [say('"SNAX-O-RAMA." Fully stocked with one bag of Spooky Crisps, which has been stuck on its spiral since before I was hired. Nobody has the heart to free it. The coin return flap is half-open, and something small and copper is sulking in there.')] },
+          ],
+        },
+        take: {
+          label: 'Take the cent',
+          when: [{ notFlag: 'gotCent' }],
+          responses: [
             {
               effects: [
                 // Before the line, so the coin leaves the slot (an overlay) as Dana takes it.
@@ -344,16 +367,19 @@ export const breakRoom: Room = {
           ],
         },
         use: {
-          label: 'Open my locker',
+          // Slice 33: it closes again; the pay packet only comes out the first time.
+          label: [{ when: [{ flag: 'lockerOpen' }], text: 'Close my locker' }, { text: 'Open my locker' }],
           responses: [
-            { when: [{ flag: 'lockerOpen' }], effects: [say("It's already open. The hairnet and I have nothing more to say to each other.")] },
+            { when: [{ flag: 'lockerOpen' }], effects: [clearFlag('lockerOpen'), say("I close my locker. The hairnet will keep. It's had worse.")] },
+            { when: [{ flag: 'tookPayPacket' }], effects: [setFlag('lockerOpen'), say('0... 0... 7. Click. Just the hairnet. Still.')] },
             {
               when: [{ flag: 'learnedEmployeeNumber' }],
               effects: [
                 say('The combination is my employee number. 0... 0... 7. Click!'),
+                setFlag('lockerOpen'),
                 say('Inside: a spare hairnet and my pay packet. Payday! Twelve dollars and ninety-eight cents. The mug is twelve ninety-nine. Head office, you absolute artists.'),
                 addItem(payPacket.id),
-                setFlag('lockerOpen'),
+                setFlag('tookPayPacket'),
               ],
             },
             { effects: [say("The combination is my employee number. Which I was told on day one, along with forty other things. Maybe it's written on me somewhere.")] },
@@ -362,8 +388,8 @@ export const breakRoom: Room = {
       },
       itemUses: {
         [handbook.id]: [{ when: [{ flag: 'learnedEmployeeNumber' }], effects: [say('The Handbook says my locker combination is my employee number. 007. The Handbook would be proud of me.')] }, { effects: [say('Section 2: know your number. The Handbook says my locker combination is my employee number. It does not say what my employee number is.')] }],
-        [lanyard.id]: [{ effects: [say("The lock wants a number, not a lanyard. Though the number IS on the lanyard. I should probably read it.")] }],
-        [offDutyLanyard.id]: [{ effects: [say('The lock wants a number, not a badge. Though the number IS on the badge, in tiny letters. I should probably read it.')] }],
+        [lanyard.id]: [{ effects: [say("The lock wants a number, not a lanyard. Though the number IS on the lanyard, in the small print. I should squint at it.")] }],
+        [offDutyLanyard.id]: [{ effects: [say('The lock wants a number, not a badge. Though the number IS on the badge, in the small print. I should squint at it.')] }],
       },
     },
     {

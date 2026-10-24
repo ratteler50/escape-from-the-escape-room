@@ -30,7 +30,7 @@ export const sections: readonly HandbookSection[] = [
     section: '4.2',
     rule: 'Never touch the guests.',
     aside: "There's a footnote. The footnote is a drawing of a sad face.",
-    note: "Dana's loophole: it says nothing about liches, or skeletons (taking Gary's arm).",
+    note: "Dana's loophole: it says nothing about liches, or skeletons (taking Gary's arm). Never aimed at Reginald: quoting it at him implies he touches guests (slice 33 moved those lines to Section 16).",
   },
   { section: '5', rule: 'No card, no clock.', aside: 'Followed by three pages on what counts as a card. Library cards do not.' },
   {
@@ -77,7 +77,12 @@ export const sections: readonly HandbookSection[] = [
   },
   { section: '14.1', rule: 'Staff may not re-price items for personal gain.', aside: 'Head office has underlined "personal". Twice.' },
   { section: '15', rule: 'Always contribute.', aside: 'The next page is the staff social sign-up sheet. Gary has signed it every month.' },
-  { section: '16', rule: 'Staff must never be scarier than the attractions.', aside: "There's a photo of Reginald next to it, crossed out." },
+  {
+    section: '16',
+    rule: 'Staff must never be scarier than the attractions.',
+    aside: "There's a photo of Reginald next to it, crossed out.",
+    note: 'The section Dana quotes at Reginald and his cardboard cut-out ("Darling, I AM the attraction.").',
+  },
   { section: '18', rule: 'In an emergency, consult the Handbook.', aside: 'I am consulting it. It is telling me to consult it.' },
   {
     section: '19',

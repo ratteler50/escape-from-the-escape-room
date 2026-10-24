@@ -61,3 +61,23 @@ test('autosave survives a reload: Continue resumes the same game', async ({ page
   const resumed = await settle(page, 'the continued game');
   expect(resumed.state).toEqual(saved);
 });
+
+test('the open coffin shows the script only while it is on the shelf (slice 33)', async ({ page }) => {
+  await open(page);
+  await newGame(page);
+  // What the room draws: the script's clickable area, and the painted script patch.
+  const shelf = () =>
+    page.evaluate(() => {
+      const view = (window as any).__game.scene.getScene('RoomScene').roomView;
+      return {
+        hotspot: view.drawn.some((d: any) => d.hotspot.id === 'coffinScript'),
+        painted: view.overlays.some((o: any) => o.texture.key.includes('lair-coffin-script')),
+      };
+    });
+  const opened = await playThrough(page, world, initialState, [{ type: 'verb', verb: 'use', hotspotId: 'coffin' }]);
+  expect(await shelf()).toEqual({ hotspot: true, painted: true });
+  const taken = await playThrough(page, world, opened, [{ type: 'verb', verb: 'take', hotspotId: 'coffinScript' }]);
+  expect(await shelf(), 'taken: the shelf is empty').toEqual({ hotspot: false, painted: false });
+  await playThrough(page, world, taken, [{ type: 'itemAction', itemId: 'script' }]);
+  expect(await shelf(), 'memorised: the script is back on the shelf').toEqual({ hotspot: true, painted: true });
+});

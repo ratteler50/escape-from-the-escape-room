@@ -1,5 +1,6 @@
-import type { Combination, Item, Room } from '../core/types';
-import { addItem, goTo, removeItem, say, says, setFlag, sound, walk } from './dsl';
+import type { Combination, Effect, Item, Room } from '../core/types';
+import { addItem, clearFlag, goTo, removeItem, say, says, setFlag, sound, walk } from './dsl';
+import { R } from './cast';
 import { reginaldOnMark, reginaldOnThrone, script } from './reginald';
 import type { ContentPack } from './pack';
 import { handbook } from './handbook';
@@ -36,8 +37,28 @@ export const riddleScroll: Item = {
   id: 'riddleScroll',
   name: 'Ancient Riddle Scroll',
   icon: 'assets/icons/riddle-scroll.webp',
-  look: 'It reads: "THE ANSWER IS: {CODE}". Head office used a template and never filled in the blank. Of COURSE. But the curse made the script real exactly as printed. Blanks and all?',
+  // Slice 33: reading it is what lets the keypad's own verb enter the code.
+  look: [
+    {
+      effects: [
+        say('It reads: "THE ANSWER IS: {CODE}". Head office used a template and never filled in the blank. Of COURSE. But the curse made the script real exactly as printed. Blanks and all?'),
+        setFlag('readScroll'),
+      ],
+    },
+  ],
 };
+
+/** The scroll's code entered on the keypad: by using the scroll on it, or Enter a code while holding it. */
+const enterTheCode: Effect[] = [
+  say('"THE ANSWER IS: {CODE}." The curly brackets just mark the blank that nobody filled in. What\'s printed in the blank is the word CODE.'),
+  say('The curse bound the script exactly as printed. So the answer isn\'t a code. It\'s the word CODE. C. O. D. E. ENTER.'),
+  sound('keypad'),
+  setFlag('lairDoorUnlocked'),
+  sound('unlock'),
+  say("CLUNK. The door unlocks. I've beaten head office at their own game. By reading."),
+  say('Handbook Section 3: lost property must be returned. I tuck the scroll back under its bone.'),
+  removeItem(riddleScroll.id),
+];
 
 const combinations: Combination[] = [
   {
@@ -67,6 +88,11 @@ export const lair: Room = {
     background: 'assets/rooms/lair.webp',
     // Patches of the painting for what changes in play (docs/art/prompts-overlays.md).
     overlays: [
+      // The gold star on Reginald's coffin (slice 33): drawn by the agent, always shown.
+      { image: 'assets/overlays/lair-coffin-star.webp', at: { x: 64, y: 252 } },
+      // The coffin open (docs/art/prompts-coffin.md), and the script on its shelf while it's there.
+      { image: 'assets/overlays/lair-coffin-open.webp', at: { x: 10, y: 161 }, when: [{ flag: 'coffinOpen' }] },
+      { image: 'assets/overlays/lair-coffin-script.webp', at: { x: 42, y: 329 }, when: [{ flag: 'coffinOpen' }, { lacks: 'script' }] },
       { image: 'assets/overlays/lair-gary-armless.webp', at: { x: 235, y: 211 }, when: [{ flag: 'tookGaryArm' }] },
       { image: 'assets/overlays/lair-grate-arm.webp', at: { x: 318, y: 507 }, when: [{ flag: 'gotCaseKey' }] },
       { image: 'assets/overlays/lair-case-open.webp', at: { x: 750, y: 243 }, when: [{ flag: 'caseOpen' }] },
@@ -134,17 +160,33 @@ export const lair: Room = {
       verbs: {
         look: {
           responses: [
-            { when: [{ notFlag: 'reginaldLeftThrone' }], effects: [say("Reginald is sitting on it. Sitting is a strong word. He's lounging, dramatically.")] },
-            { effects: [say('A towering throne of bone. The estate-sale sticker on the armrest says "LOT 12: SPOOKY SEAT (BONE-EFFECT), $49.99".')] },
+            {
+              when: [{ notFlag: 'reginaldLeftThrone' }],
+              effects: [
+                say("Reginald is sitting on it. Sitting is a strong word. He's lounging, dramatically. And under the armrest, right by his elbow: a wad of bright pink gum."),
+                setFlag('sawGum'),
+              ],
+            },
+            { when: [{ flag: 'tookGum' }], effects: [say('A towering throne of bone. The estate-sale sticker on the armrest says "LOT 12: SPOOKY SEAT (BONE-EFFECT), $49.99".')] },
+            {
+              effects: [
+                say('A towering throne of bone, unguarded at last. "LOT 12: SPOOKY SEAT (BONE-EFFECT), $49.99." And under the armrest: a wad of bright pink gum.'),
+                setFlag('sawGum'),
+              ],
+            },
           ],
         },
         take: {
-          label: 'Check under the armrest',
-          when: [{ flag: 'reginaldLeftThrone' }, { notFlag: 'tookGum' }],
+          label: 'Take the gum',
+          when: [{ flag: 'sawGum' }, { notFlag: 'tookGum' }],
           responses: [
             {
+              when: [{ notFlag: 'reginaldLeftThrone' }],
+              effects: [R('Hands off the Spooky Seat, darling! Nobody touches the throne mid-performance.'), say("I'll need him off that throne first.")],
+            },
+            {
               effects: [
-                say(`Under the armrest: one wad of pre-owned gum, stuck there like under a school desk. Handbook Section 3: "Lost property must be returned and logged." Logged. I'll return it when I find out whose it is.`),
+                say(`I peel the gum off the armrest, like from under a school desk. Handbook Section 3: "Lost property must be returned and logged." Logged. I'll return it when I find out whose it is.`),
                 addItem(gum.id),
                 setFlag('tookGum'),
               ],
@@ -171,6 +213,8 @@ export const lair: Room = {
       },
     },
     {
+      // Reginald's dressing room (slice 33: it opens, closes and takes a knock). Knocking first is
+      // only good manners: opening knocks for Dana if they haven't.
       id: 'coffin',
       name: 'Coffin',
       bounds: { x: 10, y: 175, width: 128, height: 262 },
@@ -179,21 +223,109 @@ export const lair: Room = {
         [handbook.id]: [{ effects: [say("I could leave the Handbook in his dressing room as a gift. He'd think it was a script. He'd give it notes.")] }],
       },
       verbs: {
-        look: says('A coffin with a gold star on the lid. "R. VANTABLACK-THORNE: DRESSING ROOM. KNOCK."'),
-        use: {
-          label: 'Open',
+        look: {
+          responses: [
+            { when: [{ flag: 'coffinOpen' }, { lacks: script.id }], effects: [say(`His dressing room: a mirror ringed with bulbs, a headshot of Reginald signed by Reginald, a can of UNDEAD HOLD hairspray, and his script on its little shelf.`)] },
+            { when: [{ flag: 'coffinOpen' }], effects: [say(`His dressing room: a mirror ringed with bulbs, a headshot of Reginald signed by Reginald, a can of UNDEAD HOLD hairspray, and an empty shelf where the script lives.`)] },
+            { effects: [say(`Reginald's coffin, stood on end like a door. Someone has screwed a brass knocker onto it. Someone. A gold star on the lid: R. VANTABLACK-THORNE, DRESSING ROOM. The estate-sale sticker: "LOT 9: COFFIN (LIGHTLY USED), $20."`)] },
+          ],
+        },
+        talk: {
+          label: 'Knock',
           responses: [
             {
-              when: [{ notFlag: 'tookScript' }],
+              when: [{ flag: 'coffinOpen' }],
+              effects: [say('Knock knock.'), R("Who's there?"), say('Dana.'), R('Dana who?'), say("...I didn't plan this far.")],
+            },
+            { when: [{ flag: 'knockedOnCoffin' }], effects: [R('Still yes, darling. Go ahead. Anything but the hairspray.')] },
+            {
               effects: [
-                say('Inside: a mirror, hairspray labelled UNDEAD HOLD, and a dog-eared script. His cue is underlined three times: "Rise, foul creature, and face me!"'),
-                addItem(script.id),
-                setFlag('tookScript'),
+                say('Knock, knock.'),
+                R('Who knocks at the dressing room of the Lich Lord? ...Oh, the trainee. Go ahead, darling. Anything but the hairspray.'),
+                setFlag('knockedOnCoffin'),
               ],
             },
-            { when: [{ flag: 'learnedCue' }], effects: [say("His script's back where it belongs. I know the cue by heart now: \"Rise, foul creature, and face me!\"")] },
-            { effects: [say('Just the mirror and the hairspray. And a signed photo of Reginald, signed by Reginald.')] },
           ],
+        },
+        use: {
+          label: [{ when: [{ flag: 'coffinOpen' }], text: 'Close' }, { text: 'Open' }],
+          responses: [
+            { when: [{ flag: 'coffinOpen' }], effects: [clearFlag('coffinOpen'), say("I close the lid. Gently. It's his dressing room.")] },
+            {
+              when: [{ flag: 'knockedOnCoffin' }],
+              effects: [setFlag('coffinOpen'), say('The lid swings open. His dressing room, in a coffin. A mirror, a headshot, hairspray, and a little shelf for the script.')],
+            },
+            {
+              effects: [
+                say('I knock first. Manners.'),
+                R('Who knocks at the dressing room of the Lich Lord? ...Oh, the trainee. Go ahead, darling. Anything but the hairspray.'),
+                setFlag('knockedOnCoffin'),
+                setFlag('coffinOpen'),
+                say('The lid swings open. His dressing room, in a coffin. A mirror, a headshot, hairspray, and a little shelf for the script.'),
+              ],
+            },
+          ],
+        },
+      },
+    },
+    {
+      // Inside the open coffin, while the script is on its shelf: before Dana takes it, and once it's
+      // back after memorising. Bounds fitted to the painted script (lair-coffin-script.webp).
+      id: 'coffinScript',
+      name: "Reginald's Script",
+      when: [{ flag: 'coffinOpen' }, { lacks: script.id }],
+      bounds: { x: 46, y: 333, width: 45, height: 43 },
+      interactionPoint: { x: 200, y: 470 },
+      itemUses: {
+        [handbook.id]: [{ effects: [say('Two rule books, side by side on the shelf. The Handbook has more rules. The script has more feelings.')] }],
+      },
+      verbs: {
+        look: {
+          responses: [
+            {
+              // The script lives here after memorising, so this is where the finale's clue can be read again.
+              when: [{ flag: 'learnedCue' }],
+              effects: [
+                say('His script, back on its shelf. MORTAL: "Rise, foul creature, and face me!" LICH: "ARISE!" I know the mortal\'s line by heart now.'),
+                say('The last page: "FINALE: The guest escapes THROUGH THE GIFT SHOP and purchases a souvenir. CURTAIN." Head office has underlined "souvenir" twice.'),
+              ],
+            },
+            { effects: [say('A dog-eared script on a little shelf. One line is underlined three times. Something red is scribbled in the margin.')] },
+          ],
+        },
+        take: {
+          label: 'Take the script',
+          responses: [
+            { when: [{ flag: 'learnedCue' }], effects: [say('I know it by heart. It can stay home.')] },
+            {
+              effects: [
+                addItem(script.id),
+                say("I take the script. Handbook Section 3 says I'll give it back. I will. After reading it."),
+              ],
+            },
+          ],
+        },
+      },
+    },
+    {
+      // Inside the open coffin. He named it, so players will try it. Bounds fitted to the painted can.
+      id: 'hairspray',
+      name: 'Hairspray',
+      when: [{ flag: 'coffinOpen' }],
+      bounds: { x: 98, y: 328, width: 16, height: 44 },
+      interactionPoint: { x: 200, y: 470 },
+      itemUses: {
+        [handbook.id]: [{ effects: [say("The Handbook's section on aerosols just says \"No.\" I respect its clarity.")] }],
+      },
+      verbs: {
+        look: says('UNDEAD HOLD. "For hair that never dies." The can is older than me.'),
+        take: {
+          label: 'Take',
+          responses: [{ effects: [R('The HAIRSPRAY, darling! Anything but!'), say('He did say.')] }],
+        },
+        use: {
+          label: 'Spritz',
+          responses: [{ effects: [say('One spritz. My fringe will now survive the apocalypse.'), R("That was a WEEK's supply.")] }],
         },
       },
     },
@@ -254,15 +386,19 @@ export const lair: Room = {
       verbs: {
         look: {
           responses: [
-            { when: [{ flag: 'lairDoorUnlocked' }], effects: [say("The scroll's tucked back under the bone. Its little card says 'ANCIENT RIDDLE (REPRODUCTION)'. It has never been more wrong. I've left the lid up. The Handbook covers opening things, not closing them.")] },
+            { when: [{ flag: 'lairDoorUnlocked' }, { flag: 'caseOpen' }], effects: [say("The scroll's tucked back under the bone. Its little card says 'ANCIENT RIDDLE (REPRODUCTION)'. It has never been more wrong.")] },
+            { when: [{ flag: 'lairDoorUnlocked' }], effects: [say('Closed again, key in the lock, the scroll back under its bone. As if nothing happened. Something happened.')] },
             { when: [{ flag: 'caseOpen' }], effects: [say("The lid's propped open, key still in the lock. Just the bone now. Its card says 'BONE (DECORATIVE)'. The scroll's card says 'ANCIENT RIDDLE (REPRODUCTION)', and points at nothing.")] },
             { effects: [say("An ornate display case. Inside, on velvet: a bone, labelled 'BONE (DECORATIVE)'. Tucked underneath it: an Ancient Riddle Scroll. The lock is tiny and skull-shaped.")] },
           ],
         },
         use: {
-          label: 'Open',
+          // Slice 33: it closes once the scroll is back (the closed case's art shows the scroll).
+          label: [{ when: [{ flag: 'caseOpen' }], text: 'Close' }, { text: 'Open' }],
           responses: [
-            { when: [{ flag: 'caseOpen' }], effects: [say("It's open. All that's left is the decorative bone, and I'm not stealing set dressing on my third shift.")] },
+            { when: [{ flag: 'caseOpen' }, { flag: 'lairDoorUnlocked' }], effects: [clearFlag('caseOpen'), say('I close the lid. Key in the lock, scroll under its bone. Ready for the next guest. If there ever is one.')] },
+            { when: [{ flag: 'caseOpen' }], effects: [say("It can stay open until I've finished with the scroll.")] },
+            { when: [{ flag: 'lairDoorUnlocked' }], effects: [setFlag('caseOpen'), say('The key is still in the lock. Click. Open again.')] },
             { effects: [say("Locked. The keyhole is shaped like a tiny skull. Head office loves a theme.")] },
           ],
         },
@@ -292,9 +428,13 @@ export const lair: Room = {
       verbs: {
         look: says('Eight brass buttons with letters on them, like an old phone (ABC, DEF, all the way to WXYZ), and one marked ENTER. No numbers at all. Someone has labelled it NUMBER PAD anyway. A brass plate: "ENTER CODE TO ESCAPE." Below it, smaller: "NO REFUNDS."'),
         use: {
-          label: 'Enter a code',
+          // Slice 33: once Dana has read the scroll, the keypad's own verb enters it.
+          label: [{ when: [{ flag: 'readScroll' }, { notFlag: 'lairDoorUnlocked' }], text: 'Enter CODE' }, { text: 'Enter a code' }],
           responses: [
             { when: [{ flag: 'lairDoorUnlocked' }], effects: [say("Already done. C-O-D-E, ENTER. I'll never forget it. I'll try.")] },
+            // Slice 33: a play-tester expected the keypad itself to work once they had the scroll.
+            { when: [{ flag: 'readScroll' }], effects: enterTheCode },
+            { when: [{ has: riddleScroll.id }], effects: [say("I've got the scroll with the answer on it. I should read what it says first.")] },
             { effects: [say("L-I-C-H, ENTER. Bzzt. D-O-O-M, ENTER. Bzzt. G-A-R-Y, ENTER. Bzzt, and Gary looks hurt. I need the actual code.")] },
           ],
         },
@@ -304,16 +444,7 @@ export const lair: Room = {
         [riddleScroll.id]: [
           {
             when: [{ notFlag: 'lairDoorUnlocked' }],
-            effects: [
-              say('"THE ANSWER IS: {CODE}." The curly brackets just mark the blank that nobody filled in. What\'s printed in the blank is the word CODE.'),
-              say('The curse bound the script exactly as printed. So the answer isn\'t a code. It\'s the word CODE. C. O. D. E. ENTER.'),
-              sound('keypad'),
-              setFlag('lairDoorUnlocked'),
-              sound('unlock'),
-              say("CLUNK. The door unlocks. I've beaten head office at their own game. By reading."),
-              say('Handbook Section 3: lost property must be returned. I tuck the scroll back under its bone.'),
-              removeItem(riddleScroll.id),
-            ],
+            effects: enterTheCode,
           },
           { effects: [say("The door's already unlocked. I'm not typing CODE again. It felt silly enough the first time.")] },
         ],
@@ -349,6 +480,8 @@ export const lair: Room = {
           { effects: [say("There's nothing else down there worth getting gum on.")] },
         ],
         [garyArm.id]: [{ effects: [say("Gary's fingers brush the key, but it won't stay put. If only they were... stickier.")] }],
+        // Slice 33: the gum's half of the hint (the arm has the other).
+        [gum.id]: [{ effects: [say("Sticky enough to grab the key, but my fingers won't reach it. The gum needs to be on the end of something long.")] }],
       },
       itemFallback: "That won't fit through the grate. Most things won't. That's rather the point of a grate.",
     },

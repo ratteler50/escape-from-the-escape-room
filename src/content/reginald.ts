@@ -9,7 +9,16 @@ export const script: Item = {
   id: 'script',
   name: "Reginald's Script",
   icon: 'assets/icons/script.webp',
-  look: 'Act One, Scene One. His cue: "Rise, foul creature, and face me!" The margins say PAUSE FOR APPLAUSE nine times. The last page: "FINALE: The guest escapes THROUGH THE GIFT SHOP and purchases a souvenir. CURTAIN." Head office has underlined "souvenir" twice.',
+  // Slice 33: set out as a script, so it's plain who says the cue. MORTAL, not GUEST: "guest" only
+  // matters in the finale (Kyle won't sell to staff).
+  look: [
+    {
+      effects: [
+        say('Act One, Scene One. MORTAL: "Rise, foul creature, and face me!" LICH: "ARISE!" The mortal\'s line is underlined three times. In the margin, in red pen: "THEY NEVER SAY IT." If I learned that line by heart, I could give him his cue.'),
+        say('The margins say PAUSE FOR APPLAUSE nine times. The last page: "FINALE: The guest escapes THROUGH THE GIFT SHOP and purchases a souvenir. CURTAIN." Head office has underlined "souvenir" twice.'),
+      ],
+    },
+  ],
   action: {
     label: 'Memorise',
     responses: [
@@ -17,6 +26,7 @@ export const script: Item = {
         effects: [
           say('"Rise, foul creature, and face me!" Rise, foul creature... and face me! Got it. Word perfect.'),
           say('Handbook Section 3: lost property must be returned. I pop the script back in his coffin.'),
+          say("Next time I talk to Reginald, I'll give him his cue."),
           removeItem('script'),
           setFlag('learnedCue'),
         ],
@@ -141,10 +151,19 @@ export const reginaldDialogue: Dialogue = {
           next: 'hub',
         },
         {
+          // Slice 33: once Dana has seen the gum under his armrest, the way from it to the cue.
+          id: 'standUp',
+          text: 'Could you stand up for a moment?',
+          when: [{ flag: 'sawGum' }, { notFlag: 'reginaldLeftThrone' }],
+          effects: [R('Stand? A lich does not simply STAND, darling. A lich RISES.'), R('On his CUE.')],
+          next: 'hub',
+        },
+        {
+          // Slice 33: Section 16, not 4.2 ("never touch the guests"), which implied he does.
           id: 'handbook',
-          text: "Handbook Section 4.2 says you're not allowed to touch the guests.",
+          text: 'Handbook Section 16: staff must never be scarier than the attractions.',
           once: true,
-          effects: [R('I do not take notes from management. I take notes from the muse.'), say('The muse is not in the Handbook.')],
+          effects: [R('Darling, I AM the attraction.'), say("That's not in the Handbook.")],
           next: 'hub',
         },
         {
@@ -161,9 +180,24 @@ export const reginaldDialogue: Dialogue = {
             R('Behold, mortal, as the light finds me and—\n...Gary?'),
             R('I am ON my mark! The light is meant to fall HERE. Instead it is lovingly illuminating a man with no lines, over THERE!'),
             R('Fine. FINE. A true professional holds his mark in the dark. Whoever rigged that is getting a strongly worded note.'),
-            say("He's sulking on his mark, in the dark. Which means the Spooky Seat is unguarded."),
+            say("He's sulking on his mark, in the dark. Which means the Spooky Seat is unguarded, and so is the pink gum stuck under its armrest."),
+            // Dana has seen the gum now, whether or not they looked at the throne before.
+            setFlag('sawGum'),
           ],
           next: 'end',
+        },
+        {
+          // Slice 33: he takes it as walking out of his show. He doesn't know how the curse works.
+          id: 'triedDoor',
+          text: 'I tried to leave through the front door. It stepped me straight back in.',
+          when: [{ flag: 'triedFrontDoor' }],
+          once: true,
+          effects: [
+            R("Walk OUT? Mid-performance? Darling, nobody leaves before the curtain call. It's terribly rude."),
+            say("I didn't leave. That's the problem."),
+            R('Then the door has better manners than you.'),
+          ],
+          next: 'hub',
         },
         {
           id: 'bye',

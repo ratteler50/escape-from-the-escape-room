@@ -61,7 +61,9 @@ it('grows the touch areas of the small hotspots, and only those', () => {
   expect(grown.sort()).toEqual([
     'breakRoom.intercom',
     'giftShop.reginaldFinale',
+    'lair.coffinScript',
     'lair.grate',
+    'lair.hairspray',
     'lair.keypad',
     'lair.phylactery',
     'lair.reginald',

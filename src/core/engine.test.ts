@@ -206,6 +206,23 @@ describe('availableVerbs', () => {
   it('returns just look for a look-only hotspot', () => {
     expect(availableVerbs(world, start, 'rug')).toEqual([{ verb: 'look', label: 'Look' }]);
   });
+
+  it('picks the first label whose conditions hold, so one verb can read Open or Close (slice 33)', () => {
+    const rug = world.rooms.testRoom!.hotspots.find((h) => h.id === 'rug')!;
+    const lift = {
+      label: [{ when: [{ flag: 'rugUp' as const }], text: 'Put it down' }, { text: 'Lift' }],
+      responses: [{ effects: [say('Dust.')] }],
+    };
+    const w: World = {
+      ...world,
+      rooms: {
+        ...world.rooms,
+        testRoom: { ...world.rooms.testRoom!, hotspots: world.rooms.testRoom!.hotspots.map((h) => (h === rug ? { ...rug, verbs: { ...rug.verbs, use: lift } } : h)) },
+      },
+    };
+    expect(availableVerbs(w, start, 'rug').at(-1)).toEqual({ verb: 'use', label: 'Lift' });
+    expect(availableVerbs(w, { ...start, flags: { rugUp: true } }, 'rug').at(-1)).toEqual({ verb: 'use', label: 'Put it down' });
+  });
 });
 
 describe('handle: verb', () => {
@@ -459,6 +476,61 @@ describe('item actions', () => {
   it('throws for an item with no available action, or one not held', () => {
     expect(() => handle(world, { ...start, inventory: ['bulb'] }, { type: 'itemAction', itemId: 'bulb' })).toThrow(/bulb/);
     expect(() => handle(world, start, { type: 'itemAction', itemId: 'note' })).toThrow(/note/);
+  });
+});
+
+describe('item looks with responses (slice 33)', () => {
+  // A badge whose small print Dana only notices by looking at it; reading it is then an action.
+  const badge = {
+    id: 'badge',
+    name: 'Badge',
+    look: [
+      { when: [{ flag: 'noticedPrint' as const }], effects: [say('Still tiny print.')] },
+      { effects: [say('There is tiny print on it.'), { type: 'setFlag' as const, flag: 'noticedPrint' }] },
+    ],
+    action: { label: 'Squint', when: [{ flag: 'noticedPrint' }], responses: [{ effects: [say('It says 007.')] }] },
+  };
+  const w: World = { ...world, items: { ...world.items, badge } };
+  const holdingBadge: GameState = { ...start, inventory: ['badge'] };
+
+  it('lookItem runs the first response whose conditions hold, and its effects change state', () => {
+    const first = handle(w, holdingBadge, { type: 'lookItem', itemId: 'badge' });
+    expect(first.effects).toEqual([say('There is tiny print on it.'), { type: 'setFlag', flag: 'noticedPrint' }]);
+    expect(first.state.flags).toEqual({ noticedPrint: true });
+    expect(handle(w, first.state, { type: 'lookItem', itemId: 'badge' }).effects).toEqual([say('Still tiny print.')]);
+  });
+
+  it('a look can unlock an action', () => {
+    expect(availableItemAction(w, holdingBadge, 'badge')).toBeNull();
+    const looked = handle(w, holdingBadge, { type: 'lookItem', itemId: 'badge' }).state;
+    expect(availableItemAction(w, looked, 'badge')).toEqual({ label: 'Squint' });
+  });
+});
+
+describe('clearFlag (slice 33)', () => {
+  // The lamp's use switches it off: clears a flag.
+  const lamp = world.rooms.testRoom!.hotspots.find((h) => h.id === 'lamp')!;
+  const switchOff = { label: 'Switch off', responses: [{ effects: [{ type: 'clearFlag' as const, flag: 'lampOn' }] }] };
+  const w: World = {
+    ...world,
+    rooms: {
+      ...world.rooms,
+      testRoom: {
+        ...world.rooms.testRoom!,
+        hotspots: world.rooms.testRoom!.hotspots.map((h) => (h === lamp ? { ...lamp, verbs: { ...lamp.verbs, use: switchOff } } : h)),
+      },
+    },
+  };
+  const switchOffLamp = (state: GameState) => handle(w, state, { type: 'verb', verb: 'use', hotspotId: 'lamp' });
+
+  it('clears the flag, leaves the others, and passes the effect to the view', () => {
+    const result = switchOffLamp({ ...start, flags: { lampOn: true, other: true } });
+    expect(result.state.flags).toEqual({ other: true });
+    expect(result.effects).toEqual([{ type: 'clearFlag', flag: 'lampOn' }]);
+  });
+
+  it('clearing a flag that is not set changes nothing', () => {
+    expect(switchOffLamp({ ...start, flags: { other: true } }).state.flags).toEqual({ other: true });
   });
 });
 

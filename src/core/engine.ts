@@ -44,7 +44,8 @@ export function handle(world: World, state: GameState, command: Command): Comman
 
     case 'lookItem': {
       const item = heldItem(world, state, command.itemId);
-      return { state, effects: [{ type: 'say', text: item.look }] };
+      if (typeof item.look === 'string') return { state, effects: [{ type: 'say', text: item.look }] };
+      return respond(world, state, item.look, `looking at item "${item.id}"`);
     }
 
     case 'itemAction': {
@@ -136,7 +137,8 @@ export function availableVerbs(world: World, state: GameState, hotspotId: Hotspo
   return VERBS.flatMap((verb) => {
     const spec: VerbSpec | undefined = hotspot.verbs[verb];
     if (!spec || !holds(state, spec.when)) return [];
-    return [{ verb, label: spec.label ?? DEFAULT_LABELS[verb] }];
+    const label = typeof spec.label === 'string' ? spec.label : spec.label?.find((l) => holds(state, l.when))?.text;
+    return [{ verb, label: label ?? DEFAULT_LABELS[verb] }];
   });
 }
 
@@ -223,6 +225,10 @@ function apply(world: World, state: GameState, effect: Effect): GameState {
       return { ...state, inventory: state.inventory.filter((id) => id !== effect.itemId) };
     case 'setFlag':
       return { ...state, flags: { ...state.flags, [effect.flag]: true } };
+    case 'clearFlag': {
+      const { [effect.flag]: _cleared, ...flags } = state.flags;
+      return { ...state, flags };
+    }
     case 'startDialogue': {
       const dialogue = findDialogue(world, effect.dialogueId);
       return { ...state, conversation: { dialogueId: dialogue.id, nodeId: dialogue.start } };

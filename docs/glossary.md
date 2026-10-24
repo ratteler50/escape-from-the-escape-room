@@ -23,7 +23,7 @@ current.
 | Term | Meaning |
 |------|---------|
 | **Verb** | One of Look, Take, Talk, Use. A hotspot declares which verbs it supports. |
-| **Verb coin** | The ring of verb buttons that opens when you click a hotspot with more than one available verb. Also opens on an item: Look, Use with…, and the item's own action. |
+| **Verb coin** | The row of verb buttons, each with its label, that opens when you click a hotspot with more than one available verb (a ring until slice 33). Also opens on an item: Look, Use with…, and the item's own action. |
 | **Available verbs** | The verbs a hotspot offers right now, decided by the core from each verb's `when` conditions. |
 | **Look** | The verb every hotspot has: Dana describes it. Right-click is a shortcut for it. |
 | **Held item** | The item the player chose "Use with…" on and is about to use. Interface state owned by the view; never saved, never seen by the core. |

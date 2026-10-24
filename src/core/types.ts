@@ -36,6 +36,8 @@ export type Effect =
   | { type: 'addItem'; itemId: ItemId }
   | { type: 'removeItem'; itemId: ItemId }
   | { type: 'setFlag'; flag: FlagId }
+  /** Unsets a flag (slice 33: things that open can close again). */
+  | { type: 'clearFlag'; flag: FlagId }
   | { type: 'startDialogue'; dialogueId: DialogueId }
   | { type: 'endDialogue' }
   /** The game is won. Sets the `won` flag; the view shows the end card. */
@@ -57,8 +59,11 @@ export interface Response {
 }
 
 export interface VerbSpec {
-  /** Replaces the verb's name on the coin, for jokes ("Borrow a limb"). */
-  label?: string;
+  /**
+   * Replaces the verb's name on the coin, for jokes ("Borrow a limb"). Or labels with conditions,
+   * the first that holds wins, so one verb can read Open or Close (slice 33); end with one without.
+   */
+  label?: string | readonly { when?: Condition[]; text: string }[];
   /** The verb is only offered while these hold. Omit to always offer it. */
   when?: Condition[];
   /** Checked in order. The last one should have no `when`, so there is always a fallback. */
@@ -100,7 +105,11 @@ export interface Item {
   name: string;
   /** The inventory icon, a path under `public/`: square, transparent, at 2× its on-screen size. Presentation only. */
   icon?: string;
-  look: string;
+  /**
+   * What Dana says looking at it: one line, or responses like a hotspot's look (conditions, effects,
+   * flags), so a look can notice something and unlock the item's action (slice 33).
+   */
+  look: string | Response[];
   /** Something Dana can do with the item itself (read, eat, memorise). A third button on its coin. */
   action?: VerbSpec & { label: string };
 }

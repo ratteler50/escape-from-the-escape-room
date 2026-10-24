@@ -95,18 +95,23 @@ the Lair with the Employee Handbook. The goal: the escape room's script ends whe
 **through the gift shop with a souvenir**, so Dana must leave the Lair, become a customer, and buy
 the "I ESCAPED THE LICH'S LAIR" mug.
 
-The always-winnable test prints the shortest solution (27 steps, `src/content/winnable.test.ts`);
+The always-winnable test prints the shortest solution (28 steps, `src/content/winnable.test.ts`);
 this chart is what depends on what. Chart a new puzzle here before writing it.
 
 ### Puzzle dependency chart
 
 ```mermaid
 graph TD
-  START([Start in the Lair, with the Handbook]) --> COFFIN[Open the coffin:<br/>Reginald's 'dressing room']
-  COFFIN --> SCRIPT[/Reginald's Script/]
-  SCRIPT --> MEMO[Memorise it: Dana learns the cue<br/>and puts the script back]
+  START([Start in the Lair, with the Handbook and the lanyard]) --> COFFIN[Open the coffin, his dressing room:<br/>Dana knocks first, 'Go ahead, darling']
+  COFFIN --> SCRIPT[/Reginald's Script, from its shelf/]
+  SCRIPT -.->|hint| READ[Read it: MORTAL: 'Rise, foul creature...'<br/>LICH: 'ARISE!'. Margin: THEY NEVER SAY IT]
+  SCRIPT --> MEMO[Memorise the line;<br/>the script goes back on its shelf]
+  READ -.->|hint| MEMO
+  START -.->|hint| THRONE[Look at the throne: pink gum<br/>under the armrest, by his elbow]
+  THRONE -.->|hint| GUARD[Take it: 'Hands off the Spooky Seat!'<br/>Ask him to stand: 'a lich RISES, on his CUE']
+  GUARD -.->|hint| CUE
   MEMO --> CUE{Talk to Reginald:<br/>give him his cue}
-  CUE --> ARISE[He rises and takes his mark;<br/>the throne is free]
+  CUE --> ARISE[He rises and takes his mark, in the dark;<br/>the throne and its gum are unguarded]
   ARISE --> GUM[/Pre-Owned Gum, from under the armrest/]
   START --> GARY[Borrow Gary's arm]
   GARY --> ARM[/Gary's Arm/]
@@ -117,8 +122,9 @@ graph TD
   GRATE --> KEY[/Display Case Key/]
   KEY --> CASE[Unlock the display case]
   CASE --> SCROLL[/Ancient Riddle Scroll:<br/>'THE ANSWER IS: CODE'/]
-  SCROLL --> KEYPAD[Use it on the keypad: C-O-D-E]
+  SCROLL --> KEYPAD[Use it on the keypad: C-O-D-E<br/>or read it, then the keypad's 'Enter CODE']
   KEYPAD --> SHOP([The Gift Shop])
+  SHOP -.->|hint| KYLE[Ask Kyle for a mug: 'Lanyard.'<br/>Staff can't buy merch]
   SHOP --> MORD{Talk to Mordecai:<br/>his teapot is in the bargain bin at $2}
   MORD --> BORROW{Handbook on Kyle:<br/>the revised Section 14 lets staff<br/>borrow equipment for re-pricing}
   BORROW --> GUN[/Price Gun/]
@@ -127,25 +133,33 @@ graph TD
   STAFF --> BREAK([The Break Room])
   BREAK --> FRIDGE[Open the fridge,<br/>take the time card from under the yogurt]
   FRIDGE --> CLOCK[Time card on the time clock:<br/>OFF DUTY, the badge flipped]
-  BREAK --> NUMBER[Check the lanyard's number: 007]
+  BREAK --> PRINT[Look at the lanyard: small print]
+  PRINT --> NUMBER[Squint at it: 007]
   NUMBER --> LOCKER[Open the locker:<br/>Pay Packet, $12.98]
-  BREAK --> VEND[The vending machine's coin return:<br/>One Cent]
+  BREAK --> VEND[Take the cent from<br/>the vending machine's coin return]
   LOCKER --> CASH((Combine))
   VEND --> CASH
   CASH --> EXACT[/Exact Change, $12.99/]
-  CLOCK --> BUY{Talk to Kyle: buy the mug,<br/>off duty, with exact change}
+  KYLE -.->|hint| BUY
+  CLOCK --> BUY{Buy the mug from Kyle, off duty,<br/>with exact change: ask, or hand it over}
   EXACT --> BUY
   BUY --> FINALE([The finale])
 ```
 
+Solid arrows: needs. Dotted: a hint that points the way.
+
 ### The Lich's Lair
 
-1. **The cue.** The coffin is Reginald's "dressing room"; inside is his dog-eared script.
-   **Memorising** it (an item action) teaches Dana his cue and they return the script, so what
-   unlocks the dialogue option is what they *know*, not what they hold. Given the cue, he performs
-   "ARISE!" and leaves the throne for his spotlight mark, which lights Gary instead.
-2. **The sticky arm.** Gary's arm can be taken at any time (Reginald protests if he sees it). Under
-   the vacated throne's armrest: pre-owned gum. Combine arm and gum.
+1. **The cue.** The coffin is Reginald's "dressing room", with a knocker and a gold star; opening it,
+   Dana knocks first and he says go ahead. On its shelf, his dog-eared script, set out as a script:
+   the cue is the MORTAL's line, "Rise, foul creature, and face me!", and the margin says THEY NEVER
+   SAY IT. **Memorising** it (an item action) teaches Dana the line and they return the script, so
+   what unlocks the dialogue option is what they *know*, not what they hold. Given the cue, he
+   performs "ARISE!" and leaves the throne for his spotlight mark, which lights Gary instead.
+2. **The sticky arm.** Gary's arm can be taken at any time (Reginald protests if he sees it). Pink
+   gum is stuck under the throne's armrest, by Reginald's elbow: he won't let Dana near it while
+   he's seated, and a lich doesn't stand, he *rises*, on his cue. Once he's risen, take it. Combine
+   arm and gum.
 3. **The floor grate.** The display case key fell through the grate. Fish it out with the sticky
    arm (which stays gummed to the grate).
 4. **The misprinted riddle.** The display case holds the Ancient Riddle Scroll: *"THE ANSWER IS:
@@ -153,6 +167,8 @@ graph TD
    printed, so the code is literally **C-O-D-E** on the keypad's phone-style letter keys.
 
 Look-only: the phylactery (whispering, cable-locked to its plinth) and the Customer Reviews board.
+The coffin, the display case (once the scroll is back), and in the Break Room the fridge and locker
+open and close again.
 
 ### The Gift Shop
 
@@ -162,7 +178,8 @@ Look-only: the phylactery (whispering, cable-locked to its plinth) and the Custo
    gun on the bargain bin: PRICELESS. Mordecai floats through STAFF ONLY and opens it.
 2. **The false exit.** The front door stands open, but the curse steps Dana back in: the script's
    guest buys a souvenir on the way out.
-3. **The mug.** Kyle won't sell to staff ("Lanyard."), and takes only exact change.
+3. **The mug.** Kyle won't sell to staff ("Lanyard."), and takes only exact change: ask for it, or
+   hand over the money.
 
 ### The Break Room
 
@@ -170,9 +187,9 @@ Three puzzles in any order:
 
 1. **Clocking out.** The time card is in the fridge, under a yogurt used as a paperweight. Time card
    on the time clock: OFF DUTY, and Dana flips the badge. Legally a customer.
-2. **The locker.** The combination is Dana's employee number, in tiny print on the lanyard (007).
-   Inside: the pay packet, $12.98.
-3. **The cent.** One cent in the vending machine's coin return. Combined with the pay packet:
+2. **The locker.** The combination is Dana's employee number. Looking at the lanyard finds small
+   print under TRAINEE; squinting at it reads 007. Inside: the pay packet, $12.98.
+3. **The cent.** One cent in the vending machine's coin return: take it. Combined with the pay packet:
    exact change, $12.99.
 
 Reginald is heard here over the intercom, "directing".

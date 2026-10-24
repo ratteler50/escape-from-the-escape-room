@@ -317,17 +317,27 @@ export class RoomScene extends Phaser.Scene {
       case 'sound':
         if (!this.skipping) gameAudio(this).play(effect.sound);
         break;
+      // Hotspots and overlays can depend on what Dana holds (slice 33: the script on its shelf in the
+      // open coffin), so they redraw with the inventory.
       case 'addItem':
         if (!this.skipping) gameAudio(this).play('pickup');
         this.refreshInventory();
+        this.refreshHotspots();
         break;
       case 'removeItem':
         this.refreshInventory();
+        this.refreshHotspots();
         break;
       case 'setFlag':
         this.shownFlags = { ...this.shownFlags, [effect.flag]: true };
         this.refreshHotspots();
         break;
+      case 'clearFlag': {
+        const { [effect.flag]: _cleared, ...flags } = this.shownFlags;
+        this.shownFlags = flags;
+        this.refreshHotspots();
+        break;
+      }
       case 'startDialogue':
       case 'endDialogue':
         break;
@@ -389,7 +399,8 @@ export class RoomScene extends Phaser.Scene {
   /** The queue is empty: hand control back to the player, in the room or in the conversation. */
   private idle(): void {
     // Catch up with the core (normally the queue already has, flag by flag).
-    const behind = Object.keys(this.state.flags).some((f) => this.state.flags[f] !== this.shownFlags[f]);
+    const flags = new Set([...Object.keys(this.state.flags), ...Object.keys(this.shownFlags)]);
+    const behind = [...flags].some((f) => !this.state.flags[f] !== !this.shownFlags[f]);
     this.shownFlags = this.state.flags;
     if (behind) this.refreshHotspots();
     this.busy = false;

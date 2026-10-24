@@ -13,7 +13,7 @@ numbers are there to say so.
 | 1 | Nobody has ever beaten the escape room. | It's in bold. Head office is very proud of it. | Stated like a selling point. |
 | 2 | Know your number. | Mine is printed on my lanyard, in a font size head office calls "discreet". |  |
 | 3 | Lost property must be returned and logged. | The log is a sticky note on page 31. It says UMBRELLA (BLACK). It has said that since 2019. |  |
-| 4.2 | Never touch the guests. | There's a footnote. The footnote is a drawing of a sad face. | Dana's loophole: it says nothing about liches, or skeletons (taking Gary's arm). |
+| 4.2 | Never touch the guests. | There's a footnote. The footnote is a drawing of a sad face. | Dana's loophole: it says nothing about liches, or skeletons (taking Gary's arm). Never aimed at Reginald: quoting it at him implies he touches guests (slice 33 moved those lines to Section 16). |
 | 5 | No card, no clock. | Followed by three pages on what counts as a card. Library cards do not. |  |
 | 5.3 | Off-duty staff are customers like anyone else. | There is a whole page on looking off duty. It mostly says "flip your badge". |  |
 | 6 | Respect your colleagues' dairy products. | Underlined twice, in someone else's pen. | "Products" so nobody reads "diary". |
@@ -27,7 +27,7 @@ numbers are there to say so.
 | 14 | Staff may not borrow equipment from other departments. | Something has been stapled over it. I don't have time for inserts. I'm a bit cursed at the moment. | The old Section 14, which Dana memorised. The revised one is stapled over it (below). |
 | 14.1 | Staff may not re-price items for personal gain. | Head office has underlined "personal". Twice. |  |
 | 15 | Always contribute. | The next page is the staff social sign-up sheet. Gary has signed it every month. |  |
-| 16 | Staff must never be scarier than the attractions. | There's a photo of Reginald next to it, crossed out. |  |
+| 16 | Staff must never be scarier than the attractions. | There's a photo of Reginald next to it, crossed out. | The section Dana quotes at Reginald and his cardboard cut-out ("Darling, I AM the attraction."). |
 | 18 | In an emergency, consult the Handbook. | I am consulting it. It is telling me to consult it. |  |
 | 19 | All attractions are to be enjoyed in landscape. | I've turned the Handbook sideways to read it. It's the only way to be sure. | The sideways screen on an upright phone (slice 32). |
 | 21 | Staff may not name the props. | Gary's name tag is stapled to this page. |  |

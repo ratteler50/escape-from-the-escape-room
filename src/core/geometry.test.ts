@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { clampToPolygon, pointInPolygon, type Polygon } from './geometry';
+import { clampToPolygon, onPolygon, pointInPolygon, type Polygon } from './geometry';
 
 // A 100×100 square with its top-left corner at (0, 0).
 const square: Polygon = [
@@ -51,5 +51,19 @@ describe('clampToPolygon', () => {
   it('clamps onto a slanted edge', () => {
     const clamped = clampToPolygon({ x: 640, y: 100 }, floor);
     expect(clamped).toEqual({ x: 640, y: 400 });
+  });
+});
+
+describe('onPolygon', () => {
+  it('counts inside and on the edge as on the floor, within a pixel', () => {
+    expect(onPolygon({ x: 50, y: 50 }, square)).toBe(true);
+    expect(pointInPolygon({ x: 100, y: 50 }, square), 'pointInPolygon calls the edge outside').toBe(false);
+    expect(onPolygon({ x: 100, y: 50 }, square)).toBe(true);
+    expect(onPolygon({ x: 100.5, y: 50 }, square)).toBe(true);
+    expect(onPolygon({ x: 105, y: 50 }, square)).toBe(false);
+  });
+
+  it('accepts wherever walking can put Dana', () => {
+    for (const click of [{ x: 300, y: -40 }, { x: -10, y: 50 }, { x: 999, y: 999 }]) expect(onPolygon(clampToPolygon(click, floor), floor)).toBe(true);
   });
 });

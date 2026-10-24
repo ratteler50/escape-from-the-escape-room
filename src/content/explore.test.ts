@@ -14,7 +14,6 @@ describe('flavour bits', () => {
   });
 
   it('keeps options with real effects distinct', () => {
-    expect(flavour.spentOptions, 'sets the flag the finale needs').not.toContain('kyle.buyMug');
     expect(flavour.spentOptions, 'sets the flag that lets the Handbook borrow the Price Gun').not.toContain('mordecai.teapot');
   });
 
@@ -47,6 +46,85 @@ describe('flavour bits', () => {
     expect(bits.spentOptions).not.toContain('test.onlyExit');
   });
 
+  it('treats a flag that only picks which line is said as flavour, and one that changes anything else as real (slice 33)', () => {
+    const say = (text: string) => ({ type: 'say' as const, text });
+    const room = world.rooms.lair!;
+    const door = {
+      id: 'testDoor',
+      name: 'Test door',
+      bounds: { x: 0, y: 0, width: 1, height: 1 },
+      interactionPoint: room.entries.start!,
+      verbs: {
+        // Only picks the line: flavour.
+        look: { responses: [{ when: [{ flag: 'tried' }], effects: [say('Locked, as I found out.')] }, { effects: [say('A door.')] }] },
+        // Picks between lines, but one response also sets a flag: real.
+        talk: { responses: [{ when: [{ flag: 'knocked' }], effects: [say('Hello again.')] }, { effects: [say('Hello?'), { type: 'setFlag' as const, flag: 'answered' }] }] },
+        // Gates a verb: real, even though the verb only talks.
+        take: { when: [{ flag: 'gate' }], responses: [{ effects: [say('Nope.')] }] },
+        use: { responses: [{ effects: [say('It rattles.'), { type: 'setFlag' as const, flag: 'tried' }, { type: 'setFlag' as const, flag: 'knocked' }, { type: 'setFlag' as const, flag: 'gate' }] }] },
+      },
+    };
+    const w: World = { ...world, rooms: { ...world.rooms, lair: { ...room, hotspots: [...room.hotspots, door] } } };
+    const bits = flavourBits(w);
+    expect(bits.flags).toContain('tried');
+    expect(bits.flags).not.toContain('knocked');
+    expect(bits.flags).not.toContain('gate');
+  });
+
+  it('treats a flag that only offers a talk-only option back to the same menu as flavour (slice 33)', () => {
+    // Saying it changes nothing a player can do: the option only talks and returns where it was.
+    const say = (text: string) => ({ type: 'say' as const, text });
+    const w = {
+      ...world,
+      dialogues: {
+        ...world.dialogues,
+        test: {
+          id: 'test',
+          start: 'hub',
+          greeting: [{ effects: [say('Hi.'), { type: 'setFlag', flag: 'chatty' }, { type: 'setFlag', flag: 'opensDoor' }, { type: 'setFlag', flag: 'leaves' }] }],
+          nodes: {
+            hub: {
+              options: [
+                { id: 'chat', text: 'a', once: true, when: [{ flag: 'chatty' }], effects: [say('x')], next: 'hub' },
+                { id: 'real', text: 'b', when: [{ flag: 'opensDoor' }], effects: [{ type: 'setFlag', flag: 'doorOpen' }], next: 'hub' },
+                { id: 'away', text: 'c', when: [{ flag: 'leaves' }], effects: [say('y')], next: 'end' },
+              ],
+            },
+          },
+        },
+      },
+    } as unknown as World;
+    const bits = flavourBits(w);
+    expect(bits.flags).toContain('chatty');
+    expect(bits.flags, 'gates an option with real effects').not.toContain('opensDoor');
+    expect(bits.flags, 'gates an option that leaves the menu').not.toContain('leaves');
+  });
+
+  it("never treats a flag that decides which dialogue options appear as flavour, even if they only talk", () => {
+    const say = (text: string) => ({ type: 'say' as const, text });
+    const w = {
+      ...world,
+      dialogues: {
+        ...world.dialogues,
+        test: {
+          id: 'test',
+          start: 'hub',
+          greeting: [{ effects: [say('Hi.'), { type: 'setFlag', flag: 'knowsSecret' }] }],
+          nodes: {
+            hub: {
+              options: [
+                // Leads out of the conversation, so its condition matters (a looping, talk-only one wouldn't).
+                { id: 'secret', text: 'a', when: [{ flag: 'knowsSecret' }], effects: [say('x')], next: 'end' },
+                { id: 'bye', text: 'b', effects: [say('y')], next: 'end' },
+              ],
+            },
+          },
+        },
+      },
+    } as unknown as World;
+    expect(flavourBits(w).flags).not.toContain('knowsSecret');
+  });
+
   it('never treats a flag that a condition reads as flavour', () => {
     for (const flag of ['heardTeapotComplaint', 'danaOffDuty', 'staffDoorOpen', 'won']) expect(flavour.flags).not.toContain(flag);
   });
@@ -67,6 +145,10 @@ describe('flavour bits', () => {
     const result = explore(world, initialState);
     expect(result.capped).toBe(false);
     const solution = shortestSolution(world, initialState);
-    expect(solution.at(-1)).toEqual({ type: 'chooseOption', optionId: 'sale' });
+    // Slice 33: handing Kyle the Exact Change buys the mug too, one step shorter than asking.
+    expect([
+      { type: 'chooseOption', optionId: 'sale' },
+      { type: 'useItemOn', itemId: 'exactChange', hotspotId: 'kyle' },
+    ]).toContainEqual(solution.at(-1));
   });
 });
