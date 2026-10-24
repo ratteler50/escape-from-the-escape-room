@@ -361,8 +361,12 @@ describe('content validation', () => {
           for (const [verb, spec] of Object.entries(hotspot.verbs)) {
             it(`verb "${verb}" is well-formed`, () => {
               const where = `${hotspot.id}.verbs.${verb}`;
-              if (spec.label !== undefined) {
+              if (typeof spec.label === 'string') {
                 expect(spec.label.trim(), `${where}.label is empty; remove it to use the default verb name`).not.toBe('');
+              } else if (spec.label !== undefined) {
+                // Labels with conditions (slice 33): none empty, and the last one always applies.
+                for (const l of spec.label) expect(l.text.trim(), `${where}.label has an empty text`).not.toBe('');
+                expect(spec.label.at(-1)?.when, `${where}.label's last entry needs no conditions, so there's always a label`).toBeUndefined();
               }
               expectValidResponses(spec.responses, where);
             });

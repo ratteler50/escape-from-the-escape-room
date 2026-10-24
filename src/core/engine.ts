@@ -137,7 +137,8 @@ export function availableVerbs(world: World, state: GameState, hotspotId: Hotspo
   return VERBS.flatMap((verb) => {
     const spec: VerbSpec | undefined = hotspot.verbs[verb];
     if (!spec || !holds(state, spec.when)) return [];
-    return [{ verb, label: spec.label ?? DEFAULT_LABELS[verb] }];
+    const label = typeof spec.label === 'string' ? spec.label : spec.label?.find((l) => holds(state, l.when))?.text;
+    return [{ verb, label: label ?? DEFAULT_LABELS[verb] }];
   });
 }
 

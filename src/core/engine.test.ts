@@ -206,6 +206,23 @@ describe('availableVerbs', () => {
   it('returns just look for a look-only hotspot', () => {
     expect(availableVerbs(world, start, 'rug')).toEqual([{ verb: 'look', label: 'Look' }]);
   });
+
+  it('picks the first label whose conditions hold, so one verb can read Open or Close (slice 33)', () => {
+    const rug = world.rooms.testRoom!.hotspots.find((h) => h.id === 'rug')!;
+    const lift = {
+      label: [{ when: [{ flag: 'rugUp' as const }], text: 'Put it down' }, { text: 'Lift' }],
+      responses: [{ effects: [say('Dust.')] }],
+    };
+    const w: World = {
+      ...world,
+      rooms: {
+        ...world.rooms,
+        testRoom: { ...world.rooms.testRoom!, hotspots: world.rooms.testRoom!.hotspots.map((h) => (h === rug ? { ...rug, verbs: { ...rug.verbs, use: lift } } : h)) },
+      },
+    };
+    expect(availableVerbs(w, start, 'rug').at(-1)).toEqual({ verb: 'use', label: 'Lift' });
+    expect(availableVerbs(w, { ...start, flags: { rugUp: true } }, 'rug').at(-1)).toEqual({ verb: 'use', label: 'Put it down' });
+  });
 });
 
 describe('handle: verb', () => {

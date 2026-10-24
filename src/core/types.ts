@@ -59,8 +59,11 @@ export interface Response {
 }
 
 export interface VerbSpec {
-  /** Replaces the verb's name on the coin, for jokes ("Borrow a limb"). */
-  label?: string;
+  /**
+   * Replaces the verb's name on the coin, for jokes ("Borrow a limb"). Or labels with conditions,
+   * the first that holds wins, so one verb can read Open or Close (slice 33); end with one without.
+   */
+  label?: string | readonly { when?: Condition[]; text: string }[];
   /** The verb is only offered while these hold. Omit to always offer it. */
   when?: Condition[];
   /** Checked in order. The last one should have no `when`, so there is always a fallback. */
