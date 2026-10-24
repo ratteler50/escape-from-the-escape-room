@@ -23,7 +23,8 @@ missed. Terms are from `docs/glossary.md`. Content is typed TypeScript in `src/c
   `danaOffDuty`). There is no flag list: a flag exists once some effect sets it.
 - **Text:** every hotspot and item has a look line, and every hotspot a line for the Employee
   Handbook (`itemUses: { [handbook.id]: [...] }`, see `handbook.ts`). Dana quotes only Handbook
-  sections in the table in `docs/design.md` (add new ones there). Mark a line `// DRAFT:` only to
+  sections listed in `src/content/handbookSections.ts` (add new ones there, then `npm run handbook`
+  to update `docs/handbook.md`). Mark a line `// DRAFT:` only to
   ask the developer about it; `npm run drafts` lists them in `docs/drafts.md`.
 
 ## A new room
@@ -86,8 +87,8 @@ Run `npm test` after each step; failure messages say what to fix.
 | `src/content/pack.test.ts` | Two packs defining the same id |
 | `src/content/winnable.test.ts` | Dead ends, unreachable rooms or items, commands that throw, the state cap; prints the shortest solution |
 | `src/content/assets.test.ts` | Missing art or audio files, uncredited assets, an item without an icon, the 15 MB budget |
-| `src/content/handbook.test.ts` | A hotspot with no Handbook line; any "Section N" that isn't in the design doc's Handbook table |
-| `src/content/loading.test.ts` | Loading lines quoting a Handbook section that isn't in the design doc's table |
+| `src/content/handbook.test.ts` | A hotspot with no Handbook line; any "Section N" that isn't in `handbookSections.ts`; `docs/handbook.md` out of date: run `npm run handbook` |
+| `src/content/loading.test.ts` | Loading lines quoting a Handbook section that isn't in `handbookSections.ts` |
 | `src/content/drafts.test.ts` | `docs/drafts.md` out of date: run `npm run drafts` |
 | `src/view/touchArea.test.ts` | The list of hotspots that get a bigger touch area on phones (smaller than 88×88): update it when a new small hotspot is added, and check it isn't crowded by its neighbours |
 | `e2e/game.spec.ts` (`npm run test:e2e`) | The shortest solution doesn't play through with real clicks (and, in the phone project, with taps); console errors on load. Its music checks name the first and last rooms' tracks, so update them if those change |

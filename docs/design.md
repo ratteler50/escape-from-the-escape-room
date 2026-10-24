@@ -50,44 +50,10 @@ PG, absurdist, wordplay, light fourth-wall poking. Never mean-spirited, never gr
 
 ### The Employee Handbook
 
-Dana quotes it constantly, and carries it (slice 29). Each section means one thing everywhere; check
-this list before quoting a section, and add new ones here (`src/content/handbook.test.ts` fails on a
-section that isn't listed). It runs to about 400 sections; this list is the ones the game
-quotes, and the big numbers are there to say so.
-
-| Section | Rule |
-|---------|------|
-| 1 | Nobody has ever beaten the escape room (stated like a selling point) |
-| 2 | Know your number (your employee number) |
-| 3 | Lost property must be returned (and logged) |
-| 4.2 | Never touch the guests (says nothing about liches, or skeletons) |
-| 5 | No card, no clock |
-| 5.3 | Off-duty staff are customers like anyone else |
-| 6 | Respect your colleagues' dairy products ("products" so nobody reads "diary") |
-| 7.1 | The Spooky Seat is for liches only |
-| 8 | Be thorough; found money under five cents belongs to the finder |
-| 9 | Doors must never be locked during business hours |
-| 10 | Always require exact change (the till never gives change) |
-| 11 | Employees may not review their own workplace |
-| 12 | Do not improvise with props |
-| 13 | Intentionally left blank (head office is superstitious) |
-| 14 / 14.1 | Old (memorised by Dana): staff may not borrow equipment from other departments; revised (an insert stapled over it last week): staff may borrow equipment for re-pricing / but not for personal gain |
-| 15 | Always contribute |
-| 16 | Staff must never be scarier than the attractions |
-| 18 | In an emergency, consult the Handbook |
-| 19 | All attractions are to be enjoyed in landscape (the sideways screen on an upright phone) |
-| 21 | Staff may not name the props (Gary's name tag is stapled to it) |
-| 27 | Smile at every guest |
-| 33 | Staff must wear a name tag at all times |
-| 42 | Do not feed the lich ("the sandwich incident") |
-| 57 | Staff must congratulate any guest who solves a puzzle |
-| 88 | Staff may not understudy the lich (added by Reginald, in red pen) |
-| 113 | Clues may not be written on the staff |
-| 150 | Lost guests must be found within one business day |
-| 204 | All complaints must be sent in writing to head office (whose address isn't in the Handbook) |
-| 276 | The Handbook may only be read on break |
-| 311 | Paper cuts from the Handbook are not covered by staff insurance |
-| 400 | This Handbook replaces all previous Handbooks (there have been nine) |
+Dana quotes it constantly, and carries it (slice 29). Each section means one thing everywhere. All of
+them, with the comment Dana makes reading each one out, are in **`docs/handbook.md`**, generated from
+the one list in `src/content/handbookSections.ts`: add a new section there before quoting it
+(`src/content/handbook.test.ts` fails on a section that isn't listed).
 
 Reginald's **actors' union contract** is separate: section nine, the show does not stop until the
 final cue; section twelve, wrongful loss of a role.

@@ -15,7 +15,7 @@ current.
 | **Exit** | A hotspot whose "Go through" verb runs `goToRoom { roomId, entry }`. The core reports it (`isExit`), and the view gives it an exit cursor. |
 | **Item** | Something in the inventory. Has an id, a name, an icon and a look line. |
 | **Character** | Someone who speaks: an id, a name, a speech colour, optional sprites (`world.characters`). Dana is the player character; lines with no speaker are theirs. A character is drawn where their hotspot is; one with no hotspot (Reginald on the intercom) speaks over Dana. |
-| **The Employee Handbook** | Dana's item and running joke. Its sections are listed in `docs/design.md`, and each means one thing everywhere; a test rejects a section that isn't listed. |
+| **The Employee Handbook** | Dana's item and running joke. Its sections are the one list in `src/content/handbookSections.ts` (shown in `docs/handbook.md`), and each means one thing everywhere; a test rejects a section that isn't listed. |
 | **Win** | The `win` effect: sets the `won` flag, and the view shows the end card (THE END?). |
 
 ## Playing

@@ -56,6 +56,8 @@ Repo: `ratteler50/escape-from-the-escape-room` (public, MIT for code). `main` on
 - `npm test` — all Vitest tests (core, content validation, architecture guard)
 - `npm run typecheck` — strict TypeScript, no emit
 - `npm run build` — typecheck + production bundle in `dist/`
+- `npm run drafts`, `npm run handbook` — regenerate `docs/drafts.md` and `docs/handbook.md` (tests fail
+  when they're out of date)
 - `npm run test:e2e` — Playwright end-to-end tests: builds, serves with `vite preview`, and plays the
   game in Chromium with real clicks (`e2e/`; CI runs them in `.github/workflows/e2e.yml`). First
   time: `npx playwright install chromium`. `e2e/game.ts` reads view internals to find click
