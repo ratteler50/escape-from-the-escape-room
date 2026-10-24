@@ -89,7 +89,8 @@ Decisions from the slice 29 questions (2026-10-23).
 - **sayOneOf:** a core effect type the engine passes through; `RoomScene` picks a line with
   `pickLine` (tested), remembering the last pick per line list. `explore.ts` treats it as
   presentation, and content validation wants at least two non-empty lines.
-- **The Handbook:** `src/content/handbook.ts` (item, eight readings, pack). Its line for each hotspot
+- **The Handbook:** `src/content/handbook.ts` (item, 14 readings, pack: six were added at the
+  developer's request, with new Sections 16 and 18 in the design doc's table). Its line for each hotspot
   sits in that hotspot's `itemUses`, in the room or character file, so it's next to the hotspot's
   other lines. Variants: the Lair door (locked or unlocked), the lockers (before or after Dana
   learns 007). Combinations live with the other item: Reginald's Script (`reginald.ts`), the Price

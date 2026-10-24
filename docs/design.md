@@ -73,6 +73,8 @@ section, and add new ones here.
 | 13 | Intentionally left blank (head office is superstitious) |
 | 14 / 14.1 | Staff may borrow equipment for re-pricing / but not for personal gain |
 | 15 | Always contribute |
+| 16 | Staff must never be scarier than the attractions |
+| 18 | In an emergency, consult the Handbook |
 
 Reginald's **actors' union contract** is separate: section nine, the show does not stop until the
 final cue; section twelve, wrongful loss of a role.
