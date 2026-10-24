@@ -77,6 +77,14 @@ Decisions from the slice 30 questions (2026-10-23).
   from then on Read swaps the old Section 14 for "Section 14, revised: 'Staff may borrow equipment
   for re-pricing.' Stapled over the old one. I know it by heart now." The loading screen keeps the
   old printed rule. The flag comes with the gun, so the state count is unchanged (1,820).
+- **"About your teapot..." (developer's call):** asked again, Mordecai now points at the next step:
+  without the gun, "The one at the till has the pricing contraption. That little book of yours must
+  say how to borrow it."; with it, "You HAVE the contraption. Point it at the TEAPOT."
+- **Bug fix from slice 29 (found by the developer on the live site):** under Phaser's Canvas
+  renderer (Chrome without WebGL), the character glow threw: filters exist only under WebGL. The
+  error stopped the hover handler, so holding an item over a character showed "Use X with…".
+  `RoomView.glow` now does nothing outside WebGL; hovering shows just the name there. Checked by
+  running the dev build on Canvas.
 - **Tests:** `giftShop.test.ts` covers the brush-off, the solution, no second gun, no gun after it's
   handed back, the till and bin hints, and that Kyle's dialogue no longer offers Section 14.
   `explore.test.ts` checks `kyle.buyMug` instead of the removed option.

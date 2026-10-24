@@ -1,6 +1,7 @@
 import type { Dialogue, Hotspot } from '../core/types';
 import { say, says, setFlag, startDialogue } from './dsl';
 import { K, M, mordecai } from './cast';
+import { priceGun } from './kyle';
 import type { ContentPack } from './pack';
 import { handbook } from './handbook';
 
@@ -113,11 +114,19 @@ export const mordecaiDialogue: Dialogue = {
           ],
           next: 'hub',
         },
+        // Asked again, he points Dana at the next step: the Handbook (slice 30), then the teapot.
         {
           id: 'teapotAgain',
           text: 'About your teapot...',
-          when: [{ flag: 'heardTeapotComplaint' }],
-          effects: [M('TWO. DOLLARS.')],
+          when: [{ flag: 'heardTeapotComplaint' }, { lacks: priceGun.id }],
+          effects: [M('TWO. DOLLARS.'), M('The one at the till has the pricing contraption. That little book of yours must say how to borrow it.')],
+          next: 'hub',
+        },
+        {
+          id: 'teapotAgainArmed',
+          text: 'About your teapot...',
+          when: [{ flag: 'heardTeapotComplaint' }, { has: priceGun.id }],
+          effects: [M('You HAVE the contraption. Point it at the TEAPOT.')],
           next: 'hub',
         },
         {
