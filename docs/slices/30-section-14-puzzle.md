@@ -1,7 +1,7 @@
 # Slice 30 — Section 14: a Handbook puzzle
 
-**Status:** spec approved by the developer (2026-10-23); built and agent play-tested · **Milestone:** M4, its last slice
-(added after slice 29, 2026-10-23) · built on slice 29 (PR #37); rebased onto `main` once it merges
+**Status:** built, agent and developer play-tested; merged in PR #38, 2026-10-23 · **Milestone:** M4,
+its last slice, and the last of the project (added after slice 29, 2026-10-23)
 
 ## Why
 
