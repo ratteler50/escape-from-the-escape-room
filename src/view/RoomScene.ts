@@ -16,6 +16,7 @@ import type { GameData } from './TitleScene';
 import { button, UI } from './ui';
 import { VerbCoin } from './VerbCoin';
 import { USE_WITH_ICON, VERB_ICONS } from './icons';
+import { pickLine } from './pickLine';
 
 const INVENTORY_TOP = 630;
 const HELD_ICON_SIZE = 40;
@@ -56,6 +57,8 @@ export class RoomScene extends Phaser.Scene {
    * door opening) when the queue reaches them, not all at the first one.
    */
   private shownFlags!: GameState['flags'];
+  /** The line each `sayOneOf` said last, so it doesn't say it twice in a row. Keyed by its line list. */
+  private readonly lastPicked = new WeakMap<readonly string[], number>();
   private busy = false;
   private menuOpen = false;
   /** Skip ⏭ pressed: play the rest of the queue instantly, keeping every effect that matters. */
@@ -289,6 +292,12 @@ export class RoomScene extends Phaser.Scene {
       case 'say':
         if (this.skipping) break;
         return this.say(effect.text, effect.speaker ?? PLAYER);
+      case 'sayOneOf': {
+        if (this.skipping) break;
+        const i = pickLine(effect.texts.length, this.lastPicked.get(effect.texts));
+        this.lastPicked.set(effect.texts, i);
+        return this.say(effect.texts[i]!, effect.speaker ?? PLAYER);
+      }
       case 'walk':
         return this.walkInScene(effect.character, effect.to);
       case 'pause': {

@@ -2,6 +2,7 @@ import type { Combination, Dialogue, Item, Room } from '../core/types';
 import { addItem, goTo, removeItem, say, says, setFlag, startDialogue, walk } from './dsl';
 import { R } from './cast';
 import type { ContentPack } from './pack';
+import { handbook } from './handbook';
 
 // The Break Room (slice 15): three parallel puzzles from the M3 plan (docs/design.md). Clock out
 // with the time card from the fridge; open the locker with the number on the lanyard; add the
@@ -69,12 +70,14 @@ export const exactChange: Item = {
 };
 
 const combinations: Combination[] = [
+  { items: [handbook.id, lanyard.id], responses: [{ effects: [say("Section 2: know your number. It's on the lanyard, in very small print. The Handbook assumes I've read it.")] }] },
+  { items: [handbook.id, offDutyLanyard.id], responses: [{ effects: [say('Section 5.3: off-duty staff are customers like anyone else. Badge flipped, clocked out. The Handbook and I agree: I am a customer.')] }] },
   {
     items: [payPacket.id, oneCent.id],
     responses: [
       {
         effects: [
-          say('I drop the cent into the pay packet. $12.99. Exact change. Handbook Section 10: "Always offer exact change." Nobody ever has. Until now.'),
+          say('I drop the cent into the pay packet. $12.99. Exact change. Handbook Section 10: "Always require exact change." I\'ve required it of a hundred guests. Nobody ever had it. Until now.'),
           removeItem(payPacket.id),
           removeItem(oneCent.id),
           addItem(exactChange.id),
@@ -183,6 +186,9 @@ export const breakRoom: Room = {
       name: 'Gift Shop Door',
       bounds: { x: 36, y: 142, width: 156, height: 320 },
       interactionPoint: { x: 205, y: 488 },
+      itemUses: {
+        [handbook.id]: [{ effects: [say('STAFF ONLY on both sides. The Handbook has a diagram of it. The diagram also says STAFF ONLY.')] }],
+      },
       verbs: {
         look: says('The door back to the Gift Shop. This side says STAFF ONLY. The other side also says STAFF ONLY. Very consistent. Very unwelcoming.'),
         use: {
@@ -196,6 +202,9 @@ export const breakRoom: Room = {
       name: 'Noticeboard',
       bounds: { x: 216, y: 186, width: 178, height: 138 },
       interactionPoint: { x: 305, y: 488 },
+      itemUses: {
+        [handbook.id]: [{ effects: [say('The Handbook says Employee of the Month is "to be confirmed". The noticeboard says Gary. The noticeboard is right.')] }],
+      },
       verbs: {
         look: says('"EMPLOYEE OF THE MONTH: GARY." Again. Below it: "WHO KEEPS TAKING THE STAPLER? —Management." And: "It is in the Lair. It is the Stapler of Doom now. —R."'),
         use: says('"STAFF SOCIAL: Bring a dish!" Signed up: Gary (bringing "nothing"), Reginald (bringing "gravitas"). I add "Dana: crisps". Handbook Section 15: always contribute.', 'Sign up'),
@@ -222,6 +231,7 @@ export const breakRoom: Room = {
         },
       },
       itemUses: {
+        [handbook.id]: [{ effects: [say('Section 5: "No card, no clock." The Handbook is many things, but it is not a card.')] }],
         [timeCard.id]: [
           {
             when: [{ notFlag: 'danaOffDuty' }],
@@ -247,6 +257,12 @@ export const breakRoom: Room = {
       bounds: { x: 532, y: 166, width: 152, height: 300 },
       // Beside the fridge, not in front of it, so Dana doesn't hide what's inside once it's open.
       interactionPoint: { x: 712, y: 492 },
+      itemUses: {
+        [handbook.id]: [
+          { when: [{ flag: 'fridgeOpen' }], effects: [say("Section 6: respect your colleagues' dairy products. I hold the page up so the yogurt can see I'm on its side.")] },
+          { effects: [say("Section 6: respect your colleagues' dairy products. I can't see any from here. I respect them in principle.")] },
+        ],
+      },
       verbs: {
         look: {
           responses: [
@@ -274,7 +290,7 @@ export const breakRoom: Room = {
           responses: [
             {
               effects: [
-                say('I lift the yogurt, take my time card, and put the yogurt back exactly where it was. Handbook Section 6: respect your colleagues\' dairy.'),
+                say('I lift the yogurt, take my time card, and put the yogurt back exactly where it was. Handbook Section 6: respect your colleagues\' dairy products.'),
                 addItem(timeCard.id),
                 setFlag('tookTimeCard'),
               ],
@@ -308,6 +324,7 @@ export const breakRoom: Room = {
         use: says("The crisps are $1.50, and every cent I've got is spoken for. Hang in there, crisps.", 'Buy a snack'),
       },
       itemUses: {
+        [handbook.id]: [{ effects: [say('Section 8: be thorough. I thoroughly confirm the Handbook does not fit in the coin slot.')] }],
         [oneCent.id]: [{ effects: [say("I'm not feeding it back. That cent and I have plans.")] }],
         [payPacket.id]: [{ effects: [say('Spend my wages on crisps? The mug is the only thing I need. The crisps can wait. They have been waiting for years.')] }],
         [exactChange.id]: [{ effects: [say('Break exact change? For crisps? Never.')] }],
@@ -344,6 +361,7 @@ export const breakRoom: Room = {
         },
       },
       itemUses: {
+        [handbook.id]: [{ when: [{ flag: 'learnedEmployeeNumber' }], effects: [say('The Handbook says my locker combination is my employee number. 007. The Handbook would be proud of me.')] }, { effects: [say('Section 2: know your number. The Handbook says my locker combination is my employee number. It does not say what my employee number is.')] }],
         [lanyard.id]: [{ effects: [say("The lock wants a number, not a lanyard. Though the number IS on the lanyard. I should probably read it.")] }],
         [offDutyLanyard.id]: [{ effects: [say('The lock wants a number, not a badge. Though the number IS on the badge, in tiny letters. I should probably read it.')] }],
       },
@@ -353,6 +371,9 @@ export const breakRoom: Room = {
       name: 'Intercom',
       bounds: { x: 1156, y: 242, width: 72, height: 94 },
       interactionPoint: { x: 1165, y: 488 },
+      itemUses: {
+        [handbook.id]: [{ effects: [say('I read Section 1 into the intercom.'), R('Louder, darling. From the diaphragm.')] }],
+      },
       verbs: {
         look: says('The staff intercom to the Lair. A label: "FOR EMERGENCIES ONLY." Someone has added: "AND REGINALD\'S NOTES."'),
         talk: {

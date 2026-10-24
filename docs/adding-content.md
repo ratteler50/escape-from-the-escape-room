@@ -12,7 +12,7 @@ missed. Terms are from `docs/glossary.md`. Content is typed TypeScript in `src/c
 - **Characters live in `cast.ts`**, with one helper each for their lines (`R`, `K`, `M`). Room and
   dialogue files import characters from `cast.ts`, never from each other's files, so there are no
   import cycles.
-- **Effects are written with the DSL** (`dsl.ts`): `say`, `line`, `says`, `setFlag`, `addItem`,
+- **Effects are written with the DSL** (`dsl.ts`): `say`, `sayOneOf`, `line`, `says`, `setFlag`, `addItem`,
   `removeItem`, `goTo`, `startDialogue`, `endDialogue`, `win`, `walk`, `pause`, `face`, `sound`. Don't
   write `{ type: … }` objects by hand.
 - **Ids are plain strings** checked by the content tests, not the compiler. Where a file can import
@@ -21,9 +21,10 @@ missed. Terms are from `docs/glossary.md`. Content is typed TypeScript in `src/c
 - **Flags** follow the glossary's convention: something that happened is a past-tense phrase
   (`tookGaryArm`, `learnedCue`); a lasting state is a subject and an adjective (`caseOpen`,
   `danaOffDuty`). There is no flag list: a flag exists once some effect sets it.
-- **Text:** every hotspot and item has a look line; Dana quotes only Handbook sections in the table
-  in `docs/design.md` (add new ones there). Mark a line `// DRAFT:` only to ask the developer about
-  it; `npm run drafts` lists them in `docs/drafts.md`.
+- **Text:** every hotspot and item has a look line, and every hotspot a line for the Employee
+  Handbook (`itemUses: { [handbook.id]: [...] }`, see `handbook.ts`). Dana quotes only Handbook
+  sections in the table in `docs/design.md` (add new ones there). Mark a line `// DRAFT:` only to
+  ask the developer about it; `npm run drafts` lists them in `docs/drafts.md`.
 
 ## A new room
 
@@ -84,6 +85,7 @@ Run `npm test` after each step; failure messages say what to fix.
 | `src/content/pack.test.ts` | Two packs defining the same id |
 | `src/content/winnable.test.ts` | Dead ends, unreachable rooms or items, commands that throw, the state cap; prints the shortest solution |
 | `src/content/assets.test.ts` | Missing art or audio files, uncredited assets, an item without an icon, the 15 MB budget |
+| `src/content/handbook.test.ts` | A hotspot with no Handbook line; any "Section N" that isn't in the design doc's Handbook table |
 | `src/content/loading.test.ts` | Loading lines quoting a Handbook section that isn't in the design doc's table |
 | `src/content/drafts.test.ts` | `docs/drafts.md` out of date: run `npm run drafts` |
 | `e2e/game.spec.ts` (`npm run test:e2e`) | The shortest solution doesn't play through with real clicks; console errors on load. Its music checks name the first and last rooms' tracks, so update them if those change |

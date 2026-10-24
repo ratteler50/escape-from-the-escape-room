@@ -66,7 +66,7 @@ export function flavourBits(w: World): Flavour {
   read.add(WON);
 
   const isFlavourFlag = (flag: string) => !read.has(flag);
-  const presentation = new Set(['say', 'pause', 'face', 'walk', 'sound']);
+  const presentation = new Set(['say', 'sayOneOf', 'pause', 'face', 'walk', 'sound']);
   const flags = new Set<string>();
   const spentOptions = new Set<string>();
   for (const dialogue of Object.values(w.dialogues)) {

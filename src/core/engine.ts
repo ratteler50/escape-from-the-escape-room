@@ -205,10 +205,11 @@ function holds(state: GameState, conditions: readonly Condition[] = []): boolean
   });
 }
 
-/** Applies one effect's state change. Effects that only affect presentation (say) return state as is. */
+/** Applies one effect's state change. Effects that only affect presentation (say, sayOneOf, sound…) return state as is. */
 function apply(world: World, state: GameState, effect: Effect): GameState {
   switch (effect.type) {
     case 'say':
+    case 'sayOneOf':
     case 'walk':
     case 'pause':
     case 'face':

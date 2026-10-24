@@ -39,6 +39,7 @@ Shared vocabulary for the game and the codebase. Use these terms in code, docs, 
 | **Slot** | Where a save lives: `auto` (written whenever the game comes to rest) or `slot1`–`slot3` (manual). |
 | **Settings** | Player preferences (text speed), stored apart from saves. |
 | **Cutscene step** | A presentation-only effect (`walk`, `pause`, `face`): the core passes it through, the view animates it. |
+| **sayOneOf** | A presentation-only effect: one of several lines, picked at random by the view (never the same twice in a row). The core passes it through; puzzles never depend on which line. Reading the Handbook uses it. |
 | **Skip** | Skip ⏭ / Escape during a sequence: finish the current step and play the rest instantly, keeping every effect that matters. |
 | **Typewriter** | Lines type out at the text speed. The first click completes a line; the next moves on. |
 | **Name tag** | The speaker's name above a line, for everyone but Dana. |

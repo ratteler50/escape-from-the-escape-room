@@ -52,8 +52,9 @@ PG, absurdist, wordplay, light fourth-wall poking. Never mean-spirited, never gr
 
 ### The Employee Handbook
 
-Dana quotes it constantly. Each section means one thing everywhere; check this list before quoting a
-section, and add new ones here.
+Dana quotes it constantly, and carries it (slice 29). Each section means one thing everywhere; check this list before quoting a
+section, and add new ones here. It runs to about 400 sections; this list is the ones the game
+quotes, and the big numbers are there to say so.
 
 | Section | Rule |
 |---------|------|
@@ -63,15 +64,30 @@ section, and add new ones here.
 | 4.2 | Never touch the guests (says nothing about liches, or skeletons) |
 | 5 | No card, no clock |
 | 5.3 | Off-duty staff are customers like anyone else |
-| 6 | Respect your colleagues' dairy |
+| 6 | Respect your colleagues' dairy products ("products" so nobody reads "diary") |
 | 7.1 | The Spooky Seat is for liches only |
 | 8 | Be thorough; found money under five cents belongs to the finder |
 | 9 | Doors must never be locked during business hours |
-| 10 | Always offer exact change |
+| 10 | Always require exact change (the till never gives change) |
 | 11 | Employees may not review their own workplace |
 | 12 | Do not improvise with props |
+| 13 | Intentionally left blank (head office is superstitious) |
 | 14 / 14.1 | Staff may borrow equipment for re-pricing / but not for personal gain |
 | 15 | Always contribute |
+| 16 | Staff must never be scarier than the attractions |
+| 18 | In an emergency, consult the Handbook |
+| 21 | Staff may not name the props (Gary's name tag is stapled to it) |
+| 27 | Smile at every guest |
+| 33 | Staff must wear a name tag at all times |
+| 42 | Do not feed the lich ("the sandwich incident") |
+| 57 | Staff must congratulate any guest who solves a puzzle |
+| 88 | Staff may not understudy the lich (added by Reginald, in red pen) |
+| 113 | Clues may not be written on the staff |
+| 150 | Lost guests must be found within one business day |
+| 204 | All complaints must be sent in writing to head office (whose address isn't in the Handbook) |
+| 276 | The Handbook may only be read on break |
+| 311 | Paper cuts from the Handbook are not covered by staff insurance |
+| 400 | This Handbook replaces all previous Handbooks (there have been nine) |
 
 Reginald's **actors' union contract** is separate: section nine, the show does not stop until the
 final cue; section twelve, wrongful loss of a role.
@@ -105,14 +121,15 @@ final cue; section twelve, wrongful loss of a role.
 
 Three screens: **Lich's Lair**, **Gift Shop**, **Break Room**. A milestone is not started until
 the previous one is playable. **M4 is the last milestone:** the project is complete when it ends
-(decided 2026-10-23), after slice 28, a text pass and code cleanup (added 2026-10-23).
+(decided 2026-10-23), after slice 28, a text pass and code cleanup, and slice 29, hover polish and the
+Handbook as an item (both added 2026-10-23).
 
 | Milestone | Content |
 |-----------|---------|
 | **M1 — vertical slice** ✅ playable (slices 1–6) | The Lair, fully playable start to finish: walking, hotspots, look text, inventory, one combination, one dialogue tree, a win state ("To be continued"). Ugly but complete. |
 | **M2 — systems complete** ✅ (slices 7–12) | Room transitions (with a stub Gift Shop), deploy to GitHub Pages, save/load, cutscenes, browser end-to-end tests, polish. Plan below. |
 | **M3 — content** ✅ complete (slices 13–17) | Gift Shop and Break Room, full puzzle chain, ending. Plan below. |
-| **M4 — art and audio** ✅ complete (slices 18–28) | Painted backgrounds, character sprites, prop overlays, item icons, music and sound effects, a walk animation; then a text consistency pass and a content-code cleanup. No voice. Plan below. |
+| **M4 — art and audio** ✅ complete (slices 18–29) | Painted backgrounds, character sprites, prop overlays, item icons, music and sound effects, a walk animation; then a text consistency pass and a content-code cleanup, hover polish and the Handbook as an item. No voice. Plan below. |
 
 Art is placeholder shapes until M4, and the code keeps art swappable.
 
@@ -171,12 +188,13 @@ are plain files in the repo with a **15 MB** budget, enforced by a test.
 | 25 | The Lair's display case shows its state: lid open, the scroll's end under the bone (two overlays) | after 24 |
 | 26 | Title and end-card key art, a painted logo, background music loading, interface to match the tray, a Credits panel | after 25 |
 | 27 | Walk animation: prototype a Dana walk cycle two ways (ChatGPT frames, parts animated in code) first; then Reginald and Kyle, or stop and record why | after 26 |
-| 28 | Text and structure: content-code cleanup so new rooms, dialogue and puzzles are easier to add (28a); every player-facing line checked for consistency and the jokes finished, no DRAFTs left (28b); M4 done | last |
+| 28 | Text and structure: content-code cleanup so new rooms, dialogue and puzzles are easier to add (28a); every player-facing line checked for consistency and the jokes finished, no DRAFTs left (28b) | after 27 |
+| 29 | Hover polish (label only over props, a fitted glow on characters); the Employee Handbook as an item Dana can read; M4 done | last |
 
 ### Notes for later (from play-tests, 2026-10-22)
 
-A record of ideas, not a plan: the project ends with M4 (slice 28, text and structure, is its last
-slice), so nothing here is scheduled.
+A record of ideas, not a plan: the project ends with M4 (slice 29, hover polish and the Handbook, is its
+last slice), so nothing here is scheduled.
 
 - **The front door's "CLOSED FOR REFURBISHMENT" sign doesn't hold up** (fixed in PR #22: a hanging OPEN/CLOSED sign). It faces into the shop,
   not out, and a closed shop wouldn't have a cashier on duty. Possible fix: a hanging OPEN/CLOSED

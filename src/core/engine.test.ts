@@ -11,6 +11,12 @@ const world: World = {
     bulb: { id: 'bulb', name: 'Light Bulb', look: 'A bulb. Bright idea.' },
     battery: { id: 'battery', name: 'Battery', look: 'Positively charged.' },
     torch: { id: 'torch', name: 'Torch', look: 'Let there be light.' },
+    diary: {
+      id: 'diary',
+      name: 'Diary',
+      look: 'Dear diary.',
+      action: { label: 'Read', responses: [{ effects: [{ type: 'sayOneOf', texts: ['Monday: rain.', 'Tuesday: more rain.'] }] }] },
+    },
     note: {
       id: 'note',
       name: 'Note',
@@ -290,6 +296,12 @@ describe('handle: items', () => {
     const result = handle(world, start, { type: 'verb', verb: 'look', hotspotId: 'trapdoor' });
     expect(result.effects).toContainEqual({ type: 'sound', sound: 'creak' });
     expect(result.state).toEqual(start);
+  });
+
+  it('passes sayOneOf through with all its lines, without changing state (the view picks one)', () => {
+    const result = handle(world, holding('diary'), { type: 'itemAction', itemId: 'diary' });
+    expect(result.effects).toEqual([{ type: 'sayOneOf', texts: ['Monday: rain.', 'Tuesday: more rain.'] }]);
+    expect(result.state).toEqual(holding('diary'));
   });
 
   it('throws when using, looking at, or combining an item that is not held', () => {

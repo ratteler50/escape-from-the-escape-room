@@ -3,6 +3,7 @@ import { screens } from '../content/screens';
 import { queueArt } from './assets';
 import { backgroundTracks, queueAudio } from './GameAudio';
 import type { GameData } from './TitleScene';
+import { pickLine } from './pickLine';
 import { UI } from './ui';
 
 const BAR = { width: 520, height: 26 };
@@ -38,14 +39,22 @@ export class LoadingScene extends Phaser.Scene {
     const fill = this.add.rectangle(left, height / 2 + 10, 0, BAR.height, UI.border).setOrigin(0, 0.5);
     this.load.on(Phaser.Loader.Events.PROGRESS, (progress: number) => fill.setSize(BAR.width * progress, BAR.height));
 
-    // Dana's Handbook lines, one at a time while it takes long enough to read them.
+    // Handbook quotes, one at a time while it takes long enough to read them, in random order: most
+    // players only see the first one or two.
     const lines = world.loadingLines ?? [];
+    let shown = pickLine(lines.length, undefined);
     const line = this.add
-      .text(width / 2, height / 2 + 80, lines[0] ?? '', { fontSize: '20px', color: '#ffffff', align: 'center', wordWrap: { width: 760 } })
+      .text(width / 2, height / 2 + 80, lines[shown] ?? '', { fontSize: '20px', color: '#ffffff', align: 'center', wordWrap: { width: 760 } })
       .setOrigin(0.5, 0);
-    let next = 1;
     if (lines.length > 1) {
-      this.time.addEvent({ delay: LINE_MS, loop: true, callback: () => line.setText(lines[next++ % lines.length]!) });
+      this.time.addEvent({
+        delay: LINE_MS,
+        loop: true,
+        callback: () => {
+          shown = pickLine(lines.length, shown);
+          line.setText(lines[shown]!);
+        },
+      });
     }
 
     queueArt(this, world);

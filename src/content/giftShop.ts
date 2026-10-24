@@ -5,6 +5,7 @@ import { kyleHotspot, priceGun } from './kyle';
 import { mordecaiBackHotspot, mordecaiHotspot } from './mordecai';
 import { reginaldFinaleHotspot } from './finale';
 import type { ContentPack } from './pack';
+import { handbook } from './handbook';
 
 
 // The painting (docs/art/prompts-gift-shop.md) sets the layout: hotspot bounds and the walkable floor
@@ -44,6 +45,9 @@ export const giftShop: Room = {
       name: 'Lair Door',
       bounds: { x: 8, y: 160, width: 185, height: 280 },
       interactionPoint: { x: 110, y: 475 },
+      itemUses: {
+        [handbook.id]: [{ effects: [say('ENTER IF YOU DARE. The Handbook covers doors, locks and fire exits. It has nothing on daring.')] }],
+      },
       verbs: {
         look: says("The way back into the Lich's Lair. The sign over it says ENTER IF YOU DARE. I've dared. It's mostly cobwebs and Reginald."),
         use: {
@@ -61,6 +65,7 @@ export const giftShop: Room = {
         look: says(`Mugs: "I ESCAPED THE LICH'S LAIR", $12.99. Nobody has ever escaped, so nobody has ever bought one. Kyle dusts them anyway.`),
       },
       itemUses: {
+        [handbook.id]: [{ effects: [say('The Handbook has forty pages on merchandise. None of them say "free".')] }],
         priceGun: [{ effects: [say("I could mark a mug down to a cent. Handbook Section 14.1: no re-pricing for personal gain. I hate that I know that.")] }],
       },
     },
@@ -75,6 +80,7 @@ export const giftShop: Room = {
         use: { label: 'Ring something up', responses: [{ effects: [K("That's my department.")] }] },
       },
       itemUses: {
+        [handbook.id]: [{ effects: [say(`There's a whole chapter on the till. It's mostly the words "DO NOT".`)] }],
         priceGun: [{ effects: [K("Don't.")] }],
       },
     },
@@ -95,6 +101,7 @@ export const giftShop: Room = {
         take: says('Bargain bin stock is final sale, and I am staff. Two rules, one teapot.', 'Rummage'),
       },
       itemUses: {
+        [handbook.id]: [{ effects: [say('I am not putting the Handbook in the bargain bin. It would be priced at a dollar. It would never recover.')] }],
         priceGun: [
           {
             when: [{ flag: 'teapotRepriced' }],
@@ -133,6 +140,7 @@ export const giftShop: Room = {
         look: says('A life-size cardboard Reginald. Somehow less wooden than the real one.'),
       },
       itemUses: {
+        [handbook.id]: [{ effects: [say("I read Cardboard Reginald Section 4.2. He doesn't argue. He's my favourite Reginald.")] }],
         priceGun: [{ effects: [say("Cardboard Reginald, $1. No. He'd find out. He'd be devastated.")] }],
       },
     },
@@ -151,6 +159,7 @@ export const giftShop: Room = {
         },
       },
       itemUses: {
+        [handbook.id]: [{ effects: [say("I show the badge reader the Handbook. Page one: my name, my photo, TRAINEE. The light stays red. It's read it already.")] }],
         priceGun: [{ effects: [say('I label the door $4.99. Still locked, but now it\'s affordable.')] }],
       },
       itemFallback: "The badge reader blinks red. Whatever that was, it wasn't a staff badge.",
@@ -162,6 +171,9 @@ export const giftShop: Room = {
       // The door and the badge reader on the wall at its right.
       bounds: { x: 887, y: 178, width: 165, height: 257 },
       interactionPoint: { x: 954, y: 470 },
+      itemUses: {
+        [handbook.id]: [{ effects: [say("The Handbook says STAFF ONLY doors must be closed behind you. Mordecai didn't read it. Mordecai can't turn pages.")] }],
+      },
       verbs: {
         look: says('STAFF ONLY, wide open. Mordecai can\'t touch anything, so I assume he glared at the lock until it gave up. Beyond it: a corridor that smells of burnt coffee.'),
         use: {
@@ -203,6 +215,7 @@ export const giftShop: Room = {
         },
       },
       itemUses: {
+        [handbook.id]: [{ effects: [say("Section 9: never locked during business hours. It isn't. The Handbook has no section on doors that put you back. I'll suggest one.")] }],
         priceGun: [{ effects: [say('I label the front door FREE. The sign still says CLOSED. To me, specifically.')] }],
       },
     },
