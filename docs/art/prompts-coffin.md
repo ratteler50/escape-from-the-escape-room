@@ -30,19 +30,18 @@ human Reginald in his make-up (`REFERENCE-reginald-human.png`), signed by himsel
 > - pinned below the mirror, a signed actor's headshot of the man in the third image: a gaunt actor
 >   in white-and-black skull face paint and a crooked gold crown, striking a dramatic pose, with a
 >   big scrawled signature across the corner;
-> - on a little shelf low down on the LEFT, a dog-eared stack of paper bound with a red ribbon
->   (an actor's script, like the second image);
+> - on a little shelf low down on the LEFT, a dog-eared actor's script exactly like the second
+>   image: a cream booklet with "ACT ONE" and two theatre masks on its cover;
 > - on a little shelf low down on the RIGHT, well apart from the script, a tall spray can of
 >   hairspray with a bright green label.
 >
 > Keep the script and the hairspray clearly separate and easy to see. No people apart from the one in
-> the photo. No readable text
-> except what is already in the picture.
+> the photo. No readable text except ACT ONE on the script.
 
 ## 2. Without the script → in the **same chat**, save as `art-inbox/coffin-open-no-script.png`
 
 > Keep this exact image: the open coffin, the lid, the mirror, the photo, the hairspray, the
-> lighting, everything. Change only one thing: remove the stack of paper with the red ribbon from
+> lighting, everything. Change only one thing: remove the script (the cream ACT ONE booklet) from
 > the left-hand shelf, leaving the empty shelf and the velvet behind it.
 
 ---
