@@ -14,8 +14,8 @@ describe('flavour bits', () => {
   });
 
   it('keeps options with real effects distinct', () => {
-    expect(flavour.spentOptions, 'gives the Price Gun').not.toContain('kyle.priceGun');
-    expect(flavour.spentOptions, 'sets a flag that unlocks Kyle\'s option').not.toContain('mordecai.teapot');
+    expect(flavour.spentOptions, 'sets the flag the finale needs').not.toContain('kyle.buyMug');
+    expect(flavour.spentOptions, 'sets the flag that lets the Handbook borrow the Price Gun').not.toContain('mordecai.teapot');
   });
 
   it('keeps a say-only option distinct when it leads somewhere else', () => {

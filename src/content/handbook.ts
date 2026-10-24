@@ -47,6 +47,13 @@ const sections: readonly HandbookSection[] = [
   },
   { section: '12', rule: 'Do not improvise with props.', aside: 'Someone has written TOO LATE in the margin, signed "R."' },
   { section: '13', rule: 'This section is intentionally left blank.', aside: "Head office is superstitious. They'll never admit it." },
+  // The old Section 14, which Dana memorised. The revised one, stapled over it, is only found by
+  // using the Handbook on Kyle (slice 30), so it never appears here.
+  {
+    section: '14',
+    rule: 'Staff may not borrow equipment from other departments.',
+    aside: "Something has been stapled over it. I don't have time for inserts. I'm a bit cursed at the moment.",
+  },
   { section: '14.1', rule: 'Staff may not re-price items for personal gain.', aside: 'Head office has underlined "personal". Twice.' },
   { section: '15', rule: 'Always contribute.', aside: 'The next page is the staff social sign-up sheet. Gary has signed it every month.' },
   { section: '16', rule: 'Staff must never be scarier than the attractions.', aside: "There's a photo of Reginald next to it, crossed out." },

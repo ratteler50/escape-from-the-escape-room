@@ -231,7 +231,7 @@ the finale (cutscene system). **Dialogue:** regular trees for Kyle and Mordecai;
 graph TD
   ARRIVE([Dana enters the Gift Shop]) --> KYLE{Talk to Kyle:<br/>'Can't sell to staff'}
   ARRIVE --> MORD{Talk to Mordecai:<br/>furious his teapot is in the<br/>bargain bin at $2}
-  MORD --> ASKGUN{Kyle dialogue, unlocked by Mordecai:<br/>quote Handbook §14, 'staff may borrow<br/>equipment for re-pricing'}
+  MORD --> ASKGUN{Handbook on Kyle, after Mordecai:<br/>the revised §14 stapled over the old one,<br/>'staff may borrow equipment for re-pricing'}
   ASKGUN --> GUN[/Item: Price Gun/]
   GUN --> REPRICE[Use Price Gun on Bargain Bin<br/>→ teapot now 'PRICELESS']
   REPRICE --> STAFF[Mordecai floats through<br/>STAFF ONLY and opens it]

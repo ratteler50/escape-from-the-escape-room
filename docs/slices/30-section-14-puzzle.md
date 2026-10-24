@@ -1,6 +1,6 @@
 # Slice 30 — Section 14: a Handbook puzzle
 
-**Status:** spec awaiting the developer's approval, not built · **Milestone:** M4, its last slice
+**Status:** spec approved by the developer (2026-10-23); built and agent play-tested · **Milestone:** M4, its last slice
 (added after slice 29, 2026-10-23) · built on slice 29 (PR #37); rebased onto `main` once it merges
 
 ## Why
@@ -67,4 +67,16 @@ Decisions from the slice 30 questions (2026-10-23).
 
 ## Build notes
 
-(Filled in while building.)
+- **Built as specced.** The Handbook-on-Kyle responses (`kyle.ts`) are ordered: holding the gun,
+  handed back (`teapotRepriced`), after the complaint (the solution), otherwise the brush-off. The
+  till's and the bargain bin's hints test the same three things (complaint heard, not re-priced, no
+  gun), so they stop once the gun is in hand.
+- **The old Section 14** is in `handbook.ts` with the others, so Read and the loading screen show it;
+  the revised one appears only in the solution's lines.
+- **Tests:** `giftShop.test.ts` covers the brush-off, the solution, no second gun, no gun after it's
+  handed back, the till and bin hints, and that Kyle's dialogue no longer offers Section 14.
+  `explore.test.ts` checks `kyle.buyMug` instead of the removed option.
+- **Play-test:** `npm test` (505), typecheck and `npm run test:e2e` green; the shortest solution
+  (27 steps) now uses the Handbook on Kyle, and e2e plays it with real clicks. In the dev build:
+  the till hint, the revised-insert lines (the long one fits its bubble), the Price Gun arriving,
+  and "You've already got it"; no console errors.

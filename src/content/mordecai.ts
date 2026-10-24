@@ -109,7 +109,7 @@ export const mordecaiDialogue: Dialogue = {
             M('I cannot lift so much as a sticker. I can only float through walls, which is less useful than it sounds.'),
             M('Re-price it. PROPERLY. Do that, and I shall open any door in this building for you.'),
             setFlag('heardTeapotComplaint'),
-            say("Re-pricing is done with a price gun. Kyle has the price gun. I'll need a Handbook section."),
+            say("Re-pricing is done with a price gun. Kyle has the price gun. There's a Handbook section about borrowing equipment. I'll have to look it up."),
           ],
           next: 'hub',
         },
