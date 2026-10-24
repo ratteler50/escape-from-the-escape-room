@@ -72,7 +72,7 @@ quotes, and the big numbers are there to say so.
 | 11 | Employees may not review their own workplace |
 | 12 | Do not improvise with props |
 | 13 | Intentionally left blank (head office is superstitious) |
-| 14 / 14.1 | Staff may borrow equipment for re-pricing / but not for personal gain |
+| 14 / 14.1 | Old (memorised by Dana): staff may not borrow equipment from other departments; revised (an insert stapled over it last week): staff may borrow equipment for re-pricing / but not for personal gain |
 | 15 | Always contribute |
 | 16 | Staff must never be scarier than the attractions |
 | 18 | In an emergency, consult the Handbook |
@@ -121,15 +121,15 @@ final cue; section twelve, wrongful loss of a role.
 
 Three screens: **Lich's Lair**, **Gift Shop**, **Break Room**. A milestone is not started until
 the previous one is playable. **M4 is the last milestone:** the project is complete when it ends
-(decided 2026-10-23), after slice 28, a text pass and code cleanup, and slice 29, hover polish and the
-Handbook as an item (both added 2026-10-23).
+(decided 2026-10-23), after slice 28, a text pass and code cleanup, slice 29, hover polish and the
+Handbook as an item, and slice 30, a Handbook puzzle for Section 14 (all added 2026-10-23).
 
 | Milestone | Content |
 |-----------|---------|
 | **M1 — vertical slice** ✅ playable (slices 1–6) | The Lair, fully playable start to finish: walking, hotspots, look text, inventory, one combination, one dialogue tree, a win state ("To be continued"). Ugly but complete. |
 | **M2 — systems complete** ✅ (slices 7–12) | Room transitions (with a stub Gift Shop), deploy to GitHub Pages, save/load, cutscenes, browser end-to-end tests, polish. Plan below. |
 | **M3 — content** ✅ complete (slices 13–17) | Gift Shop and Break Room, full puzzle chain, ending. Plan below. |
-| **M4 — art and audio** ✅ complete (slices 18–29) | Painted backgrounds, character sprites, prop overlays, item icons, music and sound effects, a walk animation; then a text consistency pass and a content-code cleanup, hover polish and the Handbook as an item. No voice. Plan below. |
+| **M4 — art and audio** (slices 18–30) | Painted backgrounds, character sprites, prop overlays, item icons, music and sound effects, a walk animation; then a text consistency pass and a content-code cleanup, hover polish and the Handbook as an item. No voice. Plan below. |
 
 Art is placeholder shapes until M4, and the code keeps art swappable.
 
@@ -189,12 +189,13 @@ are plain files in the repo with a **15 MB** budget, enforced by a test.
 | 26 | Title and end-card key art, a painted logo, background music loading, interface to match the tray, a Credits panel | after 25 |
 | 27 | Walk animation: prototype a Dana walk cycle two ways (ChatGPT frames, parts animated in code) first; then Reginald and Kyle, or stop and record why | after 26 |
 | 28 | Text and structure: content-code cleanup so new rooms, dialogue and puzzles are easier to add (28a); every player-facing line checked for consistency and the jokes finished, no DRAFTs left (28b) | after 27 |
-| 29 | Hover polish (label only over props, a fitted glow on characters); the Employee Handbook as an item Dana can read; M4 done | last |
+| 29 | Hover polish (label only over props, a fitted glow on characters); the Employee Handbook as an item Dana can read | after 28 |
+| 30 | Section 14 becomes a Handbook puzzle: use the Handbook on Kyle to borrow the price gun, with hints; M4 done | last |
 
 ### Notes for later (from play-tests, 2026-10-22)
 
-A record of ideas, not a plan: the project ends with M4 (slice 29, hover polish and the Handbook, is its
-last slice), so nothing here is scheduled.
+A record of ideas, not a plan: the project ends with M4 (slice 30, the Section 14 puzzle, is its last
+slice), so nothing here is scheduled.
 
 - **The front door's "CLOSED FOR REFURBISHMENT" sign doesn't hold up** (fixed in PR #22: a hanging OPEN/CLOSED sign). It faces into the shop,
   not out, and a closed shop wouldn't have a cashier on duty. Possible fix: a hanging OPEN/CLOSED
