@@ -101,7 +101,7 @@ export const kyleDialogue: Dialogue = {
             say('...Sorry?'),
             K("You're wearing a lanyard. Staff can't buy merch. It's on the till."),
             say("I've never wanted to be a customer so badly in my life."),
-            // Slice 16 needs this: Dana has to stop being staff before Kyle will sell.
+            // Only unlocks "About that mug...": the sale itself needs Dana off duty, with exact change.
             setFlag('kyleRefusedStaffSale'),
           ],
           next: 'hub',
