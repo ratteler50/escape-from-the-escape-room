@@ -187,6 +187,19 @@ export const reginaldDialogue: Dialogue = {
           next: 'end',
         },
         {
+          // Slice 33: he takes it as walking out of his show. He doesn't know how the curse works.
+          id: 'triedDoor',
+          text: 'I tried to leave through the front door. It stepped me straight back in.',
+          when: [{ flag: 'triedFrontDoor' }],
+          once: true,
+          effects: [
+            R("Walk OUT? Mid-performance? Darling, nobody leaves before the curtain call. It's terribly rude."),
+            say("I didn't leave. That's the problem."),
+            R('Then the door has better manners than you.'),
+          ],
+          next: 'hub',
+        },
+        {
           id: 'bye',
           text: "I'll leave you to your... lair.",
           effects: [R('Farewell, mortal! Mind the fourth wall on your way out.')],

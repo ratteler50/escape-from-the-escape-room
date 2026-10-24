@@ -216,6 +216,13 @@ Found in the developer's play-test, and fixed:
   the always-winnable search explores (it went to about 78,000, past its 50,000 cap), so the
   explorer learned that a flag which only picks a line can't change what the player can do, and
   merges states that differ only in such flags (`flavourBits`, two tests).
+- **Everyone hears about the front door.** Once Dana has tried it, a one-off option for Reginald
+  (who takes it as walking out of his show: he doesn't know how the curse works), the same on the
+  intercom, Kyle ("Have you tried buying something?") and Mordecai ("Read its ending"), and a line
+  in Mordecai's chat once he's back by the bin. The explorer now also treats a flag that only
+  offers a talk-only option back to the same menu as flavour, so these cost no states; the game
+  went from about 39,500 to about 8,350 states, since the rule also merged states that differed
+  only in such flags (Kyle's "Lanyard." refusal, for one).
 - **The script on the shelf**, after memorising, now reads the page again: who says the line, and the
   finale's last page, which otherwise can't be re-read once the script is back.
 

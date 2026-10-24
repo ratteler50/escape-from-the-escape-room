@@ -147,6 +147,14 @@ export const intercomDialogue: Dialogue = {
           next: 'hub',
         },
         {
+          id: 'triedDoor',
+          text: "I tried the front door. It won't let me out.",
+          when: [{ flag: 'triedFrontDoor' }],
+          once: true,
+          effects: [R('*crackle* Leaving? Before the finale? I heard that, darling. The whole building heard that.')],
+          next: 'hub',
+        },
+        {
           id: 'bye',
           text: 'Over and out.',
           effects: [R('Never say "out" in a theatre, darling. Say "exeunt". *click*')],

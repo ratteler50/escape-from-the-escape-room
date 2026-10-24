@@ -125,6 +125,15 @@ export const kyleDialogue: Dialogue = {
           next: 'hub',
         },
         {
+          // Slice 33: a nudge towards the souvenir.
+          id: 'triedDoor',
+          text: "Kyle, the front door won't let me out.",
+          when: [{ flag: 'triedFrontDoor' }],
+          once: true,
+          effects: [K('Huh.'), K('Have you tried buying something?'), say('...Why would that help?'), K('Usually does.')],
+          next: 'hub',
+        },
+        {
           id: 'bye',
           text: "I'll let you get back to... that.",
           effects: [K('Mm.')],

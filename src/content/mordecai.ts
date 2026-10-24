@@ -51,6 +51,14 @@ export const mordecaiBackHotspot: Hotspot = {
       label: 'Address the apparition',
       responses: [
         {
+          when: [{ flag: 'triedFrontDoor' }],
+          effects: [
+            M('Priceless. Say it with me, child. PRICELESS.'),
+            say('Priceless. Also, the front door won\'t let me leave.'),
+            M("Nor me, and I walk through walls. Read the script's ending, child. It wants something from you."),
+          ],
+        },
+        {
           effects: [
             M('Priceless. Say it with me, child. PRICELESS.'),
             say('Priceless.'),
@@ -127,6 +135,15 @@ export const mordecaiDialogue: Dialogue = {
           text: 'About your teapot...',
           when: [{ flag: 'heardTeapotComplaint' }, { has: priceGun.id }],
           effects: [M('You HAVE the contraption. Point it at the TEAPOT.')],
+          next: 'hub',
+        },
+        {
+          // Slice 33: a nudge towards the script's ending.
+          id: 'triedDoor',
+          text: "The front door won't let me leave.",
+          when: [{ flag: 'triedFrontDoor' }],
+          once: true,
+          effects: [M('Nor me, child, and I can walk through WALLS. This curse follows the script to the letter.'), M("Read its ending. I'd wager it wants something from you.")],
           next: 'hub',
         },
         {
