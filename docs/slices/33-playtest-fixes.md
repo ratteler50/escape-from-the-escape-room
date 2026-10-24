@@ -15,7 +15,8 @@ developer's five, are below.
 
 1. **The gum** (step 7). It's "take" on the throne, labelled "Check under the armrest", offered only
    once Reginald has left. Nothing says it's there: the throne's look mentions the armrest's
-   sticker, and Dana only says the Spooky Seat is unguarded.
+   sticker, and Dana only says the Spooky Seat is unguarded. So moving Reginald is never a goal, only
+   something that happens to unlock it.
 2. **Hand and gear.** The coin's labels ("Borrow a limb", "Press coin return") only appear when the
    pointer hovers over a button, and **on a phone nothing hovers**, so players see icons only. The
    icons then have to carry the meaning, and they don't: ⚙ reads as "settings, don't touch", and an
@@ -33,14 +34,22 @@ developer's five, are below.
    Handbook section about borrowing equipment. I'll have to look it up." Reading the Handbook then
    gives a random section. The natural move doesn't help.
 7. **Memorising** (step 4) and **reading the lanyard** are item actions, on the ⚙ of an item's coin:
-   the least discoverable place in the game (covered by 2).
+   the least discoverable place in the game (covered by 2). After memorising, nothing says what to
+   do with the line.
+8. **Paying** (step 27). Only the dialogue option buys the mug; using the money on Kyle, the obvious
+   move for many players, doesn't (developer).
 
 ## Spec
 
-1. **The gum is visible.** While Reginald is on the throne, the throne's look adds that he keeps
-   sticking something under the armrest. Once he's left: the look mentions a grey lump of gum under
-   the armrest, Dana's last line after the cue mentions it too, and the take is labelled "Take the
-   gum".
+1. **The gum is a goal from the start** (developer's idea, plus a bridge to the cue).
+   - While Reginald is on the throne, the throne's look says there's a grey wad of gum under the
+     armrest, right by his elbow, and sets a flag (Dana has seen it).
+   - Trying to take it while he's seated: Reginald stops Dana ("Hands off the Spooky Seat, darling!
+     Nobody touches the throne mid-performance.").
+   - Once Dana has seen the gum, Reginald's conversation offers "Could you stand up for a moment?":
+     a lich doesn't stand, he *rises*, on his *cue*. That points from the gum to the script.
+   - Once he's left: the look still mentions the gum, Dana's last line after the cue mentions it,
+     and the take is labelled "Take the gum".
 2. **Verbs say what they do.**
    - **Labels always show**, under each button of the coin, small, on every device. (Hovering still
      highlights.)
@@ -55,7 +64,8 @@ developer's five, are below.
      what the player does (developer, 2026-10-24).
 3. **The cue is the guest's line.** The script and the coffin say it plainly: the **guest** says
    "Rise, foul creature, and face me!", and the lich answers "ARISE!". Dana adds that if they learned
-   the guest's line, they could give him his cue. Memorising stays the item action.
+   the guest's line, they could give him his cue. After memorising, Dana says the next step out
+   loud: next time they talk to Reginald, they'll give him his cue. Memorising stays the item action.
 4. **Squint at the lanyard** (the developer's idea). Looking at the lanyard says there's small print
    under TRAINEE that Dana would have to squint at, and **unlocks** the lanyard's action "Squint at the
    small print", which reads the number. The off-duty lanyard works the same. This needs a small
@@ -67,7 +77,11 @@ developer's five, are below.
    opens at Section 14 (no borrowing from other departments) and Dana notices the page is thicker than
    it should be: it's Kyle's department, so Kyle should see it. The joke of finding the revised insert
    while showing Kyle stays.
-7. **Records.** Build notes, `docs/drafts.md` regenerated if anything is marked, and the M6 row in
+7. **Paying with the money.** Using the Exact Change on Kyle buys the mug: the same sale as the
+   dialogue option, the finale included. Too early, it gets the matching answer: still on duty,
+   "Lanyard."; the pay packet alone (one cent short), Kyle's exact-change line. The dialogue option
+   stays.
+8. **Records.** Build notes, `docs/drafts.md` regenerated if anything is marked, and the M6 row in
    `docs/design.md`.
 
 Out of scope: new puzzles, new art, a hint system.
@@ -82,7 +96,8 @@ Out of scope: new puzzles, new art, a hint system.
 - `npm test` (content validation and always-winnable stay green), typecheck, build, both Playwright
   projects. `src/view/icons.ts` changes, so the E2E harness follows it automatically.
 - Unit tests: an item's look can set a flag and vary with conditions (core, test-first); the lanyard
-  action is offered only after looking; the vending machine, throne and Handbook lines vary as
+  action is offered only after looking; the stand-up option only after seeing the gum; Exact Change on
+  Kyle wins the game (the always-winnable search may then find a shorter route: that's fine); the vending machine, throne and Handbook lines vary as
   specified.
 - Agent play-test: the coin with labels at both sizes; the gum, cue, lanyard, cent and Handbook
   lines in place.
