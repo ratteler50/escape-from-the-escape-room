@@ -67,6 +67,10 @@ describe('flavour bits', () => {
     const result = explore(world, initialState);
     expect(result.capped).toBe(false);
     const solution = shortestSolution(world, initialState);
-    expect(solution.at(-1)).toEqual({ type: 'chooseOption', optionId: 'sale' });
+    // Slice 33: handing Kyle the Exact Change buys the mug too, one step shorter than asking.
+    expect([
+      { type: 'chooseOption', optionId: 'sale' },
+      { type: 'useItemOn', itemId: 'exactChange', hotspotId: 'kyle' },
+    ]).toContainEqual(solution.at(-1));
   });
 });

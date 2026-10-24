@@ -157,7 +157,7 @@ export const giftShop: Room = {
         look: says('A life-size cardboard Reginald. Somehow less wooden than the real one.'),
       },
       itemUses: {
-        [handbook.id]: [{ effects: [say("I read Cardboard Reginald Section 4.2. He doesn't argue. He's my favourite Reginald.")] }],
+        [handbook.id]: [{ effects: [say("I read Cardboard Reginald Section 16. He's exactly as scary as the attractions. He's my favourite Reginald.")] }],
         priceGun: [{ effects: [say("Cardboard Reginald, $1. No. He'd find out. He'd be devastated.")] }],
       },
     },

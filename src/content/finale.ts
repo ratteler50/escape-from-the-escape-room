@@ -1,4 +1,4 @@
-import type { DialogueOption, Hotspot, Item } from '../core/types';
+import type { DialogueOption, Effect, Hotspot, Item } from '../core/types';
 import { addItem, pause, removeItem, say, says, setFlag, sound, walk, win } from './dsl';
 import { exactChange } from './breakRoom';
 import { K, M, R, reginald } from './cast';
@@ -35,6 +35,43 @@ export const reginaldFinaleHotspot: Hotspot = {
   },
 };
 
+/**
+ * Kyle sells the mug, the curse lifts, and the finale plays: after the dialogue option, or after
+ * Dana hands Kyle the Exact Change (slice 33, kyle.ts).
+ */
+export const mugSale: Effect[] = [
+  K('Lanyard.'),
+  say('Off duty. Clocked out. Badge flipped. See?'),
+  K('...Fine.'),
+  say('Twelve dollars and ninety-nine cents. Exact. I counted it three times.'),
+  removeItem(exactChange.id),
+  sound('till'),
+  K('Receipt?'),
+  say('Yes please. I want proof.'),
+  addItem(mug.id),
+  say(`I ESCAPED THE LICH'S LAIR. Technically I haven't. But the mug says I have, and the curse is very literal.`),
+  // Reginald appears in the Lair doorway (reginaldFinaleHotspot).
+  setFlag('curseLifted'),
+  sound('rumble'),
+  pause(600),
+  say('A rumble. The lights flicker. Somewhere, a jar goes very quiet.'),
+  // Dun dun DUUUN (ducks the music while it plays).
+  sound('finale'),
+  R('Nooooo!'),
+  walk(reginald.id, 878, 470),
+  R("It's gone, darling. All of it. I'm human. I have a PULSE. Do you know what a pulse does to a performance?"),
+  R("Actors' union, section twelve: wrongful loss of the role of a lifetime. I am filing a grievance."),
+  say("Gary stays one-armed, I'm afraid. His arm is gummed to a floor grate in the Lair."),
+  R('And the anti-theft cable snapped when the curse broke. Somebody take this. It keeps looking at me.'),
+  say('He drops the phylactery into a cardboard box.'),
+  K('Spooky jar. A dollar. Bargain bin.'),
+  M('ONE DOLLAR?! That jar contains my SOUL!'),
+  K('Final sale.'),
+  pause(800),
+  say(`From the bargain bin, very faintly, something whispers: "...one dollar... we'll see about that..."`),
+  win(),
+];
+
 /** Kyle's three answers to "can I buy a mug?" once Dana is off duty (the on-duty refusal is in kyle.ts). */
 export const mugSaleOptions: DialogueOption[] = [
   {
@@ -52,38 +89,7 @@ export const mugSaleOptions: DialogueOption[] = [
     id: 'sale',
     text: 'One "I ESCAPED" mug, please. As a customer. With exact change.',
     when: [{ flag: 'danaOffDuty' }, { has: exactChange.id }],
-    effects: [
-      K('Lanyard.'),
-      say('Off duty. Clocked out. Badge flipped. See?'),
-      K('...Fine.'),
-      say('Twelve dollars and ninety-nine cents. Exact. I counted it three times.'),
-      removeItem(exactChange.id),
-      sound('till'),
-      K('Receipt?'),
-      say('Yes please. I want proof.'),
-      addItem(mug.id),
-      say(`I ESCAPED THE LICH'S LAIR. Technically I haven't. But the mug says I have, and the curse is very literal.`),
-      // Reginald appears in the Lair doorway (reginaldFinaleHotspot).
-      setFlag('curseLifted'),
-      sound('rumble'),
-      pause(600),
-      say('A rumble. The lights flicker. Somewhere, a jar goes very quiet.'),
-      // Dun dun DUUUN (ducks the music while it plays).
-      sound('finale'),
-      R('Nooooo!'),
-      walk(reginald.id, 878, 470),
-      R("It's gone, darling. All of it. I'm human. I have a PULSE. Do you know what a pulse does to a performance?"),
-      R("Actors' union, section twelve: wrongful loss of the role of a lifetime. I am filing a grievance."),
-      say("Gary stays one-armed, I'm afraid. His arm is gummed to a floor grate in the Lair."),
-      R('And the anti-theft cable snapped when the curse broke. Somebody take this. It keeps looking at me.'),
-      say('He drops the phylactery into a cardboard box.'),
-      K('Spooky jar. A dollar. Bargain bin.'),
-      M('ONE DOLLAR?! That jar contains my SOUL!'),
-      K('Final sale.'),
-      pause(800),
-      say(`From the bargain bin, very faintly, something whispers: "...one dollar... we'll see about that..."`),
-      win(),
-    ],
+    effects: mugSale,
     next: 'end',
   },
 ];

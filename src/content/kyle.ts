@@ -1,7 +1,8 @@
 import type { Dialogue, Hotspot, Item } from '../core/types';
 import { K, kyle } from './cast';
 import { addItem, say, says, setFlag, startDialogue } from './dsl';
-import { mugSaleOptions } from './finale';
+import { exactChange, oneCent, payPacket } from './breakRoom';
+import { mugSale, mugSaleOptions } from './finale';
 import type { ContentPack } from './pack';
 import { handbook } from './handbook';
 
@@ -13,6 +14,9 @@ export const priceGun: Item = {
   icon: 'assets/icons/price-gun.webp',
   look: `Kyle's price gun. Someone has written "KYLE'S DEPARTMENT" down the handle in glitter pen. The labels say whatever I make them say.`,
 };
+
+/** Kyle won't sell to anyone in a lanyard (the dialogue says the same, kyle.ts' buyMug). */
+const staffCantBuy = [K('Lanyard.'), K("Staff can't buy merch. It's on the till."), setFlag('kyleRefusedStaffSale')];
 
 export const kyleHotspot: Hotspot = {
   id: 'kyle',
@@ -49,6 +53,16 @@ export const kyleHotspot: Hotspot = {
       { effects: [K('Not my department.'), K("Mine's propping the stockroom door open.")] },
     ],
     priceGun: [{ effects: [K("Don't.")] }],
+    // Slice 33: paying with the money works as well as asking. Too early, the matching answer.
+    [exactChange.id]: [
+      { when: [{ flag: 'danaOffDuty' }], effects: [say('One "I ESCAPED" mug, please. As a customer. With exact change.'), ...mugSale] },
+      { effects: staffCantBuy },
+    ],
+    [payPacket.id]: [
+      { when: [{ flag: 'danaOffDuty' }], effects: [K('Twelve ninety-nine. Exact change. Head office empties the till every hour.'), say('Twelve ninety-eight. One cent short. Of course.')] },
+      { effects: staffCantBuy },
+    ],
+    [oneCent.id]: [{ effects: [K('One cent.'), K('Mugs are twelve ninety-nine.')] }],
   },
 };
 

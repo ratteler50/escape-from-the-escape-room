@@ -401,8 +401,9 @@ graph TD
 ### Reginald's dialogue tree
 
 Four to six options: who are you; what's going on; can you let me out (he won't break character);
-Handbook Section 4.2; plus the cue line, available only after reading the script. Some options are
-one-shot, others repeatable.
+Handbook Section 16 (staff must never be scarier than the attractions; Section 4.2 until slice 33,
+which implied he touches guests); could you stand up (once Dana has seen the gum, slice 33); plus the
+cue line, available only after memorising the script. Some options are one-shot, others repeatable.
 
 ### Look-only hotspots (hooks for later)
 
