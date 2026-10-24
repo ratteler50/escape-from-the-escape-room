@@ -216,7 +216,9 @@ export const giftShop: Room = {
       bounds: { x: 1100, y: 122, width: 175, height: 345 },
       interactionPoint: { x: 1150, y: 490 },
       verbs: {
-        look: says("Wide open, with a little sign hanging on the glass that says CLOSED. That's the staff side; out in the car park it says OPEN. Handbook Section 9: never locked during business hours. It isn't. It just won't let me through."),
+        // Slice 33: no spoiler before Dana has tried it, just a hunch. (A "tried it" flag would double
+        // every state the always-winnable search explores, for one line.)
+        look: says("Wide open, with a little sign hanging on the glass that says CLOSED. That's the staff side; out in the car park it says OPEN. Handbook Section 9: never locked during business hours. It isn't. The car park is RIGHT THERE. This feels too easy."),
         use: {
           label: 'Escape!',
           // The false exit: the script only ends once a guest has bought a souvenir (the mug sale).

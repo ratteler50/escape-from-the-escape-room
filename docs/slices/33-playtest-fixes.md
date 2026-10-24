@@ -209,6 +209,9 @@ Found in the developer's play-test, and fixed:
   to read it first. Using the scroll on the keypad works as before. Two content tests.
 - **Gum on the grate** gets its own hint (the gum needs to be on the end of something long), the
   other half of the arm's "If only they were... stickier", instead of the generic "won't fit".
+- **The front door's look** said "it just won't let me through" before Dana had tried it. It now
+  says the car park is right there and this feels too easy. Not a "tried it" flag: one line's flag
+  doubles every state the always-winnable search explores.
 - **The script on the shelf**, after memorising, now reads the page again: who says the line, and the
   finale's last page, which otherwise can't be re-read once the script is back.
 
