@@ -1,6 +1,6 @@
 import * as Phaser from 'phaser';
 import { gameAudio } from './GameAudio';
-import { UI } from './ui';
+import { font, UI } from './ui';
 import type { Point } from '../core/geometry';
 
 /** One button on the coin. `id` is what `onPick` receives. */
@@ -54,7 +54,7 @@ export class VerbCoin {
 
     const caption = this.scene.add
       .text(center.x, center.y + 20, title, {
-        fontSize: '22px',
+        ...font(this.scene, 22),
         color: '#ffffff',
         stroke: '#000000',
         strokeThickness: 4,

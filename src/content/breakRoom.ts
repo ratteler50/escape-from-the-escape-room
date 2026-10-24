@@ -124,7 +124,8 @@ export const intercomDialogue: Dialogue = {
           when: [{ flag: 'danaOffDuty' }],
           once: true,
           effects: [
-            R('A GUEST? Then I must stay in character. ...Welcome, mortal, to your DOOM. Do visit the gift shop.'),
+            // DRAFT: comic beat, a deliberate line break (slice 31): keep it, move it, or take it out.
+            R('A GUEST? Then I must stay in character.\n...Welcome, mortal, to your DOOM. Do visit the gift shop.'),
           ],
           next: 'hub',
         },

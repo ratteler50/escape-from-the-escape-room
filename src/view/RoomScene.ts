@@ -13,7 +13,7 @@ import { PlayerSprite, WALK_SPEED } from './PlayerSprite';
 import { RoomView } from './RoomView';
 import { Speech } from './Speech';
 import type { GameData } from './TitleScene';
-import { button, UI } from './ui';
+import { button, font, UI } from './ui';
 import { VerbCoin } from './VerbCoin';
 import { USE_WITH_ICON, VERB_ICONS } from './icons';
 import { pickLine } from './pickLine';
@@ -98,9 +98,14 @@ export class RoomScene extends Phaser.Scene {
     // On a tray-purple label with art on; outlined text over the room without.
     const captionStyle = UI.caption ? { backgroundColor: UI.caption, padding: { x: 10, y: 5 } } : {};
     this.caption = this.add
-      .text(0, 0, '', { fontSize: '22px', color: '#ffffff', stroke: '#000000', strokeThickness: 4, ...captionStyle })
+      .text(0, 0, '', { ...font(this, 22), color: '#ffffff', stroke: '#000000', strokeThickness: 4, ...captionStyle })
       .setDepth(1500)
       .setVisible(false);
+    // Text grows when the game is shrunk (slice 31). Most text is redrawn often; the caption lasts,
+    // so it follows a resize (a window dragged smaller, a phone turned).
+    const resize = () => this.caption.setFontSize(font(this, 22).fontSize);
+    this.scale.on(Phaser.Scale.Events.RESIZE, resize);
+    this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => this.scale.off(Phaser.Scale.Events.RESIZE, resize));
     this.roomView = new RoomView(this, {
       onHover: (hotspot, pointer) => {
         this.moveCaption(pointer);

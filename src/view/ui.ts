@@ -1,6 +1,24 @@
 import * as Phaser from 'phaser';
 import { gameAudio } from './GameAudio';
 import { ART_ENABLED } from './RoomView';
+import { MIN_TEXT, readableSize } from './textSize';
+
+/** The game's font (slice 31): Nunito, bold for text and black for headings, loaded in `main.ts`. */
+export const FONT = { family: 'Nunito, "Trebuchet MS", sans-serif', text: 'bold', heading: '900' } as const;
+
+/** How big the game is on screen: 1 at full size, about 0.54 on a phone held sideways. */
+export function onScreenScale(scene: Phaser.Scene): number {
+  return 1 / scene.scale.displayScale.x;
+}
+
+/**
+ * The font part of a text style: the game's font at `px`, grown when the game is shrunk so it still
+ * shows at least `min` px on screen (14 px for text; pass MIN_LABEL for small labels).
+ */
+export function font(scene: Phaser.Scene, px: number, options: { heading?: boolean; min?: number } = {}) {
+  const size = readableSize(px, onScreenScale(scene), options.min ?? MIN_TEXT);
+  return { fontFamily: FONT.family, fontStyle: options.heading ? FONT.heading : FONT.text, fontSize: `${size}px` };
+}
 
 // Small building blocks for menus: a modal overlay and a text button. Sized for a fingertip, like
 // the verb coin, so menus work on a trackpad or a phone.
@@ -58,7 +76,7 @@ export function modal(scene: Phaser.Scene, depth: number, width: number, height:
     .setStrokeStyle(ART_ENABLED ? 6 : 3, UI.border)
     .setInteractive();
   panel.on('pointerdown', swallow);
-  const heading = scene.add.text(w / 2, h / 2 - height / 2 + 36, title, { fontSize: '30px', color: UI.accent }).setOrigin(0.5);
+  const heading = scene.add.text(w / 2, h / 2 - height / 2 + 36, title, { ...font(scene, 30, { heading: true }), color: UI.accent }).setOrigin(0.5);
   container.add([dim, edge, panel, heading]);
   return container;
 }
@@ -74,7 +92,7 @@ export function button(
 ): Phaser.GameObjects.Text {
   const text = scene.add
     .text(x, y, label, {
-      fontSize: '24px',
+      ...font(scene, 24),
       color: enabled ? UI.text : UI.disabled,
       backgroundColor: UI.button,
       padding: { x: 18, y: 12 },

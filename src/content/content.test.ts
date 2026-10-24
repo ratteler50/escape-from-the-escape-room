@@ -402,3 +402,12 @@ describe('content validation', () => {
     });
   }
 });
+
+describe('comic beats (slice 31)', () => {
+  it('keeps deliberate line breaks in the lines the game shows', () => {
+    const lines = Object.values(world.dialogues)
+      .flatMap((d) => Object.values(d.nodes).flatMap((n) => n.options.flatMap((o) => o.effects ?? [])))
+      .flatMap((e) => (e.type === 'say' ? [e.text] : []));
+    expect(lines).toContain('I am Mortevayne, Dread Sovereign of the—\nfine. Reginald Vantablack-Thorne. Classically trained.');
+  });
+});
