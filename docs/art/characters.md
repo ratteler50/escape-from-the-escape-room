@@ -7,6 +7,8 @@ packs here, from an approved model sheet per character.
 |-----------|-------|----------------------------------------|-----------|
 | Dana | `prompts-characters.md` §1 | `dana.webp`: cut from the sheet's three-quarter view; `dana-walk.webp`: walk sheet (`prompts-walk.md` A), far leg shaded by `scripts/shade-far-leg.py` | 200 px |
 | Reginald | `prompts-characters.md` §2, recoloured in §2b (black and crimson, so he reads against the purple Lair) | `reginald.webp` (standing, `prompts-sprites.md` §1), `reginald-seated.webp` (cut from the sheet), `reginald-human.webp` (finale, `prompts-sprites.md` §2); walk sheets `reginald-walk.webp` and `reginald-human-walk.webp` (`prompts-walk.md` C, D) | 265 px standing, 230 px seated (Gary's height) |
+| Kyle | `prompts-gift-shop.md` §2a | `kyle.webp`: the sheet's waist-up pose, cut straight from it, its bottom edge on the counter (slice 22) | 115 px |
+| Mordecai | `prompts-gift-shop.md` §2b | `mordecai.webp`: the sheet's pointing pose, his slipper trimmed so his tail sits in the teapot's spout; drawn at 80% opacity and, painted, without the ghost bob (slice 22) | 225 px |
 
 ## Making a sprite
 
