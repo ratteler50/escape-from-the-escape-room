@@ -44,6 +44,14 @@ export function clampToPolygon(p: Point, polygon: Polygon): Point {
   return best;
 }
 
+/**
+ * Whether `p` is on the floor: inside the polygon or on its edge, within `tolerance` pixels. Walking
+ * clamps Dana onto the edge (clampToPolygon), which pointInPolygon alone counts as outside.
+ */
+export function onPolygon(p: Point, polygon: Polygon, tolerance = 1): boolean {
+  return distance(p, clampToPolygon(p, polygon)) <= tolerance;
+}
+
 export function distance(a: Point, b: Point): number {
   return Math.sqrt(distanceSq(a, b));
 }

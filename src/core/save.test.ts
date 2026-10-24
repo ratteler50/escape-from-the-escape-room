@@ -2,12 +2,13 @@ import { describe, expect, it } from 'vitest';
 import { initialState, world } from '../content/world';
 import { handle } from './engine';
 import { InMemorySaveStore, SAVE_FORMAT, loadSaveFile, mostRecentSlot, toSaveFile, type SaveFile } from './save';
+import { clampToPolygon } from './geometry';
 import type { GameState } from './types';
 
 const NOW = '2026-10-21T23:40:00.000Z';
 const json = (file: unknown) => JSON.stringify(file);
 
-/** A few real steps into the game: script taken, mid-conversation with Reginald. */
+/** A few real steps into the game: the coffin open, mid-conversation with Reginald. */
 function midConversation(): GameState {
   let s = handle(world, initialState, { type: 'verb', verb: 'use', hotspotId: 'coffin' }).state;
   s = handle(world, s, { type: 'verb', verb: 'talk', hotspotId: 'reginald' }).state;
@@ -56,6 +57,18 @@ describe('incompatible saves are reported, never thrown', () => {
 
   it('Dana standing off the floor', () => {
     expect(reasonFor(withState({ player: { x: 640, y: 100 } }))).toMatch(/floor/i);
+  });
+
+  it('but not Dana on the very edge of the floor, where walking puts her (slice 33: a save that would not load)', () => {
+    // Clicking past the floor walks Dana to the nearest point on its edge. The developer's save had
+    // her at the Gift Shop's front door, on the slanted top edge.
+    const shop = world.rooms.giftShop!;
+    for (const click of [{ x: 1105, y: 400 }, { x: 640, y: 100 }, { x: 1279, y: 700 }]) {
+      const onEdge = clampToPolygon(click, shop.walkable);
+      const file = toSaveFile({ ...initialState, roomId: 'giftShop', player: onEdge }, NOW);
+      const result = loadSaveFile(world, json(file));
+      expect(result.ok ? 'loads' : result.reason, `Dana at ${JSON.stringify(onEdge)}`).toBe('loads');
+    }
   });
 
   it('an unknown item', () => {

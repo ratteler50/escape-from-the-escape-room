@@ -1,4 +1,4 @@
-import { pointInPolygon } from './geometry';
+import { onPolygon } from './geometry';
 import type { GameState, World } from './types';
 
 /**
@@ -75,7 +75,7 @@ export function mostRecentSlot(world: World, store: SaveStore): SlotId | null {
 function incompatibility(world: World, state: GameState): string | null {
   const room = world.rooms[state.roomId];
   if (!room) return `The save is in room "${state.roomId}", which no longer exists.`;
-  if (!pointInPolygon(state.player, room.walkable)) return 'The save has Dana standing off the floor (the room changed).';
+  if (!onPolygon(state.player, room.walkable)) return 'The save has Dana standing off the floor (the room changed).';
   const missing = state.inventory.find((id) => !world.items[id]);
   if (missing) return `The save holds item "${missing}", which no longer exists.`;
   if (state.conversation) {
