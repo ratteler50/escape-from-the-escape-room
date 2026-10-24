@@ -262,7 +262,14 @@ export const lair: Room = {
       verbs: {
         look: {
           responses: [
-            { when: [{ flag: 'learnedCue' }], effects: [say('His script, back on its shelf. I know the line by heart: "Rise, foul creature, and face me!"')] },
+            {
+              // The script lives here after memorising, so this is where the finale's clue can be read again.
+              when: [{ flag: 'learnedCue' }],
+              effects: [
+                say('His script, back on its shelf. MORTAL: "Rise, foul creature, and face me!" LICH: "ARISE!" I know the mortal\'s line by heart now.'),
+                say('The last page: "FINALE: The guest escapes THROUGH THE GIFT SHOP and purchases a souvenir. CURTAIN." Head office has underlined "souvenir" twice.'),
+              ],
+            },
             { effects: [say('A dog-eared script on a little shelf. One line is underlined three times. Something red is scribbled in the margin.')] },
           ],
         },
