@@ -1,11 +1,16 @@
 import * as Phaser from 'phaser';
 import type { Point } from '../core/geometry';
 import { TEXT_SPEEDS, settings } from './storage';
+import { MIN_LABEL, balancedWidth } from './textSize';
 import { charsShown, typingTime } from './typewriter';
+import { font } from './ui';
 
 const DEPTH = 900;
 const BLOCKER_DEPTH = 1800;
-const TAG_HEIGHT = 22;
+/** Speech is drawn at 22 px (grown when the game is shrunk) and wraps at 520 px at that size. */
+const SIZE = { text: 22, name: 16, wrap: 520 };
+/** The dark band each line sits on (slice 31): readable over any part of a painting. */
+const BAND = { color: 0x140a1e, alpha: 0.8, padX: 16, padY: 8, radius: 12, margin: 10 };
 
 /**
  * Shows one line of speech at a time, above whoever is speaking, typing it out at the text speed.
@@ -13,8 +18,8 @@ const TAG_HEIGHT = 22;
  * still typing) or "next line", and stops everything else.
  */
 export class Speech {
-  private text: Phaser.GameObjects.Text | undefined;
-  private tag: Phaser.GameObjects.Text | undefined;
+  /** The band, the speaker's name and one text object per wrapped line. */
+  private objects: Phaser.GameObjects.GameObject[] = [];
   private line: string | undefined;
   private typing: Phaser.Time.TimerEvent | undefined;
   private timer: Phaser.Time.TimerEvent | undefined;
@@ -53,51 +58,58 @@ export class Speech {
   }
 
   /**
-   * Types `line` out above `anchor`, then leaves it up for its reading time or until a click.
-   * `name` adds a small tag above the line (used for everyone but Dana).
+   * Types `line` out above `anchor` on a dark band, then leaves it up for its reading time or until
+   * a click. `name` puts the speaker's name on the band (everyone but Dana). Deliberate line breaks
+   * (`\n`) in the line are kept.
    */
   say(line: string, color: string, anchor: Point, onDone: () => void, name?: string): void {
     this.clear();
     this.line = line;
-    const text = this.scene.add
-      .text(0, 0, line, {
-        fontSize: '22px',
-        color,
-        align: 'center',
-        wordWrap: { width: 520 },
-        stroke: '#000000',
-        strokeThickness: 4,
-      })
-      .setOrigin(0.5, 0)
-      .setDepth(DEPTH);
-    this.text = text;
+    const { scene } = this;
+    const style = { ...font(scene, SIZE.text), color };
 
-    // Lay the full line out once, then keep that layout: untyped characters are shown as spaces
-    // (the font is monospaced), so nothing shifts while it types.
-    const wrapped = text.getWrappedText(line).join('\n');
-    text.setText(wrapped);
-    const halfWidth = text.width / 2;
-    const top = Math.max(anchor.y - text.height, 10 + (name ? TAG_HEIGHT : 0));
-    const x = Phaser.Math.Clamp(anchor.x, halfWidth + 10, this.scene.scale.width - halfWidth - 10);
-    text.setPosition(x, top);
-    if (name) {
-      this.tag = this.scene.add
-        .text(x, top - 2, name.toUpperCase(), { fontSize: '16px', color, stroke: '#000000', strokeThickness: 3 })
-        .setOrigin(0.5, 1)
-        .setDepth(DEPTH);
-    }
+    // Wrap once, at a width that avoids a lone last word, and keep that layout while it types.
+    const measure = scene.add.text(0, 0, '', style).setVisible(false);
+    const grown = parseInt(style.fontSize, 10) / SIZE.text;
+    const wrapAt = (text: string, width: number) => measure.setWordWrapWidth(width).getWrappedText(text);
+    const maxWidth = Math.min(SIZE.wrap * grown, scene.scale.width - 2 * (BAND.margin + BAND.padX));
+    const lines = wrapAt(line, balancedWidth(line, maxWidth, wrapAt));
+    measure.destroy();
 
+    // One left-aligned text per line, so letters don't shift as the line types out (the font isn't
+    // monospaced). Each is sized with its full text, then emptied.
+    const rows = lines.map((l) => scene.add.text(0, 0, l, style).setDepth(DEPTH + 1));
+    const lineHeight = rows[0]?.height ?? 0;
+    const tag = name ? scene.add.text(0, 0, name.toUpperCase(), { ...font(scene, SIZE.name, { min: MIN_LABEL }), color }).setOrigin(0.5, 0).setDepth(DEPTH + 1) : undefined;
+    const tagHeight = tag ? tag.height : 0;
+    const bandWidth = Math.max(...rows.map((r) => r.width), tag?.width ?? 0) + 2 * BAND.padX;
+    const bandHeight = tagHeight + rows.length * lineHeight + 2 * BAND.padY;
+    const left = Phaser.Math.Clamp(anchor.x - bandWidth / 2, BAND.margin, scene.scale.width - bandWidth - BAND.margin);
+    const top = Math.max(anchor.y - bandHeight, BAND.margin);
+    const band = scene.add.graphics().setDepth(DEPTH);
+    band.fillStyle(BAND.color, BAND.alpha).fillRoundedRect(left, top, bandWidth, bandHeight, BAND.radius);
+    tag?.setPosition(left + bandWidth / 2, top + BAND.padY);
+    rows.forEach((r, i) => r.setPosition(left + (bandWidth - r.width) / 2, top + BAND.padY + tagHeight + i * lineHeight));
+    this.objects = [band, ...(tag ? [tag] : []), ...rows];
+
+    const total = lines.reduce((n, l) => n + l.length, 0);
+    const show = (n: number) => {
+      let remaining = n;
+      rows.forEach((r, i) => {
+        r.setText(lines[i]!.slice(0, Math.max(0, remaining)));
+        remaining -= lines[i]!.length;
+      });
+    };
     const speed = settings.textSpeed;
-    const show = (n: number) => text.setText(wrapped.slice(0, n) + wrapped.slice(n).replace(/[^\n]/g, ' '));
-    const started = this.scene.time.now;
+    const started = scene.time.now;
     show(0);
-    this.typing = this.scene.time.addEvent({
+    this.typing = scene.time.addEvent({
       delay: 25,
       loop: true,
       callback: () => {
-        const n = charsShown(this.scene.time.now - started, speed, wrapped.length);
+        const n = charsShown(scene.time.now - started, speed, total);
         show(n);
-        if (n >= wrapped.length) this.complete?.();
+        if (n >= total) this.complete?.();
       },
     });
 
@@ -112,10 +124,10 @@ export class Speech {
       this.typing?.remove();
       this.typing = undefined;
       this.complete = undefined;
-      show(wrapped.length);
+      show(total);
       // The reading time (from the text speed) starts once the whole line is visible.
-      const reading = (1500 + line.length * 50) * TEXT_SPEEDS[speed] - typingTime(wrapped.length, speed);
-      this.timer = this.scene.time.delayedCall(Math.max(1200, reading), () => this.finish?.());
+      const reading = (1500 + line.length * 50) * TEXT_SPEEDS[speed] - typingTime(total, speed);
+      this.timer = scene.time.delayedCall(Math.max(1200, reading), () => this.finish?.());
     };
   }
 
@@ -133,9 +145,9 @@ export class Speech {
   private clear(): void {
     this.typing?.remove();
     this.timer?.remove();
-    this.text?.destroy();
-    this.tag?.destroy();
-    this.typing = this.timer = this.text = this.tag = this.line = this.complete = undefined;
+    this.objects.forEach((o) => o.destroy());
+    this.objects = [];
+    this.typing = this.timer = this.line = this.complete = undefined;
     this.finish = undefined;
   }
 }

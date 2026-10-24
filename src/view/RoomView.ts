@@ -1,4 +1,6 @@
 import * as Phaser from 'phaser';
+import { font } from './ui';
+import { MIN_LABEL } from './textSize';
 import type { Point } from '../core/geometry';
 import { isExit } from '../core/engine';
 import type { CharacterId, Hotspot, Pose, Room, RoomOverlay, World } from '../core/types';
@@ -328,7 +330,7 @@ export class RoomView {
     const label = this.scene.add
       // Wrapped to the hotspot's width, so a long name ("Cardboard Reginald") stays inside its box.
       .text(x + width / 2, y + LABEL_OFFSET, hotspot.character ? hotspot.name.toUpperCase() : hotspot.name, {
-        fontSize: '18px',
+        ...font(this.scene, 18, { min: MIN_LABEL }),
         color: COLORS.text,
         align: 'center',
         wordWrap: { width: Math.max(width - 4, 40) },

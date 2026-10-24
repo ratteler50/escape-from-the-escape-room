@@ -1,4 +1,6 @@
 import * as Phaser from 'phaser';
+import { font } from './ui';
+import { MIN_LABEL } from './textSize';
 import { clampToPolygon, distance, type Point, type Polygon } from '../core/geometry';
 import type { WalkFrames } from '../core/types';
 import { ART_ENABLED, artKey } from './RoomView';
@@ -36,7 +38,7 @@ export class PlayerSprite {
       return;
     }
     const body = scene.add.rectangle(0, 0, SIZE.width, SIZE.height, 0x3fa7d6).setOrigin(0.5, 1);
-    const label = scene.add.text(0, -SIZE.height / 2, 'DANA', { fontSize: '16px', color: '#ffffff' }).setOrigin(0.5);
+    const label = scene.add.text(0, -SIZE.height / 2, 'DANA', { ...font(scene, 16, { min: MIN_LABEL }), color: '#ffffff' }).setOrigin(0.5);
     this.facingMarker = scene.add.triangle(SIZE.width / 2 + 8, -SIZE.height + 22, 0, 0, 12, 8, 0, 16, 0xffe28a);
     this.height = SIZE.height;
     this.container = scene.add.container(at.x, at.y, [body, label, this.facingMarker]).setDepth(500);

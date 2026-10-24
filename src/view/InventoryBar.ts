@@ -1,4 +1,6 @@
 import * as Phaser from 'phaser';
+import { font } from './ui';
+import { MIN_LABEL } from './textSize';
 import type { Item, ItemId } from '../core/types';
 import { ART_ENABLED, artKey } from './RoomView';
 
@@ -94,7 +96,7 @@ export class InventoryBar {
       const content = icon
         ? this.scene.add.image(x, y, icon).setDisplaySize(ICON_SIZE, ICON_SIZE)
         : this.scene.add.text(x, y, item.name, {
-            fontSize: '14px',
+            ...font(this.scene, 14, { min: MIN_LABEL }),
             color: '#ffffff',
             align: 'center',
             wordWrap: { width: SLOT_SIZE - 8 },

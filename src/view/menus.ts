@@ -4,7 +4,7 @@ import type { World } from '../core/types';
 import { credits } from '../content/credits';
 import { gameAudio } from './GameAudio';
 import { TEXT_SPEEDS, settings, stepVolume, type TextSpeed } from './storage';
-import { button, modal, UI } from './ui';
+import { button, font, modal, UI } from './ui';
 
 const DEPTH = 2500; // above the room, panels, and coin; below the end card
 
@@ -78,7 +78,7 @@ export function showSettings(scene: Phaser.Scene, onClose: () => void): void {
     showSettings(scene, onClose);
   };
   const heading = (y: number, text: string) =>
-    box.add(scene.add.text(width / 2 - 250, y, text, { fontSize: '24px', color: UI.muted }).setOrigin(0, 0.5));
+    box.add(scene.add.text(width / 2 - 250, y, text, { ...font(scene, 24), color: UI.muted }).setOrigin(0, 0.5));
 
   // Picking a speed reopens the panel so the ● moves to the new choice.
   heading(height / 2 - 150, 'Text speed');
@@ -94,7 +94,7 @@ export function showSettings(scene: Phaser.Scene, onClose: () => void): void {
   const audio = gameAudio(scene);
   const volume = (y: number, name: string, get: () => number, set: (v: number) => void) => {
     heading(y, name);
-    box.add(scene.add.text(width / 2 + 120, y, `${get()}`, { fontSize: '24px', color: '#ffffff' }).setOrigin(0.5));
+    box.add(scene.add.text(width / 2 + 120, y, `${get()}`, { ...font(scene, 24), color: '#ffffff' }).setOrigin(0.5));
     const change = (direction: 1 | -1) => () => {
       set(stepVolume(get(), direction));
       audio.applyVolumes();
@@ -117,9 +117,11 @@ export function showSettings(scene: Phaser.Scene, onClose: () => void): void {
   }));
 }
 
-/** The title screen's Credits: who made what (a summary of CREDITS.md). */
+/**
+ * The title screen's Credits: who made what (a summary of CREDITS.md). The panel is sized to its
+ * text, which grows when the game is shrunk (slice 31): then it wraps wider so it still fits.
+ */
 export function showCredits(scene: Phaser.Scene, onClose: () => void): void {
-  const box = modal(scene, DEPTH, 900, 560, 'Credits');
   const { width, height } = scene.scale;
   const lines = [
     credits.art,
@@ -131,12 +133,16 @@ export function showCredits(scene: Phaser.Scene, onClose: () => void): void {
     '',
     credits.made,
   ];
-  box.add(
-    scene.add
-      .text(width / 2, height / 2 - 200, lines.join('\n'), { fontSize: '20px', color: UI.text, align: 'center', wordWrap: { width: 820 }, lineSpacing: 6 })
-      .setOrigin(0.5, 0),
-  );
-  box.add(button(scene, width / 2, height / 2 + 225, 'Back', () => {
+  const style = font(scene, 20);
+  const wrap = parseInt(style.fontSize, 10) > 20 ? width - 140 : 820;
+  const text = scene.add
+    .text(width / 2, 0, lines.join('\n'), { ...style, color: UI.text, align: 'center', wordWrap: { width: wrap }, lineSpacing: 6 })
+    .setOrigin(0.5, 0);
+  const panelHeight = Math.min(height - 20, text.height + 190);
+  const top = height / 2 - panelHeight / 2;
+  const box = modal(scene, DEPTH, wrap + 80, panelHeight, 'Credits');
+  box.add(text.setY(top + 75));
+  box.add(button(scene, width / 2, top + panelHeight - 45, 'Back', () => {
     box.destroy();
     onClose();
   }));

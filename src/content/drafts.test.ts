@@ -5,6 +5,11 @@ import { draftsIn, generateDrafts } from '../../scripts/drafts';
 
 // docs/drafts.md lists every `// DRAFT:` line for the developer's opinion (docs/slices/17-polish.md, 28).
 describe('the draft script', () => {
+  it('shows a deliberate line break as ⏎, keeping one row per line', () => {
+    const source = ["// DRAFT:", "R('WHO DARES DISTURB THE LICH LORD?\\n...Oh. The trainee.'),"].join('\n');
+    expect(draftsIn('reginald.ts', source)[0]?.text).toBe('WHO DARES DISTURB THE LICH LORD? ⏎ ...Oh. The trainee.');
+  });
+
   it('is up to date with the content', () => {
     const onDisk = readFileSync(join(import.meta.dirname, '..', '..', 'docs', 'drafts.md'), 'utf8');
     expect(onDisk === generateDrafts(), 'docs/drafts.md is out of date: run `npm run drafts` and commit it').toBe(true);

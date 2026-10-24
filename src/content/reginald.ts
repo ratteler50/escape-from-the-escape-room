@@ -44,7 +44,7 @@ const verbs: HotspotVerbs = {
 const itemUses: Partial<Record<string, Response[]>> = {
   [handbook.id]: [{ effects: [R("Darling, I have a union contract. It's longer than that, and it has a better plot.")] }],
   garyArm: [{ effects: [R("Unhand that limb! Gary has a CONTRACT!"), say('Gary seems fine with it.')] }],
-  script: [{ effects: [R('My script! ...Keep it, darling. Learn it! Nobody learns their lines any more.')] }],
+  script: [{ effects: [R('My script!\n...Keep it, darling. Learn it! Nobody learns their lines any more.')] }],
   riddleScroll: [
     {
       effects: [
@@ -88,17 +88,17 @@ export const reginaldDialogue: Dialogue = {
   greeting: [
     {
       when: [{ has: 'garyArm' }, { notFlag: 'reginaldSawArm' }],
-      effects: [R("Is that... GARY'S ARM? Gary is a member of the cast! ...Well. The show must go on."), setFlag('reginaldSawArm')],
+      effects: [R("Is that... GARY'S ARM? Gary is a member of the cast!\n...Well. The show must go on."), setFlag('reginaldSawArm')],
     },
     { when: [{ flag: 'reginaldLeftThrone' }], effects: [R('Ah, my audience returns! Come to bask in the afterglow?')] },
     {
       when: [{ has: script.id }],
       effects: [
-        R('WHO DARES DISTURB THE LICH LORD? ...Oh. The trainee.'),
+        R('WHO DARES DISTURB THE LICH LORD?\n...Oh. The trainee.'),
         say("I've got his script right here. If only I knew his cue by heart."),
       ],
     },
-    { effects: [R('WHO DARES DISTURB THE LICH LORD? ...Oh. The trainee.')] },
+    { effects: [R('WHO DARES DISTURB THE LICH LORD?\n...Oh. The trainee.')] },
   ],
   nodes: {
     hub: {
@@ -108,7 +108,7 @@ export const reginaldDialogue: Dialogue = {
           text: 'Who are you?',
           once: true,
           effects: [
-            R('I am Mortevayne, Dread Sovereign of the— fine. Reginald Vantablack-Thorne. Classically trained.'),
+            R('I am Mortevayne, Dread Sovereign of the—\nfine. Reginald Vantablack-Thorne. Classically trained.'),
             R('I once understudied a Hamlet. He never got sick. Not once. Forty-two performances.'),
           ],
           next: 'hub',
@@ -158,7 +158,7 @@ export const reginaldDialogue: Dialogue = {
             // To his spotlight mark: the feet of the reginaldOnMark hotspot.
             walk(reginald.id, 405, 455),
             setFlag('reginaldLeftThrone'),
-            R('Behold, mortal, as the light finds me and— ...Gary?'),
+            R('Behold, mortal, as the light finds me and—\n...Gary?'),
             R('I am ON my mark! The light is meant to fall HERE. Instead it is lovingly illuminating a man with no lines, over THERE!'),
             R('Fine. FINE. A true professional holds his mark in the dark. Whoever rigged that is getting a strongly worded note.'),
             say("He's sulking on his mark, in the dark. Which means the Spooky Seat is unguarded."),

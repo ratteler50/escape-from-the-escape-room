@@ -4,7 +4,7 @@ import { queueArt } from './assets';
 import { backgroundTracks, queueAudio } from './GameAudio';
 import type { GameData } from './TitleScene';
 import { pickLine } from './pickLine';
-import { UI } from './ui';
+import { font, UI } from './ui';
 
 const BAR = { width: 520, height: 26 };
 /** How long each Handbook line stays up; the screen only shows one if loading takes that long. */
@@ -30,8 +30,8 @@ export class LoadingScene extends Phaser.Scene {
     const { width, height } = this.scale;
     const { world } = this.data_;
     this.add.rectangle(0, 0, width, height, 0x0d0a14).setOrigin(0, 0);
-    this.add.text(width / 2, height / 2 - 90, 'ESCAPE-O-RAMA', { fontSize: '44px', color: UI.accent, fontStyle: 'bold' }).setOrigin(0.5);
-    this.add.text(width / 2, height / 2 - 45, screens.loadingCaption, { fontSize: '20px', color: UI.muted }).setOrigin(0.5);
+    this.add.text(width / 2, height / 2 - 90, 'ESCAPE-O-RAMA', { ...font(this, 44, { heading: true }), color: UI.accent }).setOrigin(0.5);
+    this.add.text(width / 2, height / 2 - 45, screens.loadingCaption, { ...font(this, 20), color: UI.muted }).setOrigin(0.5);
 
     // A tray-purple bar in a darker inset, like the inventory tray's slots.
     const left = width / 2 - BAR.width / 2;
@@ -44,7 +44,7 @@ export class LoadingScene extends Phaser.Scene {
     const lines = world.loadingLines ?? [];
     let shown = pickLine(lines.length, undefined);
     const line = this.add
-      .text(width / 2, height / 2 + 80, lines[shown] ?? '', { fontSize: '20px', color: '#ffffff', align: 'center', wordWrap: { width: 760 } })
+      .text(width / 2, height / 2 + 80, lines[shown] ?? '', { ...font(this, 20), color: '#ffffff', align: 'center', wordWrap: { width: 760 } })
       .setOrigin(0.5, 0);
     if (lines.length > 1) {
       this.time.addEvent({

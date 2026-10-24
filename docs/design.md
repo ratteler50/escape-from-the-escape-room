@@ -120,9 +120,10 @@ final cue; section twelve, wrongful loss of a role.
 ## Scope and milestones
 
 Three screens: **Lich's Lair**, **Gift Shop**, **Break Room**. A milestone is not started until
-the previous one is playable. **M4 is the last milestone:** the project is complete when it ends
-(decided 2026-10-23), after slice 28, a text pass and code cleanup, slice 29, hover polish and the
-Handbook as an item, and slice 30, a Handbook puzzle for Section 14 (all added 2026-10-23).
+the previous one is playable. M4 was planned as the last milestone (decided 2026-10-23), after
+slice 28, a text pass and code cleanup, slice 29, hover polish and the Handbook as an item, and
+slice 30, a Handbook puzzle for Section 14 (all added 2026-10-23). **M5, mobile and readability,**
+was added after it (2026-10-24): the game mostly worked on a phone already, but its text didn't.
 
 | Milestone | Content |
 |-----------|---------|
@@ -130,8 +131,45 @@ Handbook as an item, and slice 30, a Handbook puzzle for Section 14 (all added 2
 | **M2 — systems complete** ✅ (slices 7–12) | Room transitions (with a stub Gift Shop), deploy to GitHub Pages, save/load, cutscenes, browser end-to-end tests, polish. Plan below. |
 | **M3 — content** ✅ complete (slices 13–17) | Gift Shop and Break Room, full puzzle chain, ending. Plan below. |
 | **M4 — art and audio** ✅ complete (slices 18–30) | Painted backgrounds, character sprites, prop overlays, item icons, music and sound effects, a walk animation; then a text consistency pass and a content-code cleanup, hover polish, the Handbook as an item, and a Handbook puzzle for Section 14. No voice. Plan below. |
+| **M5 — mobile and readability** (slices 31–32) | One readable font, speech on dark bands, text that grows when the game is shrunk, deliberate line breaks for comic beats; then playable on a phone held sideways. Plan below. |
 
 Art is placeholder shapes until M4, and the code keeps art swappable.
+
+## M5 plan
+
+Decided in the M5 planning session (2026-10-24). The game is drawn at 1280×720 and shrunk to fit,
+so its text shrinks with it: on a phone held sideways (about 0.54×) the 22 px speech shows at about
+12 px and names at 9 px; upright (about 0.30×) at 7 px. Courier, the default font, breaks up at
+that size, and coloured text with a black outline gets muddy over the paintings.
+
+**Font.** **Nunito** everywhere, bold for text and black for headings (picked from Fredoka, Baloo 2
+and Nunito in mock-ups at phone size: the easiest to read; the cartoon personality comes from the
+art and the painted logo). Bundled in `public/assets/fonts/` under the SIL Open Font License and
+credited, never loaded from Google. Applies with `?art=off` too.
+
+**Speech.** Over the speaker's head on a dark, slightly see-through band with rounded corners; the
+speaker's name on it in their colour, the line in their colour. Each band sized to its text,
+avoiding one-word last lines. (TV-style subtitles at the bottom were considered: they lose who's
+talking and clash with the dialogue options panel.)
+
+**Size.** When the game is shrunk, text grows to keep about **14 px** on screen (12 px for small
+labels); at full size nothing changes. Speech bands get taller; the dialogue options panel grows,
+and scrolls when a conversation has many options.
+
+**Comic beats.** Line breaks can be written into a line, and the game keeps them whatever the font
+(the developer noticed Courier happened to break "Dread Sovereign of the—" before "fine."). A pass
+over the dialogue adds them at interruptions and pauses before punchlines, marked for review.
+
+**Mobile.** Upright phones get a "turn your phone sideways" screen (no text size fixes 0.30×).
+Small hotspots (the keypad: about 24 px on a phone) get bigger touch areas without changing the art.
+A fullscreen option on Android; "Add to Home Screen" (a web-app manifest) for iPhone, where Safari
+doesn't allow fullscreen. A Playwright run at a phone-sized landscape viewport with touch, and a
+developer play-test on a real phone.
+
+| Slice | Content | Runs |
+|-------|---------|------|
+| 31 | Readability: Nunito, speech bands, text that grows when shrunk, comic line breaks | here |
+| 32 | Mobile: portrait screen, touch areas, fullscreen and home screen, phone Playwright run | after 31 |
 
 ## M4 plan
 
