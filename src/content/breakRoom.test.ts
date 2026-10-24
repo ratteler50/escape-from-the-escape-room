@@ -1,21 +1,24 @@
 import { describe, expect, it } from 'vitest';
 import type { Condition, GameState, World } from '../core/types';
 import { breakRoom } from './breakRoom';
-import { describeCommand, explore, firstWin } from './explore';
+import { handle } from '../core/engine';
+import { describeCommand, explore, firstWin, shortestSolution } from './explore';
 import { initialState, world } from './world';
 
-// The Break Room isn't reachable from the start until slice 16 wires its door, so the
-// always-winnable test can't see it. This explores it from the inside instead: Dana arrives
-// from the Gift Shop with what the game starts them with (the lanyard).
+// The Break Room's three puzzles, explored from the inside: from the moment Dana first walks in, on
+// the shortest solution (slice 33; it used to start from the game's opening inventory and flags, a
+// state the wired-up game can't reach, and a bigger Lair pushed that past the explorer's cap).
 //
 // explore() judges dead ends by the `won` flag, so each goal gets a copy of the world with one
 // extra, invisible-until-reached hotspot whose look wins. "Can win" then means "can reach the goal".
-
-const start: GameState = {
-  ...initialState,
-  roomId: breakRoom.id,
-  player: breakRoom.entries.fromGiftShop!,
-};
+const start: GameState = (() => {
+  let state = initialState;
+  for (const command of shortestSolution(world, initialState)) {
+    state = handle(world, state, command).state;
+    if (state.roomId === breakRoom.id) return state;
+  }
+  throw new Error('The shortest solution never reaches the Break Room');
+})();
 
 function withGoal(goal: Condition[]): World {
   const room = {

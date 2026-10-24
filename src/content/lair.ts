@@ -1,5 +1,6 @@
 import type { Combination, Item, Room } from '../core/types';
-import { addItem, goTo, removeItem, say, says, setFlag, sound, walk } from './dsl';
+import { addItem, clearFlag, goTo, removeItem, say, says, setFlag, sound, walk } from './dsl';
+import { R } from './cast';
 import { reginaldOnMark, reginaldOnThrone, script } from './reginald';
 import type { ContentPack } from './pack';
 import { handbook } from './handbook';
@@ -67,6 +68,8 @@ export const lair: Room = {
     background: 'assets/rooms/lair.webp',
     // Patches of the painting for what changes in play (docs/art/prompts-overlays.md).
     overlays: [
+      // The gold star on Reginald's coffin (slice 33): drawn by the agent, always shown.
+      { image: 'assets/overlays/lair-coffin-star.webp', at: { x: 64, y: 252 } },
       { image: 'assets/overlays/lair-gary-armless.webp', at: { x: 235, y: 211 }, when: [{ flag: 'tookGaryArm' }] },
       { image: 'assets/overlays/lair-grate-arm.webp', at: { x: 318, y: 507 }, when: [{ flag: 'gotCaseKey' }] },
       { image: 'assets/overlays/lair-case-open.webp', at: { x: 750, y: 243 }, when: [{ flag: 'caseOpen' }] },
@@ -134,17 +137,33 @@ export const lair: Room = {
       verbs: {
         look: {
           responses: [
-            { when: [{ notFlag: 'reginaldLeftThrone' }], effects: [say("Reginald is sitting on it. Sitting is a strong word. He's lounging, dramatically.")] },
-            { effects: [say('A towering throne of bone. The estate-sale sticker on the armrest says "LOT 12: SPOOKY SEAT (BONE-EFFECT), $49.99".')] },
+            {
+              when: [{ notFlag: 'reginaldLeftThrone' }],
+              effects: [
+                say("Reginald is sitting on it. Sitting is a strong word. He's lounging, dramatically. And under the armrest, right by his elbow: a wad of bright pink gum."),
+                setFlag('sawGum'),
+              ],
+            },
+            { when: [{ flag: 'tookGum' }], effects: [say('A towering throne of bone. The estate-sale sticker on the armrest says "LOT 12: SPOOKY SEAT (BONE-EFFECT), $49.99".')] },
+            {
+              effects: [
+                say('A towering throne of bone, unguarded at last. "LOT 12: SPOOKY SEAT (BONE-EFFECT), $49.99." And under the armrest, that wad of pink gum.'),
+                setFlag('sawGum'),
+              ],
+            },
           ],
         },
         take: {
-          label: 'Check under the armrest',
-          when: [{ flag: 'reginaldLeftThrone' }, { notFlag: 'tookGum' }],
+          label: 'Take the gum',
+          when: [{ flag: 'sawGum' }, { notFlag: 'tookGum' }],
           responses: [
             {
+              when: [{ notFlag: 'reginaldLeftThrone' }],
+              effects: [R('Hands off the Spooky Seat, darling! Nobody touches the throne mid-performance.'), say("I'll need him off that throne first.")],
+            },
+            {
               effects: [
-                say(`Under the armrest: one wad of pre-owned gum, stuck there like under a school desk. Handbook Section 3: "Lost property must be returned and logged." Logged. I'll return it when I find out whose it is.`),
+                say(`I peel the gum off the armrest, like from under a school desk. Handbook Section 3: "Lost property must be returned and logged." Logged. I'll return it when I find out whose it is.`),
                 addItem(gum.id),
                 setFlag('tookGum'),
               ],
@@ -171,6 +190,8 @@ export const lair: Room = {
       },
     },
     {
+      // Reginald's dressing room (slice 33: it opens, closes and takes a knock). Knocking first is
+      // only good manners: opening knocks for Dana if they haven't.
       id: 'coffin',
       name: 'Coffin',
       bounds: { x: 10, y: 175, width: 128, height: 262 },
@@ -179,21 +200,103 @@ export const lair: Room = {
         [handbook.id]: [{ effects: [say("I could leave the Handbook in his dressing room as a gift. He'd think it was a script. He'd give it notes.")] }],
       },
       verbs: {
-        look: says('A coffin with a gold star on the lid. "R. VANTABLACK-THORNE: DRESSING ROOM. KNOCK."'),
-        use: {
-          label: 'Open',
+        look: {
+          responses: [
+            { when: [{ flag: 'coffinOpen' }, { lacks: script.id }], effects: [say(`His dressing room: a mirror ringed with bulbs, a headshot of Reginald signed by Reginald, a can of UNDEAD HOLD hairspray, and his script on its little shelf.`)] },
+            { when: [{ flag: 'coffinOpen' }], effects: [say(`His dressing room: a mirror ringed with bulbs, a headshot of Reginald signed by Reginald, a can of UNDEAD HOLD hairspray, and an empty shelf where the script lives.`)] },
+            { effects: [say(`Reginald's coffin, stood on end like a door. Someone has screwed a brass knocker onto it. Someone. A gold star on the lid: R. VANTABLACK-THORNE, DRESSING ROOM. The estate-sale sticker: "LOT 9: COFFIN (LIGHTLY USED), $20."`)] },
+          ],
+        },
+        talk: {
+          label: 'Knock',
           responses: [
             {
-              when: [{ notFlag: 'tookScript' }],
+              when: [{ flag: 'coffinOpen' }],
+              effects: [say('Knock knock.'), R("Who's there?"), say('Dana.'), R('Dana who?'), say("...I didn't plan this far.")],
+            },
+            { when: [{ flag: 'knockedOnCoffin' }], effects: [R('Still yes, darling. Go ahead. Anything but the hairspray.')] },
+            {
               effects: [
-                say('Inside: a mirror, hairspray labelled UNDEAD HOLD, and a dog-eared script. His cue is underlined three times: "Rise, foul creature, and face me!"'),
-                addItem(script.id),
-                setFlag('tookScript'),
+                say('Knock, knock.'),
+                R('Who knocks at the dressing room of the Lich Lord? ...Oh, the trainee. Go ahead, darling. Anything but the hairspray.'),
+                setFlag('knockedOnCoffin'),
               ],
             },
-            { when: [{ flag: 'learnedCue' }], effects: [say("His script's back where it belongs. I know the cue by heart now: \"Rise, foul creature, and face me!\"")] },
-            { effects: [say('Just the mirror and the hairspray. And a signed photo of Reginald, signed by Reginald.')] },
           ],
+        },
+        use: {
+          label: [{ when: [{ flag: 'coffinOpen' }], text: 'Close' }, { text: 'Open' }],
+          responses: [
+            { when: [{ flag: 'coffinOpen' }], effects: [clearFlag('coffinOpen'), say("I close the lid. Gently. It's his dressing room.")] },
+            {
+              when: [{ flag: 'knockedOnCoffin' }],
+              effects: [setFlag('coffinOpen'), say('The lid swings open. His dressing room, in a coffin. A mirror, a headshot, hairspray, and a little shelf for the script.')],
+            },
+            {
+              effects: [
+                say('I knock first. Manners.'),
+                R('Who knocks at the dressing room of the Lich Lord? ...Oh, the trainee. Go ahead, darling. Anything but the hairspray.'),
+                setFlag('knockedOnCoffin'),
+                setFlag('coffinOpen'),
+                say('The lid swings open. His dressing room, in a coffin. A mirror, a headshot, hairspray, and a little shelf for the script.'),
+              ],
+            },
+          ],
+        },
+      },
+    },
+    {
+      // Inside the open coffin, while the script is on its shelf: before Dana takes it, and once it's
+      // back after memorising. Placeholder bounds until the open-coffin art is in (slice 33).
+      id: 'coffinScript',
+      name: "Reginald's Script",
+      when: [{ flag: 'coffinOpen' }, { lacks: script.id }],
+      bounds: { x: 22, y: 330, width: 52, height: 50 },
+      interactionPoint: { x: 200, y: 470 },
+      itemUses: {
+        [handbook.id]: [{ effects: [say('Two rule books, side by side on the shelf. The Handbook has more rules. The script has more feelings.')] }],
+      },
+      verbs: {
+        look: {
+          responses: [
+            { when: [{ flag: 'learnedCue' }], effects: [say('His script, back on its shelf. I know the line by heart: "Rise, foul creature, and face me!"')] },
+            { effects: [say('A dog-eared script on a little shelf. One line is underlined three times. Something red is scribbled in the margin.')] },
+          ],
+        },
+        take: {
+          label: 'Take the script',
+          responses: [
+            { when: [{ flag: 'learnedCue' }], effects: [say('I know it by heart. It can stay home.')] },
+            {
+              effects: [
+                addItem(script.id),
+                say("I take the script. Handbook Section 3 says I'll give it back. I will. After reading it."),
+              ],
+            },
+          ],
+        },
+      },
+    },
+    {
+      // Inside the open coffin. He named it, so players will try it. Placeholder bounds until the
+      // open-coffin art is in (slice 33).
+      id: 'hairspray',
+      name: 'Hairspray',
+      when: [{ flag: 'coffinOpen' }],
+      bounds: { x: 88, y: 318, width: 36, height: 70 },
+      interactionPoint: { x: 200, y: 470 },
+      itemUses: {
+        [handbook.id]: [{ effects: [say("The Handbook's section on aerosols just says \"No.\" I respect its clarity.")] }],
+      },
+      verbs: {
+        look: says('UNDEAD HOLD. "For hair that never dies." The can is older than me.'),
+        take: {
+          label: 'Take',
+          responses: [{ effects: [R('The HAIRSPRAY, darling! Anything but!'), say('He did say.')] }],
+        },
+        use: {
+          label: 'Spritz',
+          responses: [{ effects: [say('One spritz. My fringe will now survive the apocalypse.'), R("That was a WEEK's supply.")] }],
         },
       },
     },
@@ -254,15 +357,19 @@ export const lair: Room = {
       verbs: {
         look: {
           responses: [
-            { when: [{ flag: 'lairDoorUnlocked' }], effects: [say("The scroll's tucked back under the bone. Its little card says 'ANCIENT RIDDLE (REPRODUCTION)'. It has never been more wrong. I've left the lid up. The Handbook covers opening things, not closing them.")] },
+            { when: [{ flag: 'lairDoorUnlocked' }, { flag: 'caseOpen' }], effects: [say("The scroll's tucked back under the bone. Its little card says 'ANCIENT RIDDLE (REPRODUCTION)'. It has never been more wrong.")] },
+            { when: [{ flag: 'lairDoorUnlocked' }], effects: [say('Closed again, key in the lock, the scroll back under its bone. As if nothing happened. Something happened.')] },
             { when: [{ flag: 'caseOpen' }], effects: [say("The lid's propped open, key still in the lock. Just the bone now. Its card says 'BONE (DECORATIVE)'. The scroll's card says 'ANCIENT RIDDLE (REPRODUCTION)', and points at nothing.")] },
             { effects: [say("An ornate display case. Inside, on velvet: a bone, labelled 'BONE (DECORATIVE)'. Tucked underneath it: an Ancient Riddle Scroll. The lock is tiny and skull-shaped.")] },
           ],
         },
         use: {
-          label: 'Open',
+          // Slice 33: it closes once the scroll is back (the closed case's art shows the scroll).
+          label: [{ when: [{ flag: 'caseOpen' }], text: 'Close' }, { text: 'Open' }],
           responses: [
-            { when: [{ flag: 'caseOpen' }], effects: [say("It's open. All that's left is the decorative bone, and I'm not stealing set dressing on my third shift.")] },
+            { when: [{ flag: 'caseOpen' }, { flag: 'lairDoorUnlocked' }], effects: [clearFlag('caseOpen'), say('I close the lid. Key in the lock, scroll under its bone. Ready for the next guest. If there ever is one.')] },
+            { when: [{ flag: 'caseOpen' }], effects: [say("It can stay open until I've finished with the scroll.")] },
+            { when: [{ flag: 'lairDoorUnlocked' }], effects: [setFlag('caseOpen'), say('The key is still in the lock. Click. Open again.')] },
             { effects: [say("Locked. The keyhole is shaped like a tiny skull. Head office loves a theme.")] },
           ],
         },
