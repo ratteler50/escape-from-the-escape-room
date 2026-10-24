@@ -14,7 +14,7 @@ export const handbookReadings: readonly string[] = [
   'Section 6: "Respect your colleagues\' dairy." Underlined twice, in someone else\'s pen.',
   'Section 7.1: "The Spooky Seat is for liches only." Added last year. I have questions about last year.',
   'Section 8: "Found money under five cents belongs to the finder." The most generous page in the book.',
-  'Section 10: "Always offer exact change." There\'s a little drawing of a till, smiling.',
+  'Section 10: "Always require exact change." There\'s a little drawing of a till, frowning at a twenty.',
   'Section 12: "Do not improvise with props." Someone has written TOO LATE in the margin, signed "R."',
   "Section 13: intentionally left blank. Head office is superstitious. They'll never admit it.",
 ];

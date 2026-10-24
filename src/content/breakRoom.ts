@@ -77,7 +77,7 @@ const combinations: Combination[] = [
     responses: [
       {
         effects: [
-          say('I drop the cent into the pay packet. $12.99. Exact change. Handbook Section 10: "Always offer exact change." Nobody ever has. Until now.'),
+          say('I drop the cent into the pay packet. $12.99. Exact change. Handbook Section 10: "Always require exact change." I\'ve required it of a hundred guests. Nobody ever had it. Until now.'),
           removeItem(payPacket.id),
           removeItem(oneCent.id),
           addItem(exactChange.id),

@@ -39,7 +39,7 @@ const BOB = { height: 8, periodMs: 2400 };
 /** Floating characters are ghosts (Mordecai): their sprites are drawn a little see-through. */
 const GHOST_ALPHA = 0.8;
 /** A hovered character's sprite glows along its outline (Phaser's glow filter), in the highlight colour. */
-const GLOW = { strength: 4, distance: 12 };
+const GLOW = { strength: 6, distance: 10 };
 
 interface Drawn {
   hotspot: Hotspot;
@@ -212,7 +212,8 @@ export class RoomView {
   private glow(d: Drawn, on: boolean): void {
     if (!d.sprite || (!on && !d.glow)) return;
     if (!d.glow) {
-      d.glow = d.sprite.enableFilters().filters!.internal.addGlow(COLORS.highlight, GLOW.strength, 0, 1, false, 10, GLOW.distance);
+      // External: in screen space, after the sprite's scale and flip (the internal list drew nothing here).
+      d.glow = d.sprite.enableFilters().filters!.external.addGlow(COLORS.highlight, GLOW.strength, 0, 1, false, 10, GLOW.distance);
       // Grow the filter's canvas by the glow's reach, or the glow is cut off at the sprite's edges.
       d.glow.setPaddingOverride(null);
     }

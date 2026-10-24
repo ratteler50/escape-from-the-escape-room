@@ -1,6 +1,6 @@
 # Slice 29 — Hover polish and the Handbook
 
-**Status:** spec approved by the developer (2026-10-23), not built · **Milestone:** M4, its last slice
+**Status:** spec approved by the developer (2026-10-23); built and agent play-tested · **Milestone:** M4, its last slice
 (added after slice 28, 2026-10-23)
 
 ## Why
@@ -82,4 +82,29 @@ Decisions from the slice 29 questions (2026-10-23).
 
 ## Build notes
 
-(Filled in while building.)
+- **Hover:** `RoomView.style` draws the box over a painting only when everything clickable is
+  revealed. A character's glow is Phaser's glow filter on the sprite's **external** filter list
+  (screen space, after its scale and flip), strength 6, made on first hover. The internal list drew
+  nothing on these scaled sprites.
+- **sayOneOf:** a core effect type the engine passes through; `RoomScene` picks a line with
+  `pickLine` (tested), remembering the last pick per line list. `explore.ts` treats it as
+  presentation, and content validation wants at least two non-empty lines.
+- **The Handbook:** `src/content/handbook.ts` (item, eight readings, pack). Its line for each hotspot
+  sits in that hotspot's `itemUses`, in the room or character file, so it's next to the hotspot's
+  other lines. Variants: the Lair door (locked or unlocked), the lockers (before or after Dana
+  learns 007). Combinations live with the other item: Reginald's Script (`reginald.ts`), the Price
+  Gun (`kyle.ts`), both lanyards (`breakRoom.ts`).
+- **Tests:** `handbook.test.ts` checks the starting inventory, the readings, a Handbook line on
+  every hotspot, and that every "Section N" anywhere in the content is in the design doc's table
+  (the table parser moved to `handbookSections.ts`, shared with `loading.test.ts`). It caught
+  Section 13, now in the table.
+- **Added while building (developer's call):** Handbook Section 10 is now "Always require exact
+  change": a rule for staff at the till, which is why Kyle insists on it. The Break Room's
+  exact-change line and the reading follow it.
+- **Icon:** generated from the prompt in `docs/art/prompts-inventory.md` §3 with
+  `icon-sheet-money.png` (the sheet the shipped icons came from) and the title painting's book;
+  cut with `scripts/cut-icons.py`, 5 KB.
+- **Play-test:** `npm test` (477), typecheck and `npm run test:e2e` green. In the dev build: Read
+  gave six sections with no repeat back to back; the Handbook is first in the tray; hovering
+  Reginald, Kyle and Mordecai glows their outlines with no box; hovering a prop shows no box; H
+  still outlines everything; no console errors.

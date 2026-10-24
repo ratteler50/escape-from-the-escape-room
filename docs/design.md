@@ -67,7 +67,7 @@ section, and add new ones here.
 | 7.1 | The Spooky Seat is for liches only |
 | 8 | Be thorough; found money under five cents belongs to the finder |
 | 9 | Doors must never be locked during business hours |
-| 10 | Always offer exact change |
+| 10 | Always require exact change (the till never gives change) |
 | 11 | Employees may not review their own workplace |
 | 12 | Do not improvise with props |
 | 13 | Intentionally left blank (head office is superstitious) |
@@ -114,7 +114,7 @@ Handbook as an item (both added 2026-10-23).
 | **M1 — vertical slice** ✅ playable (slices 1–6) | The Lair, fully playable start to finish: walking, hotspots, look text, inventory, one combination, one dialogue tree, a win state ("To be continued"). Ugly but complete. |
 | **M2 — systems complete** ✅ (slices 7–12) | Room transitions (with a stub Gift Shop), deploy to GitHub Pages, save/load, cutscenes, browser end-to-end tests, polish. Plan below. |
 | **M3 — content** ✅ complete (slices 13–17) | Gift Shop and Break Room, full puzzle chain, ending. Plan below. |
-| **M4 — art and audio** (slices 18–29) | Painted backgrounds, character sprites, prop overlays, item icons, music and sound effects, a walk animation; then a text consistency pass and a content-code cleanup, hover polish and the Handbook as an item. No voice. Plan below. |
+| **M4 — art and audio** ✅ complete (slices 18–29) | Painted backgrounds, character sprites, prop overlays, item icons, music and sound effects, a walk animation; then a text consistency pass and a content-code cleanup, hover polish and the Handbook as an item. No voice. Plan below. |
 
 Art is placeholder shapes until M4, and the code keeps art swappable.
 
