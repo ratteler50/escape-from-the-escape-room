@@ -45,7 +45,7 @@ Decisions from the slice 30 questions (2026-10-23).
      departments."
 6. **The old §14 joins the random readings** and the loading screen, as a fourth hint: `Section 14:
    "Staff may not borrow equipment from other departments." Something has been stapled over it.
-   I'll read it once I'm a bit less cursed.` (the loading screen quotes just the rule). The revised §14 never appears
+   I don't have time for inserts. I'm a bit cursed at the moment.` (the loading screen quotes just the rule). The revised §14 never appears
    there: finding it is the moment. §14.1 stays in them too.
 7. **Records:** the M3 puzzle chart in `docs/design.md` (the "Kyle dialogue, unlocked by Mordecai"
    step becomes "Handbook on Kyle"), and the Handbook table's §14 row (the old rule and the revised insert). The slice
