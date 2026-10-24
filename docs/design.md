@@ -52,7 +52,7 @@ PG, absurdist, wordplay, light fourth-wall poking. Never mean-spirited, never gr
 
 ### The Employee Handbook
 
-Dana quotes it constantly. Each section means one thing everywhere; check this list before quoting a
+Dana quotes it constantly, and carries it (slice 29). Each section means one thing everywhere; check this list before quoting a
 section, and add new ones here.
 
 | Section | Rule |
@@ -70,6 +70,7 @@ section, and add new ones here.
 | 10 | Always offer exact change |
 | 11 | Employees may not review their own workplace |
 | 12 | Do not improvise with props |
+| 13 | Intentionally left blank (head office is superstitious) |
 | 14 / 14.1 | Staff may borrow equipment for re-pricing / but not for personal gain |
 | 15 | Always contribute |
 

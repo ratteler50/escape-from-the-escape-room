@@ -2,6 +2,7 @@ import type { Dialogue, Hotspot } from '../core/types';
 import { say, says, setFlag, startDialogue } from './dsl';
 import { K, M, mordecai } from './cast';
 import type { ContentPack } from './pack';
+import { handbook } from './handbook';
 
 
 
@@ -21,6 +22,7 @@ export const mordecaiHotspot: Hotspot = {
     },
   },
   itemUses: {
+    [handbook.id]: [{ effects: [M('A rule book? Child, I wrote SPELL books. Moderately powerful ones.')] }],
     priceGun: [
       {
         effects: [
@@ -58,6 +60,7 @@ export const mordecaiBackHotspot: Hotspot = {
     },
   },
   itemUses: {
+    [handbook.id]: [{ effects: [M('Put that away. I am admiring.')] }],
     priceGun: [{ effects: [M('Not. One. More. Sticker.')] }],
   },
 };

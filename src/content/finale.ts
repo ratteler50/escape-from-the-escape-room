@@ -3,6 +3,7 @@ import { addItem, pause, removeItem, say, says, setFlag, sound, walk, win } from
 import { exactChange } from './breakRoom';
 import { K, M, R, reginald } from './cast';
 import type { ContentPack } from './pack';
+import { handbook } from './handbook';
 
 // The M3 payoff (docs/slices/16-finale.md): Kyle sells the mug, the script is satisfied, the curse
 // lifts.
@@ -26,6 +27,9 @@ export const reginaldFinaleHotspot: Hotspot = {
   pose: 'human',
   bounds: { x: 68, y: 175, width: 70, height: 265 },
   interactionPoint: { x: 110, y: 475 },
+  itemUses: {
+    [handbook.id]: [{ effects: [R('Section twelve, darling. MY section twelve. Wrongful loss of a role.')] }],
+  },
   verbs: {
     look: says('Reginald, human again, still in full lich make-up. It has never looked less convincing.'),
   },

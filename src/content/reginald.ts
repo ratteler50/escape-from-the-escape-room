@@ -2,6 +2,7 @@ import type { Dialogue, Hotspot, HotspotVerbs, Item, Response } from '../core/ty
 import { reginald, R } from './cast';
 import { removeItem, say, setFlag, sound, startDialogue, walk } from './dsl';
 import type { ContentPack } from './pack';
+import { handbook } from './handbook';
 
 
 export const script: Item = {
@@ -41,6 +42,7 @@ const verbs: HotspotVerbs = {
 };
 
 const itemUses: Partial<Record<string, Response[]>> = {
+  [handbook.id]: [{ effects: [R("Darling, I have a union contract. It's longer than that, and it has a better plot.")] }],
   garyArm: [{ effects: [R("Unhand that limb! Gary has a CONTRACT!"), say('Gary seems fine with it.')] }],
   script: [{ effects: [R('My script! ...Keep it, darling. Learn it! Nobody learns their lines any more.')] }],
   riddleScroll: [
@@ -174,4 +176,8 @@ export const reginaldDialogue: Dialogue = {
   },
 };
 
-export const reginaldPack: ContentPack = { items: [script], dialogues: [reginaldDialogue] };
+export const reginaldPack: ContentPack = {
+  items: [script],
+  dialogues: [reginaldDialogue],
+  combinations: [{ items: [handbook.id, script.id], responses: [{ effects: [say('Two rule books. The Handbook says the show stops for emergencies. The script says the show must go on. The curse sided with the script.')] }] }],
+};

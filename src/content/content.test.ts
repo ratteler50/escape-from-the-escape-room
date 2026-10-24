@@ -40,6 +40,12 @@ function expectValidEffects(effects: readonly Effect[], where: string): void {
         `${where} has a line spoken by "${speaker}", who isn't in world.characters (known: ${Object.keys(world.characters).join(', ')})`,
       ).toBeDefined();
     }
+    if (effect.type === 'sayOneOf') {
+      expect(effect.texts.length, `${where} has a sayOneOf with fewer than two lines; use say for one`).toBeGreaterThanOrEqual(2);
+      expect(effect.texts.filter((t) => t.trim() === ''), `${where} has a sayOneOf with an empty line`).toEqual([]);
+      const speaker = effect.speaker ?? PLAYER;
+      expect(world.characters[speaker], `${where} has lines spoken by "${speaker}", who isn't in world.characters`).toBeDefined();
+    }
     if (effect.type === 'addItem' || effect.type === 'removeItem') {
       expectKnownItem(effect.itemId, `${where} (${effect.type})`);
     }

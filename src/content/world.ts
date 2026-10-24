@@ -4,6 +4,7 @@ import { breakRoomPack, lanyard } from './breakRoom';
 import { castPack } from './cast';
 import { finalePack } from './finale';
 import { giftShopPack } from './giftShop';
+import { handbook, handbookPack } from './handbook';
 import { kylePack } from './kyle';
 import { lair, lairPack } from './lair';
 import { loadingLines } from './loading';
@@ -12,7 +13,7 @@ import { mergePacks } from './pack';
 import { reginaldPack } from './reginald';
 
 // Every content file's pack. A new room or character adds its pack here (docs/adding-content.md).
-const packs = [castPack, lairPack, reginaldPack, giftShopPack, kylePack, mordecaiPack, finalePack, breakRoomPack];
+const packs = [castPack, handbookPack, lairPack, reginaldPack, giftShopPack, kylePack, mordecaiPack, finalePack, breakRoomPack];
 
 export const world: World = {
   ...mergePacks(packs),
@@ -35,8 +36,9 @@ export const world: World = {
 export const initialState: GameState = {
   roomId: lair.id,
   player: lair.entries.start!,
-  // Dana's lanyard: TRAINEE, and the employee number that opens their locker (slice 15).
-  inventory: [lanyard.id],
+  // The Employee Handbook (slice 29), and Dana's lanyard: TRAINEE, and the employee number that opens
+  // their locker (slice 15).
+  inventory: [handbook.id, lanyard.id],
   flags: {},
   conversation: null,
   spentOptions: [],

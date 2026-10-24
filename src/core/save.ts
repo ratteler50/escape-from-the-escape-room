@@ -1,8 +1,11 @@
 import { pointInPolygon } from './geometry';
 import type { GameState, World } from './types';
 
-/** Bump when the shape of GameState changes in a way old saves can't satisfy, or flags are renamed (2: slice 28). */
-export const SAVE_FORMAT = 2;
+/**
+ * Bump when the shape of GameState changes in a way old saves can't satisfy, or flags are renamed
+ * (2: slice 28), or the starting inventory changes (3: slice 29, the Handbook).
+ */
+export const SAVE_FORMAT = 3;
 
 export const SLOTS = ['auto', 'slot1', 'slot2', 'slot3'] as const;
 export type SlotId = (typeof SLOTS)[number];

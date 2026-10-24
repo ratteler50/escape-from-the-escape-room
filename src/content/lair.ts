@@ -2,6 +2,7 @@ import type { Combination, Item, Room } from '../core/types';
 import { addItem, goTo, removeItem, say, says, setFlag, sound, walk } from './dsl';
 import { reginaldOnMark, reginaldOnThrone, script } from './reginald';
 import type { ContentPack } from './pack';
+import { handbook } from './handbook';
 
 export const garyArm: Item = {
   id: 'garyArm',
@@ -117,6 +118,7 @@ export const lair: Room = {
         },
       },
       itemUses: {
+        [handbook.id]: [{ when: [{ flag: 'lairDoorUnlocked' }], effects: [say("It's unlocked now, as Section 9 intended. The Handbook and I have been vindicated.")] }, { effects: [say('I hold the Handbook up to the door, open at Section 9: "Doors must never be locked during business hours." The door does not read.')] }],
         [caseKey.id]: [{ effects: [say("Wrong key. It's for the display case. It literally says so on it.")] }],
       },
       itemFallback: 'The door remains locked. It is unmoved by my offerings.',
@@ -126,6 +128,9 @@ export const lair: Room = {
       name: 'Throne',
       bounds: { x: 515, y: 80, width: 222, height: 360 },
       interactionPoint: { x: 626, y: 465 },
+      itemUses: {
+        [handbook.id]: [{ effects: [say('Section 7.1: "The Spooky Seat is for liches only." I show the page to the throne. The throne already knew.')] }],
+      },
       verbs: {
         look: {
           responses: [
@@ -156,6 +161,9 @@ export const lair: Room = {
       name: 'Phylactery',
       bounds: { x: 428, y: 276, width: 58, height: 146 },
       interactionPoint: { x: 470, y: 472 },
+      itemUses: {
+        [handbook.id]: [{ effects: [say('I read it Section 3, on lost property. It whispers back about a teapot. We are not having the same conversation.')] }],
+      },
       verbs: {
         look: says(`A glowing skull-shaped jar on a plinth. The estate-sale sticker says "LOT 47: SPOOKY JAR (ASSORTED), $3.50". It's whispering. Props don't whisper. I'd remember that from training.`),
         take: says("Cable-locked to the plinth. Head office's anti-theft cable: they trust the lich with it, but not the staff.", 'Pocket it'),
@@ -167,6 +175,9 @@ export const lair: Room = {
       name: 'Coffin',
       bounds: { x: 10, y: 175, width: 128, height: 262 },
       interactionPoint: { x: 200, y: 470 },
+      itemUses: {
+        [handbook.id]: [{ effects: [say("I could leave the Handbook in his dressing room as a gift. He'd think it was a script. He'd give it notes.")] }],
+      },
       verbs: {
         look: says('A coffin with a gold star on the lid. "R. VANTABLACK-THORNE: DRESSING ROOM. KNOCK."'),
         use: {
@@ -217,6 +228,7 @@ export const lair: Room = {
         talk: says("Hi, Gary. ... Gary says nothing. Gary has always been a wonderful listener.", 'Make small talk'),
       },
       itemUses: {
+        [handbook.id]: [{ effects: [say("I offer Gary the Handbook. Eleven times Employee of the Month: he doesn't need it. He IS it.")] }],
         [garyArm.id]: [{ effects: [say("I offer Gary his arm back. He doesn't want it. He's moved on.")] }],
         [stickyArm.id]: [{ effects: [say("I am NOT giving it back to him like this.")] }],
       },
@@ -226,6 +238,9 @@ export const lair: Room = {
       name: 'Customer Reviews',
       bounds: { x: 815, y: 137, width: 180, height: 140 },
       interactionPoint: { x: 890, y: 450 },
+      itemUses: {
+        [handbook.id]: [{ effects: [say('Section 11: employees may not review their own workplace. It says nothing about reviewing the Handbook. Two stars. Too long, not enough liches.')] }],
+      },
       verbs: {
         look: says('"One star. Could not escape." "One star. Still here." "Five stars! Very immersive!" That last one\'s from Reginald\'s mum.'),
         use: says(`"Two stars. Staff were polite but the lich was hammy." Handbook Section 11: employees may not review their own workplace. I'll sign it "Gary".`, 'Leave a review'),
@@ -253,6 +268,7 @@ export const lair: Room = {
         },
       },
       itemUses: {
+        [handbook.id]: [{ effects: [say(`The Handbook's section on display cases just says "See Section 3." Section 3 is lost property. This book is a maze.`)] }],
         [caseKey.id]: [
           {
             when: [{ notFlag: 'caseOpen' }],
@@ -284,6 +300,7 @@ export const lair: Room = {
         },
       },
       itemUses: {
+        [handbook.id]: [{ effects: [say('The index says "Codes, door: see Appendix C." There is no Appendix C. There is barely an Appendix B.')] }],
         [riddleScroll.id]: [
           {
             when: [{ notFlag: 'lairDoorUnlocked' }],
@@ -316,6 +333,7 @@ export const lair: Room = {
         },
       },
       itemUses: {
+        [handbook.id]: [{ effects: [say("I am not dropping the Handbook down a grate. I know it by heart, but it's the principle.")] }],
         [stickyArm.id]: [
           {
             when: [{ notFlag: 'gotCaseKey' }],

@@ -3,6 +3,7 @@ import { K, kyle } from './cast';
 import { addItem, say, says, setFlag, startDialogue } from './dsl';
 import { mugSaleOptions } from './finale';
 import type { ContentPack } from './pack';
+import { handbook } from './handbook';
 
 
 
@@ -27,6 +28,7 @@ export const kyleHotspot: Hotspot = {
     },
   },
   itemUses: {
+    [handbook.id]: [{ effects: [K('Not my department.'), K("Mine's propping the stockroom door open.")] }],
     priceGun: [{ effects: [K("Don't.")] }],
   },
 };
@@ -114,4 +116,8 @@ export const kyleDialogue: Dialogue = {
   },
 };
 
-export const kylePack: ContentPack = { items: [priceGun], dialogues: [kyleDialogue] };
+export const kylePack: ContentPack = {
+  items: [priceGun],
+  dialogues: [kyleDialogue],
+  combinations: [{ items: [handbook.id, priceGun.id], responses: [{ effects: [say('I could price the Handbook. Section 14.1: no re-pricing for personal gain. The Handbook polices itself.')] }] }],
+};
