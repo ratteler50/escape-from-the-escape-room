@@ -480,6 +480,8 @@ export const lair: Room = {
           { effects: [say("There's nothing else down there worth getting gum on.")] },
         ],
         [garyArm.id]: [{ effects: [say("Gary's fingers brush the key, but it won't stay put. If only they were... stickier.")] }],
+        // Slice 33: the gum's half of the hint (the arm has the other).
+        [gum.id]: [{ effects: [say("Sticky enough to grab the key, but my fingers won't reach it. The gum needs to be on the end of something long.")] }],
       },
       itemFallback: "That won't fit through the grate. Most things won't. That's rather the point of a grate.",
     },

@@ -207,6 +207,8 @@ Found in the developer's play-test, and fixed:
   scroll now sets a flag, and the keypad's own verb then reads **Enter CODE** and plays the same
   reveal as using the scroll on it (one shared list of effects). Holding the scroll unread, it says
   to read it first. Using the scroll on the keypad works as before. Two content tests.
+- **Gum on the grate** gets its own hint (the gum needs to be on the end of something long), the
+  other half of the arm's "If only they were... stickier", instead of the generic "won't fit".
 - **The script on the shelf**, after memorising, now reads the page again: who says the line, and the
   finale's last page, which otherwise can't be re-read once the script is back.
 
