@@ -64,7 +64,7 @@ quotes, and the big numbers are there to say so.
 | 4.2 | Never touch the guests (says nothing about liches, or skeletons) |
 | 5 | No card, no clock |
 | 5.3 | Off-duty staff are customers like anyone else |
-| 6 | Respect your colleagues' dairy |
+| 6 | Respect your colleagues' dairy products ("products" so nobody reads "diary") |
 | 7.1 | The Spooky Seat is for liches only |
 | 8 | Be thorough; found money under five cents belongs to the finder |
 | 9 | Doors must never be locked during business hours |

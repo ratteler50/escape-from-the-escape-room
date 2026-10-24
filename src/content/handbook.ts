@@ -31,7 +31,7 @@ const sections: readonly HandbookSection[] = [
     rule: 'Off-duty staff are customers like anyone else.',
     aside: 'There is a whole page on looking off duty. It mostly says "flip your badge".',
   },
-  { section: '6', rule: "Respect your colleagues' dairy.", aside: "Underlined twice, in someone else's pen." },
+  { section: '6', rule: "Respect your colleagues' dairy products.", aside: "Underlined twice, in someone else's pen." },
   { section: '7.1', rule: 'The Spooky Seat is for liches only.', aside: 'Added last year. I have questions about last year.' },
   { section: '8', rule: 'Found money under five cents belongs to the finder.', aside: 'The most generous page in the book.' },
   {

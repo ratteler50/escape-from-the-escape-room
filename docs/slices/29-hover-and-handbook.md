@@ -105,6 +105,9 @@ Decisions from the slice 29 questions (2026-10-23).
 - **Added while building (developer's call):** Handbook Section 10 is now "Always require exact
   change": a rule for staff at the till, which is why Kyle insists on it. The Break Room's
   exact-change line and the reading follow it.
+- **From the developer's play-test:** the Handbook on the fridge has a closed-fridge line (the
+  yogurt line needs the fridge open), and Section 6 is "dairy products" everywhere, so nobody reads
+  "diary".
 - **Icon:** generated from the prompt in `docs/art/prompts-inventory.md` §3 with
   `icon-sheet-money.png` (the sheet the shipped icons came from) and the title painting's book;
   cut with `scripts/cut-icons.py`, 5 KB.

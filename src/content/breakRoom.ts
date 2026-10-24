@@ -258,7 +258,10 @@ export const breakRoom: Room = {
       // Beside the fridge, not in front of it, so Dana doesn't hide what's inside once it's open.
       interactionPoint: { x: 712, y: 492 },
       itemUses: {
-        [handbook.id]: [{ effects: [say("Section 6: respect your colleagues' dairy. I hold the page up so the yogurt can see I'm on its side.")] }],
+        [handbook.id]: [
+          { when: [{ flag: 'fridgeOpen' }], effects: [say("Section 6: respect your colleagues' dairy products. I hold the page up so the yogurt can see I'm on its side.")] },
+          { effects: [say("Section 6: respect your colleagues' dairy products. I can't see any from here. I respect them in principle.")] },
+        ],
       },
       verbs: {
         look: {
@@ -287,7 +290,7 @@ export const breakRoom: Room = {
           responses: [
             {
               effects: [
-                say('I lift the yogurt, take my time card, and put the yogurt back exactly where it was. Handbook Section 6: respect your colleagues\' dairy.'),
+                say('I lift the yogurt, take my time card, and put the yogurt back exactly where it was. Handbook Section 6: respect your colleagues\' dairy products.'),
                 addItem(timeCard.id),
                 setFlag('tookTimeCard'),
               ],
