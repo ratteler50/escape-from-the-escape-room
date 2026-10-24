@@ -1,7 +1,6 @@
 # Slice 29 — Hover polish and the Handbook
 
-**Status:** spec approved by the developer (2026-10-23); built and agent play-tested · **Milestone:** M4, its last slice
-(added after slice 28, 2026-10-23)
+**Status:** done, merged in [#37](https://github.com/ratteler50/escape-from-the-escape-room/pull/37), 2026-10-24 · **Milestone:** M4
 
 ## Why
 

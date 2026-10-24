@@ -1,6 +1,6 @@
 # Slice 20 — Audio: the system, the Lair's music, the sound effects
 
-**Status:** built, agent and developer play-tested · **Milestone:** M4
+**Status:** done, merged in [#20](https://github.com/ratteler50/escape-from-the-escape-room/pull/20), 2026-10-22 · **Milestone:** M4
 
 ## Why
 

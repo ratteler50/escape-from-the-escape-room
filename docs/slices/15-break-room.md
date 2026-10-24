@@ -1,6 +1,6 @@
 # Slice 15 — The Break Room: clocking out and exact change
 
-**Status:** built, agent play-tested · awaiting PR and developer play-test · **Milestone:** M3 · **Runs:** parallel session, alongside slice 14 · **Branch:** `slice-15-break-room`
+**Status:** done, merged in [#12](https://github.com/ratteler50/escape-from-the-escape-room/pull/12), 2026-10-22 · **Milestone:** M3
 
 ## Why
 

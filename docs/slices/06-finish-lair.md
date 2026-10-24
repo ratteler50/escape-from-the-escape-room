@@ -1,6 +1,6 @@
 # Slice 6 — Finish the Lair (M1 complete)
 
-**Status:** done · merged as PR #4 (squash) · **Milestone:** M1
+**Status:** done, merged in [#4](https://github.com/ratteler50/escape-from-the-escape-room/pull/4), 2026-10-21 · **Milestone:** M1 (last slice)
 
 ## Why
 

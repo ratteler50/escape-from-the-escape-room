@@ -1,6 +1,6 @@
 # Slice 21 — Item icons and the inventory tray
 
-**Status:** built, agent and developer play-tested · **Milestone:** M4
+**Status:** done, merged in [#21](https://github.com/ratteler50/escape-from-the-escape-room/pull/21), 2026-10-22 · **Milestone:** M4
 
 ## Why
 

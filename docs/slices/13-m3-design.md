@@ -1,6 +1,6 @@
 # Slice 13 — M3 design, art-style decision, premise fixes
 
-**Status:** built, agent play-tested · awaiting developer play-test · **Milestone:** M3
+**Status:** done, merged in [#11](https://github.com/ratteler50/escape-from-the-escape-room/pull/11), 2026-10-22 · **Milestone:** M3 (first slice)
 
 ## Why
 

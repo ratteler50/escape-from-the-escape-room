@@ -1,6 +1,6 @@
 # Slice 1 — Walking skeleton
 
-**Status:** done · **Milestone:** M1
+**Status:** done, committed directly to `main` (before pull requests), 2026-10-21 · **Milestone:** M1
 
 Developer play-test found right-click awkward on a trackpad → `docs/decisions/0004-verb-coin.md`.
 

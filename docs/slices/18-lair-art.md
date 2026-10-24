@@ -1,6 +1,6 @@
 # Slice 18 — The art system and the Lair background
 
-**Status:** built, agent and developer play-tested (with slice 19) · **Milestone:** M4 (first slice)
+**Status:** done, merged in [#16](https://github.com/ratteler50/escape-from-the-escape-room/pull/16), 2026-10-22 · **Milestone:** M4 (first slice)
 
 ## Why
 

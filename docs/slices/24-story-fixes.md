@@ -1,6 +1,6 @@
 # Slice 24 — Story fixes: the code and the curse's rule
 
-**Status:** built, agent and developer play-tested · **Milestone:** M4 · after PRs #22 and #23 merge
+**Status:** done, merged in [#25](https://github.com/ratteler50/escape-from-the-escape-room/pull/25), 2026-10-22 · **Milestone:** M4
 
 ## Why
 

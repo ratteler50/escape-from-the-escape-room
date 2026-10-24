@@ -1,6 +1,6 @@
 # Slice 23 — The painted Break Room
 
-**Status:** built, agent and developer play-tested · **Milestone:** M4 · runs **in parallel** with slice 22
+**Status:** done, merged in [#23](https://github.com/ratteler50/escape-from-the-escape-room/pull/23), 2026-10-22 · **Milestone:** M4
 
 ## Why
 

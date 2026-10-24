@@ -1,6 +1,6 @@
 # Slice 16 — Join the rooms, buy the mug, the finale
 
-**Status:** built, agent play-tested · awaiting developer play-test · **Milestone:** M3
+**Status:** done, merged in [#14](https://github.com/ratteler50/escape-from-the-escape-room/pull/14), 2026-10-22 · **Milestone:** M3
 
 ## Why
 

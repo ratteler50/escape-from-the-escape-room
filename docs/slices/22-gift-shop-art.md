@@ -1,6 +1,6 @@
 # Slice 22 — The painted Gift Shop
 
-**Status:** built, agent and developer play-tested · **Milestone:** M4 · runs **in parallel** with slice 23
+**Status:** done, merged in [#22](https://github.com/ratteler50/escape-from-the-escape-room/pull/22), 2026-10-22 · **Milestone:** M4
 
 ## Why
 

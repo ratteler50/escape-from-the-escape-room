@@ -1,6 +1,6 @@
 # Slice 9 — Save/load, title screen, menu, text speed
 
-**Status:** built, agent play-tested · awaiting PR and developer play-test · **Milestone:** M2 (Phase B) · **Branch:** `slice-9-save-load`
+**Status:** done, merged in [#7](https://github.com/ratteler50/escape-from-the-escape-room/pull/7), 2026-10-21 · **Milestone:** M2
 
 ## Why
 
