@@ -193,6 +193,17 @@ Handbook on Kyle without trouble (developer, 2026-10-24).
   dependency chart for the whole game as it plays now (the M1 and M3 charts stay as the original
   plans, with a pointer).
 
+Found in the developer's play-test, and fixed:
+- **The script stayed on the coffin's shelf after it was taken.** The view redrew hotspots and
+  overlays only when a flag changed, and the script's depend on the inventory; dropping the unread
+  `tookScript` flag removed the redraw it had been triggering by accident. Now inventory changes
+  redraw them too, and an end-to-end test checks the shelf on taking and memorising (it fails without
+  the fix). The end-of-sequence catch-up also notices cleared flags now.
+- **"That wad of pink gum"** assumed Dana had already looked at the throne; both gum lines now read
+  right either way.
+- **The script on the shelf**, after memorising, now reads the page again: who says the line, and the
+  finale's last page, which otherwise can't be re-read once the script is back.
+
 Agent play-test (headless Chromium at 1280×720 and as a Pixel 7): every new line in order (the gum
 seen and guarded, knock and open, the knock-knock flub, the hairspray, the script as a script, the
 memorise nudge, the stand-up and Section 16 options, the lanyard's squint), the coffin's four
