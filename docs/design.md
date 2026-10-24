@@ -78,6 +78,7 @@ quotes, and the big numbers are there to say so.
 | 18 | In an emergency, consult the Handbook |
 | 21 | Staff may not name the props (Gary's name tag is stapled to it) |
 | 27 | Smile at every guest |
+| 33 | Staff must wear a name tag at all times |
 | 42 | Do not feed the lich ("the sandwich incident") |
 | 57 | Staff must congratulate any guest who solves a puzzle |
 | 88 | Staff may not understudy the lich (added by Reginald, in red pen) |

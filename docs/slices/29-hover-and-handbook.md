@@ -89,9 +89,9 @@ Decisions from the slice 29 questions (2026-10-23).
 - **sayOneOf:** a core effect type the engine passes through; `RoomScene` picks a line with
   `pickLine` (tested), remembering the last pick per line list. `explore.ts` treats it as
   presentation, and content validation wants at least two non-empty lines.
-- **The Handbook:** `src/content/handbook.ts` (item, 25 sections, pack). 17 sections were added at
-  the developer's request, with new Sections 16, 18, 21, 27, 42, 57, 88, 113, 150, 204, 276, 311 and
-  400 in the design doc's table; the big numbers suggest a book of about 400 sections. Each section
+- **The Handbook:** `src/content/handbook.ts` (item, 30 sections, pack). 22 sections were added at
+  the developer's request, with new Sections 16, 18, 21, 27, 33, 42, 57, 88, 113, 150, 204, 276, 311
+  and 400 in the design doc's table (Section 14 stays out: it's the price-gun puzzle's answer); the big numbers suggest a book of about 400 sections. Each section
   is stored once (number, rule, Dana's comment): Read says the rule and the comment, and the
   **loading screen** shows every rule as a plain quote, in random order (`pickLine`), replacing its
   five lines in Dana's voice (developer's call). Its line for each hotspot sits in that hotspot's
