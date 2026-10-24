@@ -76,6 +76,7 @@ export const kyleDialogue: Dialogue = {
         {
           id: 'who',
           text: "Hi! I'm Dana, the new trainee. I don't think we've met?",
+          once: true,
           effects: [
             K('Kyle. Gift shop.'),
             K("Third summer. Don't learn my name, nobody does."),
@@ -85,6 +86,7 @@ export const kyleDialogue: Dialogue = {
         {
           id: 'whatsGoingOn',
           text: "Kyle, the lich in there is real. Something is very wrong tonight. What's going on?",
+          once: true,
           effects: [
             K('New show feature, probably. Head office never tells us anything.'),
             K('They changed the bag charge last month. We found out from a customer.'),
@@ -117,6 +119,7 @@ export const kyleDialogue: Dialogue = {
         {
           id: 'ghost',
           text: 'Kyle. There is a ghost by the bargain bin.',
+          once: true,
           effects: [
             K('Sick projection. Is that new?'),
             say("I think he's real."),

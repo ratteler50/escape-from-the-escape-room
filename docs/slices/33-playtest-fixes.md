@@ -223,6 +223,13 @@ Found in the developer's play-test, and fixed:
   offers a talk-only option back to the same menu as flavour, so these cost no states; the game
   went from about 39,500 to about 8,350 states, since the rule also merged states that differed
   only in such flags (Kyle's "Lanyard." refusal, for one).
+- **One-off chat, consistently.** Kyle's "I don't think we've met?", "What's going on?" and the ghost,
+  and Mordecai's "Who are you, sir?" and "What's going on?", are one-off like Reginald's (they
+  repeated forever). None carries a hint that's needed again.
+- **A save that wouldn't load.** Clicking past the floor walks Dana onto its edge, and the loader
+  counted the edge as off the floor ("the room changed"), so the developer's slot 2 (Dana by the
+  front door) was refused. The loader now accepts the edge, within a pixel (`onPolygon`); a save
+  test puts Dana where walking would, and failed before the fix.
 - **The script on the shelf**, after memorising, now reads the page again: who says the line, and the
   finale's last page, which otherwise can't be re-read once the script is back.
 

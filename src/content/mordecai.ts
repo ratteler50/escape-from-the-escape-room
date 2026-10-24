@@ -92,6 +92,7 @@ export const mordecaiDialogue: Dialogue = {
         {
           id: 'who',
           text: 'Hello! Sorry. Who are you, sir?',
+          once: true,
           effects: [
             M('A wizard, child. Retired. Then deceased. Moderately powerful in both.'),
             M('Your head office bought my entire estate. Lot by lot. Including, it seems, me.'),
@@ -101,6 +102,7 @@ export const mordecaiDialogue: Dialogue = {
         {
           id: 'whatsGoingOn',
           text: "Do you know what's going on tonight? The lich next door is real, and so, I think, are you.",
+          once: true,
           effects: [
             M('My phylactery. The vessel of my very soul. Your head office bought it as a "spooky jar". Three dollars fifty.'),
             M('Tonight it woke, and it was cross, and so was I. It has bound this whole shabby place to the escape room\'s script.'),
