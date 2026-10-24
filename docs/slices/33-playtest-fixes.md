@@ -1,6 +1,6 @@
 # Slice 33 — Play-test fixes: clearer puzzles and verbs
 
-**Status:** built, awaiting the developer's play-test · **Milestone:** M6, play-test polish (one slice, after the game was
+**Status:** built, agent and developer play-tested; in review · **Milestone:** M6, play-test polish (one slice, after the game was
 complete)
 
 ## Why
