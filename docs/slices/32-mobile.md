@@ -1,6 +1,6 @@
 # Slice 32 — Mobile: sideways screen, touch areas, fullscreen, phone tests
 
-**Status:** built, agent and developer play-tested (on a real phone, 2026-10-24) · **Milestone:** M5 (last slice)
+**Status:** built, agent and developer play-tested (on a real phone); merged in PR #41, 2026-10-24 · **Milestone:** M5 (last slice)
 
 ## Why
 
@@ -115,4 +115,7 @@ Dana; a tap beside the keypad opens its verb coin; a tap just outside the ☰ ar
 Fullscreen in it; nothing stays highlighted after a tap; the iPhone title shows the tip. No console
 errors. Not checked here, because a headless browser can't: real fullscreen, the orientation lock,
 installing to the home screen, and how it all feels under a thumb. That's the real-phone play-test.
+
+Add to Home Screen on the deployed game wasn't tried before closing M5: the developer will report
+it if it doesn't work (2026-10-24).
 

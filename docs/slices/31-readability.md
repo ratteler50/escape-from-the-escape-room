@@ -1,6 +1,6 @@
 # Slice 31 — Readability: one font, speech bands, text that grows
 
-**Status:** built, agent and developer play-tested; in review · **Milestone:** M5 (first slice)
+**Status:** built, agent and developer play-tested; merged in PR #40, 2026-10-24 · **Milestone:** M5 (first slice)
 
 ## Why
 

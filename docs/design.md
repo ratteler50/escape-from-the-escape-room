@@ -125,6 +125,7 @@ the previous one is playable. M4 was planned as the last milestone (decided 2026
 slice 28, a text pass and code cleanup, slice 29, hover polish and the Handbook as an item, and
 slice 30, a Handbook puzzle for Section 14 (all added 2026-10-23). **M5, mobile and readability,**
 was added after it (2026-10-24): the game mostly worked on a phone already, but its text didn't.
+With M5 the game is complete (2026-10-24).
 
 | Milestone | Content |
 |-----------|---------|
@@ -132,7 +133,7 @@ was added after it (2026-10-24): the game mostly worked on a phone already, but 
 | **M2 — systems complete** ✅ (slices 7–12) | Room transitions (with a stub Gift Shop), deploy to GitHub Pages, save/load, cutscenes, browser end-to-end tests, polish. Plan below. |
 | **M3 — content** ✅ complete (slices 13–17) | Gift Shop and Break Room, full puzzle chain, ending. Plan below. |
 | **M4 — art and audio** ✅ complete (slices 18–30) | Painted backgrounds, character sprites, prop overlays, item icons, music and sound effects, a walk animation; then a text consistency pass and a content-code cleanup, hover polish, the Handbook as an item, and a Handbook puzzle for Section 14. No voice. Plan below. |
-| **M5 — mobile and readability** (slices 31–32) | One readable font, speech on dark bands, text that grows when the game is shrunk, deliberate line breaks for comic beats; then playable on a phone held sideways. Plan below. |
+| **M5 — mobile and readability** ✅ complete (slices 31–32) | One readable font, speech on dark bands, text that grows when the game is shrunk, deliberate line breaks for comic beats; then playable on a phone held sideways. Plan below. |
 
 Art is placeholder shapes until M4, and the code keeps art swappable.
 
@@ -170,7 +171,7 @@ developer play-test on a real phone.
 | Slice | Content | Runs |
 |-------|---------|------|
 | 31 | Readability: Nunito, speech bands, text that grows when shrunk, comic line breaks | done (PR #40) |
-| 32 | Mobile: portrait screen, touch areas, fullscreen and home screen, phone Playwright run | here |
+| 32 | Mobile: portrait screen, touch areas, fullscreen and home screen, phone Playwright run | done (PR #41) |
 
 ## M4 plan
 
