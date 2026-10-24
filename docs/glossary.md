@@ -11,7 +11,7 @@ Shared vocabulary for the game and the codebase. Use these terms in code, docs, 
 | **Interaction point** | Where the player character walks to before interacting with a hotspot. |
 | **Walkable area** | A polygon per room that the player character can move within. Clicks outside it are clamped to the nearest point inside. |
 | **Verb** | One of Look, Take, Talk, Use. A hotspot declares which verbs it supports. |
-| **Verb coin** | The ring of verb buttons that opens when you click a hotspot with more than one available verb. |
+| **Verb coin** | The row of verb buttons, each with its label, that opens when you click a hotspot with more than one available verb (a ring until slice 33). Also opens on an item: Look, Use with…, and the item's own action. |
 | **Available verbs** | The verbs a hotspot offers right now, decided by the core from each verb's `when` conditions. |
 | **Look** | The verb every hotspot has: the player character describes it. Right-click is a shortcut for it. |
 | **Response** | One possible outcome of a verb: optional conditions plus a list of effects. The first matching response wins; the last is an unconditional fallback. |
