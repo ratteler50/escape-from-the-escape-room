@@ -70,6 +70,9 @@ export const lair: Room = {
     overlays: [
       // The gold star on Reginald's coffin (slice 33): drawn by the agent, always shown.
       { image: 'assets/overlays/lair-coffin-star.webp', at: { x: 64, y: 252 } },
+      // The coffin open (docs/art/prompts-coffin.md), and the script on its shelf while it's there.
+      { image: 'assets/overlays/lair-coffin-open.webp', at: { x: 10, y: 161 }, when: [{ flag: 'coffinOpen' }] },
+      { image: 'assets/overlays/lair-coffin-script.webp', at: { x: 42, y: 329 }, when: [{ flag: 'coffinOpen' }, { lacks: 'script' }] },
       { image: 'assets/overlays/lair-gary-armless.webp', at: { x: 235, y: 211 }, when: [{ flag: 'tookGaryArm' }] },
       { image: 'assets/overlays/lair-grate-arm.webp', at: { x: 318, y: 507 }, when: [{ flag: 'gotCaseKey' }] },
       { image: 'assets/overlays/lair-case-open.webp', at: { x: 750, y: 243 }, when: [{ flag: 'caseOpen' }] },
@@ -247,11 +250,11 @@ export const lair: Room = {
     },
     {
       // Inside the open coffin, while the script is on its shelf: before Dana takes it, and once it's
-      // back after memorising. Placeholder bounds until the open-coffin art is in (slice 33).
+      // back after memorising. Bounds fitted to the painted script (lair-coffin-script.webp).
       id: 'coffinScript',
       name: "Reginald's Script",
       when: [{ flag: 'coffinOpen' }, { lacks: script.id }],
-      bounds: { x: 22, y: 330, width: 52, height: 50 },
+      bounds: { x: 46, y: 333, width: 45, height: 43 },
       interactionPoint: { x: 200, y: 470 },
       itemUses: {
         [handbook.id]: [{ effects: [say('Two rule books, side by side on the shelf. The Handbook has more rules. The script has more feelings.')] }],
@@ -278,12 +281,11 @@ export const lair: Room = {
       },
     },
     {
-      // Inside the open coffin. He named it, so players will try it. Placeholder bounds until the
-      // open-coffin art is in (slice 33).
+      // Inside the open coffin. He named it, so players will try it. Bounds fitted to the painted can.
       id: 'hairspray',
       name: 'Hairspray',
       when: [{ flag: 'coffinOpen' }],
-      bounds: { x: 88, y: 318, width: 36, height: 70 },
+      bounds: { x: 98, y: 328, width: 16, height: 44 },
       interactionPoint: { x: 200, y: 470 },
       itemUses: {
         [handbook.id]: [{ effects: [say("The Handbook's section on aerosols just says \"No.\" I respect its clarity.")] }],
