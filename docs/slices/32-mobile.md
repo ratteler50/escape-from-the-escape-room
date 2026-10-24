@@ -52,7 +52,8 @@ play, an upright layout.
 1. The app icon (at home-screen size, on a light and a dark wallpaper).
 2. The sideways screen (a screenshot at phone size).
 3. Developer play-test **on a real phone**: during the build over the local network (`npm run dev
-   -- --host`, then the Mac's address on the phone, same Wi-Fi), and "Add to Home Screen" on the
+   -- --host`, or `.claude/launch.json` → `dev-phone`, then the Mac's address on the phone, same
+   Wi-Fi), and "Add to Home Screen" on the
    deployed game after merge, since installing needs the HTTPS site.
 
 ## Acceptance checks
