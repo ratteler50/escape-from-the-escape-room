@@ -176,7 +176,7 @@ developer play-test on a real phone.
 ## M4 plan
 
 Decided in the M4 planning session (2026-10-22). Style: decision 0005 (hand-painted cartoon, recipe
-"A2" on branch `prototype/lair-art-style`).
+"A2" in `docs/prototypes/lair-art-style.md`).
 
 **Order.** Prove the whole pipeline on the Lair (art, characters, overlays, audio, item icons:
 slices 18–21), so the Lair is polished end to end, then repeat it for the Gift Shop and Break Room in

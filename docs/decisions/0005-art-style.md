@@ -40,9 +40,9 @@ display case); those are separate sprites.
 
 ## Consequences
 
-- The prompt recipe (current best: "A2") and the comparison live on branch
-  `prototype/lair-art-style` in `docs/prototypes/lair-art-style.md`. That branch is reference only
-  and never merges.
+- The prompt recipe (current best: "A2") and the comparison are in
+  `docs/prototypes/lair-art-style.md`. The prototype's code and images lived on a reference branch
+  that never merged; it was deleted when the game was finished (2026-10-24), keeping only the notes.
 - Each new room gets a layout reference sketch when it's designed (M3).
 - Prompt wording alone gave only mild caricature; M4 may need a hand-drawn crooked layout sketch.
 - Canva's tools here return only 200px previews; full-size images need a manual download or another

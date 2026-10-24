@@ -13,8 +13,8 @@ the prototype, and a concept pass that found lines breaking the premise.
 1. **`docs/design.md`**: an M3 section with the cast (Kyle, Mordecai), the goal, the puzzle
    dependency chart, the finale, and the slice plan (13–17).
 2. **`docs/decisions/0005-art-style.md`**: style A (hand-painted cartoon), the
-   image-to-image-from-layout-reference method, the three style rules, and a pointer to branch
-   `prototype/lair-art-style`. No prototype code comes into `main`.
+   image-to-image-from-layout-reference method, the three style rules, and a pointer to the
+   prototype's notes (now `docs/prototypes/lair-art-style.md`). No prototype code comes into `main`.
 3. **Premise fixes** (Escape-O-Rama is mundane; tonight's curse is the only magic):
    - floor grate pamphlet: no longer a "So You've Been Cursed" staff guide;
    - Customer Reviews: no reviewer trapped since 2019;

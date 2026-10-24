@@ -28,7 +28,7 @@ budget) are in place before anything else is added.
    - update the layout sketch (`docs/art/lair-layout.svg`, new, at exact hotspot coordinates): add
      the phylactery's plinth, and a **spotlight rig aimed at Gary** with Reginald's mark taped on the
      floor where the light should be;
-   - generate with the A2 recipe (branch `prototype/lair-art-style`), giving the approved A2 image as
+   - generate with the A2 recipe (`docs/prototypes/lair-art-style.md`), giving the approved A2 image as
      a second reference so the look carries over; **you approve the image** before it goes further;
    - save it in a Canva design in the "Escape-O-Rama assets" folder (**your approval**, once), export a
      1280×720 PNG, convert to WebP, commit as `public/assets/rooms/lair.webp`;
