@@ -49,7 +49,10 @@ developer's five, are below.
      Memorise…), and 🔗 **Use with…** (instead of ✋).
    - **Audit:** every take and use in the content checked against that rule; the labels that hide
      what happens are renamed ("Press coin return" → "Take the cent", "Move the yogurt" → "Take my
-     time card", "Check under the armrest" → "Take the gum").
+     time card", "Check under the armrest" → "Take the gum"). Once labels always show, a ✋ button
+     saying "Press" contradicts its icon; moving the coin return to 👆 instead would cost the
+     vending machine's "Buy a snack". The cent is already sitting in the return, so taking it is
+     what the player does (developer, 2026-10-24).
 3. **The cue is the guest's line.** The script and the coffin say it plainly: the **guest** says
    "Rise, foul creature, and face me!", and the lich answers "ARISE!". Dana adds that if they learned
    the guest's line, they could give him his cue. Memorising stays the item action.
