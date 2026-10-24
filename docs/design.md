@@ -80,7 +80,7 @@ quotes, and the big numbers are there to say so.
 | 27 | Smile at every guest |
 | 42 | Do not feed the lich ("the sandwich incident") |
 | 57 | Staff must congratulate any guest who solves a puzzle |
-| 88 | Fog machine settings: LOW, MEDIUM, and REGINALD |
+| 88 | Staff may not understudy the lich (added by Reginald, in red pen) |
 | 113 | Clues may not be written on the staff |
 | 150 | Lost guests must be found within one business day |
 | 204 | All complaints must be sent in writing to head office (whose address isn't in the Handbook) |
