@@ -28,7 +28,26 @@ export const kyleHotspot: Hotspot = {
     },
   },
   itemUses: {
-    [handbook.id]: [{ effects: [K('Not my department.'), K("Mine's propping the stockroom door open.")] }],
+    // Slice 30: once Mordecai wants his teapot re-priced, the Handbook is how Dana borrows the Price
+    // Gun: the revised Section 14, stapled over the one they memorised.
+    [handbook.id]: [
+      { when: [{ has: priceGun.id }], effects: [K("You've already got it. It's got my name on it.")] },
+      { when: [{ flag: 'teapotRepriced' }], effects: [K('Not my department.')] },
+      {
+        when: [{ flag: 'heardTeapotComplaint' }],
+        effects: [
+          say('Section 14: no borrowing equipment from other departments. Everyone knows that.'),
+          say(`But there's an insert stapled over it: REVISED. "Staff may borrow equipment for re-pricing." I haven't learned the new one yet!`),
+          K('...'),
+          K('Re-pricing is my department. Technically.'),
+          K("Bring it back. It's got my name on it."),
+          addItem(priceGun.id),
+          setFlag('learnedRevisedSection14'),
+          say("I've been issued equipment. I'd like to thank the Handbook."),
+        ],
+      },
+      { effects: [K('Not my department.'), K("Mine's propping the stockroom door open.")] },
+    ],
     priceGun: [{ effects: [K("Don't.")] }],
   },
 };
@@ -88,20 +107,6 @@ export const kyleDialogue: Dialogue = {
             K('Sick projection. Is that new?'),
             say("I think he's real."),
             K('Huh. Good resolution.'),
-          ],
-          next: 'hub',
-        },
-        {
-          id: 'priceGun',
-          text: 'Employee Handbook, Section 14: "Staff may borrow equipment for re-pricing."',
-          when: [{ flag: 'heardTeapotComplaint' }],
-          once: true,
-          effects: [
-            K('...'),
-            K("Re-pricing is my department. Technically."),
-            K("Bring it back. It's got my name on it."),
-            addItem(priceGun.id),
-            say("I've been issued equipment. I'd like to thank the Handbook."),
           ],
           next: 'hub',
         },

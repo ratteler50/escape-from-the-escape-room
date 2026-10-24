@@ -47,6 +47,13 @@ const sections: readonly HandbookSection[] = [
   },
   { section: '12', rule: 'Do not improvise with props.', aside: 'Someone has written TOO LATE in the margin, signed "R."' },
   { section: '13', rule: 'This section is intentionally left blank.', aside: "Head office is superstitious. They'll never admit it." },
+  // The old Section 14, which Dana memorised. The revised one, stapled over it, is only found by
+  // using the Handbook on Kyle (slice 30), so it never appears here.
+  {
+    section: '14',
+    rule: 'Staff may not borrow equipment from other departments.',
+    aside: "Something has been stapled over it. I don't have time for inserts. I'm a bit cursed at the moment.",
+  },
   { section: '14.1', rule: 'Staff may not re-price items for personal gain.', aside: 'Head office has underlined "personal". Twice.' },
   { section: '15', rule: 'Always contribute.', aside: 'The next page is the staff social sign-up sheet. Gary has signed it every month.' },
   { section: '16', rule: 'Staff must never be scarier than the attractions.', aside: "There's a photo of Reginald next to it, crossed out." },
@@ -69,8 +76,20 @@ const sections: readonly HandbookSection[] = [
   { section: '400', rule: 'This Handbook replaces all previous Handbooks.', aside: 'There have been nine. Every one says this.' },
 ];
 
+const reading = (s: HandbookSection) => `Section ${s.section}: "${s.rule}" ${s.aside}`;
+
 /** What Dana reads out, one at a time, picked at random: the rule, then their comment. */
-export const handbookReadings: readonly string[] = sections.map((s) => `Section ${s.section}: "${s.rule}" ${s.aside}`);
+export const handbookReadings: readonly string[] = sections.map(reading);
+
+/** The revised Section 14, stapled over the old one: Dana reads it once they've found it on Kyle (slice 30). */
+const revisedSection14: HandbookSection = {
+  section: '14, revised',
+  rule: 'Staff may borrow equipment for re-pricing.',
+  aside: 'Stapled over the old one. I know it by heart now.',
+};
+
+/** The readings once Dana has found the revised Section 14: it replaces the old one. */
+const readingsAfterInsert: readonly string[] = sections.map((s) => reading(s.section === '14' ? revisedSection14 : s));
 
 /** The loading screen's lines: the rules as printed, no comment. */
 export const handbookQuotes: readonly string[] = sections.map((s) => `Handbook Section ${s.section}: ${s.rule}`);
@@ -82,7 +101,10 @@ export const handbook: Item = {
   look: "The Escape-O-Rama Employee Handbook. Four hundred pages, bound in leather-effect vinyl. I've read it cover to cover. Twice. For fun.",
   action: {
     label: 'Read',
-    responses: [{ effects: [sayOneOf(handbookReadings)] }],
+    responses: [
+      { when: [{ flag: 'learnedRevisedSection14' }], effects: [sayOneOf(readingsAfterInsert)] },
+      { effects: [sayOneOf(handbookReadings)] },
+    ],
   },
 };
 

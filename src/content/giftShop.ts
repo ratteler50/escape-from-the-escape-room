@@ -77,7 +77,17 @@ export const giftShop: Room = {
       interactionPoint: { x: 428, y: 480 },
       verbs: {
         look: says("Kyle's till. The receipt roll is printed to look like a scroll. Head office really committed to the theme."),
-        use: { label: 'Ring something up', responses: [{ effects: [K("That's my department.")] }] },
+        use: {
+          label: 'Ring something up',
+          responses: [
+            // Slice 30: a hint, once Mordecai has asked and before Dana has the Price Gun.
+            {
+              when: [{ flag: 'heardTeapotComplaint' }, { notFlag: 'teapotRepriced' }, { lacks: priceGun.id }],
+              effects: [K("That's my department."), say("Kyle's department. The Handbook must say how to borrow from other departments.")],
+            },
+            { effects: [K("That's my department.")] },
+          ],
+        },
       },
       itemUses: {
         [handbook.id]: [{ effects: [say(`There's a whole chapter on the till. It's mostly the words "DO NOT".`)] }],
@@ -101,7 +111,14 @@ export const giftShop: Room = {
         take: says('Bargain bin stock is final sale, and I am staff. Two rules, one teapot.', 'Rummage'),
       },
       itemUses: {
-        [handbook.id]: [{ effects: [say('I am not putting the Handbook in the bargain bin. It would be priced at a dollar. It would never recover.')] }],
+        [handbook.id]: [
+          // Slice 30: a hint, once Mordecai has asked and before Dana has the Price Gun.
+          {
+            when: [{ flag: 'heardTeapotComplaint' }, { notFlag: 'teapotRepriced' }, { lacks: priceGun.id }],
+            effects: [say("Re-pricing needs the price gun, and the price gun is Kyle's department. There's a section on borrowing equipment somewhere...")],
+          },
+          { effects: [say('I am not putting the Handbook in the bargain bin. It would be priced at a dollar. It would never recover.')] },
+        ],
         priceGun: [
           {
             when: [{ flag: 'teapotRepriced' }],
