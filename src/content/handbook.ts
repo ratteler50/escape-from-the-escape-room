@@ -23,6 +23,14 @@ export const handbookReadings: readonly string[] = [
   "Section 13: intentionally left blank. Head office is superstitious. They'll never admit it.",
   'Section 16: "Staff must never be scarier than the attractions." There\'s a photo of Reginald next to it, crossed out.',
   'Section 18: "In an emergency, consult the Handbook." I am consulting it. It is telling me to consult it.',
+  'Section 21: "Staff may not name the props." Gary\'s name tag is stapled to this page.',
+  'Section 27: "Smile at every guest." There\'s a diagram of the correct smile. The diagram is not smiling.',
+  'Section 42: "Do not feed the lich." Added after what head office calls "the sandwich incident".',
+  'Section 88: "Fog machine settings: LOW, MEDIUM, and REGINALD." REGINALD is not to be used.',
+  'Section 113: "Clues may not be written on the staff." Somebody tried. It was me. It was my first shift.',
+  'Section 204: "All complaints go in the complaints box." The complaints box is inside the escape room.',
+  'Section 311: "Paper cuts from the Handbook are not covered by staff insurance." I got three just reaching page 311.',
+  'Section 400: "This Handbook replaces all previous Handbooks." There have been nine. Every one says this.',
 ];
 
 export const handbook: Item = {

@@ -53,7 +53,8 @@ PG, absurdist, wordplay, light fourth-wall poking. Never mean-spirited, never gr
 ### The Employee Handbook
 
 Dana quotes it constantly, and carries it (slice 29). Each section means one thing everywhere; check this list before quoting a
-section, and add new ones here.
+section, and add new ones here. It runs to about 400 sections; this list is the ones the game
+quotes, and the big numbers are there to say so.
 
 | Section | Rule |
 |---------|------|
@@ -75,6 +76,14 @@ section, and add new ones here.
 | 15 | Always contribute |
 | 16 | Staff must never be scarier than the attractions |
 | 18 | In an emergency, consult the Handbook |
+| 21 | Staff may not name the props (Gary's name tag is stapled to it) |
+| 27 | Smile at every guest |
+| 42 | Do not feed the lich ("the sandwich incident") |
+| 88 | Fog machine settings: LOW, MEDIUM, and REGINALD |
+| 113 | Clues may not be written on the staff |
+| 204 | All complaints go in the complaints box (inside the escape room) |
+| 311 | Paper cuts from the Handbook are not covered by staff insurance |
+| 400 | This Handbook replaces all previous Handbooks (there have been nine) |
 
 Reginald's **actors' union contract** is separate: section nine, the show does not stop until the
 final cue; section twelve, wrongful loss of a role.
