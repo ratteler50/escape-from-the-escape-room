@@ -5,7 +5,7 @@ complete)
 
 ## Why
 
-The developer's play-tests of the finished game (2026-10-24) found five snags, and asked for a pass
+The developer's play-tests of the finished game (2026-10-24) found five snags, then a few more on the gum and the mug, and asked for a pass
 over every puzzle for steps that might be less obvious. The pass walked the shortest solution's 27
 steps (`src/content/explore.ts`) and asked, for each: what in the game tells the player to try this?
 Most steps are well signposted (slice 30 added hints for the Gift Shop). The findings, including the
@@ -30,13 +30,10 @@ developer's five, are below.
    separate item action ("Check the number") that nothing points to.
 5. **The cent** (step 22). The vending machine's look still says something copper is in the coin
    return after Dana has taken it.
-6. **Reading the Handbook for help** (step 16). After Mordecai's request, Dana says "There's a
-   Handbook section about borrowing equipment. I'll have to look it up." Reading the Handbook then
-   gives a random section. The natural move doesn't help.
-7. **Memorising** (step 4) and **reading the lanyard** are item actions, on the ⚙ of an item's coin:
+6. **Memorising** (step 4) and **reading the lanyard** are item actions, on the ⚙ of an item's coin:
    the least discoverable place in the game (covered by 2). After memorising, nothing says what to
    do with the line.
-8. **Paying** (step 27). Only the dialogue option buys the mug; using the money on Kyle, the obvious
+7. **Paying** (step 27). Only the dialogue option buys the mug; using the money on Kyle, the obvious
    move for many players, doesn't (developer).
 
 ## Spec
@@ -73,18 +70,19 @@ developer's five, are below.
    flags), as a hotspot's look already is, instead of one fixed line.
 5. **The cent leaves the description.** The vending machine's look has a version for after the cent
    is taken.
-6. **Reading the Handbook helps.** After Mordecai's request and until Dana has the price gun, Read
-   opens at Section 14 (no borrowing from other departments) and Dana notices the page is thicker than
-   it should be: it's Kyle's department, so Kyle should see it. The joke of finding the revised insert
-   while showing Kyle stays.
-7. **Paying with the money.** Using the Exact Change on Kyle buys the mug: the same sale as the
+6. **Paying with the money.** Using the Exact Change on Kyle buys the mug: the same sale as the
    dialogue option, the finale included. Too early, it gets the matching answer: still on duty,
    "Lanyard."; the pay packet alone (one cent short), Kyle's exact-change line. The dialogue option
    stays.
-8. **Records.** Build notes, `docs/drafts.md` regenerated if anything is marked, and the M6 row in
+7. **Records.** Build notes, `docs/drafts.md` regenerated if anything is marked, and the M6 row in
    `docs/design.md`.
 
 Out of scope: new puzzles, new art, a hint system.
+
+Considered and left as it is: **reading the Handbook for help** at step 16. After Mordecai's
+request, Read gives a random section rather than Section 14, but the step already has three hints
+(Mordecai's repeat option, the till, the Handbook on the bargain bin), and a play-tester used the
+Handbook on Kyle without trouble (developer, 2026-10-24).
 
 ## Approvals you'll be asked for
 
@@ -97,9 +95,9 @@ Out of scope: new puzzles, new art, a hint system.
   projects. `src/view/icons.ts` changes, so the E2E harness follows it automatically.
 - Unit tests: an item's look can set a flag and vary with conditions (core, test-first); the lanyard
   action is offered only after looking; the stand-up option only after seeing the gum; Exact Change on
-  Kyle wins the game (the always-winnable search may then find a shorter route: that's fine); the vending machine, throne and Handbook lines vary as
-  specified.
-- Agent play-test: the coin with labels at both sizes; the gum, cue, lanyard, cent and Handbook
+  Kyle wins the game (the always-winnable search may then find a shorter route: that's fine); the
+  vending machine and throne lines vary as specified.
+- Agent play-test: the coin with labels at both sizes; the gum, cue, lanyard, cent and paying
   lines in place.
 - Developer play-test.
 
