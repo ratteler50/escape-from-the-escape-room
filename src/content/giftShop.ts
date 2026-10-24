@@ -216,9 +216,17 @@ export const giftShop: Room = {
       bounds: { x: 1100, y: 122, width: 175, height: 345 },
       interactionPoint: { x: 1150, y: 490 },
       verbs: {
-        // Slice 33: no spoiler before Dana has tried it, just a hunch. (A "tried it" flag would double
-        // every state the always-winnable search explores, for one line.)
-        look: says("Wide open, with a little sign hanging on the glass that says CLOSED. That's the staff side; out in the car park it says OPEN. Handbook Section 9: never locked during business hours. It isn't. The car park is RIGHT THERE. This feels too easy."),
+        // Slice 33: before Dana has tried it, no spoiler. The flag only picks the line, so the
+        // always-winnable search treats it as flavour (explore.ts).
+        look: {
+          responses: [
+            {
+              when: [{ flag: 'triedFrontDoor' }],
+              effects: [say("Wide open, with a little sign hanging on the glass that says CLOSED. That's the staff side; out in the car park it says OPEN. Handbook Section 9: never locked during business hours. It isn't. It just won't let me through.")],
+            },
+            { effects: [say("Wide open, with a little sign hanging on the glass that says CLOSED. That's the staff side; out in the car park it says OPEN. Handbook Section 9: never locked during business hours. It isn't. The car park is RIGHT THERE. I could just... leave.")] },
+          ],
+        },
         use: {
           label: 'Escape!',
           // The false exit: the script only ends once a guest has bought a souvenir (the mug sale).
@@ -228,6 +236,7 @@ export const giftShop: Room = {
                 say("Reginald's script says the guest escapes through the gift shop. I'm in the gift shop. Here goes."),
                 say('I step into the doorway. The doorway steps me straight back into the shop.'),
                 say("The door is open. I'm just not allowed through it. The script's guest buys a souvenir on the way out, and I haven't bought anything. The curse is very literal."),
+                setFlag('triedFrontDoor'),
               ],
             },
           ],
