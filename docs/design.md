@@ -79,9 +79,12 @@ quotes, and the big numbers are there to say so.
 | 21 | Staff may not name the props (Gary's name tag is stapled to it) |
 | 27 | Smile at every guest |
 | 42 | Do not feed the lich ("the sandwich incident") |
+| 57 | Staff must congratulate any guest who solves a puzzle |
 | 88 | Fog machine settings: LOW, MEDIUM, and REGINALD |
 | 113 | Clues may not be written on the staff |
+| 150 | Lost guests must be found within one business day |
 | 204 | All complaints go in the complaints box (inside the escape room) |
+| 276 | The Handbook may only be read on break |
 | 311 | Paper cuts from the Handbook are not covered by staff insurance |
 | 400 | This Handbook replaces all previous Handbooks (there have been nine) |
 
