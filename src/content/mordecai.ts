@@ -54,8 +54,8 @@ export const mordecaiBackHotspot: Hotspot = {
           when: [{ flag: 'triedFrontDoor' }],
           effects: [
             M('Priceless. Say it with me, child. PRICELESS.'),
-            say('Priceless. Also, the front door won\'t let me leave.'),
-            M("Nor me, and I walk through walls. Read the script's ending, child. It wants something from you."),
+            say('Priceless. Also, I walked out the front door and ended up back in the shop.'),
+            M("Nor can I leave, and I walk through walls. Read the script's ending, child. It wants something from you."),
           ],
         },
         {
@@ -142,9 +142,9 @@ export const mordecaiDialogue: Dialogue = {
         {
           // Slice 33: a nudge towards the script's ending. A hint, so it repeats (chat is one-off, hints aren't).
           id: 'triedDoor',
-          text: "The front door won't let me leave.",
+          text: 'I walked out the front door and ended up back in the shop.',
           when: [{ flag: 'triedFrontDoor' }],
-          effects: [M('Nor me, child, and I can walk through WALLS. This curse follows the script to the letter.'), M("Read its ending. I'd wager it wants something from you.")],
+          effects: [M('Nor can I leave, child, and I walk through WALLS. This curse follows the script to the letter.'), M("Read its ending. I'd wager it wants something from you.")],
           next: 'hub',
         },
         {

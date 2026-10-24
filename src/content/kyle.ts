@@ -130,7 +130,7 @@ export const kyleDialogue: Dialogue = {
         {
           // Slice 33: a nudge towards the souvenir. A hint, so it repeats (chat is one-off, hints aren't).
           id: 'triedDoor',
-          text: "Kyle, the front door won't let me out.",
+          text: 'Kyle, I walked out the front door and ended up back in the shop.',
           when: [{ flag: 'triedFrontDoor' }],
           effects: [K('Huh.'), K('Have you tried buying something?'), say('...Why would that help?'), K('Mm.')],
           next: 'hub',
