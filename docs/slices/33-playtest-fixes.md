@@ -201,6 +201,8 @@ Found in the developer's play-test, and fixed:
   the fix). The end-of-sequence catch-up also notices cleared flags now.
 - **"That wad of pink gum"** assumed Dana had already looked at the throne; both gum lines now read
   right either way.
+- **The gum after the cue.** Dana's line after the cue mentions the gum, but taking it needed the
+  throne's look first. The cue now counts as seeing it (a content test checks it).
 - **The script on the shelf**, after memorising, now reads the page again: who says the line, and the
   finale's last page, which otherwise can't be re-read once the script is back.
 

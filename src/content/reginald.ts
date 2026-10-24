@@ -181,6 +181,8 @@ export const reginaldDialogue: Dialogue = {
             R('I am ON my mark! The light is meant to fall HERE. Instead it is lovingly illuminating a man with no lines, over THERE!'),
             R('Fine. FINE. A true professional holds his mark in the dark. Whoever rigged that is getting a strongly worded note.'),
             say("He's sulking on his mark, in the dark. Which means the Spooky Seat is unguarded, and so is the pink gum stuck under its armrest."),
+            // Dana has seen the gum now, whether or not they looked at the throne before.
+            setFlag('sawGum'),
           ],
           next: 'end',
         },
