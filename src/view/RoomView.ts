@@ -6,6 +6,8 @@ import { isExit } from '../core/engine';
 import type { CharacterId, Hotspot, Pose, Room, RoomOverlay, World } from '../core/types';
 import { artKey, SPRITE_SCALE, walkSheetKey } from './textureKeys';
 import { Walker } from './Walker';
+import { TOUCH } from './touch';
+import { touchArea } from './touchArea';
 
 const COLORS = {
   wall: 0x2b2238,
@@ -137,7 +139,7 @@ export class RoomView {
       const spriteKey = this.spriteKey(hotspot);
       // A character with a sprite is drawn as the sprite, with an invisible box on top to click.
       const drawn: Drawn = { hotspot, objects: [], invisible: (this.painted && !hotspot.character) || spriteKey !== undefined };
-      drawn.objects = this.draw(drawn);
+      drawn.objects = this.draw(drawn, hotspots);
       if (spriteKey) {
         const { x, y, width, height } = hotspot.bounds;
         // A pose with a walk sheet stands in the sheet's first frame, so walking and standing match.
@@ -318,14 +320,23 @@ export class RoomView {
     });
   }
 
-  private draw(d: Drawn): Phaser.GameObjects.GameObject[] {
+  private draw(d: Drawn, all: readonly Hotspot[]): Phaser.GameObjects.GameObject[] {
     const { hotspot } = d;
     const { x, y, width, height } = hotspot.bounds;
     // A labelled placeholder rectangle, or (over a painting) an invisible area styled by `style()`.
     const color = hotspot.character ? COLORS.character : COLORS.hotspot;
     // Exits get an arrow cursor pointing toward their side of the screen; everything else the hand.
     const cursor = isExit(hotspot) ? (x + width / 2 < this.scene.scale.width / 2 ? 'w-resize' : 'e-resize') : 'pointer';
-    const shape = this.scene.add.rectangle(x, y, width, height, color).setOrigin(0, 0).setDepth(DEPTH.hotspot).setInteractive({ cursor });
+    const shape = this.scene.add.rectangle(x, y, width, height, color).setOrigin(0, 0).setDepth(DEPTH.hotspot);
+    if (TOUCH) {
+      // On a touch screen a small hotspot answers taps over a fingertip-sized area around it, which
+      // only claims empty space (slice 32). The hit area is in the shape's own coordinates.
+      const area = touchArea(hotspot.bounds, all.filter((h) => h !== hotspot).map((h) => h.bounds));
+      const hitArea = new Phaser.Geom.Rectangle(area.x - x, area.y - y, area.width, area.height);
+      shape.setInteractive({ hitArea, hitAreaCallback: Phaser.Geom.Rectangle.Contains, cursor });
+    } else {
+      shape.setInteractive({ cursor });
+    }
     // Labels sit at the top edge so a character standing in front of a hotspot doesn't hide its name.
     const label = this.scene.add
       // Wrapped to the hotspot's width, so a long name ("Cardboard Reginald") stays inside its box.

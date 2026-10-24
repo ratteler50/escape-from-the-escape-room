@@ -13,7 +13,7 @@ import { PlayerSprite, WALK_SPEED } from './PlayerSprite';
 import { RoomView } from './RoomView';
 import { Speech } from './Speech';
 import type { GameData } from './TitleScene';
-import { button, font, UI } from './ui';
+import { button, fingertip, font, UI } from './ui';
 import { VerbCoin } from './VerbCoin';
 import { USE_WITH_ICON, VERB_ICONS } from './icons';
 import { pickLine } from './pickLine';
@@ -129,7 +129,7 @@ export class RoomScene extends Phaser.Scene {
     this.refreshInventory();
 
     // Above the dialogue panel (so you can save mid-conversation), below the line-skip blocker.
-    button(this, this.scale.width - 44, 36, '☰', () => this.openMenu()).setDepth(1700);
+    fingertip(button(this, this.scale.width - 44, 36, '☰', () => this.openMenu())).setDepth(1700);
     // A loaded save may be mid-conversation: put its options back up.
     if (this.state.conversation) this.showDialogueOptions();
 

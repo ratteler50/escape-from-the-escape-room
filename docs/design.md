@@ -76,6 +76,7 @@ quotes, and the big numbers are there to say so.
 | 15 | Always contribute |
 | 16 | Staff must never be scarier than the attractions |
 | 18 | In an emergency, consult the Handbook |
+| 19 | All attractions are to be enjoyed in landscape (the sideways screen on an upright phone) |
 | 21 | Staff may not name the props (Gary's name tag is stapled to it) |
 | 27 | Smile at every guest |
 | 33 | Staff must wear a name tag at all times |
@@ -168,8 +169,8 @@ developer play-test on a real phone.
 
 | Slice | Content | Runs |
 |-------|---------|------|
-| 31 | Readability: Nunito, speech bands, text that grows when shrunk, comic line breaks | here |
-| 32 | Mobile: portrait screen, touch areas, fullscreen and home screen, phone Playwright run | after 31 |
+| 31 | Readability: Nunito, speech bands, text that grows when shrunk, comic line breaks | done (PR #40) |
+| 32 | Mobile: portrait screen, touch areas, fullscreen and home screen, phone Playwright run | here |
 
 ## M4 plan
 
