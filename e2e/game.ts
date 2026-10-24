@@ -2,7 +2,8 @@ import { expect, type Page } from '@playwright/test';
 import type { GameState } from '../src/core/types';
 
 // Drives the running game the way a player would: finds things through the `window.__game` hook,
-// then moves the real mouse there and clicks. The tests only ever *read* from the game.
+// then moves the real mouse there and clicks, or on a touch device (the phone project, slice 32)
+// taps there. The tests only ever *read* from the game.
 //
 // The game draws everything on one canvas, so there are no DOM elements to find. Instead the
 // page-side half of this file (installed into the page by `open`) looks up Phaser game objects. It
@@ -85,6 +86,18 @@ function installHelpers(): void {
   }
 
   /**
+   * Is the target the top-most interactive object at this point, in its scene? Asks Phaser's own hit
+   * test, for touch, where there's no hovering pointer to check before a tap.
+   */
+  function topAt(target: any, x: number, y: number): boolean {
+    const object = find(target);
+    const scene = object?.scene;
+    if (!scene?.input) return false;
+    const pointer = { x, y, camera: scene.cameras.main };
+    return scene.input.sortGameObjects(scene.input.hitTestPointer(pointer), pointer)[0] === object;
+  }
+
+  /**
    * Resolves true as soon as the pointer is over the target, or false once `frames` frames have
    * drawn without it. Counts frames, not milliseconds: on a slow CI runner one round trip to the
    * page can take longer than any sensible wall-clock wait, but Phaser still needs only a frame or
@@ -125,7 +138,7 @@ function installHelpers(): void {
     };
   }
 
-  (window as any).__e2e = { points, isOver, hovered, skipPoint, status };
+  (window as any).__e2e = { points, isOver, topAt, hovered, skipPoint, status, touch: matchMedia('(pointer: coarse)').matches };
 }
 
 /** Opens the game with the hook on, waiting until Phaser is running. */
@@ -159,6 +172,11 @@ function nextFrame(page: Page): Promise<unknown> {
   return page.evaluate(() => new Promise((done) => requestAnimationFrame(done)));
 }
 
+/** True on a touch device (the phone project): the harness taps instead of clicking. */
+export function isTouch(page: Page): Promise<boolean> {
+  return page.evaluate(() => (window as any).__e2e.touch as boolean);
+}
+
 /** Game coordinates → page coordinates, from where the canvas is on screen. */
 async function toPage(page: Page, at: { x: number; y: number }): Promise<{ x: number; y: number }> {
   const box = await page.locator('canvas').boundingBox();
@@ -180,8 +198,16 @@ export async function click(page: Page, target: Target, what = JSON.stringify(ta
     })
     .toBeTruthy();
 
+  const touch = await isTouch(page);
   for (const at of candidates!) {
     const p = await toPage(page, at);
+    if (touch) {
+      if (await page.evaluate(([t, a]) => (window as any).__e2e.topAt(t, a.x, a.y), [target, at] as const)) {
+        await page.touchscreen.tap(p.x, p.y);
+        return;
+      }
+      continue;
+    }
     await page.mouse.move(p.x, p.y);
     // Give the game a few frames to see the move. (A 500ms poll here once timed out on CI before
     // its first answer came back from a busy page, with the option already highlighted.)
@@ -206,7 +232,13 @@ export async function settle(page: Page, what: string, until: (s: Status) => boo
     if (atRest && until(s)) return s;
     if (Date.now() > deadline) throw new Error(`Timed out waiting for ${what}. Last status: ${JSON.stringify({ ...s, state: undefined })}`);
     if (s.line !== undefined) {
-      const at = await toPage(page, await page.evaluate(() => (window as any).__e2e.skipPoint()));
+      const point = await page.evaluate(() => (window as any).__e2e.skipPoint());
+      const at = await toPage(page, point);
+      if (await isTouch(page)) {
+        if (await page.evaluate((a) => (window as any).__e2e.topAt({ kind: 'skip' }, a.x, a.y), point)) await page.touchscreen.tap(at.x, at.y);
+        await nextFrame(page);
+        continue;
+      }
       await page.mouse.move(at.x, at.y);
       const over = await page.evaluate(() => (window as any).__e2e.isOver({ kind: 'skip' }));
       if (over) {

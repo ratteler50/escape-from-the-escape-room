@@ -5,7 +5,8 @@ import { screens } from '../content/screens';
 import { keyArt } from './assets';
 import { gameAudio } from './GameAudio';
 import { showCredits, showSettings, showSlotList } from './menus';
-import { button, font } from './ui';
+import { canFullscreen, toggleFullscreen, wantsHomeScreen } from './phone';
+import { button, fingertip, font } from './ui';
 
 /** What every scene is started with. `newGame` is the state "New game" and "Play again" start from. */
 export interface GameData {
@@ -58,6 +59,16 @@ export class TitleScene extends Phaser.Scene {
     );
     button(this, x - 100, top + step * 3, 'Settings', () => showSettings(this, () => {}));
     button(this, x + 100, top + step * 3, 'Credits', () => showCredits(this, () => {}));
+
+    // Phones and tablets (slice 32): fullscreen where the browser allows it; on an iPhone, which
+    // doesn't, a tip to add the game to the home screen.
+    if (canFullscreen(this)) {
+      fingertip(button(this, width - 110, 36, this.scale.isFullscreen ? 'Exit fullscreen' : 'Fullscreen', () => toggleFullscreen(this)));
+    } else if (wantsHomeScreen()) {
+      this.add
+        .text(x, top + step * 4 - 10, screens.homeScreenTip, { ...font(this, 18), color: '#e7d2f7', stroke: '#000000', strokeThickness: 4 })
+        .setOrigin(0.5);
+    }
 
     // Starts on the player's first click: browsers keep sound off until then.
     if (world.audio) gameAudio(this).playMusic(world.audio.title);

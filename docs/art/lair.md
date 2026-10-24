@@ -7,7 +7,8 @@
 **References:**
 1. Layout: `docs/art/lair-layout.svg`, rendered to 1280×720 PNG (every prop at its hotspot's bounds,
    plus the spotlight rig aimed at Gary and Reginald's taped mark in the dark).
-2. Style: the approved A2 prototype image (branch `prototype/lair-art-style`).
+2. Style: the approved A2 prototype image (from the art-style prototype, since deleted:
+   `docs/prototypes/lair-art-style.md`).
 
 **Prompt:**
 

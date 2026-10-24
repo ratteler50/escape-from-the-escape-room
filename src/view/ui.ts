@@ -2,6 +2,8 @@ import * as Phaser from 'phaser';
 import { gameAudio } from './GameAudio';
 import { ART_ENABLED } from './RoomView';
 import { MIN_TEXT, readableSize } from './textSize';
+import { TOUCH } from './touch';
+import { TOUCH_MIN } from './touchArea';
 
 /** The game's font (slice 31): Nunito, bold for text and black for headings, loaded in `main.ts`. */
 export const FONT = { family: 'Nunito, "Trebuchet MS", sans-serif', text: 'bold', heading: '900' } as const;
@@ -110,3 +112,17 @@ export function button(
   }) satisfies PointerHandler);
   return text;
 }
+
+/**
+ * On a touch screen, makes a small button answer taps over at least `TOUCH_MIN` each way around its
+ * centre (slice 32). Its look doesn't change. Call after the button is interactive.
+ */
+export function fingertip<T extends Phaser.GameObjects.Text>(button: T): T {
+  const hitArea = button.input?.hitArea as Phaser.Geom.Rectangle | undefined;
+  if (!TOUCH || !hitArea) return button;
+  const width = Math.max(button.width, TOUCH_MIN);
+  const height = Math.max(button.height, TOUCH_MIN);
+  hitArea.setTo((button.width - width) / 2, (button.height - height) / 2, width, height);
+  return button;
+}
+

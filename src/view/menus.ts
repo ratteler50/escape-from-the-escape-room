@@ -3,6 +3,7 @@ import { SLOTS, loadSaveFile, type SaveStore, type SlotId } from '../core/save';
 import type { World } from '../core/types';
 import { credits } from '../content/credits';
 import { gameAudio } from './GameAudio';
+import { canFullscreen, toggleFullscreen } from './phone';
 import { TEXT_SPEEDS, settings, stepVolume, type TextSpeed } from './storage';
 import { button, font, modal, UI } from './ui';
 
@@ -158,21 +159,33 @@ export interface GameMenuActions {
 
 /** The ☰ menu during play. */
 export function showGameMenu(scene: Phaser.Scene, actions: GameMenuActions, onClose: () => void): void {
-  const box = modal(scene, DEPTH, 460, 540, 'Menu');
+  const { revealClickable } = actions;
+  const items: [string, () => void][] = [
+    ['Save', actions.save],
+    ['Load', actions.load],
+    ['Settings', () => showSettings(scene, () => showGameMenu(scene, actions, onClose))],
+    [`Show clickable things: ${revealClickable.on ? 'On' : 'Off'}`, () => {
+      const on = revealClickable.toggle();
+      showGameMenu(scene, { ...actions, revealClickable: { ...revealClickable, on } }, onClose);
+    }],
+    // Only where the browser allows it (slice 32). Switching takes a moment, so the menu closes.
+    ...(canFullscreen(scene)
+      ? [[scene.scale.isFullscreen ? 'Exit fullscreen' : 'Fullscreen', () => {
+          toggleFullscreen(scene);
+          onClose();
+        }] as [string, () => void]]
+      : []),
+    ['Quit to title', actions.quitToTitle],
+    ['Close', onClose],
+  ];
+  const step = 72;
+  const panelHeight = 108 + items.length * step;
+  const box = modal(scene, DEPTH, 460, panelHeight, 'Menu');
   const { width, height } = scene.scale;
-  const item = (i: number, label: string, run: () => void) =>
-    box.add(button(scene, width / 2, height / 2 - 156 + i * 72, label, () => {
+  items.forEach(([label, run], i) =>
+    box.add(button(scene, width / 2, height / 2 - panelHeight / 2 + 114 + i * step, label, () => {
       box.destroy();
       run();
-    }));
-  item(0, 'Save', actions.save);
-  item(1, 'Load', actions.load);
-  item(2, 'Settings', () => showSettings(scene, () => showGameMenu(scene, actions, onClose)));
-  const { revealClickable } = actions;
-  item(3, `Show clickable things: ${revealClickable.on ? 'On' : 'Off'}`, () => {
-    const on = revealClickable.toggle();
-    showGameMenu(scene, { ...actions, revealClickable: { ...revealClickable, on } }, onClose);
-  });
-  item(4, 'Quit to title', actions.quitToTitle);
-  item(5, 'Close', onClose);
+    })),
+  );
 }

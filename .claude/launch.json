@@ -15,6 +15,20 @@
       "port": 5173
     },
     {
+      "name": "dev-phone",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "run",
+        "dev",
+        "--",
+        "--host",
+        "--port",
+        "5173",
+        "--strictPort"
+      ],
+      "port": 5173
+    },
+    {
       "name": "preview-pages",
       "runtimeExecutable": "npx",
       "runtimeArgs": [

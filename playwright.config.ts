@@ -8,6 +8,10 @@ export default defineConfig({
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: 0,
+  // One test at a time on CI: the runner draws in software, and two play-throughs side by side
+  // (the desktop and phone projects, slice 32) starve each other's frames until a walk outlasts its
+  // step's time budget. Locally, Playwright's default: half the CPU cores.
+  workers: process.env.CI ? 1 : '50%',
   reporter: process.env.CI ? [['list'], ['html', { open: 'never' }]] : 'list',
   timeout: 120_000,
   use: {
@@ -16,7 +20,11 @@ export default defineConfig({
     trace: 'retain-on-failure',
     screenshot: 'only-on-failure',
   },
-  projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'], viewport: { width: 1280, height: 720 } } }],
+  projects: [
+    { name: 'chromium', use: { ...devices['Desktop Chrome'], viewport: { width: 1280, height: 720 } } },
+    // A phone held sideways, with touch: the game at about 0.5× (slice 32). Every test taps here.
+    { name: 'phone', use: { ...devices['Pixel 7 landscape'] } },
+  ],
   webServer: {
     command: `npm run build && npx vite preview --port ${PORT} --strictPort`,
     url: `http://localhost:${PORT}`,
