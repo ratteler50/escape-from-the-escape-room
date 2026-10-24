@@ -180,7 +180,7 @@ export const reginaldDialogue: Dialogue = {
             R('Behold, mortal, as the light finds me and—\n...Gary?'),
             R('I am ON my mark! The light is meant to fall HERE. Instead it is lovingly illuminating a man with no lines, over THERE!'),
             R('Fine. FINE. A true professional holds his mark in the dark. Whoever rigged that is getting a strongly worded note.'),
-            say("He's sulking on his mark, in the dark. Which means the Spooky Seat is unguarded. And so is that pink gum under the armrest."),
+            say("He's sulking on his mark, in the dark. Which means the Spooky Seat is unguarded, and so is the pink gum stuck under its armrest."),
           ],
           next: 'end',
         },

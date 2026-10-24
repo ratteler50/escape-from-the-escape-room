@@ -150,7 +150,7 @@ export const lair: Room = {
             { when: [{ flag: 'tookGum' }], effects: [say('A towering throne of bone. The estate-sale sticker on the armrest says "LOT 12: SPOOKY SEAT (BONE-EFFECT), $49.99".')] },
             {
               effects: [
-                say('A towering throne of bone, unguarded at last. "LOT 12: SPOOKY SEAT (BONE-EFFECT), $49.99." And under the armrest, that wad of pink gum.'),
+                say('A towering throne of bone, unguarded at last. "LOT 12: SPOOKY SEAT (BONE-EFFECT), $49.99." And under the armrest: a wad of bright pink gum.'),
                 setFlag('sawGum'),
               ],
             },
