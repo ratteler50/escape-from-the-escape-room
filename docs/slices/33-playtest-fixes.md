@@ -181,8 +181,9 @@ Handbook on Kyle without trouble (developer, 2026-10-24).
   `tookPayPacket` flag so reopening doesn't pay twice; the fridge's yogurt patch only shows while
   it's open.
 - **Paying.** The sale's effects moved to `mugSale` in `finale.ts`, shared by the dialogue option and
-  the Exact Change on Kyle. The shortest solution now ends by handing Kyle the money (29 steps: it
-  also opens the coffin, takes the script and looks at the lanyard).
+  the Exact Change on Kyle. The shortest solution now ends by handing Kyle the money (28 steps: it
+  also opens the coffin, takes the script and looks at the lanyard; 29 until the gum fix below made
+  looking at the throne optional).
 - **The Break Room test** used to start Dana in the Break Room with the opening inventory, a state
   the wired-up game can't reach; with the bigger Lair, exploring from there ran past the explorer's
   50,000-state cap. It now starts from the moment Dana first walks in on the shortest solution. The
