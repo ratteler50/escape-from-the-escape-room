@@ -1,7 +1,7 @@
 # Slice 28 — Text and structure
 
-**Status:** spec approved by the developer (2026-10-23); 28a merged (PR #34); 28b built and agent
-play-tested · **Milestone:** M4, the last slice of M4 and of the project
+**Status:** built, agent and developer play-tested; 28a merged (PR #34), 28b merged (PR #35),
+2026-10-23 · **Milestone:** M4, the last slice of M4 and of the project
 
 ## Why
 
