@@ -83,7 +83,7 @@ quotes, and the big numbers are there to say so.
 | 88 | Fog machine settings: LOW, MEDIUM, and REGINALD |
 | 113 | Clues may not be written on the staff |
 | 150 | Lost guests must be found within one business day |
-| 204 | All complaints go in the complaints box (inside the escape room) |
+| 204 | All complaints must be sent in writing to head office (whose address isn't in the Handbook) |
 | 276 | The Handbook may only be read on break |
 | 311 | Paper cuts from the Handbook are not covered by staff insurance |
 | 400 | This Handbook replaces all previous Handbooks (there have been nine) |

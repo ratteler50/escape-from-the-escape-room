@@ -30,7 +30,7 @@ export const handbookReadings: readonly string[] = [
   'Section 88: "Fog machine settings: LOW, MEDIUM, and REGINALD." REGINALD is not to be used.',
   'Section 113: "Clues may not be written on the staff." Somebody tried. It was me. It was my first shift.',
   'Section 150: "Lost guests must be found within one business day." There\'s a form for it. Nobody has filled it in. Yet.',
-  'Section 204: "All complaints go in the complaints box." The complaints box is inside the escape room.',
+  'Section 204: "All complaints must be sent in writing to head office." Head office\'s address is not in the Handbook.',
   'Section 276: "The Handbook may only be read on break." I\'m on break. Technically. Probably.',
   'Section 311: "Paper cuts from the Handbook are not covered by staff insurance." I got three just reaching page 311.',
   'Section 400: "This Handbook replaces all previous Handbooks." There have been nine. Every one says this.',
