@@ -208,9 +208,13 @@ export class RoomView {
     this.glow(d, hovered);
   }
 
-  /** Turns a character sprite's hover glow on or off, making the filter the first time it's needed. */
+  /**
+   * Turns a character sprite's hover glow on or off, making the filter the first time it's needed.
+   * Filters exist only under WebGL: when the browser falls back to the Canvas renderer (no GPU, a
+   * lost WebGL context), there's no glow and hovering shows just the name.
+   */
   private glow(d: Drawn, on: boolean): void {
-    if (!d.sprite || (!on && !d.glow)) return;
+    if (!d.sprite || (!on && !d.glow) || this.scene.renderer.type !== Phaser.WEBGL) return;
     if (!d.glow) {
       // External: in screen space, after the sprite's scale and flip (the internal list drew nothing here).
       d.glow = d.sprite.enableFilters().filters!.external.addGlow(COLORS.highlight, GLOW.strength, 0, 1, false, 10, GLOW.distance);
