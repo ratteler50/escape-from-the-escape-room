@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { availableVerbs, handle, isExit } from '../core/engine';
 import { pointInPolygon, type Point, type Polygon } from '../core/geometry';
-import { FAIL_SOUND, PLAYER, WON, type Effect, type Pose, type Response } from '../core/types';
+import { FAIL_SOUND, PLAYER, WON, type Effect, type GameState, type Pose, type Response } from '../core/types';
 import { initialState, world } from './world';
 
 const LOGICAL_WIDTH = 1280;
@@ -427,7 +427,7 @@ describe('the gum (slice 33)', () => {
   // Rising, Reginald leaves the gum in plain view, and Dana says so: they can take it without having
   // looked at the throne first.
   it('can be taken after the cue, whether or not Dana looked at the throne', () => {
-    let state = { ...initialState, flags: { ...initialState.flags, learnedCue: true } };
+    let state: GameState = { ...initialState, flags: { ...initialState.flags, learnedCue: true } };
     for (const command of [
       { type: 'verb', verb: 'talk', hotspotId: 'reginald' },
       { type: 'chooseOption', optionId: 'cue' },
