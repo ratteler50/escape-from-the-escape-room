@@ -40,6 +40,8 @@ developer's five, are below.
    knocker and the price sticker that are.
 9. **Closing** (a play-tester, Mel). Once the fridge is open it can't close, and 👆 still offers
    "Open". The same goes for the locker and the display case.
+10. **Section 4.2 and Reginald** (developer). Dana quotes "never touch the guests" at Reginald and at
+    his cardboard cut-out, which implies he touches guests.
 
 ## Spec
 
@@ -114,7 +116,15 @@ developer's five, are below.
    dialogue option, the finale included. Too early, it gets the matching answer: still on duty,
    "Lanyard."; the pay packet alone (one cent short), Kyle's exact-change line. The dialogue option
    stays.
-9. **Records.** Build notes, `docs/drafts.md` regenerated if anything is marked, and the M6 row in
+9. **Section 4.2 stops pointing at Reginald.** "Never touch the guests" aimed at Reginald (his
+   conversation option, and its callback on Cardboard Reginald) implies he does. Both switch to
+   Section 16, "Staff must never be scarier than the attractions" (its aside already has his photo,
+   crossed out): the option becomes "Handbook Section 16: staff must never be scarier than the
+   attractions." / Reginald: "Darling, I AM the attraction." / Dana: "That's not in the Handbook.";
+   Cardboard Reginald: "I read Cardboard Reginald Section 16. He's exactly as scary as the
+   attractions. He's my favourite Reginald." Section 4.2 stays where it's Dana's own rule (Gary's
+   arm, the Handbook's readings). `docs/design.md`'s note on the option follows.
+10. **Records.** Build notes, `docs/drafts.md` regenerated if anything is marked, and the M6 row in
    `docs/design.md`.
 
 Out of scope: new puzzles, new rooms, a hint system.
