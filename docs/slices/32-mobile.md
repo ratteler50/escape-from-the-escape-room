@@ -1,6 +1,6 @@
 # Slice 32 — Mobile: sideways screen, touch areas, fullscreen, phone tests
 
-**Status:** built, awaiting the developer's play-test on a real phone · **Milestone:** M5 (last slice)
+**Status:** built, agent and developer play-tested (on a real phone, 2026-10-24) · **Milestone:** M5 (last slice)
 
 ## Why
 
