@@ -1,6 +1,6 @@
 # Slice 33 — Play-test fixes: clearer puzzles and verbs
 
-**Status:** awaiting approval · **Milestone:** M6, play-test polish (one slice, after the game was
+**Status:** built, awaiting the developer's play-test · **Milestone:** M6, play-test polish (one slice, after the game was
 complete)
 
 ## Why
@@ -159,3 +159,43 @@ Handbook on Kyle without trouble (developer, 2026-10-24).
 
 - Branch `slice-33-playtest-fixes`, from `main`.
 - If 🔗 doesn't read well in the screenshots, alternatives for "Use with…": ➡️, 🎯.
+
+## Build notes (2026-10-24)
+
+- **Core, test-first.** Three small additions in `src/core`: an item's `look` can be responses
+  (conditions, effects) instead of one line, so a look can set a flag; a `clearFlag` effect, so
+  things that open can close; and a verb `label` can be a list of `{ when, text }`, first match wins,
+  so one verb reads Open or Close. The always-winnable explorer now tries looking at items too, since
+  that can change state.
+- **The verb coin** (`VerbCoin.ts`) is a gently curved row with every button's label under it, and
+  the hotspot's name below. The ring couldn't fit labels without them overlapping the lower buttons,
+  most of all on a phone, where text grows. Icons in `icons.ts`: 👆 replaces ⚙, 🔗 is Use with….
+- **The coffin.** The star is an always-on overlay drawn by the agent (`lair-coffin-star.webp`),
+  leaving the painting untouched. The open coffin is a ChatGPT edit of a crop (prompt pack
+  `docs/art/prompts-coffin.md`, with human Reginald's sprite as the reference for his signed
+  headshot), cut with `make-overlay.py` into an open patch and a script patch; the open patch fades
+  out before Gary's stand, where ChatGPT had repainted a little. The script and the hairspray are
+  hotspots fitted to the painted shelf items. Opening knocks first if Dana hasn't, so Reginald always
+  gives permission.
+- **Closing.** The coffin, fridge, locker and display case open and close; the locker got a
+  `tookPayPacket` flag so reopening doesn't pay twice; the fridge's yogurt patch only shows while
+  it's open.
+- **Paying.** The sale's effects moved to `mugSale` in `finale.ts`, shared by the dialogue option and
+  the Exact Change on Kyle. The shortest solution now ends by handing Kyle the money (29 steps: it
+  also opens the coffin, takes the script and looks at the lanyard).
+- **The Break Room test** used to start Dana in the Break Room with the opening inventory, a state
+  the wired-up game can't reach; with the bigger Lair, exploring from there ran past the explorer's
+  50,000-state cap. It now starts from the moment Dana first walks in on the shortest solution. The
+  whole game is about 7,200 states.
+- **Touch areas** now also grow for the script and the hairspray (and still for the keypad,
+  phylactery, grate, Reginald and the intercom).
+- **Records.** `docs/design.md`: the M6 row, Section 16 in Reginald's options, and a new puzzle
+  dependency chart for the whole game as it plays now (the M1 and M3 charts stay as the original
+  plans, with a pointer).
+
+Agent play-test (headless Chromium at 1280×720 and as a Pixel 7): every new line in order (the gum
+seen and guarded, knock and open, the knock-knock flub, the hairspray, the script as a script, the
+memorise nudge, the stand-up and Section 16 options, the lanyard's squint), the coffin's four
+looks, the coin with labels at both sizes, the fridge, locker and case closing and reopening, the
+empty coin return. No console errors. `npm test` (550), typecheck, build, both Playwright projects.
+

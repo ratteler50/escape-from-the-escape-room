@@ -134,8 +134,62 @@ With M5 the game is complete (2026-10-24).
 | **M3 — content** ✅ complete (slices 13–17) | Gift Shop and Break Room, full puzzle chain, ending. Plan below. |
 | **M4 — art and audio** ✅ complete (slices 18–30) | Painted backgrounds, character sprites, prop overlays, item icons, music and sound effects, a walk animation; then a text consistency pass and a content-code cleanup, hover polish, the Handbook as an item, and a Handbook puzzle for Section 14. No voice. Plan below. |
 | **M5 — mobile and readability** ✅ complete (slices 31–32) | One readable font, speech on dark bands, text that grows when the game is shrunk, deliberate line breaks for comic beats; then playable on a phone held sideways. Plan below. |
+| **M6 — play-test polish** (slice 33) | Fixes from play-tests of the finished game: the gum as an early goal, a verb coin that shows its labels, the cue as someone else's line, the coffin that opens, things that close, the lanyard's small print, paying Kyle with the money. Spec: `docs/slices/33-playtest-fixes.md`. |
 
 Art is placeholder shapes until M4, and the code keeps art swappable.
+
+## Puzzle dependency chart: the whole game
+
+The game as it plays now (after slice 33), from the start to the end card. The milestone charts
+below (M1: the Lair, M3: the Gift Shop and the Break Room) are the original plans. The
+always-winnable test (`src/content/winnable.test.ts`) checks the game itself; this is the map.
+
+```mermaid
+graph TD
+  START([Start in the Lair: the Handbook and the lanyard]) --> THRONE[Look at the throne: pink gum<br/>under the armrest, by his elbow]
+  THRONE --> GUARD{Take it: 'Hands off the Spooky Seat!'<br/>Ask him to stand: 'a lich RISES, on his CUE'}
+  START --> COFFIN[Knock on the coffin, his dressing room:<br/>'Go ahead, anything but the hairspray'. Open it]
+  COFFIN --> SCRIPT[/Item: Reginald's Script/]
+  SCRIPT --> READ[Read it: MORTAL: 'Rise, foul creature...'<br/>LICH: 'ARISE!'. Margin: THEY NEVER SAY IT]
+  READ --> MEMO[Memorise the line;<br/>the script goes back in the coffin]
+  GUARD --> CUE
+  MEMO --> CUE{Say the line to Reginald}
+  CUE --> ARISE[He rises and walks to his mark,<br/>in the dark: the throne is unguarded]
+  ARISE --> GUM[/Item: Pre-Owned Gum/]
+  START --> GARY[Borrow Gary's arm]
+  GARY --> ARM[/Item: Gary's Arm/]
+  ARM --> STICKY((Combine))
+  GUM --> STICKY
+  STICKY --> STICKYARM[/Item: Sticky Arm/]
+  STICKYARM --> GRATE[Fish in the floor grate]
+  GRATE --> KEY[/Item: Display Case Key/]
+  KEY --> CASE[Unlock the display case]
+  CASE --> SCROLL[/Item: Ancient Riddle Scroll: THE ANSWER IS: CODE/]
+  SCROLL --> KEYPAD[Use it on the keypad: C-O-D-E]
+  KEYPAD --> SHOP([The Lair door opens: the Gift Shop])
+
+  SHOP --> KYLE{Kyle: 'Lanyard.' Staff can't buy merch}
+  SHOP --> MORD{Mordecai: his teapot is in<br/>the bargain bin at $2}
+  MORD --> BORROW{Handbook on Kyle: the revised Section 14,<br/>'staff may borrow equipment for re-pricing'}
+  BORROW --> GUN[/Item: Price Gun/]
+  GUN --> PRICELESS[Price Gun on the bargain bin:<br/>the teapot is PRICELESS]
+  PRICELESS --> STAFF[Mordecai opens STAFF ONLY]
+  STAFF --> BREAK([The Break Room])
+
+  BREAK --> FRIDGE[Open the fridge; take the time card<br/>from under the yogurt]
+  FRIDGE --> CLOCK[Time card on the time clock:<br/>OFF DUTY, a customer]
+  BREAK --> SMALLPRINT[Look at the lanyard: small print;<br/>squint at it: 007]
+  SMALLPRINT --> LOCKER[Open the locker: 0-0-7]
+  LOCKER --> PAY[/Item: Pay Packet, $12.98/]
+  BREAK --> CENT[Take the cent from the coin return]
+  CENT --> EXACT((Combine))
+  PAY --> EXACT
+  EXACT --> CASH[/Item: Exact Change, $12.99/]
+  CLOCK --> BUY{Buy the mug from Kyle:<br/>ask, or hand over the money}
+  CASH --> BUY
+  KYLE --> BUY
+  BUY --> FINALE([The curse lifts: THE END?])
+```
 
 ## M5 plan
 
@@ -267,6 +321,9 @@ the finale (cutscene system). **Dialogue:** regular trees for Kyle and Mordecai;
 
 ### M3 puzzle dependency chart
 
+The plan as made in M3. The game as it plays now is in "Puzzle dependency chart: the whole game"
+near the top.
+
 ```mermaid
 graph TD
   ARRIVE([Dana enters the Gift Shop]) --> KYLE{Talk to Kyle:<br/>'Can't sell to staff'}
@@ -360,6 +417,10 @@ advances), so the text speed setting is visible rather than only changing auto-a
 and ENTER, since slice 24); head office's official riddle is supposed to provide the code.
 
 ### Puzzle dependency chart
+
+The plan as made in M1 (the door now leads to the Gift Shop, and slice 33 reworked the coffin, the
+cue and the gum). The game as it plays now is in "Puzzle dependency chart: the whole game" near the
+top.
 
 ```mermaid
 graph TD
