@@ -89,11 +89,13 @@ Decisions from the slice 29 questions (2026-10-23).
 - **sayOneOf:** a core effect type the engine passes through; `RoomScene` picks a line with
   `pickLine` (tested), remembering the last pick per line list. `explore.ts` treats it as
   presentation, and content validation wants at least two non-empty lines.
-- **The Handbook:** `src/content/handbook.ts` (item, 25 readings, pack: 17 were added at the
-  developer's request, with new Sections 16, 18, 21, 27, 42, 57, 88, 113, 150, 204, 276, 311 and 400
-  in the design doc's table, the big numbers to suggest a book of about 400 sections). Its line for each hotspot
-  sits in that hotspot's `itemUses`, in the room or character file, so it's next to the hotspot's
-  other lines. Variants: the Lair door (locked or unlocked), the lockers (before or after Dana
+- **The Handbook:** `src/content/handbook.ts` (item, 25 sections, pack). 17 sections were added at
+  the developer's request, with new Sections 16, 18, 21, 27, 42, 57, 88, 113, 150, 204, 276, 311 and
+  400 in the design doc's table; the big numbers suggest a book of about 400 sections. Each section
+  is stored once (number, rule, Dana's comment): Read says the rule and the comment, and the
+  **loading screen** shows every rule as a plain quote, in random order (`pickLine`), replacing its
+  five lines in Dana's voice (developer's call). Its line for each hotspot sits in that hotspot's
+  `itemUses`, in the room or character file, so it's next to the hotspot's other lines. Variants: the Lair door (locked or unlocked), the lockers (before or after Dana
   learns 007). Combinations live with the other item: Reginald's Script (`reginald.ts`), the Price
   Gun (`kyle.ts`), both lanyards (`breakRoom.ts`).
 - **Tests:** `handbook.test.ts` checks the starting inventory, the readings, a Handbook line on

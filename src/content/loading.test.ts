@@ -2,8 +2,8 @@ import { describe, expect, it } from 'vitest';
 import { handbookSections as sections } from './handbookSections';
 import { world } from './world';
 
-// The loading screen's lines are Dana quoting the Employee Handbook, so they may only quote sections
-// in its master list (docs/design.md, "The Employee Handbook"), where each section means one thing.
+// The loading screen's lines quote the Employee Handbook, so they may only quote sections in its
+// master list (docs/design.md, "The Employee Handbook"), where each section means one thing.
 
 describe('the loading screen lines', () => {
   it('has a few', () => {
