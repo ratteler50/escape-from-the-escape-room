@@ -11,11 +11,13 @@ the crop, ask for an **edit** (same size and framing), and save the result under
 ChatGPT redraws the whole crop (different colours, lighting or angle), try again with "do not
 redraw; change only what I describe".
 
-The crop already has the new gold star on the lid (drawn by the agent): keep it.
+The crop already has the new gold star on the lid (drawn by the agent): keep it. The photo inside is
+Reginald's own headshot, from before tonight, when he was an actor *playing* a lich: so it's the
+human Reginald in his make-up (`REFERENCE-reginald-human.png`), signed by himself.
 
 ---
 
-## 1. The coffin open → attach `art-inbox/CROP-coffin.png`, then `art-inbox/ICON-script.png`; save as `art-inbox/coffin-open.png`
+## 1. The coffin open → attach `art-inbox/CROP-coffin.png`, then `art-inbox/ICON-script.png`, then `art-inbox/REFERENCE-reginald-human.png`; save as `art-inbox/coffin-open.png`
 
 > Edit the first image. Keep everything identical: framing, size, painting style, colours, the warm
 > candlelight, the purple wall and cobwebs, and the floor. Change only one thing: the upright wooden
@@ -25,7 +27,9 @@ The crop already has the new gold star on the lid (drawn by the agent): keep it.
 > tiny dressing room:
 >
 > - near the top, a small round mirror ringed with little light bulbs;
-> - pinned below the mirror, a signed photo of a skeletal lich in a crooked gold crown;
+> - pinned below the mirror, a signed actor's headshot of the man in the third image: a gaunt actor
+>   in white-and-black skull face paint and a crooked gold crown, striking a dramatic pose, with a
+>   big scrawled signature across the corner;
 > - on a little shelf low down on the LEFT, a dog-eared stack of paper bound with a red ribbon
 >   (an actor's script, like the second image);
 > - on a little shelf low down on the RIGHT, well apart from the script, a tall spray can of
