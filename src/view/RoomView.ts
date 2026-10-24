@@ -147,7 +147,7 @@ export class RoomView {
         drawn.sprite = this.scene.add
           .image(x + width / 2, y + height, walk ?? spriteKey, walk ? 0 : undefined)
           .setOrigin(0.5, 1)
-          .setScale(SPRITE_SCALE)
+          .setScale(SPRITE_SCALE * (hotspot.character ? (this.characters[hotspot.character]?.scale ?? 1) : 1))
           .setDepth(DEPTH.sprite);
         drawn.objects.push(drawn.sprite);
       }
@@ -299,7 +299,7 @@ export class RoomView {
     const pose: Pose = entry.hotspot.pose === 'human' ? 'human' : 'standing';
     const path = info?.sprites?.[pose];
     if (path === undefined || !this.scene.textures.exists(artKey(path))) return undefined;
-    const walker = new Walker(this.scene, path, info?.walks?.[pose]);
+    const walker = new Walker(this.scene, path, info?.walks?.[pose], info?.scale);
     walker.root.setPosition(entry.sprite.x, entry.sprite.y).setDepth(DEPTH.sprite);
     walker.face(dx < 0 ? 'left' : 'right');
     entry.sprite.setVisible(false);

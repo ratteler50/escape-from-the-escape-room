@@ -42,6 +42,9 @@ export const kyle: Character = {
   color: '#f7a8d8',
   // Waist-up: drawn with the sprite's bottom edge on the painted counter top, so Kyle stands behind it.
   sprites: { standing: 'assets/characters/kyle.webp' },
+  // Slice 34: their art came out large; behind the counter, further back, they should read a little
+  // smaller than Dana.
+  scale: 0.75,
 };
 
 export const mordecai: Character = {

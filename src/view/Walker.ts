@@ -22,12 +22,17 @@ export class Walker {
   /** The walk animation's key, when there's a sheet; otherwise the sprite hops. */
   private readonly anim: string | undefined;
   private hop: Phaser.Tweens.Tween | undefined;
+  /** The shared sprite scale times this character's size. */
+  private readonly scale: number;
 
   constructor(
     private readonly scene: Phaser.Scene,
     standing: string,
     walk: WalkFrames | undefined,
+    /** The character's size relative to the shared sprite scale (Character.scale). */
+    size = 1,
   ) {
+    this.scale = SPRITE_SCALE * size;
     const sheet = walk && scene.textures.exists(walkSheetKey(walk.sheet)) ? walk : undefined;
     if (sheet) {
       this.anim = walkAnimKey(sheet.sheet);
@@ -44,12 +49,12 @@ export class Walker {
       this.sprite = scene.add.sprite(0, 0, artKey(standing));
     }
     this.sprite.setOrigin(0.5, 1);
-    this.root = scene.add.container(0, 0, [this.sprite]).setScale(SPRITE_SCALE);
-    this.height = this.sprite.height * SPRITE_SCALE;
+    this.root = scene.add.container(0, 0, [this.sprite]).setScale(this.scale);
+    this.height = this.sprite.height * this.scale;
   }
 
   face(direction: 'left' | 'right'): void {
-    this.root.scaleX = (direction === 'left' ? -1 : 1) * SPRITE_SCALE;
+    this.root.scaleX = (direction === 'left' ? -1 : 1) * this.scale;
   }
 
   /** Starts the walk cycle (or the hop); the caller moves the root. */
@@ -63,7 +68,7 @@ export class Walker {
     this.sprite.setAngle(HOP.leanDegrees);
     this.hop = this.scene.tweens.add({
       targets: this.sprite,
-      y: -HOP.height / SPRITE_SCALE,
+      y: -HOP.height / this.scale,
       duration: HOP.periodMs / 2,
       ease: 'Sine.easeOut',
       yoyo: true,

@@ -22,7 +22,8 @@ export const kyleHotspot: Hotspot = {
   id: 'kyle',
   name: 'Kyle',
   character: kyle.id,
-  bounds: { x: 348, y: 219, width: 105, height: 115 },
+  // Slice 34: around the sprite at 0.75 size (cast.ts), its bottom-centre on the counter top (400, 334).
+  bounds: { x: 361, y: 248, width: 79, height: 86 },
   interactionPoint: { x: 440, y: 480 },
   verbs: {
     look: says("Kyle, according to the name tag. Behind the till, earbuds in, phone out. They haven't looked up since the lich started screaming."),

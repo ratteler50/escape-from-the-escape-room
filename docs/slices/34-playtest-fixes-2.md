@@ -1,6 +1,6 @@
 # Slice 34 — Play-test fixes, round two
 
-**Status:** awaiting approval · **Milestone:** M6, play-test polish
+**Status:** built, awaiting the developer's play-test · **Milestone:** M6, play-test polish
 
 ## Why
 
@@ -58,3 +58,26 @@ discussion (the next slice).
 ## Notes
 
 - Branch `slice-34-playtest-fixes-2`, from `main`.
+
+## Build notes (2026-10-24)
+
+- **Kyle's size.** A `Character` can have a `scale` (presentation only): the standing sprite and the
+  walk are drawn at the shared sprite scale times it (`RoomView`, `Walker`). Kyle is at **0.75**,
+  picked by the developer from screenshots at 0.65, 0.75 and 0.85 (0.65 looked like a child peeking
+  over the counter). Their clickable area is refitted around the smaller sprite, its bottom-centre
+  still on the counter top; on a phone it now gets a fingertip-sized touch area (the touch-area list
+  test gains `giftShop.kyle`). `docs/adding-content.md` mentions `scale`.
+- **The four lines**, each with a content test written first:
+  - the Handbook on the front door: "It isn't locked. Gold star, front door." until Dana has tried
+    it (the flag only picks the line, so the explorer treats it as flavour);
+  - the lanyard on the badge reader: "TRAINEE, in huge letters. The light stays red. It knows.";
+  - "Take the cent" appears after looking at the vending machine (`lookedAtVending`); the puzzle
+    chart and the Break Room notes in `docs/design.md` now include the look;
+  - the lanyard (either one) on the locker unlocks "Squint at the small print".
+- **States.** `lookedAtVending` gates a verb, so it counts: the game went from about 8,350 to about
+  11,230 states. It stops mattering once the cent is taken, a case for the explorer work being
+  designed in a separate session.
+
+Agent play-test (headless Chromium at 1280×720 and as a Pixel 7): Kyle beside Dana and talking (the
+speech band sits above them), at both sizes; each of the four lines in the game; the cent only after
+the look. No console errors.

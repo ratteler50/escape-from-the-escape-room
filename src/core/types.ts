@@ -121,6 +121,11 @@ export interface Character {
   color: string;
   /** Drawn bobbing gently up and down (a ghost). Presentation only. */
   floats?: boolean;
+  /**
+   * Drawn at this size relative to the shared sprite scale (default 1), for art generated at a
+   * different size from the rest (slice 34: Kyle). Presentation only.
+   */
+  scale?: number;
   /** Painted sprites by pose (M4). Presentation only: the core never reads them. */
   sprites?: CharacterSprites;
   /**

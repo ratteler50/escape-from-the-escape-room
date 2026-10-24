@@ -46,8 +46,9 @@ missed. Terms are from `docs/glossary.md`. Content is typed TypeScript in `src/c
 
 ## A new character
 
-1. **`cast.ts`:** a `Character` (`id`, `name`, speech `color`, optional `sprites` and `walks`), a
-   line helper, and the character added to `castPack`.
+1. **`cast.ts`:** a `Character` (`id`, `name`, speech `color`, optional `sprites` and `walks`, and
+   `scale` if the art came out bigger or smaller than the rest), a line helper, and the character
+   added to `castPack`.
 2. **A hotspot** with `character: <id>` in a room, so their lines are drawn above them. A character
    with no hotspot (Reginald on the intercom) speaks over Dana, with a name tag.
 3. **Sprites** (optional) in `public/assets/characters/`, credited in `CREDITS.md`;

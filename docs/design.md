@@ -136,7 +136,8 @@ graph TD
   BREAK --> PRINT[Look at the lanyard: small print]
   PRINT --> NUMBER[Squint at it: 007]
   NUMBER --> LOCKER[Open the locker:<br/>Pay Packet, $12.98]
-  BREAK --> VEND[Take the cent from<br/>the vending machine's coin return]
+  BREAK --> LOOKV[Look at the vending machine:<br/>something copper in the coin return]
+  LOOKV --> VEND[Take the cent]
   LOCKER --> CASH((Combine))
   VEND --> CASH
   CASH --> EXACT[/Exact Change, $12.99/]
@@ -189,7 +190,8 @@ Three puzzles in any order:
    on the time clock: OFF DUTY, and Dana flips the badge. Legally a customer.
 2. **The locker.** The combination is Dana's employee number. Looking at the lanyard finds small
    print under TRAINEE; squinting at it reads 007. Inside: the pay packet, $12.98.
-3. **The cent.** One cent in the vending machine's coin return: take it. Combined with the pay packet:
+3. **The cent.** One cent in the vending machine's coin return: Dana spots it by looking at the
+   machine, then takes it. Combined with the pay packet:
    exact change, $12.99.
 
 Reginald is heard here over the intercom, "directing".
