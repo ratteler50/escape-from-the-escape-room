@@ -35,7 +35,8 @@ human Reginald in his make-up (`REFERENCE-reginald-human.png`), signed by himsel
 > - on a little shelf low down on the RIGHT, well apart from the script, a tall spray can of
 >   hairspray with a bright green label.
 >
-> Keep the script and the hairspray clearly separate and easy to see. No people. No readable text
+> Keep the script and the hairspray clearly separate and easy to see. No people apart from the one in
+> the photo. No readable text
 > except what is already in the picture.
 
 ## 2. Without the script → in the **same chat**, save as `art-inbox/coffin-open-no-script.png`
