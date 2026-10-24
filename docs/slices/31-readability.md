@@ -29,8 +29,9 @@ Decisions from the M5 planning session (2026-10-24), in `docs/design.md`, M5 pla
    is drawn bigger to keep that size. At laptop size (scale about 1) nothing changes. It applies to
    speech, dialogue options, the hover caption, the verb coin's labels, menus and the Credits panel,
    and is re-applied if the window is resized. Consequences handled: speech bands get taller (and
-   stay on screen); the dialogue options panel grows and **scrolls** (drag, wheel, or arrows) when
-   its options don't fit; menus that would overflow get taller or wrap.
+   stay on screen); the dialogue options panel grows and **scrolls** (▲/▼ arrows to tap or click,
+   and the mouse wheel; no dragging) when its options don't fit; menus that would overflow get
+   taller or wrap.
 4. **Comic beats.** A spoken line may contain a deliberate line break (`\n`), kept whatever the
    font or size. A pass over all dialogue adds breaks at interruptions ("of the—" / "fine.") and
    before punchlines where a beat helps; each added break is marked so the drafts list shows it,
@@ -87,8 +88,9 @@ and home-screen support, the phone-sized Playwright run.
   menus are made fresh each time they open, so they pick up the new size anyway. The title screen
   restarts itself on a resize (its buttons and their layout are made in `create`).
 - **Dialogue options** (`DialoguePanel.ts`) never cover more than 45 % of the screen; past that the
-  list scrolls by the mouse wheel or the ▲/▼ arrows at its right. Dragging to scroll is left for
-  slice 32 (touch). Rows grow with the text (at least 40 px).
+  list scrolls by the mouse wheel or the ▲/▼ arrows at its right. No dragging to scroll: the
+  developer settled on the arrows instead (2026-10-23), on a phone too. Rows grow with the text
+  (at least 40 px).
 - **Credits** is sized to its text and wraps wider when the text has grown: at phone size its Back
   button covered the last line (found in the agent play-test).
 - **Comic beats.** Seven lines in `reginald.ts` and `breakRoom.ts` got a `\n`, each marked
