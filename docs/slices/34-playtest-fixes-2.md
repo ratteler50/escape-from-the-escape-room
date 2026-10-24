@@ -10,7 +10,7 @@ lines or actions that run ahead of what Dana knows, or behind it.
 ## Findings
 
 1. **Kyle is too big.** Behind the counter, Kyle's head is about one and a half times Dana's, though
-   he stands further back. His sprite is waist-up (230 px tall) and drawn at the same half scale as
+   Kyle stands further back. Kyle's sprite is waist-up (230 px tall) and drawn at the same half scale as
    Dana's full-body one (400 px), so a full-body Kyle would be about 420 px.
 2. **The Handbook on the front door** says "The Handbook has no section on doors that put you back"
    before Dana has tried the door: the same spoiler the door's look line had in slice 33.
@@ -22,10 +22,10 @@ lines or actions that run ahead of what Dana knows, or behind it.
 
 ## Spec
 
-1. **Kyle at the right size.** Kyle is drawn at about two-thirds of his current size, his waist still
-   on the counter top, so he reads as a little smaller than Dana, as someone further back should.
-   The size is a per-character setting (presentation only), not new art. His clickable area shrinks
-   to match. Screenshots at laptop size for approval.
+1. **Kyle at the right size.** Kyle is drawn at about two-thirds of their current size, their waist
+   still on the counter top, so they read as a little smaller than Dana, as someone further back should.
+   The size is a per-character setting (presentation only), not new art. Their clickable area
+   shrinks to match. Screenshots at laptop size for approval.
 2. **The Handbook on the front door** has two lines, like the door's look: before trying it, Section
    9 is satisfied ("It isn't locked. Gold star, front door."); after, the current line about doors
    that put you back.
