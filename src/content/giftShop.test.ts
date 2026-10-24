@@ -62,6 +62,17 @@ describe('the Gift Shop chain', () => {
     expect(said(heard, handbookOn('bargainBin'))).toContain('borrowing equipment');
   });
 
+  it('has Mordecai point at the Handbook when asked about the teapot again, and at the teapot once Dana has the gun', () => {
+    const heard = complained(arrived);
+    const askAgain = (state: GameState) => {
+      const atMordecai = run(state, talk('mordecai'));
+      const option = availableOptions(world, atMordecai).find((o) => o.text === 'About your teapot...');
+      return option ? said(atMordecai, choose(option.id)) : '';
+    };
+    expect(askAgain(heard)).toContain('little book');
+    expect(askAgain(run(heard, handbookOn('kyle')))).toContain('Point it at the TEAPOT');
+  });
+
   it('opens STAFF ONLY when the Price Gun re-prices the teapot, and Mordecai floats off through it', () => {
     const armed = run(complained(arrived), handbookOn('kyle'));
     expect(hotspotIds(armed)).toEqual(expect.arrayContaining(['staffDoor', 'mordecai']));
