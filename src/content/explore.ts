@@ -29,16 +29,39 @@ export interface Flavour {
  * end-to-end tests compare exactly.
  */
 export function stateKey(s: GameState, flavour?: Flavour): string {
-  const dead = flavour?.reads ? deadFlags(flavour.reads, s.flags) : undefined;
-  return JSON.stringify({
-    room: s.roomId,
-    inventory: [...s.inventory].sort(),
-    flags: Object.keys(s.flags)
-      .filter((f) => s.flags[f] && !flavour?.flags.has(f) && !dead?.has(f))
-      .sort(),
-    conversation: s.conversation,
-    spent: s.spentOptions.filter((o) => !flavour?.spentOptions.has(o)).sort(),
-  });
+  return keyParts(s, flavour).key;
+}
+
+/** A state's key, and the two parts the side-effect-free step check compares: its flags, and all but room and flags. */
+interface KeyParts {
+  key: string;
+  flags: readonly string[];
+  rest: string;
+}
+const NO_FLAVOUR: Flavour = { flags: new Set(), spentOptions: new Set() };
+// States are never changed in place (the engine returns new ones), so each state's key is worked out
+// once per flavour. The search asks for the same states' keys millions of times (the toggle checks).
+const partsMemo = new WeakMap<Flavour, WeakMap<GameState, KeyParts>>();
+
+function keyParts(s: GameState, flavour: Flavour = NO_FLAVOUR): KeyParts {
+  let byState = partsMemo.get(flavour);
+  if (!byState) partsMemo.set(flavour, (byState = new WeakMap()));
+  let parts = byState.get(s);
+  if (!parts) {
+    const dead = flavour.reads ? deadFlags(flavour.reads, s.flags) : undefined;
+    const inventory = [...s.inventory].sort();
+    const flags = Object.keys(s.flags)
+      .filter((f) => s.flags[f] && !flavour.flags.has(f) && !dead?.has(f))
+      .sort();
+    const spent = s.spentOptions.filter((o) => !flavour.spentOptions.has(o)).sort();
+    parts = {
+      key: JSON.stringify({ room: s.roomId, inventory, flags, conversation: s.conversation, spent }),
+      flags,
+      rest: JSON.stringify({ inventory, conversation: s.conversation, spent }),
+    };
+    byState.set(s, parts);
+  }
+  return parts;
 }
 
 /**
@@ -132,14 +155,12 @@ export function describeCommand(w: World, s: GameState, c: Command): string {
 }
 
 /**
- * Whether a step from key `a` to key `b` is side-effect free, but for these flags: nothing differs but
- * the room and those flags (walking through a door that sets nothing; flipping a toggle).
+ * Whether a step from state `a` to state `b` is side-effect free, but for these flags: nothing differs
+ * but the room and those flags (walking through a door that sets nothing; flipping a toggle).
  */
-function quietStep(a: string, b: string, flags: ReadonlySet<string>): boolean {
-  const [ka, kb] = [JSON.parse(a), JSON.parse(b)] as { room: string; flags: string[] }[];
-  const rest = (k: { room: string; flags: string[] }) => JSON.stringify({ ...k, room: null, flags: null });
-  if (rest(ka!) !== rest(kb!)) return false;
-  return [...ka!.flags.filter((f) => !kb!.flags.includes(f)), ...kb!.flags.filter((f) => !ka!.flags.includes(f))].every((f) => flags.has(f));
+function quietStep(a: KeyParts, b: KeyParts, flags: ReadonlySet<string>): boolean {
+  if (a.rest !== b.rest) return false;
+  return a.flags.every((f) => flags.has(f) || b.flags.includes(f)) && b.flags.every((f) => flags.has(f) || a.flags.includes(f));
 }
 
 type Route = { command: Command; before: GameState }[];
@@ -169,16 +190,30 @@ function stepsOf(w: World, flavour: Flavour): Steps {
   };
 }
 
+type Reach = Map<string, { state: GameState; via: Route }>;
+// Each toggle check asks from a state and from its flipped twin, and the twin later asks the same
+// again: remember every answer, per step cache (so per world and flavour).
+const reachMemo = new WeakMap<Steps, Map<string, Reach>>();
+
 /** The states reachable from `s` by side-effect-free steps (changing only the room and these flags), by key. */
-function quietReach(s: GameState, flags: ReadonlySet<string>, flavour: Flavour, steps: Steps): Map<string, { state: GameState; via: Route }> {
-  const found = new Map([[stateKey(s, flavour), { state: s, via: [] as Route }]]);
+function quietReach(s: GameState, flags: ReadonlySet<string>, flavour: Flavour, steps: Steps): Reach {
+  let memo = reachMemo.get(steps);
+  if (!memo) reachMemo.set(steps, (memo = new Map()));
+  const id = `${stateKey(s, flavour)} ${[...flags].sort().join()}`;
+  let found = memo.get(id);
+  if (!found) memo.set(id, (found = searchQuiet(s, flags, flavour, steps)));
+  return found;
+}
+
+function searchQuiet(s: GameState, flags: ReadonlySet<string>, flavour: Flavour, steps: Steps): Reach {
+  const found: Reach = new Map([[stateKey(s, flavour), { state: s, via: [] as Route }]]);
   const queue = [...found.values()];
   for (let i = 0; i < queue.length; i++) {
     const { state, via } = queue[i]!;
     if (state.conversation || state.flags[WON]) continue;
-    const here = stateKey(state, flavour);
+    const here = keyParts(state, flavour);
     for (const step of steps(state)) {
-      if ('error' in step || found.has(step.key) || !quietStep(here, step.key, flags)) continue;
+      if ('error' in step || found.has(step.key) || !quietStep(here, keyParts(step.next, flavour), flags)) continue;
       const entry = { state: step.next, via: [...via, { command: step.command, before: state }] };
       found.set(step.key, entry);
       queue.push(entry);
@@ -238,10 +273,15 @@ export function explore(w: World, start: GameState, options: { reduce?: boolean 
     return freeMemo.get(base)!;
   };
   /** A state's key, ignoring its free toggles: open and closed coffin are one state. */
+  const keyMemo = new WeakMap<GameState, string>();
   const keyOf = (s: GameState): string => {
-    const free = freeIn(s);
-    if (free.size === 0) return stateKey(s, flavour);
-    return stateKey({ ...s, flags: Object.fromEntries(Object.entries(s.flags).filter(([f]) => !free.has(f))) }, flavour);
+    let key = keyMemo.get(s);
+    if (key === undefined) {
+      const free = freeIn(s);
+      key = free.size === 0 ? stateKey(s, flavour) : stateKey({ ...s, flags: Object.fromEntries(Object.entries(s.flags).filter(([f]) => !free.has(f))) }, flavour);
+      keyMemo.set(s, key);
+    }
+    return key;
   };
   /**
    * Every state a key stands for: this one, with its free toggles set every way (each reachable from

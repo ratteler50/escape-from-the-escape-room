@@ -7,6 +7,8 @@ import { initialState, world } from './world';
 // rule down on real content, so a change to it is a deliberate one.
 describe('flavour bits', () => {
   const flavour = flavourBits(world);
+  // The whole game's search, shared by the tests below that need it.
+  const result = explore(world, initialState);
 
   it('treats lines that are only heard once as flavour', () => {
     expect(flavour.spentOptions).toContain('reginald.who');
@@ -131,7 +133,6 @@ describe('flavour bits', () => {
 
   it('ends every winning game holding only the Handbook, the lanyard (flipped to OFF DUTY) and the mug: used-up items leave', () => {
     const KEEPERS = ['handbook', 'offDutyLanyard', 'mug'];
-    const result = explore(world, initialState);
     const leftovers = new Set(
       [...result.explored.values()].filter((e) => e.state.flags[WON]).flatMap((e) => e.state.inventory.filter((id) => !KEEPERS.includes(id))),
     );
@@ -142,7 +143,6 @@ describe('flavour bits', () => {
   });
 
   it('keeps the whole game well under the state cap, and the shortest solution ends with the sale', () => {
-    const result = explore(world, initialState);
     expect(result.capped).toBe(false);
     const solution = shortestSolution(world, initialState);
     // Slice 33: handing Kyle the Exact Change buys the mug too, one step shorter than asking.
