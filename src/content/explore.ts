@@ -319,7 +319,9 @@ export function explore(w: World, start: GameState, options: { reduce?: boolean 
   /** The commands of the shortest path from the start to this state. */
   const commandsTo = (key: string): Command[] => route(key).map(({ command }) => command);
 
-  return { explored, canWin, errors, pathTo, commandsTo, keyOf, capped: explored.size > STATE_CAP };
+  /** Every flag found to be a free toggle in some explored state (slice 35's listing test). */
+  const toggles = new Set([...freeMemo.values()].flatMap((free) => [...free]));
+  return { explored, canWin, errors, pathTo, commandsTo, keyOf, toggles, capped: explored.size > STATE_CAP };
 }
 
 /** The first winning state breadth-first search reaches, which is the closest one, or undefined. */
