@@ -95,7 +95,7 @@ the Lair with the Employee Handbook. The goal: the escape room's script ends whe
 **through the gift shop with a souvenir**, so Dana must leave the Lair, become a customer, and buy
 the "I ESCAPED THE LICH'S LAIR" mug.
 
-The always-winnable test prints a shortest solution (30 steps, `src/content/winnable.test.ts`);
+The always-winnable test prints the shortest solution (29 steps, `src/content/winnable.test.ts`);
 this chart is what depends on what. Chart a new puzzle here before writing it.
 
 ### Puzzle dependency chart
@@ -224,5 +224,6 @@ See `docs/decisions/` for the reasoning behind each choice.
     alone (the coffin, the fridge, the locker and the case, once each is free). The search explores
     both settings as one state.
   A cross-check against the search without these rules, toy worlds with look-alikes, and a state
-  budget (9,000; the cap is 50,000) keep it honest. Because open and closed count as one state, the
-  printed route can include a step a strictly shortest one would skip (knocking on the coffin first).
+  budget (9,000; the cap is 50,000) keep it honest. Since open and closed count as one state, the
+  printed route is rebuilt from every shortest way into each state, preferring the one that lands
+  where the next step starts (the coffin opened, not knocked on), so it adds no needless flips.

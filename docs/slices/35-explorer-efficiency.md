@@ -145,11 +145,15 @@ after the cent anyway); free toggles `coffinOpen`, `fridgeOpen`, `lockerOpen`, `
 
 **Side effects to know about:**
 
-- The printed route is 30 steps (29 after slice 34): it knocks on the coffin before opening it,
-  because opening an unknocked coffin knocks too, which is two flags, not a flip. The route is
-  playable as it is: the end-to-end tests play it on both projects.
+- **The printed route** first came out 30 steps, knocking on the coffin before opening it: from the
+  start, Knock and Open both reach the same merged state ("knocked, coffin either way"), the search
+  kept only the first way in (Knock), which lands with the coffin closed, and the route then put an
+  Open back in before taking the script. Fixed (developer's review): each state keeps every shortest
+  way in, and the route prefers the one that lands where its next step starts. It's 29 steps again,
+  opening the coffin directly; a test checks that, and fails without the preference. The end-to-end
+  tests play the route on both projects.
 - **What's left is conversations:** 1,500 of the 1,732 states are mid-conversation. A toggle can't
   be flipped without leaving one, which isn't side-effect free, so they still double there.
   Conversations as single steps (out of scope above) is the next lever if the budget ever trips.
 
-`npm test` (599), typecheck, build, both Playwright projects green.
+`npm test` (600), typecheck, build, both Playwright projects green.

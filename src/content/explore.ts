@@ -214,6 +214,8 @@ interface Edge {
   command: Command;
   /** The state the command was taken from: one of the states the key stands for (free toggles). */
   from: GameState;
+  /** The state it led to (which of the next key's settings: the coffin open or closed). */
+  to: GameState;
 }
 
 /**
@@ -222,7 +224,9 @@ interface Edge {
  */
 export function explore(w: World, start: GameState, options: { reduce?: boolean } = {}) {
   const reduce = options.reduce ?? true;
-  const explored = new Map<string, Explored & { parent: Edge | null }>();
+  // `parents`: every edge in from the breadth-first layer before (all shortest ways in), so a route
+  // can pick the one that lands where its next step starts (slice 35). `parent` is the first.
+  const explored = new Map<string, Explored & { parent: Edge | null; parents: Edge[]; depth: number }>();
   const reverseEdges = new Map<string, Set<string>>();
   const errors: { key: string; command: Command; message: string }[] = [];
   const flavour = flavourBits(w, { slice35: reduce });
@@ -251,12 +255,12 @@ export function explore(w: World, start: GameState, options: { reduce?: boolean 
   };
 
   const startKey = keyOf(start);
-  explored.set(startKey, { state: start, parent: null });
+  explored.set(startKey, { state: start, parent: null, parents: [], depth: 0 });
   const queue = [startKey];
 
   while (queue.length > 0 && explored.size <= STATE_CAP) {
     const key = queue.shift()!;
-    const { state } = explored.get(key)!;
+    const { state, depth } = explored.get(key)!;
     for (const from of members(state, key)) {
       for (const step of steps(from)) {
         if ('error' in step) {
@@ -267,9 +271,13 @@ export function explore(w: World, start: GameState, options: { reduce?: boolean 
         if (nextKey === key) continue;
         if (!reverseEdges.has(nextKey)) reverseEdges.set(nextKey, new Set());
         reverseEdges.get(nextKey)!.add(key);
-        if (!explored.has(nextKey)) {
-          explored.set(nextKey, { state: step.next, parent: { key, command: step.command, from } });
+        const edge = { key, command: step.command, from, to: step.next };
+        const known = explored.get(nextKey);
+        if (!known) {
+          explored.set(nextKey, { state: step.next, parent: edge, parents: [edge], depth: depth + 1 });
           queue.push(nextKey);
+        } else if (known.depth === depth + 1) {
+          known.parents.push(edge);
         }
       }
     }
@@ -293,8 +301,17 @@ export function explore(w: World, start: GameState, options: { reduce?: boolean 
    * closed), the side-effect-free steps that get there are put in first (slice 35).
    */
   const route = (key: string): Route => {
+    // Backwards from the end: of the shortest ways into each key, prefer one that lands exactly where
+    // the next step is taken from (the coffin already open), so no flip needs putting in. Opening the
+    // coffin and knocking on it reach the same merged state; only Open lands with it open.
     const edges: Edge[] = [];
-    for (let e = explored.get(key)!; e.parent; e = explored.get(e.parent.key)!) edges.unshift(e.parent);
+    let need: string | undefined;
+    for (let e = explored.get(key)!; e.parents.length > 0; ) {
+      const edge = e.parents.find((p) => need !== undefined && stateKey(p.to, flavour) === need) ?? e.parents[0]!;
+      edges.unshift(edge);
+      need = stateKey(edge.from, flavour);
+      e = explored.get(edge.key)!;
+    }
     const out: Route = [];
     let current = start;
     for (const edge of edges) {
