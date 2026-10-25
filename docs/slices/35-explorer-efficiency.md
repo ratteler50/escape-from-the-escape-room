@@ -1,6 +1,6 @@
 # Slice 35 — A leaner always-winnable search
 
-**Status:** built, awaiting developer review · **Milestone:** M6, play-test polish
+**Status:** built, developer reviewed; in review · **Milestone:** M6, play-test polish
 
 ## Why
 
