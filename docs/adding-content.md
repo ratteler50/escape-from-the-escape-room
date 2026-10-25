@@ -87,6 +87,7 @@ Run `npm test` after each step; failure messages say what to fix.
 | `src/content/content.test.ts` | Unknown items, characters, dialogues, rooms, entries or sounds; empty lines; a last response with a `when`; entries and interaction points off the floor; hotspots off screen; **a condition testing a flag nothing sets, or a flag set and never read** |
 | `src/content/pack.test.ts` | Two packs defining the same id |
 | `src/content/winnable.test.ts` | Dead ends, unreachable rooms or items, commands that throw, the state cap; prints the shortest solution |
+| `src/content/reduce.test.ts` | What the search merges (latches, flags that die at a milestone, free toggles: update the lists when content changes them, after checking each against its rule), and the state budget |
 | `src/content/assets.test.ts` | Missing art or audio files, uncredited assets, an item without an icon, the 15 MB budget |
 | `src/content/handbook.test.ts` | A hotspot with no Handbook line; any "Section N" that isn't in `handbookSections.ts`; `docs/handbook.md` out of date: run `npm run handbook` |
 | `src/content/loading.test.ts` | Loading lines quoting a Handbook section that isn't in `handbookSections.ts` |
