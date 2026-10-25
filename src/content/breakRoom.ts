@@ -327,12 +327,18 @@ export const breakRoom: Room = {
         look: {
           responses: [
             { when: [{ flag: 'gotCent' }], effects: [say('"SNAX-O-RAMA." Fully stocked with one bag of Spooky Crisps, stuck on its spiral since before I was hired. The coin return is empty now. I checked it twice. Handbook Section 8: be thorough.')] },
-            { effects: [say('"SNAX-O-RAMA." Fully stocked with one bag of Spooky Crisps, which has been stuck on its spiral since before I was hired. Nobody has the heart to free it. The coin return flap is half-open, and something small and copper is sulking in there.')] },
+            {
+              effects: [
+                say('"SNAX-O-RAMA." Fully stocked with one bag of Spooky Crisps, which has been stuck on its spiral since before I was hired. Nobody has the heart to free it. The coin return flap is half-open, and something small and copper is sulking in there.'),
+                setFlag('lookedAtVending'),
+              ],
+            },
           ],
         },
         take: {
           label: 'Take the cent',
-          when: [{ notFlag: 'gotCent' }],
+          // Slice 34: only once Dana has seen it there.
+          when: [{ flag: 'lookedAtVending' }, { notFlag: 'gotCent' }],
           responses: [
             {
               effects: [
@@ -388,8 +394,9 @@ export const breakRoom: Room = {
       },
       itemUses: {
         [handbook.id]: [{ when: [{ flag: 'learnedEmployeeNumber' }], effects: [say('The Handbook says my locker combination is my employee number. 007. The Handbook would be proud of me.')] }, { effects: [say('Section 2: know your number. The Handbook says my locker combination is my employee number. It does not say what my employee number is.')] }],
-        [lanyard.id]: [{ effects: [say("The lock wants a number, not a lanyard. Though the number IS on the lanyard, in the small print. I should squint at it.")] }],
-        [offDutyLanyard.id]: [{ effects: [say('The lock wants a number, not a badge. Though the number IS on the badge, in the small print. I should squint at it.')] }],
+        // Slice 34: having said so, Dana can squint at it (as after looking at the lanyard).
+        [lanyard.id]: [{ effects: [say("The lock wants a number, not a lanyard. Though the number IS on the lanyard, in the small print. I should squint at it."), setFlag('noticedSmallPrint')] }],
+        [offDutyLanyard.id]: [{ effects: [say('The lock wants a number, not a badge. Though the number IS on the badge, in the small print. I should squint at it.'), setFlag('noticedSmallPrint')] }],
       },
     },
     {

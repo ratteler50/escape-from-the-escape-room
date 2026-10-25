@@ -178,6 +178,8 @@ export const giftShop: Room = {
       itemUses: {
         [handbook.id]: [{ effects: [say("I show the badge reader the Handbook. Page one: my name, my photo, TRAINEE. The light stays red. It's read it already.")] }],
         priceGun: [{ effects: [say('I label the door $4.99. Still locked, but now it\'s affordable.')] }],
+        // Slice 34: it IS a staff badge, so not the generic line.
+        lanyard: [{ effects: [say('I hold my lanyard up to the reader. TRAINEE, in huge letters. The light stays red. It knows.')] }],
       },
       itemFallback: "The badge reader blinks red. Whatever that was, it wasn't a staff badge.",
     },
@@ -243,7 +245,11 @@ export const giftShop: Room = {
         },
       },
       itemUses: {
-        [handbook.id]: [{ effects: [say("Section 9: never locked during business hours. It isn't. The Handbook has no section on doors that put you back. I'll suggest one.")] }],
+        // Slice 34: only once Dana has tried it does the Handbook know it puts you back.
+        [handbook.id]: [
+          { when: [{ flag: 'triedFrontDoor' }], effects: [say("Section 9: never locked during business hours. It isn't. The Handbook has no section on doors that put you back. I'll suggest one.")] },
+          { effects: [say("Section 9: never locked during business hours. It isn't locked. Gold star, front door.")] },
+        ],
         priceGun: [{ effects: [say('I label the front door FREE. The sign still says CLOSED. To me, specifically.')] }],
       },
     },

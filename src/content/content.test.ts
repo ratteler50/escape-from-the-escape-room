@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { availableVerbs, handle, isExit } from '../core/engine';
+import { availableItemAction, availableVerbs, handle, isExit } from '../core/engine';
 import { pointInPolygon, type Point, type Polygon } from '../core/geometry';
 import { FAIL_SOUND, PLAYER, WON, type Effect, type GameState, type Pose, type Response } from '../core/types';
 import { initialState, world } from './world';
@@ -459,5 +459,38 @@ describe('the keypad (slice 33)', () => {
     const result = enter(holding);
     expect(result.state.flags.lairDoorUnlocked).toBeUndefined();
     expect(result.effects).toEqual([{ type: 'say', text: expect.stringContaining('read what it says') }]);
+  });
+});
+
+describe('play-test fixes, round two (slice 34)', () => {
+  const say = (state: GameState, command: Parameters<typeof handle>[2]) =>
+    handle(world, state, command).effects.flatMap((e) => (e.type === 'say' ? [e.text] : [])).join(' ');
+  const inShop: GameState = { ...initialState, roomId: 'giftShop', player: world.rooms.giftShop!.entries.fromLair! };
+
+  it('the Handbook on the front door only mentions doors that put you back once Dana has tried it', () => {
+    const handbookOnDoor = { type: 'useItemOn', itemId: 'handbook', hotspotId: 'frontDoor' } as const;
+    expect(say(inShop, handbookOnDoor)).not.toMatch(/put you back/);
+    expect(say({ ...inShop, flags: { triedFrontDoor: true } }, handbookOnDoor)).toMatch(/put you back/);
+  });
+
+  it('the lanyard on the badge reader gets the badge joke, not the generic line', () => {
+    const line = say(inShop, { type: 'useItemOn', itemId: 'lanyard', hotspotId: 'staffDoor' });
+    expect(line).toMatch(/It knows/);
+    expect(line).not.toMatch(/wasn't a staff badge/);
+  });
+
+  it('offers "Take the cent" only once Dana has looked at the vending machine', () => {
+    const inBreakRoom: GameState = { ...initialState, roomId: 'breakRoom', player: world.rooms.breakRoom!.entries.fromGiftShop! };
+    const labels = (s: GameState) => availableVerbs(world, s, 'vendingMachine').map((v) => v.label);
+    expect(labels(inBreakRoom)).not.toContain('Take the cent');
+    const looked = handle(world, inBreakRoom, { type: 'verb', verb: 'look', hotspotId: 'vendingMachine' }).state;
+    expect(labels(looked)).toContain('Take the cent');
+  });
+
+  it('the lanyard on the locker unlocks squinting at it, as looking at it does', () => {
+    const inBreakRoom: GameState = { ...initialState, roomId: 'breakRoom', player: world.rooms.breakRoom!.entries.fromGiftShop! };
+    expect(availableItemAction(world, inBreakRoom, 'lanyard')).toBeNull();
+    const after = handle(world, inBreakRoom, { type: 'useItemOn', itemId: 'lanyard', hotspotId: 'lockers' }).state;
+    expect(availableItemAction(world, after, 'lanyard')?.label).toBe('Squint at the small print');
   });
 });
