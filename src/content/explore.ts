@@ -1,5 +1,6 @@
 import { availableItemAction, availableOptions, availableVerbs, handle, visibleHotspots } from '../core/engine';
 import { WON, type Command, type GameState, type World } from '../core/types';
+import { deadFlags, flagReads, PRESENTATION, type FlagReads } from './reduce';
 
 // Explores every game state the player can reach by trying every command the UI could offer, and
 // works out which of them can still win. Used by the always-winnable test (no deaths, no dead ends,
@@ -18,18 +19,22 @@ interface Explored {
 export interface Flavour {
   flags: ReadonlySet<string>;
   spentOptions: ReadonlySet<string>;
+  /** Where flags are read, for flags that stop mattering once a milestone is set (slice 35). */
+  reads?: FlagReads;
 }
 
 /**
- * Two states that differ only in ways puzzles can't see (position, inventory order, and any
- * `flavour` bits) are the same. Exploration passes `flavour`; the end-to-end tests compare exactly.
+ * Two states that differ only in ways puzzles can't see (position, inventory order, any `flavour`
+ * bits, and flags a milestone has made dead) are the same. Exploration passes `flavour`; the
+ * end-to-end tests compare exactly.
  */
 export function stateKey(s: GameState, flavour?: Flavour): string {
+  const dead = flavour?.reads ? deadFlags(flavour.reads, s.flags) : undefined;
   return JSON.stringify({
     room: s.roomId,
     inventory: [...s.inventory].sort(),
     flags: Object.keys(s.flags)
-      .filter((f) => s.flags[f] && !flavour?.flags.has(f))
+      .filter((f) => s.flags[f] && !flavour?.flags.has(f) && !dead?.has(f))
       .sort(),
     conversation: s.conversation,
     spent: s.spentOptions.filter((o) => !flavour?.spentOptions.has(o)).sort(),
@@ -40,10 +45,10 @@ export function stateKey(s: GameState, flavour?: Flavour): string {
  * Finds the bits a state can carry that never affect what the player can do, so exploration can
  * merge states that differ only in them. Without this, every independent one-off line of dialogue
  * doubles the number of states (slice 16 hit the cap that way). Two kinds:
- * - flags that no condition anywhere reads (set, never checked), counting as unread a condition that
- *   only picks between responses which only present (lines, sounds, walks): which line Dana says
- *   can't change what they can do (slice 33, the front door's look before and after trying it), and
- *   a condition that only offers a dialogue option which talks and returns to the same menu;
+ * - flags that no condition anywhere reads (set, never checked), counting as unread (reduce.ts): a
+ *   condition that only picks between responses which only present (lines, sounds, walks), or that
+ *   also only set that same flag (a say-once latch, slice 35); a condition that only offers a dialogue
+ *   option which talks and returns to the same menu; and a verb label's (it only picks a wording);
  * - spent `once` dialogue options whose effects are pure presentation (lines, pauses, walks, sounds) plus,
  *   at most, setting such unread flags, and that lead back to the node they're in. Having heard a
  *   line can't open or close any path.
@@ -52,47 +57,11 @@ export function stateKey(s: GameState, flavour?: Flavour): string {
  * way into a node, or the only way out of a conversation.
  */
 export function flavourBits(w: World): Flavour {
-  const presentation = new Set(['say', 'sayOneOf', 'pause', 'face', 'walk', 'sound']);
-  // Responses only: objects with nothing but `when` and `effects` (dialogue options have effects too,
-  // but their conditions decide what Dana can say, so they always count).
-  const isPresentationOnly = (list: unknown[]): boolean =>
-    list.length > 0 &&
-    list.every((r) => {
-      if (!r || typeof r !== 'object' || Object.keys(r).some((k) => k !== 'when' && k !== 'effects')) return false;
-      const effects = (r as { effects?: unknown }).effects;
-      return Array.isArray(effects) && effects.every((e) => presentation.has((e as { type?: string }).type ?? ''));
-    });
-  // Dialogue options that only talk and come back to the menu they're in: whether one is offered
-  // changes nothing a player can do, so its condition doesn't count as a read either (slice 33).
-  const talkOnly = new Set<object>();
-  for (const dialogue of Object.values(w.dialogues)) {
-    for (const [nodeId, node] of Object.entries(dialogue.nodes)) {
-      for (const option of node.options) {
-        if (option.next === nodeId && (option.effects ?? []).every((e) => presentation.has(e.type))) talkOnly.add(option);
-      }
-    }
-  }
-  const read = new Set<string>();
-  const seen = new Set<object>();
-  const visit = (node: unknown): void => {
-    if (!node || typeof node !== 'object' || seen.has(node)) return;
-    seen.add(node);
-    if (talkOnly.has(node)) return;
-    // Responses that only present: their conditions only pick a line, so they don't count as reads.
-    if (Array.isArray(node) && isPresentationOnly(node)) {
-      node.forEach((r) => ((r as { effects: unknown[] }).effects ?? []).forEach(visit));
-      return;
-    }
-    // Conditions are the only objects with a `flag`/`notFlag` and no `type` (setFlag effects have one).
-    const o = node as Record<string, unknown>;
-    if (!('type' in o)) {
-      if (typeof o.flag === 'string') read.add(o.flag);
-      if (typeof o.notFlag === 'string') read.add(o.notFlag);
-    }
-    Object.values(o).forEach(visit);
-  };
-  visit(w);
-  read.add(WON);
+  const presentation = PRESENTATION;
+  // Every read that can change what Dana can do (reduce.ts): line pickers, talk-only options and labels
+  // don't count, nor do say-once latches (slice 35).
+  const reads = flagReads(w);
+  const read = new Set([...reads.sites.keys(), WON]);
 
   const isFlavourFlag = (flag: string) => !read.has(flag);
   const flags = new Set<string>();
@@ -116,7 +85,7 @@ export function flavourBits(w: World): Flavour {
     Object.values(o).forEach((v) => collectSetFlags(v, inner));
   };
   collectSetFlags(w);
-  return { flags, spentOptions };
+  return { flags, spentOptions, reads };
 }
 
 /** Every command the UI could offer in this state. */
