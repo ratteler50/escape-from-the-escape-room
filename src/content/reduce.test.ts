@@ -358,10 +358,11 @@ describe('what the search merges in this game', () => {
 });
 
 describe('the shortest solution', () => {
+  const solution = shortestSolution(world, initialState);
+
   it('opens the coffin directly: no Knock first, though knocking and opening reach the same merged state', () => {
     // From the start, Knock and Open both land in "knocked, coffin either way". A route through Knock
     // lands with the coffin closed, so taking the script would need an extra Open.
-    const solution = shortestSolution(world, initialState);
     const coffin = solution.filter((c) => c.type === 'verb' && c.hotspotId === 'coffin');
     expect(coffin[0], 'the first thing done to the coffin is opening it').toEqual({ type: 'verb', verb: 'use', hotspotId: 'coffin' });
     expect(coffin, 'and nothing else is done to it').toHaveLength(1);
@@ -369,7 +370,7 @@ describe('the shortest solution', () => {
 
   it('replays through the engine, every step allowed, to a win (slice 35: steps into merged states included)', () => {
     let state = initialState;
-    for (const [i, command] of shortestSolution(world, initialState).entries()) {
+    for (const [i, command] of solution.entries()) {
       expect(() => (state = handle(world, state, command).state), `step ${i + 1}: ${JSON.stringify(command)}`).not.toThrow();
     }
     expect(state.flags.won).toBe(true);

@@ -1,6 +1,7 @@
 # Slice 35 — A leaner always-winnable search
 
-**Status:** built, developer reviewed; in review · **Milestone:** M6, play-test polish
+**Status:** merged (#45); a speed follow-up corrects the build notes' runtime claim (update, 2026-10-24,
+at the end) · **Milestone:** M6, play-test polish
 
 ## Why
 
@@ -157,3 +158,35 @@ after the cent anyway); free toggles `coffinOpen`, `fridgeOpen`, `lockerOpen`, `
   Conversations as single steps (out of scope above) is the next lever if the budget ever trips.
 
 `npm test` (600), typecheck, build, both Playwright projects green.
+
+## Update (2026-10-24): runtime corrected, and the search made faster
+
+**The build notes' runtime claim was wrong.** Measured properly, against the tree before this slice
+(`cb47b42`) on the same machine, slice 35 made the search slower, not faster: 1.0 s instead of 0.5 s,
+with 6.5 times fewer states. The test suite went from 1.8 s to 6.3 s, not "from about 7 s to about
+5 s"; the new tests (the cross-check, the shortest-solution tests) each run the whole search again.
+
+**Why.** A CPU profile put two thirds of the time in the free-toggle checks: about 3 million
+side-effect-free step checks per search, each parsing and re-serialising two JSON state keys. The
+engine itself took about 40 ms.
+
+**The fix** (`explore.ts`, the counts and routes unchanged):
+
+- Each state's key is worked out once and remembered (states are never changed in place), along with
+  the two parts the side-effect-free check compares, so the check compares strings instead of parsing.
+- Each state's merged key (its free toggles left out) is remembered too.
+- Side-effect-free searches are remembered per state and flag: a toggle check asks from a state and
+  from its flipped twin, and the twin asks the same again later.
+- Tests that need the whole game's search share one per file instead of running it again.
+
+**Measured** (median of five interleaved runs; whole suites three times each, same machine):
+
+| | Before slice 35 | Slice 35 as merged | Now |
+|---|---|---|---|
+| States | 11,230 | 1,732 | 1,732 |
+| One search | 0.52 s | 1.03 s | **0.19 s** |
+| `npm test` | 1.9 s (571 tests) | 6.3 s | **1.5 s** (600 tests) |
+
+The search without slice 35's rules (`reduce: false`, the cross-check's baseline) also takes 0.35 s
+now, down from 1.2 s. What's left is mostly the toggle checks' side-effect-free searches and working
+out each state's steps; the suite's time is now mostly loading files.
