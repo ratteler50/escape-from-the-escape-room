@@ -95,7 +95,7 @@ the Lair with the Employee Handbook. The goal: the escape room's script ends whe
 **through the gift shop with a souvenir**, so Dana must leave the Lair, become a customer, and buy
 the "I ESCAPED THE LICH'S LAIR" mug.
 
-The always-winnable test prints the shortest solution (28 steps, `src/content/winnable.test.ts`);
+The always-winnable test prints a shortest solution (30 steps, `src/content/winnable.test.ts`);
 this chart is what depends on what. Chart a new puzzle here before writing it.
 
 ### Puzzle dependency chart
@@ -213,3 +213,16 @@ See `docs/decisions/` for the reasoning behind each choice.
 - **Phaser view**: renders state, plays animation and text, turns input into core commands.
 - **Content as typed TypeScript data modules**, plus a content-validation test (every referenced id
   exists) and an always-winnable test.
+- **The always-winnable search** (`src/content/explore.ts`, `reduce.ts`) visits every reachable
+  state: room, inventory, flags, conversation. It merges states that differ only in things that
+  can't change what Dana can do, so a new flag only costs states if it really matters (slice 35):
+  - **flavour:** flags nothing reads, or that only pick which line is said (a say-once latch like
+    Reginald's "GARY'S ARM?" included), or a button's wording; and spent once-only chat;
+  - **dead flags:** a flag whose every read is ruled out for good by a milestone (a flag set and
+    never cleared): `readScroll` once the door is unlocked. A flag that rules out others is kept;
+  - **free toggles:** a flag Dana can flip and flip back from where they are, by walking and the flip
+    alone (the coffin, the fridge, the locker and the case, once each is free). The search explores
+    both settings as one state.
+  A cross-check against the search without these rules, toy worlds with look-alikes, and a state
+  budget (9,000; the cap is 50,000) keep it honest. Because open and closed count as one state, the
+  printed route can include a step a strictly shortest one would skip (knocking on the coffin first).

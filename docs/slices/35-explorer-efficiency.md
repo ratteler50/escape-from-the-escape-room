@@ -1,6 +1,6 @@
 # Slice 35 — A leaner always-winnable search
 
-**Status:** awaiting approval · **Milestone:** M6, play-test polish
+**Status:** built, awaiting developer review · **Milestone:** M6, play-test polish
 
 ## Why
 
@@ -99,3 +99,57 @@ states is safe when they can reach exactly the same futures that matter:
 
 - Branch `slice-35-explorer-efficiency`, from `main` after slice 34.
 - The design discussion's notes: the session notes folder, `explorer-efficiency-design.md`.
+
+## Build notes (2026-10-24)
+
+**Result:** 11,230 states become **1,732** (room states 5,602 → 232), the whole search in about a
+second; the full test suite runs in about 5 s (it was about 7 s), because the game's own searches got
+smaller. The state budget is 9,000.
+
+| Rules on | States | Room states |
+|----------|--------|-------------|
+| none (the explorer as it was) | 11,230 | 5,602 |
+| + latches, labels, dead flags | 2,956 | 1,468 |
+| + free toggles in their own room | 2,302 | 814 |
+| + free toggles across rooms | 1,732 | 232 |
+
+**Where it lives.** `src/content/reduce.ts` records where the content reads each flag (and how a
+milestone can rule each read out); `explore.ts` uses it for flavour and dead flags, finds free
+toggles, and explores each merged state from every setting it stands for. Tests in
+`reduce.test.ts`: toy-world look-alikes on a tiny two-room world (a shed with a box, a yard with a
+gate), each checked to fail under the mutation it guards; the cross-check; the listing; the budget;
+the route replay.
+
+**Changes from the spec, agreed with the developer during the build:**
+
+- **Free toggles across rooms (Q13).** As specified (a flip available in this very state), toggles
+  only merged inside their own room. They now merge wherever Dana can flip the flag and flip it
+  back by side-effect-free steps: walking through doors that set nothing, and the flip. A room
+  Dana can't return to, or a way back that sets something, rules it out. Soundness rests on reaching
+  the exact flipped state and back (mutual reachability); the side-effect-free restriction only keeps
+  that search small.
+- **The cross-check baseline.** A search with no reductions at all hits the 50,000 cap, so the
+  cross-check compares against the explorer as it was before this slice (`explore(..., { reduce:
+  false })`: the slice 16 and 33 flavour rules, 11,230 states).
+- **Labels count as flavour too:** a verb label's conditions only pick its wording.
+
+**What the cross-check caught.** A read was being ruled out by its own flag: a door gated on "not
+jammed" made `jammed` look dead once set, merging a jammed dead end with a winnable state (the toy
+world's dead-end test). Fixed: a read is never ruled out by its own flag, and a flag that rules out
+others is never dropped, so states with the same key agree on everything that decides what's dead.
+That also keeps `visitedGiftShop`, which the first version wrongly dropped.
+
+**Detected today** (`reduce.test.ts` lists them): the latch `reginaldSawArm`; flags that die at a
+milestone `readScroll`, `sawGum`, `heardTeapotComplaint`, `lookedAtVending` (the last never varies
+after the cent anyway); free toggles `coffinOpen`, `fridgeOpen`, `lockerOpen`, `caseOpen`.
+
+**Side effects to know about:**
+
+- The printed route is 30 steps (29 after slice 34): it knocks on the coffin before opening it,
+  because opening an unknocked coffin knocks too, which is two flags, not a flip. The route is
+  playable as it is: the end-to-end tests play it on both projects.
+- **What's left is conversations:** 1,500 of the 1,732 states are mid-conversation. A toggle can't
+  be flipped without leaving one, which isn't side-effect free, so they still double there.
+  Conversations as single steps (out of scope above) is the next lever if the budget ever trips.
+
+`npm test` (599), typecheck, build, both Playwright projects green.

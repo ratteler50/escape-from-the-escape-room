@@ -70,7 +70,9 @@ current.
 |------|---------|
 | **Game state** | Everything that changes during play: current room, Dana's position, inventory, flags, the conversation, spent options. Serializable. Lives in the core. |
 | **State space** | Every game state reachable from the start. The always-winnable test (`src/content/winnable.test.ts`) explores it to prove there are no dead ends. |
-| **Flavour bits** | Flags no condition reads, and spent once-only dialogue options that only say lines. They can't change what the player can do, so the explorer merges states that differ only in them (`explore.ts`). |
+| **Flavour bits** | Flags no condition reads (or that only pick a line or a button's wording), and spent once-only dialogue options that only say lines. They can't change what the player can do, so the explorer merges states that differ only in them (`explore.ts`, `reduce.ts`). |
+| **Milestone** | A flag the content sets somewhere and never clears: once set, set for good. Lets the explorer drop flags whose every read a milestone has ruled out (slice 35). |
+| **Free toggle** | A flag Dana can flip and flip back from where they are, by walking and the flip alone (the coffin's open/closed). The explorer treats both settings as one state (slice 35). |
 | **Save file** | `{ format, savedAt, state }` as JSON. Checked against the current content on load; a misfit is "incompatible", never a crash. |
 | **Slot** | Where a save lives: `auto` (written whenever the game comes to rest) or `slot1`–`slot3` (manual). |
 | **Settings** | Player preferences, stored apart from saves: text speed, music and effects volume, mute. |
