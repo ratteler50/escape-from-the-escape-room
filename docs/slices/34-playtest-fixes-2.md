@@ -1,6 +1,6 @@
 # Slice 34 — Play-test fixes, round two
 
-**Status:** built, awaiting the developer's play-test · **Milestone:** M6, play-test polish
+**Status:** built, agent and developer play-tested; in review · **Milestone:** M6, play-test polish
 
 ## Why
 
