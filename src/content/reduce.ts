@@ -16,6 +16,8 @@ export type Site = string[][];
 export interface FlagReads {
   /** Flags set somewhere and cleared nowhere: once set, set for good. */
   milestones: ReadonlySet<string>;
+  /** Flags both set and cleared somewhere: the only ones that can be free toggles (explore.ts). */
+  toggleable: ReadonlySet<string>;
   /** Every read that can change what Dana can do, by flag. A flag missing here is never read so. */
   sites: ReadonlyMap<string, readonly Site[]>;
 }
@@ -33,7 +35,12 @@ const isResponseList = (x: unknown): x is { when?: Cond[]; effects: { type: stri
 /** A verb label with conditions: `{ when, text }`. It only picks a button's wording. */
 const isLabel = (o: Obj) => typeof o.text === 'string' && onlyKeys(o, ['when', 'text']);
 
-export function flagReads(w: World): FlagReads {
+/**
+ * `slice35: false` leaves out slice 35's rules (say-once latches and labels count as reads), for the
+ * cross-check against the explorer as it was.
+ */
+export function flagReads(w: World, options: { slice35?: boolean } = {}): FlagReads {
+  const slice35 = options.slice35 ?? true;
   // Which flags are ever set, and ever cleared.
   const set = new Set<string>([WON]);
   const cleared = new Set<string>();
@@ -62,7 +69,9 @@ export function flagReads(w: World): FlagReads {
   const sites = new Map<string, Site[]>();
   const record = (flag: string, site: Site) => {
     if (!sites.has(flag)) sites.set(flag, []);
-    sites.get(flag)!.push(site);
+    // A read is never ruled out by its own flag: "not jammed" failing for good is exactly why
+    // `jammed` matters.
+    sites.get(flag)!.push(site.filter((kill) => !kill.includes(flag)));
   };
   /** A condition list's own way to be ruled out: it requires a milestone NOT to be set. */
   const ownKills = (conds: readonly Cond[]): string[][] =>
@@ -78,7 +87,7 @@ export function flagReads(w: World): FlagReads {
       return x.forEach(walk);
     }
     const o = x as Obj;
-    if (talkOnly.has(o) || isLabel(o)) return;
+    if (talkOnly.has(o) || (slice35 && isLabel(o))) return;
     if (Array.isArray(o.when)) {
       const conds = o.when as Cond[];
       for (const flag of readsIn(conds)) record(flag, ownKills(conds));
@@ -100,7 +109,7 @@ export function flagReads(w: World): FlagReads {
     const lasting = list.flatMap((r) => r.effects.filter((e) => !PRESENTATION.has(e.type)));
     const onlySets = lasting.every((e) => e.type === 'setFlag');
     const setsOnly = new Set(lasting.map((e) => e.flag));
-    const linePickerFor = (flag: string) => onlySets && (setsOnly.size === 0 || (setsOnly.size === 1 && setsOnly.has(flag)));
+    const linePickerFor = (flag: string) => onlySets && (setsOnly.size === 0 || (slice35 && setsOnly.size === 1 && setsOnly.has(flag)));
     list.forEach((r, i) => {
       const conds = r.when ?? [];
       // Earlier responses that always win once their milestones are set (no `when`: always).
@@ -115,14 +124,31 @@ export function flagReads(w: World): FlagReads {
   };
 
   walk(w);
-  return { milestones, sites };
+  const toggleable = new Set([...set].filter((f) => cleared.has(f)));
+  return { milestones, toggleable, sites };
 }
 
-/** The flags that can no longer change anything, given these flags: every read ruled out for good. */
+/**
+ * The flags that can no longer change anything, given these flags: every read ruled out for good.
+ * A flag that rules out others' reads is never dropped: two states with the same key then agree on
+ * every such flag, so on which flags are dead, and differ only in flags no future condition reads.
+ */
 export function deadFlags(reads: FlagReads, flags: Readonly<Record<string, boolean>>): Set<string> {
   const dead = new Set<string>();
   for (const [flag, sites] of reads.sites) {
+    if (killers(reads).has(flag)) continue;
     if (sites.every((site) => site.some((kill) => kill.every((m) => flags[m])))) dead.add(flag);
   }
   return dead;
+}
+
+const killerCache = new WeakMap<FlagReads, Set<string>>();
+/** Every flag that appears in a way of ruling out a read. */
+function killers(reads: FlagReads): Set<string> {
+  let found = killerCache.get(reads);
+  if (!found) {
+    found = new Set([...reads.sites.values()].flatMap((sites) => sites.flatMap((site) => site.flat())));
+    killerCache.set(reads, found);
+  }
+  return found;
 }
